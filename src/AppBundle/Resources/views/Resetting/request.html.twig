@@ -1,0 +1,6 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <img class="logo" height="35" src="{{ asset('images/logo.png') }}" alt="Do logo">
+{% include "FOSUserBundle:Resetting:request_content.html.twig" %}
+{% endblock fos_user_content %}
