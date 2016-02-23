@@ -210,3 +210,27 @@ legend {
         display:inline;
     }
 }
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.footer {
+    padding: 20px 20px 5px 20px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.footer-inner a {
+    text-shadow: none !important;
+    text-decoration: none !important;
+    color: #fff !important;
+}
+
+#home-logo img {
+    width: 225px;
+    padding-top: 7px;
+    margin-left: 25px;
+}
