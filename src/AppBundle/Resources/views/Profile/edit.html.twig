@@ -1,0 +1,16 @@
+
+{% extends "template/layout.html.twig" %}
+
+{% block page_title  %}
+    Edit Information
+{% endblock page_title %}
+
+{% block page_name  %}
+    Edit Information
+{% endblock page_name %}
+
+{% block content %}
+    <div class="row">
+{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+</div>
+{% endblock content %}

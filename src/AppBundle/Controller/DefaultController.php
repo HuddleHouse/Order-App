@@ -15,4 +15,12 @@ class DefaultController extends Controller
     {
         return $this->render('default/index.html.twig', array('base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),));
     }
+
+    /**
+     * @Route("/admin", name="admin_home")
+     */
+    public function adminHomeAction()
+    {
+        return $this->render('AppBundle:Admin:home.html.twig');
+    }
 }

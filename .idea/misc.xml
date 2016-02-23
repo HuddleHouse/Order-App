@@ -10,4 +10,8 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/show.html.twig" />
+    <file url="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/show_content.html.twig" />
+  </component>
 </project>
