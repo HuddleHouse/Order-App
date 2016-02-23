@@ -86,7 +86,12 @@ legend {
     border-radius:3px;
     background:#333;
 }
-
+.login .register-form {
+    margin:0 auto;
+    padding:40px;
+    border-radius:3px;
+    background:#333;
+}
 .login .vertical-form legend {
     text-align:center;
     font-weight:300;

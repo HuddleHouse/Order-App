@@ -37,7 +37,7 @@
                             <li class="divider">
                             </li>
                             <li>
-                                <a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-key"></i> Add User</a>
+                                <a href="{{ path('send_invitation') }}"><i class="icon-anchor"></i> Invite User</a>
                             </li>
                         {% endif %}
                         <li class="divider">
@@ -98,7 +98,7 @@
                             </li>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li>
-                                    <a href="{{ path('fos_user_registration_register') }}"><i class="icon-anchor"></i></i> Add User</a>
+                                    <a href="{{ path('fos_user_registration_register') }}"><i class="icon-anchor"></i></i> Invite User</a>
                                 </li>
                             {% endif %}
                         </ul>

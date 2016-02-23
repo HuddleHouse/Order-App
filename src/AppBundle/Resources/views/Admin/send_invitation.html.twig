@@ -1,0 +1,23 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block page_title  %}
+    Send Invitation
+{% endblock page_title %}
+
+{% block page_name  %}
+    Send Invitation
+{% endblock page_name %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-1">
+            {{ form_start(form, { 'action': path('send_invitation'), 'attr': { 'class': 'form-group' } }) }}
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email , { 'attr': {'class': 'form-control'} }) }}
+            {{ form_end(form) }}
+            <div style="padding-top: 20px;">
+                <input class="btn btn-success" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+            </div>
+        </div>
+    </div>
+{% endblock content %}
