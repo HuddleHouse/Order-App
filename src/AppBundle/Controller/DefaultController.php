@@ -23,4 +23,12 @@ class DefaultController extends Controller
     {
         return $this->render('AppBundle:Admin:home.html.twig');
     }
+
+    /**
+     * @Route("/user", name="user_home")
+     */
+    public function userHomeAction()
+    {
+        return $this->render('AppBundle:User:home.html.twig');
+    }
 }
