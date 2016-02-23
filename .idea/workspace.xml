@@ -2,79 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/css/fonts/FontAwesome.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/css/fonts/fontawesome-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/css/fonts/fontawesome-webfont.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/css/fonts/fontawesome-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/ajax-loading.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/ajax-modal-loading.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/arrow-down.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/avatar.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/avatar1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/avatar1_small.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/avatar2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/avatar3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/avatar3_small.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/bg-opacity.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/bg-white-lock.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/bg-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/icon-color-close.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/icon-img-down.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/icon-img-up.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/input-spinner.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/loading-spinner-blue.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/loading-spinner-default.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/loading-spinner-grey.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/loading.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/logo copy.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/menu-toggler.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/overlay-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-collapse-icon-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-collapse-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-config-icon-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-config-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-expand-icon-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-expand-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-reload-icon-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-reload-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-remove-icon-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/portlet-remove-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/remove-icon-small.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/search-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/sidebar-search-close.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/sidebar-toggler.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/images/sidebar-toggler.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Form/Type/ProfileFormType.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/blue.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/themes/default.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/themes/grey.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/themes/light.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/themes/red.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/js/jquery.blockui.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/js/jquery.slimscroll.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/translations/FOSUserBundle.en.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/translations/validators.en.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/ChangePassword/changePassword.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/ChangePassword/changePassword_content.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/edit.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/edit_content.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/show.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/show_content.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/css/fonts/fontawesome-webfont.svg" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/AdminBundle/AdminBundle.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/AdminBundle/Controller/DefaultController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/AdminBundle/Resources/config/services.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/AdminBundle/Resources/views/layout.html.twig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/AdminBundle/Tests/Controller/DefaultControllerTest.php" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/Resources/views/admin/layout.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/AdminBundle/Resources/views/Home/index.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/home.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/blue.css" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/themes/blue.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/routing.yml" afterPath="$PROJECT_DIR$/app/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/plugins.css" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/plugins.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/simple-line-icons.min.css" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/simple-line-icons.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/style-conquer.css" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/css/style-conquer.css" />
@@ -87,6 +16,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/public/js/table-ajax.js" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/js/table-ajax.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/public/js/table-editable.js" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/js/table-editable.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/public/js/table-managed.js" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/public/js/table-managed.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/layout.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/layout.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/custom.css" afterPath="$PROJECT_DIR$/web/css/custom.css" />
     </list>
     <ignored path="uster-order-app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -121,10 +52,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5078597">
+            <state vertical-scroll-proportion="-17.5">
               <caret line="28" column="107" selection-start-line="28" selection-start-column="107" selection-end-line="28" selection-end-column="107" />
               <folding>
                 <element signature="e#12#26#0#Twig" expanded="true" />
@@ -137,12 +68,35 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="custom.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/css/custom.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7990544">
+              <caret line="229" column="1" selection-start-line="229" selection-start-column="1" selection-end-line="229" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/layout.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.3529413">
+              <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+              <folding>
+                <element signature="e#13#27#0#Twig" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="changePassword_content.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/ChangePassword/changePassword_content.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-1.25">
               <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
               <folding>
+                <element signature="e#121#145#0#Twig" expanded="false" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -165,8 +119,7 @@
             <state vertical-scroll-proportion="-0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="22" />
               <folding>
-                <element signature="e#13#38#0#Twig" expanded="true" />
-                <element signature="e#240#284#0#Twig" expanded="true" />
+                <marker date="1456201818000" expanded="true" signature="186:318" placeholder="{% block content ...%}" />
               </folding>
             </state>
           </provider>
@@ -178,7 +131,6 @@
             <state vertical-scroll-proportion="-3.125">
               <caret line="5" column="76" selection-start-line="4" selection-start-column="3" selection-end-line="5" selection-end-column="76" />
               <folding>
-                <element signature="e#121#142#0#Twig" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -201,7 +153,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/public/css/custom.css" />
         <option value="$PROJECT_DIR$/app/config/config_dev.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Resetting/reset_content.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/layout.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Security/login.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Resetting/request_content.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Resetting/request.html.twig" />
@@ -219,7 +170,6 @@
         <option value="$PROJECT_DIR$/src/AdminBundle/Resources/views/layout.html.twig" />
         <option value="$PROJECT_DIR$/src/AdminBundle/Resources/views/Home/index.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/public/custom.css" />
-        <option value="$PROJECT_DIR$/web/css/custom.css" />
         <option value="$PROJECT_DIR$/app/Resources/views/admin/layout.html.twig" />
         <option value="$PROJECT_DIR$/src/AdminBundle/AdminBundle.php" />
         <option value="$PROJECT_DIR$/app/config/routing.yml" />
@@ -233,6 +183,8 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/edit_content.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/ChangePassword/changePassword_content.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/layout.html.twig" />
+        <option value="$PROJECT_DIR$/web/css/custom.css" />
       </list>
     </option>
   </component>
@@ -352,214 +304,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Form" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Type" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Form" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Factory" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Form" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DataTransformer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uster-order-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -601,6 +345,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -673,12 +421,30 @@
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ChangePassword" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AppBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -703,6 +469,14 @@
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -722,11 +496,43 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Form" />
+              <option name="myItemId" value="Entity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Type" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AppBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -809,6 +615,50 @@
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="logs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -828,6 +678,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cache" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -840,11 +708,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/AppBundle/Resources/public/css/themes" />
       <recent name="$PROJECT_DIR$/src/AppBundle/Resources/public/css" />
       <recent name="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Controller" />
       <recent name="$PROJECT_DIR$/src/AppBundle/Controller" />
       <recent name="$PROJECT_DIR$/web/images" />
-      <recent name="$PROJECT_DIR$/web" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/AppBundle/Resources/views" />
@@ -934,7 +802,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456198732466</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Admin Homepage.">
+      <created>1456202638991</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1456202638991</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -949,7 +823,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.334595" sideWeight="0.4978193" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.97880393" sideWeight="0.4978193" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1187,26 +1061,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/public/css/blue.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64126396">
-          <caret line="46" column="17" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.0">
           <caret line="8" column="70" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/custom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-41.708332">
-          <caret line="231" column="14" selection-start-line="231" selection-start-column="14" selection-end-line="231" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1251,22 +1109,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/layout.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.097583644">
-          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-          <folding>
-            <element signature="e#12#26#0#Twig" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Security/login.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.125">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
-            <element signature="e#12#43#0#Twig" expanded="true" />
+            <element signature="e#12#43#0#Twig" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1326,7 +1174,7 @@
         <state vertical-scroll-proportion="0.16324063">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
-            <element signature="e#12#38#0#Twig" expanded="true" />
+            <element signature="e#12#38#0#Twig" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1360,8 +1208,7 @@
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="22" />
           <folding>
-            <element signature="e#13#38#0#Twig" expanded="true" />
-            <element signature="e#240#284#0#Twig" expanded="true" />
+            <marker date="1456201818000" expanded="true" signature="186:318" placeholder="{% block content ...%}" />
           </folding>
         </state>
       </provider>
@@ -1379,7 +1226,6 @@
         <state vertical-scroll-proportion="-3.125">
           <caret line="5" column="76" selection-start-line="4" selection-start-column="3" selection-end-line="5" selection-end-column="76" />
           <folding>
-            <element signature="e#121#142#0#Twig" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -1398,6 +1244,7 @@
         <state vertical-scroll-proportion="-1.25">
           <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
           <folding>
+            <element signature="e#121#145#0#Twig" expanded="false" />
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -1416,7 +1263,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5078597">
+        <state vertical-scroll-proportion="-17.5">
           <caret line="28" column="107" selection-start-line="28" selection-start-column="107" selection-end-line="28" selection-end-column="107" />
           <folding>
             <element signature="e#12#26#0#Twig" expanded="true" />
@@ -1425,6 +1272,32 @@
             <element signature="e#1604#1628#0#Twig" expanded="true" />
             <element signature="e#1857#1881#0#Twig" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/public/css/themes/blue.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.92907804">
+          <caret line="244" column="0" selection-start-line="244" selection-start-column="0" selection-end-line="244" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/layout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.3529413">
+          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+          <folding>
+            <element signature="e#13#27#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7990544">
+          <caret line="229" column="1" selection-start-line="229" selection-start-column="1" selection-end-line="229" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>

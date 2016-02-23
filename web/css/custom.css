@@ -234,3 +234,10 @@ legend {
     padding-top: 7px;
     margin-left: 25px;
 }
+body {
+    color: #222222;
+    background-color: #222222;
+}
+.header {
+    background-color: #09517d !important;
+}
