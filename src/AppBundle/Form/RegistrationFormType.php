@@ -12,6 +12,9 @@ class RegistrationFormType extends AbstractType
 
         // Or for Symfony < 2.8
         $builder->add('invitation', 'app_invitation_type');
+        $builder
+            ->add('first_name')
+            ->add('last_name');
     }
 
     public function getParent()

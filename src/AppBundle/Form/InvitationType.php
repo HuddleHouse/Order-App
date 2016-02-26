@@ -25,7 +25,7 @@ class InvitationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Invitation',
-             'validation_groups' => array('AppBundle\Entity\Invitation')
+            'validation_groups' => array('AppBundle\Entity\Invitation')
     ));
     }
 }

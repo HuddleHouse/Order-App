@@ -1,0 +1,42 @@
+{% extends ":template:layout.html.twig" %}
+
+
+
+{% block page_title  %}
+All Registered Users
+{% endblock page_title %}
+
+{% block page_name  %}
+    <i class="fa fa-home"></i> Users
+{% endblock page_name %}
+
+{% block actions %}
+{% endblock actions %}
+
+{% block content %}
+    <div class="col-md-8">
+            <table class="table table-striped">
+                <caption>All Invitations</caption>
+                <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Code</th>
+                    <th>Sent</th>
+                </tr>
+                {% for inv in invitations %}
+                    <tr>
+                        <th>{{ inv.email |e }}</th>
+                        <th>{{ inv.code |e }}</th>
+                        {% if inv.sent %}
+                            <th>Yes</th>
+                        {% else %}
+                            <th>No</th>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </thead>
+            </table>
+
+    </div>
+
+{% endblock content %}

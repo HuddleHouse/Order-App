@@ -74,6 +74,9 @@ fos_user:
     registration:
             form:
                 type: AppBundle\Form\RegistrationFormType
+    profile:
+            form:
+                type: AppBundle\Form\ProfileFormType
 assetic:
     debug:          '%kernel.debug%'
     use_controller: '%kernel.debug%'

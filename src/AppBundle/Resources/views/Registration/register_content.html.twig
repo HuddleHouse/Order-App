@@ -1,12 +1,37 @@
 {% trans_default_domain 'FOSUserBundle' %}
+<div class="row">
+    {% if not form.vars.valid %}
+        <div class="col-md-6 col-md-offset-3 ">
+            <div class="bs-callout bs-callout-danger ">
+                {{ form_errors(form.invitation) }}
+                {{ form_errors(form.first_name) }}
+                {{ form_errors(form.last_name) }}
+                {{ form_errors(form.email) }}
+                {{ form_errors(form.username) }}
+                {{ form_errors(form.plainPassword.first) }}
+            </div>
+        </div>
+    {% endif %}
+</div>
 
 <img class="logo" height="35" src="{{ asset('images/logo.png') }}" alt="Do logo">
 
 <div class="col-md-6 col-md-offset-3 ">
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'register-form'}}) }}
+
+
     {{ form_label(form.invitation) }}
     {{ form_widget(form.invitation , { 'attr': {'class': 'form-control'} }) }}
-
+    <div class="row">
+        <div class="col-md-6">
+        {{ form_label(form.first_name) }}
+        {{ form_widget(form.first_name , { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="col-md-6">
+        {{ form_label(form.last_name) }}
+        {{ form_widget(form.last_name , { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
     {{ form_label(form.email) }}
     {{ form_widget(form.email , { 'attr': {'class': 'form-control'} }) }}
 
