@@ -4,7 +4,11 @@
     <div class="header navbar  navbar-fixed-top">
         <!-- BEGIN TOP NAVIGATION BAR -->
         <div class="header-inner">
-            <a id="home-logo" href="{{ path('fos_user_security_login') }}">
+                {% if is_granted('ROLE_ADMIN') %}
+            <a id="home-logo" href="{{ path('admin_home') }}">
+                {% elseif is_granted('ROLE_USER') %}
+                <a id="home-logo" href="{{ path('user_home') }}">
+                    {% endif %}
                 <img src="http://dev.matthuddleston.com/wp-content/uploads/2015/11/logo-final-nomal.png" alt="logo"/>
             </a>
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->

@@ -1,4 +1,4 @@
 AppBundle\Entity\Invitation:
     properties:
         email:
-            - NotBlank: {message: "Please select a group."}
+            - Email: {message: "Please select a group."}

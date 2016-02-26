@@ -17,23 +17,15 @@ use Symfony\Component\Form\FormEvent;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction(Request $request)
-    {
-        return $this->render('default/index.html.twig', array('base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),));
-    }
-
-    /**
      * @Route("/admin", name="admin_home")
      */
     public function adminHomeAction()
     {
-        return $this->render('AppBundle:Admin:home.html.twig');
+        return $this->render('AppBundle:User:home.html.twig');
     }
 
     /**
-     * @Route("/user", name="user_home")
+     * @Route("/", name="user_home")
      */
     public function userHomeAction()
     {
@@ -65,7 +57,7 @@ class DefaultController extends Controller
                 ->setTo($invitation->getEmail())
                 ->setBody(
                     $this->renderView(
-                        'AppBundle:Email:send_invitation_email.html.twig',
+                        'AppBundle:Security:send_invitation.html.twig',
                         array('code' => $invitation->getCode())
                     ),
                     'text/html'
@@ -84,8 +76,10 @@ class DefaultController extends Controller
             ));
         }
 
-        return $this->render('AppBundle:Admin:send_invitation.html.twig', array(
-            'form' => $form->createView()
+
+        return $this->render('AppBundle:Security:send_invitation.html.twig', array(
+            'form' => $form->createView(),
+            'success' => ''
         ));
     }
 }

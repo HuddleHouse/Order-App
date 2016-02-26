@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+
 class InvitationType extends AbstractType
 {
     /**
@@ -14,8 +15,7 @@ class InvitationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('email', 'email', array('attr' => array('oninvalid'=>"setCustomValidity('Would you please enter a valid email?')")));
+        $builder->add('email', 'email');
     }
     
     /**
@@ -24,7 +24,8 @@ class InvitationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Invitation'
-        ));
+            'data_class' => 'AppBundle\Entity\Invitation',
+             'validation_groups' => array('AppBundle\Entity\Invitation')
+    ));
     }
 }

@@ -1,4 +1,19 @@
 {% trans_default_domain 'FOSUserBundle' %}
+{% if not form.vars.valid %}
+    <div class="col-md-8">
+        <div class="bs-callout bs-callout-danger ">
+            {{ form_errors(form.username) }}
+            {{ form_errors(form.email) }}
+            {{ form_errors(form.current_password) }}
+        </div>
+    </div>
+{% endif %}
+    {% if success %}
+        <div class="col-md-8">
+            <div class="bs-callout bs-callout-success ">{{ success }}</div>
+        </div>
+    {% endif %}
+
 
 <div class="col-md-6 col-md-offset-1">
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'form-group' } }) }}
