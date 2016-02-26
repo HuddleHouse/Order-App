@@ -1,0 +1,53 @@
+{% extends ":template:layout.html.twig" %}
+
+
+
+{% block page_title %}
+    All Registered Users
+{% endblock page_title %}
+
+{% block page_name %}
+    <i class="fa fa-home"></i> Users
+{% endblock page_name %}
+
+{% block actions %}
+{% endblock actions %}
+
+{% block content %}
+    {% if not form.vars.valid %}
+        <div class="col-md-8">
+            <div class="bs-callout bs-callout-danger ">
+                {{ form_errors(form.username) }}
+                {{ form_errors(form.email) }}
+                {{ form_errors(form.current_password) }}
+            </div>
+        </div>
+    {% endif %}
+    {% if success %}
+        <div class="col-md-8">
+            <div class="bs-callout bs-callout-success ">{{ success }}</div>
+        </div>
+    {% endif %}
+
+
+    <div class="col-md-6 col-md-offset-1">
+    {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'form-group' } }) }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form.first_name) }}
+            {{ form_widget(form.first_name , { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.last_name) }}
+            {{ form_widget(form.last_name , { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email , { 'attr': {'class': 'form-control'} }) }}
+
+    <div style="padding-top: 20px;">
+        <input class="btn btn-success" type="submit" value="Update"/>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock content %}

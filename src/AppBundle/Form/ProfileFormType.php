@@ -22,7 +22,6 @@ class ProfileFormType extends AbstractType
     public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\ProfileFormType';
-
     }
 
     public function getBlockPrefix()

@@ -1,7 +1,5 @@
 {% extends ":template:layout.html.twig" %}
 
-
-
 {% block page_title  %}
 All Registered Users
 {% endblock page_title %}
@@ -15,28 +13,22 @@ All Registered Users
 
 {% block content %}
     <div class="col-md-8">
-            <table class="table table-striped">
-                <caption>All Invitations</caption>
-                <thead>
+        <table class="table table-striped">
+            <caption>All Invitations</caption>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            {% for emp in users %}
                 <tr>
-                    <th>Email</th>
-                    <th>Code</th>
-                    <th>Sent</th>
+                    <th>{{ emp.name |e }} <a href="{{ path('admin_edit_user', {'user_id': emp.id}) }}"><i
+                                    class="fa fa-pencil fa-2x"></i> Edit</a></th>
+                    <th>{{ emp.email |e }}</th>
                 </tr>
-                {% for inv in invitations %}
-                    <tr>
-                        <th>{{ inv.email |e }}</th>
-                        <th>{{ inv.code |e }}</th>
-                        {% if inv.sent %}
-                            <th>Yes</th>
-                        {% else %}
-                            <th>No</th>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-                </thead>
-            </table>
-
+            {% endfor %}
+            </thead>
+        </table>
     </div>
 
 {% endblock content %}

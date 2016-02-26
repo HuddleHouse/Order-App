@@ -31,7 +31,7 @@ class User extends BaseUser
      *     groups={"Registration", "Profile"}
      * )
      */
-    private $first_name;
+    protected $first_name;
 
     /**
      * @ORM\Column(type="string", length=55)
@@ -44,7 +44,16 @@ class User extends BaseUser
      *     groups={"Registration", "Profile"}
      * )
      */
-    private $last_name;
+    protected $last_name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Office")
+     * @ORM\JoinTable(name="user_office",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id")}
+     * )
+     */
+    protected $groups;
 
     public function __construct()
     {

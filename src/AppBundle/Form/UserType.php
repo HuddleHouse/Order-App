@@ -5,11 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-
-
-class InvitationType extends AbstractType
+class UserType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,21 +14,19 @@ class InvitationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('email', 'email');
-        $builder->add('admin', CheckboxType::class, array(
-            'label' => 'Give user admin privileges?',
-            'required' => true,
-        ));
+        $builder
+            ->add('first_name')
+            ->add('last_name')
+            ->add('email', 'email');
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Invitation',
-            'validation_groups' => array('AppBundle\Entity\Invitation')
-    ));
+            'data_class' => 'AppBundle\Entity\User'
+        ));
     }
 }

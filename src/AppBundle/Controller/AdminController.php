@@ -8,6 +8,7 @@ use AppBundle\Entity\Invitation;
 use AppBundle\Form\DataTransformer\InvitationToCodeTransformer;
 use AppBundle\Form\InvitationFormType;
 use AppBundle\Form\InvitationType;
+use AppBundle\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\Form\FormEvent;
@@ -84,13 +85,43 @@ class AdminController extends Controller
     /**
      * @Route("/admin/view-users", name="view_users")
      */
-    public function showAllUsersAction(Request $request)
+    public function viewAllUsersAction(Request $request)
     {
         $conn = $this->get('database_connection');
-        $invitations = $conn->fetchAll('SELECT * FROM invitation');
+        $users = $conn->fetchAll("select CONCAT_WS(' ', first_name, last_name) as name, email, id from users");
 
-        return $this->render('@App/Security/invitations_sent.html.twig', array(
-            'invitations' => $invitations
+        return $this->render('@App/Admin/view_users.html.twig', array(
+            'users' => $users
+        ));
+    }
+
+    /**
+     * @Route("/admin/view-users/edit/{user_id}", name="admin_edit_user")
+     */
+    public function viewAdminEditUserAction(Request $request, $user_id)
+    {
+        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserBy(array('id' => $user_id));
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $event = new FormEvent($form, $request);
+            $userManager->updateUser($user);
+            $successMessage = "User information updated succesfully.";
+
+            return $this->render('@App/Admin/admin_edit_user.html.twig', array(
+                'form' => $form->createView(),
+                'success' => $successMessage
+            ));
+        }
+
+
+        return $this->render('@App/Admin/admin_edit_user.html.twig', array(
+            'form' => $form->createView(),
+            'success' => ''
         ));
     }
 }
