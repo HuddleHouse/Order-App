@@ -35,7 +35,6 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    cache: true
 
 # Doctrine Configuration
 doctrine:
@@ -65,7 +64,6 @@ swiftmailer:
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
 
 # app/config/config.yml
 fos_user:
