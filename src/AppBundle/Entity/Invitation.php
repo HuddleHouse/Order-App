@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
- * Invitation
+ * Invitationss
  *
  * @ORM\Table(name="invitation")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvitationRepository")
@@ -16,7 +16,6 @@ class Invitation
     protected $code;
 
     /** @ORM\Column(type="string", length=256)
-     *  @Assert\NotBlank(message = "Choose a valid gender.")
      * @Assert\Length(min=3)
      */
     protected $email;

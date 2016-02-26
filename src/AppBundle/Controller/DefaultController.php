@@ -9,7 +9,6 @@ use AppBundle\Form\InvitationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\Form\FormEvent;
 
@@ -52,26 +51,37 @@ class DefaultController extends Controller
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
-        //$formBuilderInterface = FormBuilderInterface();
-
         $invitation = new Invitation();
-        $form = $this->createForm(InvitationType::class, $invitation);
 
+        $form = $this->createForm(InvitationType::class, $invitation);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $event = new FormEvent($form, $request);
+            $em = $this->getDoctrine()->getEntityManager();
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Invitation to Register')
+                ->setFrom('matt@245tech.com')
+                ->setTo($invitation->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'AppBundle:Email:send_invitation_email.html.twig',
+                        array('code' => $invitation->getCode())
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
 
-            if (null === $response = $event->getResponse()) {
-                $this->render('AppBundle:Admin:send_invitation.html.twig', array(
-                    'form' => $form->createView(),
-                    'success' => "Invitation sent succesfully."
-                ));
-            }
+            $invitation->send();
+            $em->persist($invitation);
+            $em->flush();
 
+            $successMessage = "Invitation to ".$invitation->getEmail()." sent succesfully.";
 
-            return $response;
+            return $this->render('AppBundle:Admin:send_invitation.html.twig', array(
+                'form' => $form->createView(),
+                'success' => $successMessage
+            ));
         }
 
         return $this->render('AppBundle:Admin:send_invitation.html.twig', array(

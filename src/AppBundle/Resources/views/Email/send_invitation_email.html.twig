@@ -1,0 +1,9 @@
+<p>Hello!</p>
+<p>You have received an invitation to register. Use the code below in the registration form.</p>
+<h2>{{ code }}</h2>
+{# example, assuming you have a route named "login" #}
+To register go <a href="{{ url('fos_user_registration_register') }}">here</a>.
+
+Thanks!
+
+<img src="{{ absolute_url(asset('images/logo.png')) }}">
