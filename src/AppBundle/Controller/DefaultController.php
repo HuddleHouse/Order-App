@@ -69,6 +69,9 @@ class DefaultController extends Controller
             $em->flush();
 
             $successMessage = "Invitation to ".$invitation->getEmail()." sent succesfully.";
+            $invitation = new Invitation();
+
+            $form = $this->createForm(InvitationType::class, $invitation);
 
             return $this->render('@App/Security/send_invitation.html.twig', array(
                 'form' => $form->createView(),
@@ -80,6 +83,19 @@ class DefaultController extends Controller
         return $this->render('@App/Security/send_invitation.html.twig', array(
             'form' => $form->createView(),
             'success' => ''
+        ));
+    }
+
+    /**
+     * @Route("/admin/add-user/sent-invitations", name="all_invitations")
+     */
+    public function showAllInvitationsAction(Request $request)
+    {
+        $conn = $this->get('database_connection');
+        $invitations = $conn->fetchAll('SELECT * FROM invitation');
+
+        return $this->render('@App/Security/invitations_sent.html.twig', array(
+            'invitations' => $invitations
         ));
     }
 }
