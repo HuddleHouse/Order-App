@@ -55,7 +55,7 @@ var TableAdvanced = function () {
         var tableWrapper = $('#sample_1_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
 
         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
-    }
+    };
 
     var initTable2 = function () {
         var table = $('#sample_2');
@@ -110,7 +110,7 @@ var TableAdvanced = function () {
 
         var tableWrapper = $('#sample_2_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
-    }
+    };
 
     var initTable3 = function () {
         var table = $('#sample_3');
@@ -183,7 +183,7 @@ var TableAdvanced = function () {
                 oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
             }
         });
-    }
+    };
 
     var initTable4 = function () {
         var table = $('#sample_4');
@@ -264,7 +264,7 @@ var TableAdvanced = function () {
             var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
             oTable.fnSetColumnVis(iCol, (bVis ? false : true));
         });
-    }
+    };
 
     var initTable5 = function () {
 
@@ -289,7 +289,7 @@ var TableAdvanced = function () {
 
         var tableWrapper = $('#sample_5_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
-    }
+    };
 
     var initTable6 = function () {
 
@@ -322,7 +322,7 @@ var TableAdvanced = function () {
 
         var tableWrapper = $('#sample_6_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
-    }
+    };
 
     return {
 

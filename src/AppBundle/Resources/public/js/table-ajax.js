@@ -5,7 +5,7 @@ var TableAjax = function () {
         $('.date-picker').datepicker({
             autoclose: true
         });
-    }
+    };
 
     var handleRecords = function () {
 
@@ -63,7 +63,7 @@ var TableAjax = function () {
                 });
             }
         });
-    }
+    };
 
     return {
 
