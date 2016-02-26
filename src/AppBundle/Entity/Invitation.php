@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Invitation
  *
@@ -15,7 +15,10 @@ class Invitation
     /** @ORM\Id @ORM\Column(type="string", length=6) */
     protected $code;
 
-    /** @ORM\Column(type="string", length=256) */
+    /** @ORM\Column(type="string", length=256)
+     *  @Assert\NotBlank(message = "Choose a valid gender.")
+     * @Assert\Length(min=3)
+     */
     protected $email;
 
     /**
@@ -32,6 +35,7 @@ class Invitation
         // generate identifier only once, here a 6 characters length code
         $this->code = substr(md5(uniqid(rand(), true)), 0, 6);
     }
+
 
     public function getCode()
     {

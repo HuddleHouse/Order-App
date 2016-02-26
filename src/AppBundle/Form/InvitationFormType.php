@@ -32,10 +32,10 @@ class InvitationFormType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
+        //return 'Symfony\Component\Form\Extension\Core\Type\TextType';
 
         // Or for Symfony < 2.8
-        // return 'text';
+         return 'text';
     }
 
     public function getBlockPrefix()

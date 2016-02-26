@@ -2,14 +2,16 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Invitation;
 use AppBundle\Form\DataTransformer\InvitationToCodeTransformer;
 use AppBundle\Form\InvitationFormType;
+use AppBundle\Form\InvitationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Event\GetResponseUserEvent;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
 
 
 
@@ -50,9 +52,10 @@ class DefaultController extends Controller
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
-        $formBuilderInterface = FormBuilderInterface::;
+        //$formBuilderInterface = FormBuilderInterface();
 
-        $form = InvitationFormType::buildForm($formBuilderInterface, $event);
+        $invitation = new Invitation();
+        $form = $this->createForm(InvitationType::class, $invitation);
 
 
         $form->handleRequest($request);
