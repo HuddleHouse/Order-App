@@ -57,7 +57,7 @@ class DefaultController extends Controller
                 ->setTo($invitation->getEmail())
                 ->setBody(
                     $this->renderView(
-                        'AppBundle:Security:send_invitation.html.twig',
+                        'AppBundle:Email:send_invitation_email.html.twig',
                         array('code' => $invitation->getCode())
                     ),
                     'text/html'
@@ -70,14 +70,14 @@ class DefaultController extends Controller
 
             $successMessage = "Invitation to ".$invitation->getEmail()." sent succesfully.";
 
-            return $this->render('AppBundle:Admin:send_invitation.html.twig', array(
+            return $this->render('@App/Security/send_invitation.html.twig', array(
                 'form' => $form->createView(),
                 'success' => $successMessage
             ));
         }
 
 
-        return $this->render('AppBundle:Security:send_invitation.html.twig', array(
+        return $this->render('@App/Security/send_invitation.html.twig', array(
             'form' => $form->createView(),
             'success' => ''
         ));
