@@ -32,14 +32,10 @@
                         <li>
                             <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>
                         </li>
-                        <li class="divider">
-                        </li>
                         <li>
                             <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a>
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <li class="divider">
-                            </li>
                             <li>
                                 <a href="{{ path('send_invitation') }}"><i class="icon-anchor"></i> Invite User</a>
                             </li>
@@ -86,6 +82,33 @@
                             <span class="title">Dashboard</span>
                         </a>
                     </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="z ">
+                        <a href="javascript:;">
+                            <i class="fa fa-lock"></i>
+                            <span class="title">Admin</span>
+                            <span class="selected"></span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="{{ path('fos_user_group_list') }}"><i class="fa fa-users"></i> View All Groups</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_group_new') }}"><i class="fa fa-plus-square-o"></i> Add New
+                                    Group</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('send_invitation') }}"><i class="fa fa-user"></i> Send User Invite</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('view_users') }}"><i class="icon-book-open"></i> View Registered
+                                    Users</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    {% endif %}
                     <li class="z ">
                         <a href="javascript:;">
                             <i class="icon-settings"></i>
@@ -100,17 +123,9 @@
                             <li>
                                 <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a>
                             </li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li>
-                                    <a href="{{ path('send_invitation') }}"><i class="icon-anchor"></i> Invite User</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('view_users') }}"><i class="icon-book-open"></i> All Registered
-                                        Users</a>
-                                </li>
-                            {% endif %}
                         </ul>
                     </li>
+
                     <li class="z ">
                         <a href="javascript:;">
                             <i class="icon-pin"></i>
