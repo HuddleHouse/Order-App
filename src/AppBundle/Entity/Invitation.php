@@ -38,7 +38,7 @@ class Invitation
      *
      * @ORM\Column(type="boolean")
      */
-    protected $valid = false;
+    protected $valid = true;
 
     /**
      *

@@ -44,16 +44,12 @@ class AdminController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
             $data = $form->getData();
-            /*
-             *
-             *
-             *
-             *
-             *
-             *
-             */
 
-            if($data['office'])
+            if($officeId = $data->getOffice()) {
+                $office = $officeRepository->find($officeId);
+                $invitation->setOffice($office);
+            }
+            else
                 $invitation->setOffice(null);
 
 
