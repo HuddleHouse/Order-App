@@ -130,19 +130,25 @@ class GroupController extends Controller
 
             $groupManager->updateGroup($group);
 
-            if(null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_group_show', array('groupName' => $group->getName()));
-                $response = new RedirectResponse($url);
-            }
+            $success = $group->getName() . " successfully created.";
 
-            $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
+            $group = $groupManager->createGroup('');
 
-            return $response;
+            $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_INITIALIZE, new GroupEvent($group, $request));
+
+            $form2 = $formFactory->createForm();
+            $form2->setData($group);
+
+            return $this->render('FOSUserBundle:Group:new.html.twig', array(
+                'form' => $form2->createview(),
+                'success' => $success
+            ));
         }
-
         return $this->render('FOSUserBundle:Group:new.html.twig', array(
             'form' => $form->createview(),
+            'success' => ''
         ));
+
     }
 
     /**

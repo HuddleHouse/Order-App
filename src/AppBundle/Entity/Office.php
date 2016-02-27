@@ -27,7 +27,7 @@ class Office extends BaseGroup
      *
      * @ORM\Column(name="office_name", type="string", length=255)
      */
-    protected $officeName;
+    protected $address;
 
     /**
      * @var string
@@ -49,7 +49,18 @@ class Office extends BaseGroup
      * @ORM\Column(name="state", type="string", length=255)
      */
     protected $state;
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255)
+     */
+    protected $phone;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="zip", type="integer")
+     */
+    protected $zip;
 
     /**
      * Get id
@@ -64,17 +75,33 @@ class Office extends BaseGroup
     /**
      * @return string
      */
-    public function getOfficeName()
+    public function getAddress()
     {
-        return $this->officeName;
+        return $this->address;
     }
 
     /**
-     * @param string $officeName
+     * @param string $address
      */
-    public function setOfficeName($officeName)
+    public function setAddress($address)
     {
-        $this->officeName = $officeName;
+        $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * @param string $zip
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
     }
 
     /**
@@ -145,4 +172,21 @@ class Office extends BaseGroup
     {
         return $this->state;
     }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
 }

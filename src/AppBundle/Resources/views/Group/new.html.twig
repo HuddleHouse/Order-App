@@ -1,0 +1,16 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}New Group{% endblock %}
+{% block page_title %}
+    New Group
+{% endblock page_title %}
+
+{% block page_name %}
+    Group
+{% endblock page_name %}
+
+{% block content %}
+    <div class="row">
+        {% include "FOSUserBundle:Group:new_content.html.twig" %}
+    </div>
+{% endblock content %}

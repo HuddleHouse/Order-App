@@ -73,6 +73,8 @@ fos_user:
     user_class: AppBundle\Entity\User
     group:
             group_class: AppBundle\Entity\Office
+            form:
+                type: AppBundle\Form\GroupFormType
     registration:
             form:
                 type: AppBundle\Form\RegistrationFormType

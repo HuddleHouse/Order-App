@@ -29,3 +29,8 @@ services:
          class: AppBundle\Form\ProfileFormType
          tags:
             - { name: "form.type", alias: "app_user_profile" }
+
+     app.form.group:
+              class: AppBundle\Form\GroupFormType
+              tags:
+                 - { name: "form.type", alias: "app_admin_add_group" }

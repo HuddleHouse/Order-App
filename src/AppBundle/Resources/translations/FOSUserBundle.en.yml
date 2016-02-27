@@ -77,7 +77,7 @@ layout:
     logged_in_as: 'Logged in as %username%'
 
 form:
-    group_name: 'Group name'
+    group_name: 'Office name'
     username: Username
     email: Email
     current_password: 'Current password'
