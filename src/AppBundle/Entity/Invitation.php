@@ -46,6 +46,12 @@ class Invitation
      */
     protected $admin = false;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Office")
+     * @ORM\JoinColumn(name="office_id", referencedColumnName="id")
+     */
+    private $office;
+
     public function __construct()
     {
         // generate identifier only once, here a 6 characters length code
@@ -97,4 +103,22 @@ class Invitation
     {
         return $this->admin;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOffice()
+    {
+        return $this->office;
+    }
+
+    /**
+     * @param mixed $office
+     */
+    public function setOffice($office)
+    {
+        $this->office = $office;
+    }
+
+
 }

@@ -33,7 +33,7 @@
             {{ form_start(form, { 'action': path('send_invitation'), 'attr': { 'class': 'form-group' } }) }}
             {{ form_label(form.email) }}
             {{ form_widget(form.email , { 'attr': {'class': 'form-control'} }) }}
-            <div class="row" style="padding-top: 20px;">
+            <div class="row" style="padding-top: 20px;padding-bottom: 20px;">
                 <div class="col-md-4">
                     {{ form_label(form.admin) }}
                 </div>
@@ -41,7 +41,9 @@
                     {{ form_widget(form.admin , { 'attr': {'class': 'form-control'} }) }}
                 </div>
             </div>
-            <div style="padding-top: 20px;">
+            {{ form_label(form.office) }}
+            {{ form_widget(form.office , { 'attr': {'class': 'form-control'} }) }}
+            <div style="padding-bottom: 20px;padding-top: 20px;">
             <input class="btn btn-success" type="submit" value="Send Invitation" />
             </div>
             {{ form_end(form) }}

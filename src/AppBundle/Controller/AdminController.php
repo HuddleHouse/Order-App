@@ -28,12 +28,35 @@ class AdminController extends Controller
         }
         $invitation = new Invitation();
 
-        $form = $this->createForm(InvitationType::class, $invitation);
+        $offices = [];
+        $officeRepository = $this->getDoctrine()->getRepository('AppBundle:Office');
+        $objects = $officeRepository->findAll();
+        $offices[0] = '';
+        foreach($objects as $obj) {
+            $offices[$obj->getId()] = $obj->getName();
+        }
+
+
+        $form = $this->createForm(new InvitationType($offices), $invitation);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
+            $data = $form->getData();
+            /*
+             *
+             *
+             *
+             *
+             *
+             *
+             */
+
+            if($data['office'])
+                $invitation->setOffice(null);
+
+
             $message = \Swift_Message::newInstance()
                 ->setSubject('Invitation to Register')
                 ->setFrom('matt@245tech.com')
@@ -54,7 +77,7 @@ class AdminController extends Controller
             $successMessage = "Invitation to ".$invitation->getEmail()." sent succesfully.";
             $invitation = new Invitation();
 
-            $form = $this->createForm(InvitationType::class, $invitation);
+            $form = $this->createForm(new InvitationType($offices), $invitation);
 
             return $this->render('@App/Security/send_invitation.html.twig', array(
                 'form' => $form->createView(),

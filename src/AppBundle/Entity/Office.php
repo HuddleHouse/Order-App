@@ -8,7 +8,7 @@ use FOS\UserBundle\Model\Group as BaseGroup;
 /**
  * Office
  *
- * @ORM\Table(name="office")
+ * @ORM\Table(name="offices")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OfficeRepository")
  */
 class Office extends BaseGroup
