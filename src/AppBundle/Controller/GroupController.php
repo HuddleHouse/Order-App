@@ -94,12 +94,17 @@ class GroupController extends Controller
 
             $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
 
-            return $response;
+            return $this->render('FOSUserBundle:Group:edit.html.twig', array(
+                'form' => $form->createview(),
+                'group_name' => $group->getName(),
+                'success' => 'Group updated successfully.'
+            ));
         }
 
         return $this->render('FOSUserBundle:Group:edit.html.twig', array(
             'form' => $form->createview(),
             'group_name' => $group->getName(),
+            'success' => ''
         ));
     }
 
