@@ -36,7 +36,7 @@ var App = function () {
             width: e[a + 'Width'],
             height: e[a + 'Height']
         }
-    }
+    };
 
     // initializes main settings
     var handleInit = function () {
@@ -56,7 +56,7 @@ var App = function () {
         if (isIE10 || isIE9 || isIE8) {
             jQuery('html').addClass('ie'); // detect IE10 version
         }
-    }
+    };
 
     // runs callback functions set by App.addResponsiveHandler().
     var runResponsiveHandlers = function () {
@@ -65,19 +65,19 @@ var App = function () {
             var each = responsiveHandlers[i];
             each.call();
         }
-    }
+    };
 
     // reinitialize the laypot on window resize
     var handleResponsive = function () {
         handleSidebarAndContentHeight();
         handleFixedSidebar();
         runResponsiveHandlers();
-    }
+    };
 
     // initialize the layout on page load
     var handleResponsiveOnInit = function () {
         handleSidebarAndContentHeight();
-    }
+    };
 
     // handle the layout reinitialization on window resize
     var handleResponsiveOnResize = function () {
@@ -106,7 +106,7 @@ var App = function () {
                 }, 50); // wait 50ms until window resize finishes.
             });
         }
-    }
+    };
 
     //* BEGIN:CORE HANDLERS *//
     // this function handles responsive layout on screen size resize or mobile device rotate.
@@ -146,7 +146,7 @@ var App = function () {
             }
             content.attr('style', 'min-height:' + height + 'px');
         }
-    }
+    };
 
     // Handle sidebar menu
     var handleSidebarMenu = function () {
@@ -256,7 +256,7 @@ var App = function () {
                 async: false
             });
         });
-    }
+    };
 
     // Helper function to calculate sidebar height for fixed sidebar layout.
     var _calculateFixedSidebarViewportHeight = function () {
@@ -266,7 +266,7 @@ var App = function () {
         }
 
         return sidebarHeight;
-    }
+    };
 
     // Handles fixed sidebar
     var handleFixedSidebar = function () {
@@ -300,7 +300,7 @@ var App = function () {
             });
             handleSidebarAndContentHeight();
         }
-    }
+    };
 
     // Handles the sidebar menu hover effect for fixed sidebar.
     var handleFixedSidebarHoverable = function () {
@@ -349,7 +349,7 @@ var App = function () {
                 });
             }
         });
-    }
+    };
 
     // Handles sidebar toggler to close/hide the sidebar.
     var handleSidebarToggler = function () {
@@ -380,7 +380,7 @@ var App = function () {
             handleSidebarAndContentHeight(); //fix content & sidebar height
             runResponsiveHandlers();
         });
-    }
+    };
 
     var handleQuickSearch = function() {
 
@@ -411,7 +411,7 @@ var App = function () {
             $('.search-form-sidebar').submit();
             return false;
         });
-    }
+    };
 
     // Handles the go to top button at the footer
     var handleGoTop = function () {
@@ -420,7 +420,7 @@ var App = function () {
             App.scrollTo();
             e.preventDefault();
         });
-    }
+    };
 
     // Handles portlet tools & actions
     var handlePortletTools = function () {
@@ -449,7 +449,7 @@ var App = function () {
                 el.slideDown(200);
             }
         });
-    }
+    };
 
     // Handles custom checkboxes & radios using jQuery Uniform plugin
     var handleUniform = function () {
@@ -465,14 +465,14 @@ var App = function () {
                 }
             });
         }
-    }
+    };
 
     var handleBootstrapSwitch = function () {
         if (!$().bootstrapSwitch) {
             return;
         }
         $('.make-switch').bootstrapSwitch();
-    }
+    };
 
     // Handles Bootstrap Accordions.
     var handleAccordions = function () {
@@ -487,7 +487,7 @@ var App = function () {
                 scrollTop: lastClicked.offset().top - 150
             }, 'slow');
         });
-    }
+    };
 
     // Handles Bootstrap Tabs.
     var handleTabs = function () {
@@ -505,7 +505,7 @@ var App = function () {
             });            
             $('a[href="#' + tabid + '"]').click();
         }
-    }
+    };
 
     // Handles Bootstrap Modals.
     var handleModals = function () {
@@ -527,12 +527,12 @@ var App = function () {
         $('body').on('hide.bs.modal', '.modal', function () {
             $('body').removeClass("modal-open-noscroll");
         });
-    }
+    };
 
     // Handles Bootstrap Tooltips.
     var handleTooltips = function () {
        jQuery('.tooltips').tooltip();
-    }
+    };
 
     // Handles Bootstrap Dropdowns
     var handleDropdowns = function () {
@@ -552,12 +552,12 @@ var App = function () {
         $('body').on('click', '.dropdown-menu.hold-on-click', function (e) {
             e.stopPropagation();
         })
-    }
+    };
 
     // Handle Hower Dropdowns
     var handleDropdownHover = function () {
         $('[data-hover="dropdown"]').dropdownHover();
-    }
+    };
 
     // Handle Closable Alerts
     var handleAlerts = function () {
@@ -565,7 +565,7 @@ var App = function () {
             $(this).parent('.alert').hide();
             e.preventDefault();
         });
-    }
+    };
 
     // Handles Bootstrap Popovers
 
@@ -582,7 +582,7 @@ var App = function () {
                 lastPopedPopover.popover('hide');
             }
         });
-    }
+    };
 
     // Handles scrollable contents using jQuery SlimScroll plugin.
     var handleScrollers = function () {
@@ -604,7 +604,7 @@ var App = function () {
                 disableFadeOut: true
             });
         });
-    }
+    };
 
     // Handles Image Preview using jQuery Fancybox plugin
     var handleFancybox = function () {
@@ -625,7 +625,7 @@ var App = function () {
                 }
             });
         }
-    }
+    };
 
     // Fix input placeholder issue for IE8 and IE9
     var handleFixInputPlaceholderForIE = function () {
@@ -653,7 +653,7 @@ var App = function () {
                 });
             });
         }
-    }
+    };
 
     // Handle Select2 Dropdowns
     var handleSelect2 = function() {
@@ -663,7 +663,7 @@ var App = function () {
                 allowClear: true
             });
         }
-    }
+    };
 
     // Handle Theme Settings
     var handleTheme = function () {
@@ -703,7 +703,7 @@ var App = function () {
             }
 
             $('body > .container').remove();
-        }
+        };
 
         var lastSelectedLayout = '';
 
@@ -791,13 +791,13 @@ var App = function () {
             handleSidebarAndContentHeight(); // fix content height            
             handleFixedSidebar(); // reinitialize fixed sidebar
             handleFixedSidebarHoverable(); // reinitialize fixed sidebar hover effect
-        }
+        };
 
         // handle theme colors
         var setColor = function (color) {
             var color_ = (App.isRTL() ? color + '-rtl' : color);
             $('#style_color').attr("href", "assets/css/themes/" + color_ + ".css");
-        }
+        };
 
         $('.toggler', panel).click(function () {
             $(this).toggleClass("open");
@@ -812,7 +812,7 @@ var App = function () {
         });
 
         $('.layout-option, .header-option, .sidebar-option, .footer-option, .sidebar-pos-option', panel).change(setLayout);
-    }
+    };
     //* END:CORE HANDLERS *//
 
     return {
@@ -840,11 +840,11 @@ var App = function () {
             handleTheme(); // handles style customer tool
 
             //ui component handlers
-            handleFancybox() // handle fancy box
+            handleFancybox(); // handle fancy box
             handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
             handleDropdowns(); // handle dropdowns
-            handleAlerts() // handle alerts
+            handleAlerts(); // handle alerts
             handleTabs(); // handle tabs
             handleTooltips(); // handle bootstrap tooltips
             handlePopovers(); // handles bootstrap popovers
@@ -996,9 +996,10 @@ var App = function () {
 
             var id = App.getUniqueID("app_alert");
 
-            var html = '<div id="'+id+'" class="app-alerts alert alert-'+options.type+' fade in">' + (options.close ? '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>' : '' ) + (options.icon != "" ? '<i class="fa-lg fa fa-'+options.icon + '"></i>  ' : '') + options.message+'</div>'
+            var html = '<div id="' + id + '" class="app-alerts alert alert-' + options.type + ' fade in">' + (options.close ? '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>' : '' ) + (options.icon != "" ? '<i class="fa-lg fa fa-' + options.icon + '"></i>  ' : '') + options.message + '</div>';
 
-            if (options.reset) {0
+            if (options.reset) {
+                0;
                 $('.app-alerts').remove();
             }
 

@@ -1,5 +1,5 @@
 {% extends ":template:layout.html.twig" %}
-
+{% block title %}Send Invite{% endblock %}
 {% block page_title  %}
     Send Invitation
 {% endblock page_title %}
@@ -33,7 +33,17 @@
             {{ form_start(form, { 'action': path('send_invitation'), 'attr': { 'class': 'form-group' } }) }}
             {{ form_label(form.email) }}
             {{ form_widget(form.email , { 'attr': {'class': 'form-control'} }) }}
-            <div style="padding-top: 20px;">
+            <div class="row" style="padding-top: 20px;padding-bottom: 20px;">
+                <div class="col-md-4">
+                    {{ form_label(form.admin) }}
+                </div>
+                <div class="col-md-1" style="margin-top: -10px;">
+                    {{ form_widget(form.admin , { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+            {{ form_label(form.office) }}
+            {{ form_widget(form.office , { 'attr': {'class': 'form-control'} }) }}
+            <div style="padding-bottom: 20px;padding-top: 20px;">
             <input class="btn btn-success" type="submit" value="Send Invitation" />
             </div>
             {{ form_end(form) }}

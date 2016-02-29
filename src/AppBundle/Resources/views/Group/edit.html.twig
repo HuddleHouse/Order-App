@@ -1,0 +1,16 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}Edit Office{% endblock %}
+{% block page_title %}
+    Edit Office
+{% endblock page_title %}
+
+{% block page_name %}
+    Office
+{% endblock page_name %}
+
+{% block content %}
+    <div class="row">
+        {% include "FOSUserBundle:Group:edit_content.html.twig" %}
+    </div>
+{% endblock content %}

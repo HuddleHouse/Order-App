@@ -20,6 +20,41 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=255,
+     *     minMessage="Your First name is too short.",
+     *     maxMessage="Your First name is too long.",
+     *     groups={"Registration", "Profile"}
+     * )
+     */
+    protected $first_name;
+
+    /**
+     * @ORM\Column(type="string", length=55)
+     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=255,
+     *     minMessage="Your last name is too short.",
+     *     maxMessage="Your last name is too long.",
+     *     groups={"Registration", "Profile"}
+     * )
+     */
+    protected $last_name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Office")
+     * @ORM\JoinTable(name="user_office",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id")}
+     * )
+     */
+    protected $groups;
+
     public function __construct()
     {
         parent::__construct();
@@ -41,6 +76,46 @@ class User extends BaseUser
     public function getInvitation()
     {
         return $this->invitation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * @param mixed $last_name
+     */
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * @param mixed $first_name
+     */
+    public function setFirstName($first_name)
+    {
+        $this->first_name = $first_name;
     }
 
 }

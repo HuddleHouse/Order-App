@@ -70,9 +70,16 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+    group:
+            group_class: AppBundle\Entity\Office
+            form:
+                type: AppBundle\Form\GroupFormType
     registration:
             form:
                 type: AppBundle\Form\RegistrationFormType
+    profile:
+            form:
+                type: AppBundle\Form\ProfileFormType
 assetic:
     debug:          '%kernel.debug%'
     use_controller: '%kernel.debug%'

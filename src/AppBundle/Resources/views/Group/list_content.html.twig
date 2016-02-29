@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-globe"></i>Offices
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="sample_6_wrapper" class="dataTables_wrapper no-footer">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                        </div>
+                    </div>
+                    <div class="table-scrollable">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_6"
+                               role="grid" aria-describedby="sample_6_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+									 Rendering engine
+								" data-column-index="0" style="width: 210px;">
+                                    Name
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_6" rowspan="1" colspan="1"
+                                    aria-label="
+									 Browser
+								: activate to sort column ascending" data-column-index="1" style="width: 281px;">
+
+                                    Office Number
+                                </th>
+                                <th class="hidden-xs sorting" tabindex="0" aria-controls="sample_6" rowspan="1"
+                                    colspan="1" aria-label="
+									 Platform(s)
+								: activate to sort column ascending" data-column-index="2" style="width: 254px;">
+                                    Address
+                                </th>
+                                <th class="hidden-xs sorting" tabindex="0" aria-controls="sample_6" rowspan="1"
+                                    colspan="1" aria-label="
+									 Platform(s)
+								: activate to sort column ascending" data-column-index="2" style="width: 254px;">
+                                    City
+                                </th>
+                                <th class="hidden-xs sorting" tabindex="0" aria-controls="sample_6" rowspan="1"
+                                    colspan="1" aria-label="
+									 Platform(s)
+								: activate to sort column ascending" data-column-index="2" style="width: 254px;">
+                                    State
+                                </th>
+                                <th class="hidden-xs sorting" tabindex="0" aria-controls="sample_6" rowspan="1"
+                                    colspan="1" aria-label="
+									 Platform(s)
+								: activate to sort column ascending" data-column-index="2" style="width: 254px;">
+                                    Zip
+                                </th>
+                                <th class="hidden-xs sorting" tabindex="0" aria-controls="sample_6" rowspan="1"
+                                    colspan="1" aria-label="
+									 Platform(s)
+								: activate to sort column ascending" data-column-index="2" style="width: 254px;">
+                                    Phone
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for group in groups %}
+                                <tr role="row" class="odd">
+                                    <td>
+                                        {{ group.getName() }} <a
+                                                href="{{ path('fos_user_group_edit', {'groupName': group.getName()} ) }}"><i
+                                                    class="fa fa-pencil fa-2x"></i> Edit</a>
+                                    </td>
+                                    <td class="">
+                                        {{ group.getOfficeNumber() }}
+                                    </td>
+                                    <td class="">
+                                        {{ group.getAddress() }}
+                                    </td>
+                                    <td class="">
+                                        {{ group.getCity() }}
+                                    </td>
+                                    <td class="">
+                                        {{ group.getState() }}
+                                    </td>
+                                    <td class="">
+                                        {{ group.getZip() }}
+                                    </td>
+                                    <td class="">
+                                        {{ group.getPhone() }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

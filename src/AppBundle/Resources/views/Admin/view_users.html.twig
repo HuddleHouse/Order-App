@@ -1,0 +1,35 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}All Users{% endblock %}
+{% block page_title  %}
+All Registered Users
+{% endblock page_title %}
+
+{% block page_name  %}
+    <i class="fa fa-home"></i> Users
+{% endblock page_name %}
+
+{% block actions %}
+{% endblock actions %}
+
+{% block content %}
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <caption>All Invitations</caption>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            {% for emp in users %}
+                <tr>
+                    <th>{{ emp.name |e }} <a href="{{ path('admin_edit_user', {'user_id': emp.id}) }}"><i
+                                    class="fa fa-pencil fa-2x"></i> Edit</a></th>
+                    <th>{{ emp.email |e }}</th>
+                </tr>
+            {% endfor %}
+            </thead>
+        </table>
+    </div>
+
+{% endblock content %}

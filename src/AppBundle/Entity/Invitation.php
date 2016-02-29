@@ -21,13 +21,36 @@ class Invitation
     protected $email;
 
     /**
-     * When sending invitation be sure to set this value to `true`
-     *
+     * When sending invitation be sure to set this value to `true'
      * It can prevent invitations from being sent twice
      *
      * @ORM\Column(type="boolean")
      */
     protected $sent = false;
+
+    /**
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $used = false;
+
+    /**
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $valid = true;
+
+    /**
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $admin = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Office")
+     * @ORM\JoinColumn(name="office_id", referencedColumnName="id")
+     */
+    private $office;
 
     public function __construct()
     {
@@ -60,4 +83,42 @@ class Invitation
     {
         $this->sent = true;
     }
+
+    public function useInvitation()
+    {
+        $this->used = true;
+    }
+
+    public function invalidate()
+    {
+        $this->valid = true;
+    }
+
+    public function makeAdmin()
+    {
+        $this->admin = true;
+    }
+
+    public function isAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOffice()
+    {
+        return $this->office;
+    }
+
+    /**
+     * @param mixed $office
+     */
+    public function setOffice($office)
+    {
+        $this->office = $office;
+    }
+
+
 }

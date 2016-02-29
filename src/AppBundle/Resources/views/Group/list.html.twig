@@ -1,0 +1,22 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}All Users{% endblock %}
+{% block page_title %}
+    All Registered Users
+{% endblock page_title %}
+
+{% block page_name %}
+    <i class="fa fa-home"></i> Users
+{% endblock page_name %}
+
+{% block actions %}
+{% endblock actions %}
+
+{% block content %}
+    {% include "FOSUserBundle:Group:list_content.html.twig" %}
+
+
+{% endblock content %}
+
+
+

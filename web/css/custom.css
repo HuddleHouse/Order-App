@@ -93,6 +93,8 @@ legend {
     padding:40px;
     border-radius:3px;
     background:#333;
+    color: #fff;
+    font-size: 15px;
 }
 .login .vertical-form legend {
     text-align:center;
