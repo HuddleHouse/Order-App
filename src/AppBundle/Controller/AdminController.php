@@ -73,18 +73,18 @@ class AdminController extends Controller
             $successMessage = "Invitation to ".$invitation->getEmail()." sent succesfully.";
             $invitation = new Invitation();
 
+            $this->addFlash('notice', $successMessage);
+
             $form = $this->createForm(new InvitationType($offices), $invitation);
 
             return $this->render('@App/Security/send_invitation.html.twig', array(
-                'form' => $form->createView(),
-                'success' => $successMessage
+                'form' => $form->createView()
             ));
         }
 
 
         return $this->render('@App/Security/send_invitation.html.twig', array(
-            'form' => $form->createView(),
-            'success' => ''
+            'form' => $form->createView()
         ));
     }
 
@@ -130,17 +130,16 @@ class AdminController extends Controller
             $event = new FormEvent($form, $request);
             $userManager->updateUser($user);
             $successMessage = "User information updated succesfully.";
+            $this->addFlash('notice', $successMessage);
 
             return $this->render('@App/Admin/admin_edit_user.html.twig', array(
-                'form' => $form->createView(),
-                'success' => $successMessage
+                'form' => $form->createView()
             ));
         }
 
 
         return $this->render('@App/Admin/admin_edit_user.html.twig', array(
-            'form' => $form->createView(),
-            'success' => ''
+            'form' => $form->createView()
         ));
     }
 }

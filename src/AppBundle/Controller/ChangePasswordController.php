@@ -72,18 +72,16 @@ class ChangePasswordController extends Controller
             }
 
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-            $this->get('session')->setFlash('notice', 'You have successfully added '
-                .$user->getFirstName().' '.$user->getLastName().' to the database!');
+
+            $this->addFlash('notice', 'Password successfully changed.');
 
             return $this->render('FOSUserBundle:ChangePassword:changePassword.html.twig', array(
-                'form' => $form->createView(),
-                'success' => 'Password successfully changed.'
+                'form' => $form->createView()
             ));
         }
 
         return $this->render('FOSUserBundle:ChangePassword:changePassword.html.twig', array(
-            'form' => $form->createView(),
-            'success' => ''
+            'form' => $form->createView()
         ));
     }
 }

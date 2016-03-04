@@ -94,17 +94,17 @@ class GroupController extends Controller
 
             $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
 
+            $this->addFlash('notice', 'Group updated successfully.');
+
             return $this->render('FOSUserBundle:Group:edit.html.twig', array(
                 'form' => $form->createview(),
-                'group_name' => $group->getName(),
-                'success' => 'Group updated successfully.'
+                'group_name' => $group->getName()
             ));
         }
 
         return $this->render('FOSUserBundle:Group:edit.html.twig', array(
             'form' => $form->createview(),
-            'group_name' => $group->getName(),
-            'success' => ''
+            'group_name' => $group->getName()
         ));
     }
 
@@ -144,14 +144,12 @@ class GroupController extends Controller
             $form2 = $formFactory->createForm();
             $form2->setData($group);
 
-            return $this->render('FOSUserBundle:Group:new.html.twig', array(
-                'form' => $form2->createview(),
-                'success' => $success
-            ));
+            $this->addFlash('notice', $success);
+
+            return $this->redirectToRoute('fos_user_group_list');
         }
         return $this->render('FOSUserBundle:Group:new.html.twig', array(
-            'form' => $form->createview(),
-            'success' => ''
+            'form' => $form->createview()
         ));
 
     }
