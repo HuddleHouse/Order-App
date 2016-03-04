@@ -12,7 +12,7 @@
                     <img src="http://matthuddleston.com/wp-content/uploads/2015/11/logo-final-nomal.png" alt="logo"/>
             </a>
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-            <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <a href="javascript:" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <img src="{{ asset('images/menu-toggler.png') }}" alt=""/>
             </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
@@ -84,7 +84,7 @@
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                     <li class="z ">
-                        <a href="javascript:;">
+                        <a href="javascript:">
                             <i class="fa fa-lock"></i>
                             <span class="title">Admin</span>
                             <span class="selected"></span>
@@ -110,7 +110,7 @@
                     </li>
                     {% endif %}
                     <li class="z ">
-                        <a href="javascript:;">
+                        <a href="javascript:">
                             <i class="icon-settings"></i>
                             <span class="title">Settings</span>
                             <span class="selected"></span>
@@ -127,7 +127,7 @@
                     </li>
 
                     <li class="z ">
-                        <a href="javascript:;">
+                        <a href="javascript:">
                             <i class="icon-pin"></i>
                             <span class="title">Page Layouts</span>
                             <span class="selected"></span>
@@ -187,7 +187,7 @@
                         </ul>
                     </li>
                     <li class="last" >
-                        <a href="javascript:;">
+                        <a href="javascript:">
                             <i class="icon-present"></i>
                             <span class="title">UI Features</span>
                             <span class="arrow "></span>
@@ -296,6 +296,20 @@
                     </div>
                 </div>
                 <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for flash_message in app.session.flashbag.get('notice') %}
+                            <div class="alert alert-success">
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+                        {% for flash_message in app.session.flashbag.get('error') %}
+                            <div class="alert alert-error">
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
                 <!-- BEGIN PAGE CONTENT-->
                 <div class="row">
                     {{ block('content') }}

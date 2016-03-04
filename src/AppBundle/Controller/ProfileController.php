@@ -87,15 +87,15 @@ class ProfileController extends Controller
 
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
+            $this->addFlash('notice', 'Profile updated successfully.');
+
             return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
-                'form' => $form->createView(),
-                'success' => 'Profile information successfully updated.'
+                'form' => $form->createView()
             ));
         }
 
         return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
-            'form' => $form->createView(),
-            'success' => ''
+            'form' => $form->createView()
         ));
     }
 }
