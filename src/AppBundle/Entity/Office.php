@@ -25,7 +25,7 @@ class Office extends BaseGroup
     /**
      * @var string
      *
-     * @ORM\Column(name="office_name", type="string", length=255)
+     * @ORM\Column(name="office_address", type="string", length=255)
      */
     protected $address;
 

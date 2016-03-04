@@ -2,16 +2,19 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Invitation;
-use AppBundle\Form\DataTransformer\InvitationToCodeTransformer;
-use AppBundle\Form\InvitationFormType;
-use AppBundle\Form\InvitationType;
-use AppBundle\Form\UserType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
+use AppBundle\Form\UserType;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class AdminController extends Controller
 {
@@ -21,27 +24,26 @@ class AdminController extends Controller
     public function sendInvitationAction(Request $request)
     {
         $user = $this->getUser();
-        $event = new GetResponseUserEvent($user, $request);
-
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
-        }
         $invitation = new Invitation();
 
-        $offices = [];
         $officeRepository = $this->getDoctrine()->getRepository('AppBundle:Office');
-        $objects = $officeRepository->findAll();
-        $offices[0] = '';
-        foreach($objects as $obj) {
-            $offices[$obj->getId()] = $obj->getName();
-        }
 
 
-        $form = $this->createForm(new InvitationType($offices), $invitation);
-
+        $form = $this->createFormBuilder($invitation)
+            ->add('email', EmailType::class)
+            ->add('admin', CheckboxType::class, array(
+                'label' => 'Give user admin privileges?',
+                'required' => false,
+            ))
+            ->add('office', EntityType::class, array(
+                'class' => 'AppBundle:Office',
+                'label' => 'Office to assign to?',
+                'choice_label' => 'name'
+            ))
+            ->getForm();
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
             $data = $form->getData();
 
@@ -71,11 +73,21 @@ class AdminController extends Controller
             $em->flush();
 
             $successMessage = "Invitation to ".$invitation->getEmail()." sent succesfully.";
-            $invitation = new Invitation();
-
             $this->addFlash('notice', $successMessage);
 
-            $form = $this->createForm(new InvitationType($offices), $invitation);
+            $invitation = new Invitation();
+            $form = $this->createFormBuilder($invitation)
+                ->add('email', EmailType::class)
+                ->add('admin', CheckboxType::class, array(
+                    'label' => 'Give user admin privileges?',
+                    'required' => false,
+                ))
+                ->add('office', EntityType::class, array(
+                    'class' => 'AppBundle:Office',
+                    'label' => 'Office to assign to?',
+                    'choice_label' => 'name'
+                ))
+                ->getForm();
 
             return $this->render('@App/Security/send_invitation.html.twig', array(
                 'form' => $form->createView()

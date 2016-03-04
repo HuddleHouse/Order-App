@@ -24,7 +24,6 @@ services:
          arguments: ['@doctrine.orm.entity_manager']
          public: false
 
-
      app.form.profile:
          class: AppBundle\Form\ProfileFormType
          tags:

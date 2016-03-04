@@ -94,14 +94,68 @@ class Invitation
         $this->valid = true;
     }
 
-    public function makeAdmin()
-    {
-        $this->admin = true;
-    }
-
-    public function isAdmin()
+    /**
+     * @return mixed
+     */
+    public function getAdmin()
     {
         return $this->admin;
+    }
+
+    /**
+     * @param mixed $admin
+     */
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSent()
+    {
+        return $this->sent;
+    }
+
+    /**
+     * @param mixed $sent
+     */
+    public function setSent($sent)
+    {
+        $this->sent = $sent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsed()
+    {
+        return $this->used;
+    }
+
+    /**
+     * @param mixed $used
+     */
+    public function setUsed($used)
+    {
+        $this->used = $used;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValid()
+    {
+        return $this->valid;
+    }
+
+    /**
+     * @param mixed $valid
+     */
+    public function setValid($valid)
+    {
+        $this->valid = $valid;
     }
 
     /**
