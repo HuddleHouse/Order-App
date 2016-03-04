@@ -73,7 +73,7 @@
                         <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                     </li>
 
-                    <li class="start ">
+                    <li class="start {% if app.request.get('_route') == 'user_home' %}active{% elseif app.request.get('_route') == 'admin_home' %}active{% endif %}">
                         {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('admin_home') }}">
                             {% elseif is_granted('ROLE_USER') %}
@@ -85,7 +85,14 @@
                         </a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <li class="z ">
+                        <li class="z {% if app.request.attributes.get('_route') in [
+                        'fos_user_group_list',
+                        'fos_user_group_new',
+                        'fos_user_group_edit',
+                        'send_invitation',
+                        'view_users',
+                        'admin_edit_user'
+                        ] %}active{% endif %}">
                         <a href="javascript:">
                             <i class="fa fa-lock"></i>
                             <span class="title">Admin</span>
@@ -93,17 +100,17 @@
                             <span class="arrow "></span>
                         </a>
                         <ul class="sub-menu">
-                            <li>
+                            <li {% if app.request.get('_route') == 'fos_user_group_list' %} class="active"{% endif %}>
                                 <a href="{{ path('fos_user_group_list') }}"><i class="fa fa-users"></i> View All Offices</a>
                             </li>
-                            <li>
+                            <li {% if app.request.get('_route') == 'fos_user_group_new' %} class="active"{% endif %}>
                                 <a href="{{ path('fos_user_group_new') }}"><i class="fa fa-plus-square-o"></i> Add New
                                     Office</a>
                             </li>
-                            <li>
+                            <li {% if app.request.get('_route') == 'send_invitation' %} class="active"{% endif %}>
                                 <a href="{{ path('send_invitation') }}"><i class="fa fa-user"></i> Send User Invite</a>
                             </li>
-                            <li>
+                            <li {% if app.request.get('_route') == 'view_users' %} class="active"{% endif %}>
                                 <a href="{{ path('view_users') }}"><i class="icon-book-open"></i> View Registered
                                     Users</a>
                             </li>
@@ -111,7 +118,10 @@
                         </ul>
                     </li>
                     {% endif %}
-                    <li class="z ">
+                    <li class="z {% if app.request.attributes.get('_route') in [
+                    'fos_user_profile_edit',
+                    'fos_user_change_password',
+                    ] %}active{% endif %}">
                         <a href="javascript:">
                             <i class="icon-settings"></i>
                             <span class="title">Settings</span>
@@ -119,10 +129,10 @@
                             <span class="arrow "></span>
                         </a>
                         <ul class="sub-menu">
-                            <li>
+                            <li {% if app.request.get('_route') == 'fos_user_profile_edit' %} class="active"{% endif %}>
                                 <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>
                             </li>
-                            <li>
+                            <li {% if app.request.get('_route') == 'fos_user_change_password' %} class="active"{% endif %}>
                                 <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a>
                             </li>
                         </ul>
