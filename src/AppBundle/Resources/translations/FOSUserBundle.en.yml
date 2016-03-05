@@ -1,14 +1,14 @@
-group:
+Office:
     edit:
-        submit: 'Update group'
+        submit: 'Update Office'
     show:
-        name: 'Group name'
+        name: 'Office name'
     new:
-        submit: 'Create group'
+        submit: 'Create Office'
     flash:
-        updated: 'The group has been updated'
-        created: 'The group has been created'
-        deleted: 'The group has been deleted'
+        updated: 'The Office has been updated'
+        created: 'The Office has been created'
+        deleted: 'The Office has been deleted'
 
 security:
     login:

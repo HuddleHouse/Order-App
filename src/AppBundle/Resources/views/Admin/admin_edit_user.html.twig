@@ -3,7 +3,7 @@
 
 {% block title %}Edit User{% endblock %}
 {% block page_title %}
-    All Registered Users
+    Edit User
 {% endblock page_title %}
 
 {% block page_name %}
@@ -28,7 +28,7 @@
         <div class="portlet-body form">
             <div class="form-body">
                 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'form-group' } }) }}
-                <h3 class="form-section">Employee Info</h3>
+                <h3 class="form-section">Edit Employee Info</h3>
                 <div class="row">
                     <div class="col-md-6">
                         {{ form_label(form.first_name) }}
