@@ -239,16 +239,15 @@ legend {
 }
 
 #home-logo img {
-    width: 225px;
-    padding-top: 7px;
-    margin-left: 25px;
+    margin-left: 42px;
+    margin-top: 13px;
 }
 body {
     color: #222222;
     background-color: #222222;
 }
 .header {
-    background-color: #09517d !important;
+    background-color: #fff !important;
 }
 .bs-callout {
     padding: 20px;

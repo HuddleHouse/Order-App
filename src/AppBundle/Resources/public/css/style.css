@@ -315,7 +315,7 @@ Header and header elements.
   border: 0px;
   padding: 0px; 
   box-shadow: none;
-  height: 45px; 
+  height: 60px;
   min-height: 45px;
 }
 
@@ -412,7 +412,7 @@ Header and header elements.
 .header .navbar-nav > li.devider {
   margin-left: 10px !important;
   margin-right: 5px !important;
-  height: 45px;
+  height: 60px;
   width: 1px !important;
 }
 
@@ -445,7 +445,7 @@ Header and header elements.
 
 .header .navbar-nav > li.dropdown.user .dropdown-toggle {
   margin: 0 !important;
-  padding: 12px 8px 12px 8px;
+  padding: 20px 10px 20px 10px;
 }
 
 .header .navbar-nav > li.dropdown.user .dropdown-toggle .username {
@@ -538,7 +538,7 @@ Page container
 }
 
 .page-header-fixed .page-container {
-  margin-top: 45px;  
+  margin-top: 58px;
 }
 
 /*** IE 8 Fixes ***/

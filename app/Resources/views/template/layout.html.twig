@@ -9,7 +9,7 @@
                 {% elseif is_granted('ROLE_USER') %}
                 <a id="home-logo" href="{{ path('user_home') }}">
                     {% endif %}
-                    <img src="http://matthuddleston.com/wp-content/uploads/2015/11/logo-final-nomal.png" alt="logo"/>
+                    <img height="35" src="{{ asset('images/logo.png') }}" alt="logo"/>
             </a>
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
                 <a href="javascript:" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
