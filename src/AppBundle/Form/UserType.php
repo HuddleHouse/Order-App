@@ -5,6 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserType extends AbstractType
 {
@@ -15,9 +19,24 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('first_name')
-            ->add('last_name')
-            ->add('email');
+            ->add('first_name', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
+            ->add('last_name', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
+            ->add('email', EmailType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
+            ->add('office', EntityType::class, array(
+                'class' => 'AppBundle:Office',
+                'label' => 'Office',
+                'choice_label' => 'name',
+                'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px'),
+                'required' => false
+            ))
+            ->add('enabled', ChoiceType::class, array(
+                'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px'),
+                'label' => 'Account Enabled',
+                'choices' => array(
+                    'Yes' => 1,
+                    'No' => 0,
+                ),
+            ));
     }
 
     /**

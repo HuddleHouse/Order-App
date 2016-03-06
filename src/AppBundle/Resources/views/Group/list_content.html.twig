@@ -62,15 +62,20 @@
 								: activate to sort column ascending" data-column-index="2" style="width: 254px;">
                                     Phone
                                 </th>
+                                <th class="hidden-xs sorting" tabindex="0" aria-controls="sample_6" rowspan="1"
+                                    colspan="1" aria-label="
+									 Platform(s)
+								: activate to sort column ascending" data-column-index="2" style="width: 254px;">
+                                    Actions
+                                </th>
+
                             </tr>
                             </thead>
                             <tbody>
                             {% for group in groups %}
                                 <tr role="row" class="odd">
                                     <td>
-                                        {{ group.getName() }} <a
-                                                href="{{ path('fos_user_group_edit', {'groupName': group.getName()} ) }}"><i
-                                                    class="fa fa-pencil fa-2x"></i> Edit</a>
+                                        {{ group.getName() }}
                                     </td>
                                     <td class="">
                                         {{ group.getOfficeNumber() }}
@@ -89,6 +94,11 @@
                                     </td>
                                     <td class="">
                                         {{ group.getPhone() }}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-default btn-xs purple"
+                                           href="{{ path('fos_user_group_edit', {'groupName': group.getName()} ) }}"><i
+                                                    class="fa fa-edit"></i> edit</a>
                                     </td>
                                 </tr>
                             {% endfor %}
