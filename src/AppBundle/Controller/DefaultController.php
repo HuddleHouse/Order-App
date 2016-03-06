@@ -21,7 +21,7 @@ class DefaultController extends Controller
      */
     public function adminHomeAction()
     {
-        return $this->render('AppBundle:User:home.html.twig');
+        return $this->render('AppBundle:Admin:home.html.twig');
     }
 
     /**

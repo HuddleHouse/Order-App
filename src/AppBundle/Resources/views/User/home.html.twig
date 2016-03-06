@@ -3,16 +3,96 @@
 {% block title %}Home{% endblock %}
 
 {% block page_title  %}
-Non Admin / Admin Hompage
+    <div class="container">
+        <div class="col-md-3 col-sm-4">
+            <div class="stats-overview stat-block">
+                <div class="display stat ok huge">
+
+                </div>
+                <div class="details">
+                    <div class="title">
+
+                        Office Information
+                    </div>
+                    <hr>
+                    <div class="numbers">
+                        Office #40
+                    </div>
+                    <div class="title">
+                        Knoxville, TN
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4">
+            <div class="stats-overview stat-block">
+                <div class="display stat ok huge">
+
+                </div>
+                <div class="details">
+                    <div class="title">
+                        Current User
+                    </div>
+                    <hr>
+                    <div class="numbers">
+                        Matt Huddleston
+
+                    </div>
+                    <div class="title">
+                        Last Login:
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-md-offset-4">
+            <div class="stats-overview stat-block">
+                <div class="display stat bad huge">
+
+                </div>
+                <div class="details">
+                    <div class="title">
+                        Items in Cart
+                    </div>
+                    <hr>
+                    <div class="numbers cart">
+                        0
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .page-bar {
+            display: none;
+        }
+    </style>
 {% endblock page_title %}
 
 {% block page_name  %}
-    Dashboard
+
 {% endblock page_name %}
 
 {% block content %}
-    <div class="col-md-12">
-        Blank page content goes here
+    <div class="row" style="margin-top: 20px;">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="stats-overview stat-block">
+                    <div class="display stat ok huge">
+
+                    </div>
+                    <div class="details">
+
+                        <div class="numbers">
+                            PRODUCT SHOPPING CART
+                        </div>
+                        <hr>
+                        <div class="title" style="padding-bottom: 10px; padding-top: 10px;">
+                            No products currently in cart.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock content %}

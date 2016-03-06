@@ -1,3 +1,11 @@
+.cart {
+    color: #777;
+    font-size: 29px !important;
+    font-weight: 300 !important;
+    margin-bottom: 15px !important;
+    margin-top: 10px !important;
+}
+
 .login {
     /*background:#298eea;*/
     font-family:"proxima-nova";
@@ -21,6 +29,13 @@
     height:100px;
     padding-top:40px;
     margin:0 auto 30px;
+}
+
+.stats-overview .details .title {
+    color: #777;
+    font-size: 14px !important;
+    font-weight: normal;
+    margin-bottom: 3px;
 }
 
 .login .logo.registration-message {

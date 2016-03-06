@@ -193,10 +193,10 @@ General HR
 ***/
 
 hr {
-  margin: 20px 0;
-  border: 0;
-  border-top: 1px solid #E0DFDF;
-  border-bottom: 1px solid #FEFEFE;
+    margin: 5px 0;
+    border: 0;
+    border-top: 1px solid #E0DFDF;
+    border-bottom: 1px solid #FEFEFE;
 }
 
 /***
