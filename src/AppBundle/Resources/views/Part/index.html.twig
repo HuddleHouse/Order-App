@@ -22,6 +22,7 @@
                     <th>Stocknumber</th>
                     <th>Description</th>
                     <th>Category</th>
+                    <th>Require Return</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -31,6 +32,7 @@
                         <td>{{ part.stockNumber }}</td>
                         <td>{{ part.description }}</td>
                         <td>{{ part.partCategory.name }}</td>
+                        <td>{{ part.requireReturn ? 'Yes' : 'No' }}</td>
                         <td>
                             <ul>
                                 <a class="btn btn-default btn-xs purple"

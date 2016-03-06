@@ -42,6 +42,13 @@ class Part
     protected $part_category;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="require_return", type="boolean")
+     */
+    private $require_return;
+
+    /**
      * Get id
      *
      * @return int
@@ -113,6 +120,22 @@ class Part
     public function setPartCategory($part_category)
     {
         $this->part_category = $part_category;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequireReturn()
+    {
+        return $this->require_return;
+    }
+
+    /**
+     * @param string $require_return
+     */
+    public function setRequireReturn($require_return)
+    {
+        $this->require_return = $require_return;
     }
 
 }

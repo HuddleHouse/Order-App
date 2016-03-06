@@ -3,11 +3,13 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class PartType extends AbstractType
 {
@@ -23,7 +25,13 @@ class PartType extends AbstractType
             ->add('part_category', EntityType::class, array(
                 'class' => 'AppBundle:PartCategory',
                 'choice_label' => 'name',
-                'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')
+                'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
+            ->add('require_return', ChoiceType::class, array(
+                'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px'),
+                'choices' => array(
+                    'Yes' => 1,
+                    'No' => 0,
+                ),
             ));
     }
 
