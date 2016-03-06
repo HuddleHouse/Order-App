@@ -261,6 +261,10 @@ legend {
     margin-top: 13px;
     height: 38px;
 }
+
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 8px 6px !important;
+}
 body {
     color: #222222;
     background-color: #222222;
