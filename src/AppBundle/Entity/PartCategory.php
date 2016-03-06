@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * PartCategory
  *
- * @ORM\Table(name="part_category")
+ * @ORM\Table(name="part_categories")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PartCategoryRepository")
  */
 class PartCategory

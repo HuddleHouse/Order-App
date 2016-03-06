@@ -65,7 +65,7 @@ class Office extends BaseGroup
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinTable(name="user_office",
+     * @ORM\JoinTable(name="office_users",
      *      joinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      * )
