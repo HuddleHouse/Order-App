@@ -11,7 +11,7 @@ class RegistrationFormType extends AbstractType
         //$builder->add('invitation', 'AppBundle\Form\InvitationFormType');
 
         // Or for Symfony < 2.8
-        $builder->add('invitation', 'app_invitation_type');
+        $builder->add('invitation', 'AppBundle\Form\InvitationFormType', array('label' => 'Invitation Code'));
         $builder
             ->add('first_name')
             ->add('last_name');
@@ -19,10 +19,10 @@ class RegistrationFormType extends AbstractType
 
     public function getParent()
     {
-        //return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
 
         // Or for Symfony < 2.8
-        return 'fos_user_registration';
+        //return 'fos_user_registration';
     }
 
     public function getBlockPrefix()

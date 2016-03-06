@@ -11,9 +11,10 @@
     </div>
 {% endif %}
     </div>
-
+    <div class="col-md-8 col-md-offset-2">
         <img class="logo" height="35" src="{{ asset('images/logo.png') }}" alt="Do logo">
-        <form class="vertical-form" action="{{ path("fos_user_security_check") }}" method="post">
+        <form class="vertical-form" action="{{ path("fos_user_security_check") }}" method="post"
+              style="    display: block;">
             <legend class="form-signin-heading">Log In</legend>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
@@ -29,5 +30,5 @@
             <input type="submit" class="btn btn-lg btn-primary btn-block" id="_submit" name="_submit" value="Log In"></input>
             <p><a href="{{ path('fos_user_resetting_request') }}">Forgot password?</a></p>
         </form>
-
+    </div>
 {% endblock fos_user_content %}

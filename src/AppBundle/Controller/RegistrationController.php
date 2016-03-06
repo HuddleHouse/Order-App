@@ -53,21 +53,46 @@ class RegistrationController extends Controller
         $form->setData($user);
 
         $form->handleRequest($request);
-
+        $errors = 0;
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
-            $userManager->updateUser($user);
-
-            if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_registration_confirmed');
-                $response = new RedirectResponse($url);
+            if($invitation = $user->getInvitation()) {
+                if($invitation->getUsed()) {
+                    $this->addFlash('error', 'Invitation code has already been used.');
+                    $errors++;
+                }
+                else if(!$invitation->getValid()) {
+                    $this->addFlash('error', 'Invitation code is not valid.');
+                    $errors++;
+                }
+                else {
+                    $invitation->setUsed(1);
+                    $office = $this->get('fos_user.group_manager')->findGroupBy(array('id' => $invitation->getOffice()->getId()));
+                    $office->addUser($user);
+                    $user->setOffice($office);
+                    if($invitation->getAdmin())
+                        $user->addRole('ROLE_ADMIN');
+                }
+            }
+            else {
+                $this->addFlash('error', 'Invitation code not found or already used.');
+                $errors++;
             }
 
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+            if($errors == 0) {
+                $userManager->updateUser($user);
 
-            return $response;
+                if(null === $response = $event->getResponse()) {
+                    $url = $this->generateUrl('fos_user_registration_confirmed');
+                    $response = new RedirectResponse($url);
+                }
+
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+                return $response;
+            }
         }
 
         return $this->render('FOSUserBundle:Registration:register.html.twig', array(

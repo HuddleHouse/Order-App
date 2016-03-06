@@ -47,26 +47,23 @@ class User extends BaseUser
     protected $last_name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Office")
-     * @ORM\JoinTable(name="user_office",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id")}
-     * )
+     * @ORM\OneToOne(targetEntity="Invitation")
+     * @ORM\JoinColumn(referencedColumnName="code")
+     * @Assert\NotNull(message="Your code is invalid.", groups={"Registration"})
      */
-    protected $groups;
+    protected $invitation;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Office")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    protected $office;
 
     public function __construct()
     {
         parent::__construct();
         // your own logic
     }
-
-    /**
-     * @ORM\OneToOne(targetEntity="Invitation")
-     * @ORM\JoinColumn(referencedColumnName="code")
-     * @Assert\NotNull(message="Your code is invalid.", groups={"Registration"})
-     */
-    protected $invitation;
 
     public function setInvitation(Invitation $invitation)
     {
@@ -116,6 +113,22 @@ class User extends BaseUser
     public function setFirstName($first_name)
     {
         $this->first_name = $first_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOffice()
+    {
+        return $this->office;
+    }
+
+    /**
+     * @param mixed $office
+     */
+    public function setOffice($office)
+    {
+        $this->office = $office;
     }
 
 }

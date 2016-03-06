@@ -16,7 +16,7 @@ class Invitation
     protected $code;
 
     /** @ORM\Column(type="string", length=256)
-     *  @Assert\Email(message="Put yo damn email.")
+     * @Assert\Email(message="Put email.")
      */
     protected $email;
 

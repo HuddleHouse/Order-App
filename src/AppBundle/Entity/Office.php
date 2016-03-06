@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\Group as BaseGroup;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Office
@@ -61,6 +62,23 @@ class Office extends BaseGroup
      * @ORM\Column(name="zip", type="integer")
      */
     protected $zip;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinTable(name="user_office",
+     *      joinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
+     */
+    protected $users;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -189,4 +207,30 @@ class Office extends BaseGroup
         $this->phone = $phone;
     }
 
+    public function addUser(\AppBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove payTypes
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeUser(\AppBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get payTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
 }
