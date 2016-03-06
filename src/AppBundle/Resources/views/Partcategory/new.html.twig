@@ -1,0 +1,22 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}New Part Category{% endblock %}
+
+{% block page_title %}
+    New Part Category
+{% endblock page_title %}
+
+{% block page_name %}
+    <a href="{{ path('admin_partcategory_index') }}"><i class="fa fa-angle-left"></i>Back to the list</a>
+{% endblock page_name %}
+
+{% block content %}
+    <div class="col-md-6">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="btn btn-success" type="submit" value="Create"/>
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock content %}

@@ -133,7 +133,12 @@ h6.block {
 
 a {
   text-shadow: none !important;
-  color: #0d638f;
+    color: #fff;
+}
+
+a:hover {
+    color: #fff;
+    text-decoration: none;
 }
 
 /***
@@ -448,6 +453,18 @@ Header and header elements.
   padding: 20px 10px 20px 10px;
 }
 
+.header .navbar-nav > li.dropdown.user .welcome {
+    margin: 0 !important;
+    padding: 20px 10px 20px 10px;
+}
+
+.header .navbar-nav > li.dropdown.user .welcome .username {
+    color: #9d9ea2;
+}
+
+.header .navbar-nav > li.dropdown.user .welcome .username {
+    display: inline-block;
+}
 .header .navbar-nav > li.dropdown.user .dropdown-toggle .username {
   display: inline-block;
 }
@@ -870,9 +887,9 @@ Sidebar toggler(show/hide)
 /***
 Page content
 ***/
-.page-content {  
-  margin-top: 0px;   
-  background-color: #FaFaFa;
+.page-content {
+    margin-top: 0px;
+    background-color: #eee;
   border-radius: 0 0 0 4px;
 }
 
@@ -939,7 +956,7 @@ Page breadcrumb
 .page-bar {
   border: 0;
   padding: 0px;
-  background-color: #eee;
+    background-color: #DaDaDa;
   margin-bottom: 25px;
   margin-left: -20px;
   margin-right: -20px;

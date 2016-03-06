@@ -1,0 +1,44 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}Part Categories{% endblock %}
+
+{% block page_title %}
+    Part Categories
+{% endblock page_title %}
+
+{% block page_name %}
+    Part Categories
+{% endblock page_name %}
+
+{% block content %}
+    <div class="col-md-4 col-md-offset-1">
+        <button class="btn btn-success" style="margin-bottom: 15px;">
+            <a href="{{ path('admin_partcategory_new') }}">Create a new entry</a>
+        </button>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-advance table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for partCategory in partCategories %}
+                    <tr>
+                        <td>{{ partCategory.name }}</td>
+                        <td>
+                            <ul>
+                                <a class="btn btn-default btn-xs purple"
+                                   href="{{ path('admin_partcategory_edit', { 'id': partCategory.id }) }}"><i
+                                            class="fa fa-edit"></i> edit</a>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock content %}
