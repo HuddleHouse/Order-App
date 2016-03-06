@@ -253,6 +253,9 @@ legend {
     color: #fff !important;
 }
 
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0em !important;
+}
 #home-logo img {
     margin-left: 42px;
     margin-top: 13px;
