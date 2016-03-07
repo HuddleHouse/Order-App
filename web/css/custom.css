@@ -24,6 +24,9 @@
     display:none;
 }
 
+.grid-item {
+    position: inherit !important;
+}
 .login .logo {
     display:block;
     height:100px;
@@ -31,6 +34,13 @@
     margin:0 auto 30px;
 }
 
+.stats-overview .details .numbers {
+    color: #777;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 6px;
+    margin-top: 8px;
+}
 .stats-overview .details .title {
     color: #777;
     font-size: 14px !important;
@@ -38,6 +48,58 @@
     margin-bottom: 3px;
 }
 
+.isotope,
+.isotope .isotope-item {
+    /* change duration value to whatever you like */
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -ms-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+}
+
+span[ng-click] {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: -53px !important;
+    z-index: 1000;
+    width: 159px;
+    display: none;
+    float: left;
+    min-width: 180px !important;
+}
+
+.isotope {
+    -webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    -ms-transition-property: height, width;
+    -o-transition-property: height, width;
+    transition-property: height, width;
+}
+
+.isotope .isotope-item {
+    -webkit-transition-property: -webkit-transform, opacity;
+    -moz-transition-property: -moz-transform, opacity;
+    -ms-transition-property: -ms-transform, opacity;
+    -o-transition-property: -o-transform, opacity;
+    transition-property: transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+    -webkit-transition-duration: 0s;
+    -moz-transition-duration: 0s;
+    -ms-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
+}
 .login .logo.registration-message {
     margin-bottom:0;
 }

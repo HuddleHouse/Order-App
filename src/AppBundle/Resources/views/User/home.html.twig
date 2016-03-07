@@ -102,7 +102,13 @@
                             PRODUCT SEARCH
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div id='filters' class="col-md-5">
+                        <select class="form-control">
+                            <option value="*">-- All Categories --</option>
+                            {% for category in categories %}
+                                <option value=".{{ category.nameCononical }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
 
                     </div>
                     <div class="col-md-4">
@@ -112,30 +118,32 @@
                 </div>
                 <hr>
                 <div class="title" style="padding-bottom: 10px; padding-top: 10px;">
-                    <table id="part-table" class="table table-striped" cellspacing="0">
+                    <table id="part-table" class="table table-striped  no-footer" cellspacing="0">
                         <thead>
                         <tr>
                             <th>PRODUCT #</th>
+                            <th width="40px">PHOTO</th>
                             <th>DESCRIPTION</th>
-                            <th>PHOTO</th>
-                            <th width="30px">REQUIRING RETURN</th>
-                            <th width="40px">ADD TO CART</th>
+                            <th width="30px">REQUIRE RETURN</th>
+                            <th width="50px">ADD TO CART</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="container">
                         {% for product in products %}
-                            <tr>
+                            <tr class="grid-item {{ product.partCategory.nameCononical }}">
                                 <td>{{ product.stockNumber }}</td>
-                                <td>{{ product.description }}</td>
                                 <td>
                                     <center>
-                                        <i class="fa fa-camera" style="font-size: 22px;"></i>
+                                        <i class="fa fa-camera" style="font-size: 22px;color: #e2001a;"></i>
                                     </center>
                                 </td>
-                                <td>{{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;'></i></center>" : '' }}</td>
+                                <td>{{ product.description }}</td>
+                                <td>{{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}</td>
                                 <td>
                                     <center>
-                                        <i class="fa fa-shopping-cart" style="font-size: 25px;"></i>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart" style="font-size: 25px;color: #e2001a;"></i>
+                                        </a>
                                     </center>
                                 </td>
                             </tr>
@@ -158,6 +166,24 @@
             $('#myInputTextField').keyup(function () {
                 oTable.search($(this).val()).draw();
             })
+        });
+        $(function () {
+
+            var $container = $('#container'),
+                    $select = $('#filters select');
+
+            $container.isotope({
+                itemSelector: '.grid-item'
+            });
+
+            $select.change(function () {
+                var filters = $(this).val();
+                $container.isotope({
+                    filter: filters,
+                    animationEngine: 'css'
+                });
+            });
+
         });
     </script>
 {% endblock footer %}

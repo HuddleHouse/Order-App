@@ -31,6 +31,13 @@ class PartCategory
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name_cononical", type="string", length=255)
+     */
+    private $name_cononical;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Part", mappedBy="part_category")
      */
     private $parts;
@@ -85,6 +92,22 @@ class PartCategory
     public function addPart(\AppBundle\Entity\Part $part)
     {
         $this->parts[] = $part;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameCononical()
+    {
+        return $this->name_cononical;
+    }
+
+    /**
+     * @param mixed $name_cononical
+     */
+    public function setNameCononical($name_cononical)
+    {
+        $this->name_cononical = $name_cononical;
     }
 
 }

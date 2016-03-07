@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\PartCategory;
-use AppBundle\Form\PartCategoryType;
+use FOS\UserBundle\Util\Canonicalizer;
 
 /**
  * PartCategory controller.
@@ -46,6 +46,10 @@ class PartCategoryController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $canonical = new Canonicalizer();
+            $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
+            $name_canonical = $canonical->canonicalize($input);
+            $partCategory->setNameCononical($name_canonical);
             $em = $this->getDoctrine()->getManager();
             $em->persist($partCategory);
             $em->flush();
@@ -74,6 +78,10 @@ class PartCategoryController extends Controller
 
         if($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $canonical = new Canonicalizer();
+            $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
+            $name_canonical = $canonical->canonicalize($input);
+            $partCategory->setNameCononical($name_canonical);
             $em->persist($partCategory);
             $em->flush();
 
