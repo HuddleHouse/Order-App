@@ -14,7 +14,7 @@ All Registered Users
 
 {% block content %}
     <div class="col-md-12">
-        <div class="table">
+        <div class="">
             <table id="part-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -30,34 +30,34 @@ All Registered Users
             </thead>
                 {% for user in users %}
                 <tr>
-                    <th>
+                    <td>
                         {{ user.firstName |e }} {{ user.lastName |e }}
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         {{ user.username }}
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         {{ user.email |e }}
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         {% if user.office %}
                             {{ user.office.name }}
                         {% endif %}
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         {{ user.hasRole('ROLE_ADMIN') ? 'Yes' : 'No' }}
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         {{ user.enabled ? 'Yes' : 'No' }}
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         {{ user.lastLogin |date("F jS \\a\\t g:ia") }}
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         <a class="btn btn-default btn-xs purple"
                            href="{{ path('admin_edit_user', {'user_id': user.id}) }}"><i
                                     class="fa fa-edit"></i> edit</a>
-                    </th>
+                    </td>
                 </tr>
             {% endfor %}
 
