@@ -6,6 +6,7 @@ use AppBundle\Entity\Cart;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class JsonController extends Controller
 {
@@ -68,9 +69,10 @@ class JsonController extends Controller
     /**
      * @Route("/json/add-cart-item", name="json-add-item")
      */
-    public function addCartItemAction($data)
+    public function addCartItemAction(Request $request)
     {
         $user = $this->getUser();
+        $projectJson = $request->request->get('data');
         $em = $this->getDoctrine()->getManager();
 
         if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
@@ -94,6 +96,5 @@ class JsonController extends Controller
                 'line_numbers' => $line_numbers
             );
         }
-        return JsonResponse::create($json_cart);
     }
 }
