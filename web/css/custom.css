@@ -2,10 +2,13 @@
     color: #777;
     font-size: 29px !important;
     font-weight: 300 !important;
-    margin-bottom: 15px !important;
-    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+    margin-top: 0px !important;
 }
 
+#shopping-cart {
+    margin-top: 20px;
+}
 .login {
     /*background:#298eea;*/
     font-family:"proxima-nova";
@@ -15,6 +18,10 @@
     padding-top: 5vh;
 }
 
+.user-info {
+    margin-bottom: 8px;
+    margin-top: 5px;
+}
 .login * {
     box-sizing:border-box;
     font-family:"proxima-nova",helvetica;

@@ -5,8 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Form\InvitationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-
+use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
@@ -25,11 +25,29 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('AppBundle:Part')->findAll();
-
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+
         return $this->render('AppBundle:User:home.html.twig', array(
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
         ));
+    }
+
+    /**
+     * @Route("/json/get-products", name="json-get-products")
+     */
+    public function jsonGetProducts()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('AppBundle:Part')->findAll();
+        foreach($products as $item) {
+            $json_products[$item->getId()] = array(
+                'product_number' => $item->getStockNumber(),
+                'description' => $item->getDescription(),
+                'id' => $item->getId(),
+                'require_return' => $item->getRequireReturn()
+            );
+        }
+        return JsonResponse::create($json_products);
     }
 }

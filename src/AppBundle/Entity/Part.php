@@ -49,6 +49,13 @@ class Part
     private $require_return;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="picture_url", type="string", length=255, nullable=true)
+     */
+    private $picture_url;
+
+    /**
      * Get id
      *
      * @return int
@@ -136,6 +143,22 @@ class Part
     public function setRequireReturn($require_return)
     {
         $this->require_return = $require_return;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPictureUrl()
+    {
+        return $this->picture_url;
+    }
+
+    /**
+     * @param string $picture_url
+     */
+    public function setPictureUrl($picture_url)
+    {
+        $this->picture_url = $picture_url;
     }
 
 }
