@@ -15,6 +15,10 @@
     margin-right: 5px;
     margin-top: 5px;
 }
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
 .login {
     /*background:#298eea;*/
     font-family:"proxima-nova";
