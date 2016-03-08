@@ -40,6 +40,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('AppBundle:Part')->findAll();
+        $line_numbers = array();
+        $line_numbers[] = '';
         foreach($products as $item) {
             $json_products[$item->getId()] = array(
                 'stock_number' => $item->getStockNumber(),
@@ -48,7 +50,8 @@ class DefaultController extends Controller
                 'require_return' => $item->getRequireReturn(),
                 'category' => $item->getPartCategory()->getName(),
                 'part_name_cononical' => $item->getPartCategory()->getNameCononical(),
-                'quantity' => 1
+                'quantity' => 0,
+                'line_numbers' => $line_numbers
             );
         }
         return JsonResponse::create($json_products);

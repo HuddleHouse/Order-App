@@ -9,6 +9,11 @@
 #shopping-cart {
     margin-top: 20px;
 }
+
+.line-number {
+    margin-left: 5px;
+    margin-right: 5px;
+}
 .login {
     /*background:#298eea;*/
     font-family:"proxima-nova";
@@ -17,7 +22,6 @@
     height: 100vh;
     padding-top: 5vh;
 }
-
 .cart-item {
     padding-top: 0px;
     padding-bottom: 7px;
