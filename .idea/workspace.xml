@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Adding Entities">
+    <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Adding JSON/AJAX. Not working. Need to add http://symfony.com/doc/master/bundles/FOSRestBundle/index.html &#10; https://github.com/gimler/symfony-rest-edition">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/JsonController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/JsonController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations." />
     <ignored path="uster-order-app.iws" />
@@ -26,10 +28,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="home.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/home.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.51180124">
+            <state vertical-scroll-proportion="-6.4415584">
               <caret line="301" column="30" selection-start-line="301" selection-start-column="30" selection-end-line="301" selection-end-column="30" />
               <folding>
                 <element signature="e#7589#7614#0#HTML" expanded="true" />
@@ -115,6 +117,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-16.25">
               <caret line="199" column="5" selection-start-line="199" selection-start-column="5" selection-end-line="199" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppKernel.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.27941176">
+              <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -213,7 +225,6 @@
         <option value="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/view_users.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Part.php" />
-        <option value="$PROJECT_DIR$/app/AppKernel.php" />
         <option value="$PROJECT_DIR$/web/css/custom.css" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
@@ -226,6 +237,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Cart.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/home.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/JsonController.php" />
+        <option value="$PROJECT_DIR$/app/AppKernel.php" />
       </list>
     </option>
   </component>
@@ -786,12 +798,6 @@
       <option name="number" value="Default" />
       <updated>1456007264113</updated>
     </task>
-    <task id="LOCAL-00008" summary="Small changes.">
-      <created>1456246403814</created>
-      <option name="number" value="00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1456246403814</updated>
-    </task>
     <task id="LOCAL-00009" summary="Forms.............&#10;">
       <created>1456270589773</created>
       <option name="number" value="00009" />
@@ -1080,7 +1086,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457453210489</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Adding JSON/AJAX. Not working. Need to add http://symfony.com/doc/master/bundles/FOSRestBundle/index.html &#10; https://github.com/gimler/symfony-rest-edition">
+      <created>1457454414099</created>
+      <option name="number" value="00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1457454414099</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1095,9 +1107,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18849356" sideWeight="0.49564713" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18849356" sideWeight="0.49564713" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31112793" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31112793" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1166,7 +1178,8 @@
     <MESSAGE value="Adding Datatables functionality" />
     <MESSAGE value="Adding Angular to the cart." />
     <MESSAGE value="Adding Entities" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding Entities" />
+    <MESSAGE value="Adding JSON/AJAX. Not working. Need to add http://symfony.com/doc/master/bundles/FOSRestBundle/index.html &#10; https://github.com/gimler/symfony-rest-edition" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding JSON/AJAX. Not working. Need to add http://symfony.com/doc/master/bundles/FOSRestBundle/index.html &#10; https://github.com/gimler/symfony-rest-edition" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1514,14 +1527,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/security.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1637,7 +1642,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/home.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51180124">
+        <state vertical-scroll-proportion="-6.4415584">
           <caret line="301" column="30" selection-start-line="301" selection-start-column="30" selection-end-line="301" selection-end-column="30" />
           <folding>
             <element signature="e#7589#7614#0#HTML" expanded="true" />
@@ -1687,6 +1692,14 @@
             <marker date="1457453750000" expanded="true" signature="9704:11127" placeholder="..." />
             <marker date="1457453750000" expanded="true" signature="10389:10420" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27941176">
+          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
