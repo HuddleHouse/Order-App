@@ -118,8 +118,7 @@ class AdminController extends Controller
      */
     public function viewAllUsersAction(Request $request)
     {
-        // $conn = $this->get('database_connection');
-        // $users = $conn->fetchAll("select CONCAT_WS(' ', first_name, last_name) as name, email, id from users");
+
 
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->findAll();

@@ -267,6 +267,18 @@
             $scope.init = function () {
                 $.ajax({
                     beforeSend: function () {
+                        console.log('json load cart');
+                    },
+                    type: 'GET',
+                    url: "{{ path('json-load-cart') }}",
+                    success: function (data) {
+                        $scope.cart = data;
+                        console.log($scope.cart);
+                    }
+                });
+
+                $.ajax({
+                    beforeSend: function () {
                         console.log('json start');
                     },
                     type: 'GET',
@@ -281,8 +293,20 @@
                 return array.indexOf(item);
             };
 
+
             $scope.addItem = function (item) {
                 $scope.numItems += 1;
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('json-add-item') }}",
+                    data: item,
+                    success: function (data) {
+                        $scope.cart = data;
+                        console.log($scope.cart);
+                    }
+                });
+
+
                 tmp = $scope.inArray($scope.products[item], $scope.cart);
                 if (tmp != -1)
                     $scope.cart[tmp].quantity += 1;
@@ -292,6 +316,15 @@
                     $scope.cart[tmp].quantity += 1;
                 }
             };
+            $scope.removeItem = function (item) {
+                $scope.numItems -= 1;
+                tmp = $scope.inArray($scope.products[item], $scope.cart);
+                $scope.cart[tmp].quantity -= 1;
+                if ($scope.cart[tmp].quantity == 0)
+                    $scope.cart.splice(tmp, 1);
+            };
+
+
 
             $scope.addLineNumber = function (item) {
                 $scope.cart[item].line_numbers.push('');
@@ -300,17 +333,11 @@
                 tmp = $scope.inArray($scope.products[item], $scope.cart);
                 $scope.cart[tmp].line_numbers[index] = value;
                 console.log($scope.cart[tmp]);
+                console.log($scope.cart);
             };
             $scope.removeLineNumber = function (item, num) {
                 tmp = $scope.inArray($scope.products[item], $scope.cart);
                 $scope.cart[tmp].line_numbers.splice($scope.cart[tmp].line_numbers.length - 1, 1);
-            };
-            $scope.removeItem = function (item) {
-                $scope.numItems -= 1;
-                tmp = $scope.inArray($scope.products[item], $scope.cart);
-                $scope.cart[tmp].quantity -= 1;
-                if ($scope.cart[tmp].quantity == 0)
-                    $scope.cart.splice(tmp, 1);
             };
         });
     </script>

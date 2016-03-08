@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * Cart
@@ -33,6 +35,10 @@ class Cart
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProduct", mappedBy="cart")
+     */
+    private $cart_products;
 
     /**
      * @var \DateTime
@@ -53,13 +59,23 @@ class Cart
      *
      * @ORM\Column(name="approved", type="boolean")
      */
-    private $approved;
-
+    private $approved = 0;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="submitted", type="boolean")
+     */
+    private $submitted = 0;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="approved_by_id", referencedColumnName="id")
      */
     private $approved_by;
+
+    public function __construct()
+    {
+        $this->cart_products = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -191,5 +207,47 @@ class Cart
         $this->approved_by = $approved_by;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSubmitted()
+    {
+        return $this->submitted;
+    }
+
+    /**
+     * @param mixed $submitted
+     */
+    public function setSubmitted($submitted)
+    {
+        $this->submitted = $submitted;
+    }
+
+    public function addCartProduct(\AppBundle\Entity\CartProduct $cartProduct)
+    {
+        $this->cart_products[] = $cartProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove payTypes
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeCartProduct(\AppBundle\Entity\CartProduct $cartProduct)
+    {
+        $this->cart_products->removeElement($cartProduct);
+    }
+
+    /**
+     * Get payTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCartProducts()
+    {
+        return $this->cart_products;
+    }
 }
 
