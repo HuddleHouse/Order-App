@@ -42,10 +42,13 @@ class DefaultController extends Controller
         $products = $em->getRepository('AppBundle:Part')->findAll();
         foreach($products as $item) {
             $json_products[$item->getId()] = array(
-                'product_number' => $item->getStockNumber(),
+                'stock_number' => $item->getStockNumber(),
                 'description' => $item->getDescription(),
                 'id' => $item->getId(),
-                'require_return' => $item->getRequireReturn()
+                'require_return' => $item->getRequireReturn(),
+                'category' => $item->getPartCategory()->getName(),
+                'part_name_cononical' => $item->getPartCategory()->getNameCononical(),
+                'quantity' => 1
             );
         }
         return JsonResponse::create($json_products);
