@@ -272,9 +272,11 @@
                     type: 'GET',
                     url: "{{ path('api-load-cart') }}",
                     success: function (data) {
-                        $scope.cart = data;
-                        $scope.numItems = Object.keys($scope.cart).length;
-                        console.log(Object.keys($scope.cart).length);
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                            $scope.numItems = data.num_items;
+                            console.log(Object.keys($scope.cart).length);
+                        });
                     }
                 });
 
@@ -285,8 +287,10 @@
                     type: 'GET',
                     url: "{{ path('api-get-products') }}",
                     success: function (data) {
-                        $scope.products = data;
-                        console.log($scope.products);
+                        $scope.$apply(function () {
+                            $scope.products = data;
+                            console.log($scope.products);
+                        });
                     }
                 });
 
@@ -296,7 +300,6 @@
 
 
             $scope.addItem = function (item) {
-                $scope.numItems += 1;
                 console.log(item);
                 $.ajax({
                     type: 'POST',
@@ -304,18 +307,26 @@
                     data: {id: item},
                     dataType: 'json',
                     success: function (data) {
-                        $scope.cart = data;
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                            $scope.numItems = data.num_items;
+                        });
                     }
                 });
-
-
             };
             $scope.removeItem = function (item) {
-                $scope.numItems -= 1;
-                tmp = $scope.inArray($scope.products[item], $scope.cart);
-                $scope.cart[tmp].quantity -= 1;
-                if ($scope.cart[tmp].quantity == 0)
-                    $scope.cart.splice(tmp, 1);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api-remove-item') }}",
+                    data: {id: item},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                            $scope.numItems = data.num_items;
+                        });
+                    }
+                });
             };
 
 
