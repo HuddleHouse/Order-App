@@ -35,7 +35,6 @@ class ShoppingCartController extends Controller
             $json_products[$item->getId()] = array(
                 'stock_number' => $item->getStockNumber(),
                 'description' => $item->getDescription(),
-                'id' => $item->getId(),
                 'require_return' => $item->getRequireReturn(),
                 'category' => $item->getPartCategory()->getName(),
                 'part_name_cononical' => $item->getPartCategory()->getNameCononical(),
@@ -71,7 +70,7 @@ class ShoppingCartController extends Controller
     public function addCartItemAction(Request $request)
     {
         $user = $this->getUser();
-        $id = $request->request->get('id');
+        $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
 
         if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
@@ -111,15 +110,18 @@ class ShoppingCartController extends Controller
     public function removeCartItemAction(Request $request)
     {
         $user = $this->getUser();
-        $id = $request->request->get('id');
+        $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
 
         $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
         $part = $em->getRepository('AppBundle:Part')->find($id);
         $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
 
-        if($product->getQuantity() == 1)
+        if($product->getQuantity() == 1) {
+            foreach($product->getCartProductLineNumbers() as $lineNumber)
+                $em->remove($lineNumber);
             $em->remove($product);
+        }
         else {
             $product->setQuantity($product->getQuantity() - 1);
             $em->persist($product);
@@ -129,6 +131,74 @@ class ShoppingCartController extends Controller
         return $this->sumCart($cart);
     }
 
+    /**
+     * @Route("/api/update-line-number", name="update-line-number")
+     */
+    public function updateLineNumberAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $request->request->get('line_number');
+        $lineNumber = $em->getRepository('AppBundle:CartProductLineNumber')->find($data['id']);
+        $lineNumber->setLineNumber($data['line_number']);
+        $em->persist($lineNumber);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
+
+    /**
+     * @Route("/api/add-line-number", name="add-line-number")
+     */
+    public function addLineNumberAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $id = $request->request->get('product_id');
+
+        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
+        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+
+
+        $lineNumber = new CartProductLineNumber();
+        $lineNumber->setCartProduct($product);
+
+        $product->addCartProductLineNumber($lineNumber);
+
+        $em->persist($lineNumber);
+        $em->persist($product);
+        $em->flush();
+
+        return $this->sumCart($cart);
+    }
+
+    /**
+     * @Route("/api/remove-line-number", name="remove-line-number")
+     */
+    public function removeLineNumberAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $id = $request->request->get('product_id');
+
+        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
+        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+        $lineNumber = $em->getRepository('AppBundle:CartProductLineNumber')
+            ->findOneBy(
+                array('cartProduct' => $product),
+                array('id' => 'DESC')
+            );
+
+
+        if($lineNumber) {
+            $em->remove($lineNumber);
+            $em->flush();
+        }
+
+        return $this->sumCart($cart);
+    }
 
     public function sumCart($cart)
     {

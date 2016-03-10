@@ -117,7 +117,7 @@
                                         </td>
                                         <td>
                                            <div ng-repeat="num in item.line_numbers track by $index" style="display: inline-block;">
-                                                <input ng-model="num.line_number" type="text" class="form-control line-number" ng-change="updateLineNumber(num.id)" maxlength="4" style="width: 60px;">
+                                                <input ng-model="num.line_number" type="text" class="form-control line-number" ng-change="updateLineNumber(num)" maxlength="4" style="width: 60px;">
                                            </div>
                                            <div style="display: inline-flex;">
                                             <button ng-click="removeLineNumber(item.id)" style="background: transparent; border: none;">
@@ -302,7 +302,7 @@
                 $.ajax({
                     type: 'POST',
                     url: "{{ path('api-add-item') }}",
-                    data: {id: item},
+                    data: {product_id: item},
                     dataType: 'json',
                     success: function (data) {
                         $scope.$apply(function () {
@@ -318,7 +318,7 @@
                 $.ajax({
                     type: 'POST',
                     url: "{{ path('api-remove-item') }}",
-                    data: {id: item},
+                    data: {product_id: item},
                     dataType: 'json',
                     success: function (data) {
                         $scope.$apply(function () {
@@ -330,13 +330,52 @@
             };
 
             $scope.addLineNumber = function (item) {
-                console.log(item);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('add-line-number') }}",
+                    data: {product_id: item},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                            $scope.numItems = data.num_items;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
             };
             $scope.updateLineNumber = function (item) {
-                console.log(item);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('update-line-number') }}",
+                    data: {line_number: item},
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
             };
             $scope.removeLineNumber = function (item) {
-                console.log(item);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('remove-line-number') }}",
+                    data: {product_id: item},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                            $scope.numItems = data.num_items;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
             };
         });
     </script>
