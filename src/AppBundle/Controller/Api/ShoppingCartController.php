@@ -8,7 +8,14 @@
 
 namespace AppBundle\Controller\Api;
 
+use AppBundle\Entity\CartProduct;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 
 class ShoppingCartController extends Controller
 {
@@ -54,6 +61,7 @@ class ShoppingCartController extends Controller
             $em->flush();
         }
         $json_cart = array();
+        $line_numbers[] = '';
         foreach($cart->getCartProducts() as $product) {
             $json_cart[] = array(
                 'stock_number' => $product->getPart()->getStockNumber(),
@@ -62,7 +70,7 @@ class ShoppingCartController extends Controller
                 'require_return' => $product->getPart()->getRequireReturn(),
                 'category' => $product->getPart()->getPartCategory()->getName(),
                 'part_name_cononical' => $product->getPart()->getPartCategory()->getNameCononical(),
-                'quantity' => 0,
+                'quantity' => $product->getQuantity(),
                 'line_numbers' => $line_numbers
             );
         }
@@ -75,7 +83,10 @@ class ShoppingCartController extends Controller
     public function addCartItemAction(Request $request)
     {
         $user = $this->getUser();
-        $projectJson = $request->request->get('data');
+//        $id = $_POST('id');
+        // $_POST parameters
+        $id = $request->request->get('id');
+
         $em = $this->getDoctrine()->getManager();
 
         if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
@@ -86,7 +97,22 @@ class ShoppingCartController extends Controller
             $em->persist($cart);
             $em->flush();
         }
+        $part = $em->getRepository('AppBundle:Part')->find($id);
+        if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
+            $product = new CartProduct();
+            $product->setCart($cart);
+            $product->setPart($part);
+            $product->setStockLocation("ADD THIS");
+            $em->persist($product);
+            $em->flush();
+        }
+
+        $product->setQuantity($product->getQuantity() + 1);
+        $em->persist($product);
+        $em->flush();
+
         $json_cart = array();
+        $line_numbers[] = '';
         foreach($cart->getCartProducts() as $product) {
             $json_cart[] = array(
                 'stock_number' => $product->getPart()->getStockNumber(),
@@ -95,9 +121,11 @@ class ShoppingCartController extends Controller
                 'require_return' => $product->getPart()->getRequireReturn(),
                 'category' => $product->getPart()->getPartCategory()->getName(),
                 'part_name_cononical' => $product->getPart()->getPartCategory()->getNameCononical(),
-                'quantity' => 0,
+                'quantity' => $product->getQuantity(),
                 'line_numbers' => $line_numbers
             );
         }
+
+        return JsonResponse::create($json_cart);
     }
 }

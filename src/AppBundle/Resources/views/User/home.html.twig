@@ -264,16 +264,17 @@
             $scope.cart = [];
             $scope.products = [];
 
-            $scope.init = function () {
+
                 $.ajax({
                     beforeSend: function () {
                         console.log('json load cart');
                     },
                     type: 'GET',
-                    url: "{{ path('json-load-cart') }}",
+                    url: "{{ path('api-load-cart') }}",
                     success: function (data) {
                         $scope.cart = data;
-                        console.log($scope.cart);
+                        $scope.numItems = Object.keys($scope.cart).length;
+                        console.log(Object.keys($scope.cart).length);
                     }
                 });
 
@@ -282,13 +283,13 @@
                         console.log('json start');
                     },
                     type: 'GET',
-                    url: "{{ path('json-get-products') }}",
+                    url: "{{ path('api-get-products') }}",
                     success: function (data) {
                         $scope.products = data;
                         console.log($scope.products);
                     }
                 });
-            };
+
             $scope.inArray = function (item, array) {
                 return array.indexOf(item);
             };
@@ -296,25 +297,18 @@
 
             $scope.addItem = function (item) {
                 $scope.numItems += 1;
+                console.log(item);
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('json-add-item') }}",
-                    data: item,
+                    url: "{{ path('api-add-item') }}",
+                    data: {id: item},
+                    dataType: 'json',
                     success: function (data) {
                         $scope.cart = data;
-                        console.log($scope.cart);
                     }
                 });
 
 
-                tmp = $scope.inArray($scope.products[item], $scope.cart);
-                if (tmp != -1)
-                    $scope.cart[tmp].quantity += 1;
-                else {
-                    $scope.cart.push($scope.products[item]);
-                    tmp = $scope.inArray($scope.products[item], $scope.cart);
-                    $scope.cart[tmp].quantity += 1;
-                }
             };
             $scope.removeItem = function (item) {
                 $scope.numItems -= 1;

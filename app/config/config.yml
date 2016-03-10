@@ -85,9 +85,3 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
-
-#fos_rest:
-#    format_listener:
-#        prefer_extension:       false
-#    view:
-#        view_response_listener: true
