@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * CartProduct
@@ -68,6 +69,15 @@ class CartProduct
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", mappedBy="cartProduct")
+     */
+    private $cartProductLineNumbers;
+
+    public function __construct()
+    {
+        $this->cartProductLineNumbers = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -189,5 +199,32 @@ class CartProduct
     public function setNotes($notes)
     {
         $this->notes = $notes;
+    }
+
+    public function addCartProductLineNumber(\AppBundle\Entity\CartProductLineNumber $cartProductLineNumber)
+    {
+        $this->cartProductLineNumbers[] = $cartProductLineNumber;
+
+        return $this;
+    }
+
+    /**
+     * Remove payTypes
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeCartProductLineNumber(\AppBundle\Entity\CartProductLineNumber $cartProductLineNumber)
+    {
+        $this->cartProductLineNumbers->removeElement($cartProductLineNumber);
+    }
+
+    /**
+     * Get payTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCartProductLineNumbers()
+    {
+        return $this->cartProductLineNumbers;
     }
 }

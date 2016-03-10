@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Entity\CartProduct;
+use AppBundle\Entity\CartProductLineNumber;
 use AppBundle\Entity\Cart;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -87,6 +88,12 @@ class ShoppingCartController extends Controller
             $product->setCart($cart);
             $product->setPart($part);
             $product->setStockLocation("ADD THIS");
+
+
+            $lineNumber = new CartProductLineNumber();
+            $lineNumber->setCartProduct($product);
+            $product->addCartProductLineNumber($lineNumber);
+            $em->persist($lineNumber);
             $em->persist($product);
             $em->flush();
         }
@@ -127,8 +134,15 @@ class ShoppingCartController extends Controller
     {
         $count = 0;
         $json_cart = array();
-        $line_numbers[] = '';
         foreach($cart->getCartProducts() as $product) {
+            $line_numbers = array();
+            foreach($product->getCartProductLineNumbers() as $lineNumber) {
+                $line_numbers[] = array(
+                    'id' => $lineNumber->getId(),
+                    'cart_product' => $lineNumber->getCartProduct()->getId(),
+                    'line_number' => $lineNumber->getLineNumber()
+                );
+            }
             $json_cart[] = array(
                 'stock_number' => $product->getPart()->getStockNumber(),
                 'description' => $product->getPart()->getDescription(),
