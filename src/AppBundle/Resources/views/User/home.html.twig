@@ -31,10 +31,10 @@
                         </div>
                         <hr>
                         <div class="numbers">
-                            Office #40
+                            {{ app.user.office.name }}
                         </div>
                         <div class="title user-info">
-                            Knoxville, TN
+                            {{ app.user.office.city }}, {{ app.user.office.state }}
                         </div>
                     </div>
                 </div>
@@ -50,11 +50,10 @@
                         </div>
                         <hr>
                         <div class="numbers">
-                            Matt Huddleston
-
+                            {{ app.user.firstName }} {{ app.user.lastName }}
                         </div>
                         <div class="title user-info">
-                            Last Login:
+                            Last Login: {{ app.user.lastLogin |date("m/d/Y") }}
                         </div>
                     </div>
                 </div>
@@ -152,6 +151,9 @@
                                     </tr>
                             </tbody>
                             </table>
+                            <div class="container">
+                                <button type="button" class="btn btn-primary" style="float: right;margin-right: 38px;">REVIEW ORDER</button>
+                            </div>
                             </div>
                         {% endverbatim %}
                     </div>

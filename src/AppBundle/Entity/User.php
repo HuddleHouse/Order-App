@@ -54,7 +54,7 @@ class User extends BaseUser
     protected $invitation;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Office")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Office")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $office;
