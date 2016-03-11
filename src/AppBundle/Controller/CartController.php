@@ -59,7 +59,6 @@ class CartController extends Controller
      */
     public function submitOrderAction(Request $request, $cart_id)
     {
-        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
         $cart->setSubmitted(1);
@@ -67,12 +66,12 @@ class CartController extends Controller
 
         $em->persist($cart);
         $em->flush();
-
+        $this->addFlash('notice', 'Order submitted successfully.');
         /*
          * SEND EMAILS TO ALL ADMIN NOTIFYING THEM THAT AN ORDER WAS SUBMITTED.
          *
          */
-
+        return $this->redirectToRoute('view_all_orders');
     }
 
     /**
@@ -80,8 +79,17 @@ class CartController extends Controller
      */
     public function viewAllOrdersAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1));
+        $approved = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'approved' => 1));
 
-        return $this->render('AppBundle:User:review-order.html.twig');
+        return $this->render('AppBundle:User:view-all-orders.html.twig',
+            array(
+                'submitted' => $submitted,
+                'approved' => $approved
+            )
+        );
     }
 
 }

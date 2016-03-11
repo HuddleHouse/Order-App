@@ -1,0 +1,49 @@
+{% extends ":template:layout.html.twig" %}
+{% block title %}All Orders{% endblock title %}
+
+{% block page_title %}
+
+
+    <style>
+        .page-bar {
+            display: none;
+        }
+    </style>
+{% endblock page_title %}
+
+{% block page_name %}
+
+{% endblock page_name %}
+
+{% block content %}
+    <div id="shopping-cart" class="col-md-12">
+        <div class="stats-overview stat-block">
+            <div class="details">
+
+                <div class="numbers">
+                    SUBMITTED ORDERS
+                </div>
+                <hr>
+                <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+                    {% for item in submitted %}
+                        {{ item.date | date('Y-m-d') }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="shopping-cart" class="col-md-12">
+        <div class="stats-overview stat-block">
+            <div class="details">
+
+                <div class="numbers">
+                    APPROVED ORDERS
+                </div>
+                <hr>
+                <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
