@@ -15,7 +15,22 @@ class DefaultController extends Controller
      */
     public function adminHomeAction()
     {
-        return $this->render('AppBundle:Admin:home.html.twig');
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array(
+            'submitted' => 1,
+            'approved' => 0
+        ));
+
+        $approved = $em->getRepository('AppBundle:Cart')->findBy(array(
+            'submitted' => 1,
+            'approved' => 1
+        ));
+
+        return $this->render('AppBundle:Admin:home.html.twig', array(
+            'submitted' => $submitted,
+            'approved' => $approved
+        ));
     }
 
 }
