@@ -4,7 +4,6 @@
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Finishing up the API some">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations." />
     <ignored path="uster-order-app.iws" />
@@ -106,21 +105,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.5">
-              <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.44117647">
+              <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5437352">
-              <caret line="135" column="33" selection-start-line="135" selection-start-column="33" selection-end-line="135" selection-end-column="33" />
+            <state vertical-scroll-proportion="-8.75">
+              <caret line="103" column="20" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -260,8 +259,8 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-past-order.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/ChangePassword/changePassword.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/edit.html.twig" />
-        <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
       </list>
     </option>
   </component>
@@ -1052,12 +1051,6 @@
       <option name="number" value="Default" />
       <updated>1456007264113</updated>
     </task>
-    <task id="LOCAL-00023" summary="Fixed template">
-      <created>1456543573888</created>
-      <option name="number" value="00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1456543573888</updated>
-    </task>
     <task id="LOCAL-00024" summary="Fixed template">
       <created>1456798539785</created>
       <option name="number" value="00024" />
@@ -1346,7 +1339,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457710402791</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Finishing up the API some">
+      <created>1457710484746</created>
+      <option name="number" value="00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1457710484746</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1369,7 +1368,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.420257" sideWeight="0.49564713" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42013627" sideWeight="0.49564713" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2073,18 +2072,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.5">
-          <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+        <state vertical-scroll-proportion="-8.75">
+          <caret line="103" column="20" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5437352">
-          <caret line="135" column="33" selection-start-line="135" selection-start-column="33" selection-end-line="135" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.44117647">
+          <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
           <folding />
         </state>
       </provider>

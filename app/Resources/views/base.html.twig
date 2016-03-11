@@ -18,16 +18,18 @@
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body class="page-header-fixed ">
-
+    {% if is_granted('ROLE_ADMIN') %}
+    <body class="page-header-fixed">
+    {% endif %}
+    <body class="page-header-fixed page-sidebar-closed">
     {% block body %}{% endblock %}
 
-        <script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
-        {% block javascripts %}
-            {% javascripts '@AppBundle/Resources/public/js/*' %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
+    <script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
+    {% block javascripts %}
+        {% javascripts '@AppBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
 
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap4.min.js"></script>
@@ -49,3 +51,4 @@
         });
     </script>
 </html>
+{% else %}
