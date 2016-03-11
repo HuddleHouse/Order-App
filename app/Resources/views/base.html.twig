@@ -20,8 +20,9 @@
     </head>
     {% if is_granted('ROLE_ADMIN') %}
     <body class="page-header-fixed">
-    {% endif %}
+    {% else %}
     <body class="page-header-fixed page-sidebar-closed">
+    {% endif %}
     {% block body %}{% endblock %}
 
     <script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
@@ -51,4 +52,3 @@
         });
     </script>
 </html>
-{% else %}

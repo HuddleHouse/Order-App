@@ -1051,12 +1051,6 @@
       <option name="number" value="Default" />
       <updated>1456007264113</updated>
     </task>
-    <task id="LOCAL-00024" summary="Fixed template">
-      <created>1456798539785</created>
-      <option name="number" value="00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1456798539785</updated>
-    </task>
     <task id="LOCAL-00025" summary="Fixed template">
       <created>1456798655563</created>
       <option name="number" value="00025" />
@@ -1345,7 +1339,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457710484746</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Finishing up the API some">
+      <created>1457710879736</created>
+      <option name="number" value="00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1457710879736</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TodoView">
