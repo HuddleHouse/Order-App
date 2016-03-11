@@ -72,6 +72,13 @@ class Cart
      */
     private $approved_by;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notes", type="string", length=255, nullable=true)
+     */
+    private $note;
+
     public function __construct()
     {
         $this->cart_products = new ArrayCollection();
@@ -249,5 +256,23 @@ class Cart
     {
         return $this->cart_products;
     }
+
+    /**
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param string $note
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    }
+
+
 }
 

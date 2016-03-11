@@ -4,6 +4,10 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\CartProduct;
+use AppBundle\Entity\CartProductLineNumber;
+use AppBundle\Entity\Cart;
 
 class CartController extends Controller
 {
@@ -27,13 +31,57 @@ class CartController extends Controller
      */
     public function reviewOrderAction()
     {
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+
+        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
+            $cart = new Cart();
+            $cart->setUser($user);
+            $cart->setOffice($user->getOffice());
+            $cart->setDate(date_create(date("Y-m-d H:i:s")));
+            $em->persist($cart);
+            $em->flush();
+        }
+
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
-        return $this->render('AppBundle:User:home.html.twig', array(
+
+        return $this->render('AppBundle:User:review-order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
+            'cart_id' => $cart->getid()
         ));
     }
+
+    /**
+     * @Route("/review-order/submit/{cart_id}", name="submit-cart")
+     */
+    public function submitOrderAction(Request $request, $cart_id)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
+        $cart->setSubmitted(1);
+        $cart->setSubmitDate(date_create(date("Y-m-d H:i:s")));
+
+        $em->persist($cart);
+        $em->flush();
+
+        /*
+         * SEND EMAILS TO ALL ADMIN NOTIFYING THEM THAT AN ORDER WAS SUBMITTED.
+         *
+         */
+
+    }
+
+    /**
+     * @Route("/view-all-orders", name="view_all_orders")
+     */
+    public function viewAllOrdersAction()
+    {
+
+        return $this->render('AppBundle:User:review-order.html.twig');
+    }
+
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -23,7 +22,7 @@ class CartProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cart")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cart", inversedBy="cart_products")
      * @ORM\JoinColumn(name="cart_id", referencedColumnName="id")
      */
     private $cart;

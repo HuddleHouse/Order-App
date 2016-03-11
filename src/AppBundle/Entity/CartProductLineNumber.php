@@ -22,7 +22,7 @@ class CartProductLineNumber
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CartProduct")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CartProduct", inversedBy="cartProductLineNumbers")
      * @ORM\JoinColumn(name="cart_product_id", referencedColumnName="id")
      */
     private $cartProduct;

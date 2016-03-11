@@ -1,81 +1,8 @@
-{% extends ":template:layout.html.twig" %}
-
+{% extends "AppBundle:User:cart-header.html.twig" %}
 {% block title %}Home{% endblock %}
 
-{% block page_title  %}
-
-
-    <style>
-        .page-bar {
-            display: none;
-        }
-    </style>
-{% endblock page_title %}
-
-{% block page_name %}
-
-{% endblock page_name %}
-
-{% block content %}
-    <div ng-app="myShoppingList" ng-controller="myCtrl" ng-init="init()" class="ng-cloak" ng-cloak>
-        <div class="row">
-            <div class="col-md-3 col-sm-4">
-                <div class="stats-overview stat-block">
-                    <div class="display stat ok huge">
-
-                    </div>
-                    <div class="details">
-                        <div class="title">
-
-                            Office Information
-                        </div>
-                        <hr>
-                        <div class="numbers">
-                            {{ app.user.office.name }}
-                        </div>
-                        <div class="title user-info">
-                            {{ app.user.office.city }}, {{ app.user.office.state }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <div class="stats-overview stat-block">
-                    <div class="display stat ok huge">
-
-                    </div>
-                    <div class="details">
-                        <div class="title">
-                            Current User
-                        </div>
-                        <hr>
-                        <div class="numbers">
-                            {{ app.user.firstName }} {{ app.user.lastName }}
-                        </div>
-                        <div class="title user-info">
-                            Last Login: {{ app.user.lastLogin |date("m/d/Y") }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-4 col-md-offset-4">
-                <div class="stats-overview stat-block">
-                    <div class="display stat bad huge">
-                    </div>
-                    <div class="details">
-                        <div class="title">
-                            Items in Cart
-                        </div>
-                        <hr>
-                        <div class="numbers cart">
-                            <input ng-model="numItems" disabled style="background: transparent; border: none;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="shopping-cart" class="col-md-12">
+{% block cart %}
+    <div id="shopping-cart" class="col-md-12">
             <div class="stats-overview stat-block">
                 <div class="display stat ok huge">
 
@@ -153,8 +80,8 @@
                             </table>
                             {% endverbatim %}
                             <div class="container">
-                                <button type="button" href="{{ path('review_order') }}" class="btn btn-primary"
-                                        style="float: right;margin-right: 38px;">REVIEW ORDER
+                                <button type="button" class="btn btn-primary" style="float: right;margin-right: 38px;">
+                                    <a href="{{ path('review_order') }}">REVIEW ORDER</a>
                                 </button>
                             </div>
                             </div>
@@ -230,9 +157,7 @@
                 </div>
             </div>
         </div>
-        </div>
-    </div>
-{% endblock content %}
+{% endblock cart %}
 
 {% block footer %}
     <script>

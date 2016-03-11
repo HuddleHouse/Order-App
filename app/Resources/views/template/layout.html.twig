@@ -1,7 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="header navbar  navbar-fixed-top">
+    {% if is_granted('ROLE_ADMIN') %}
+        <style>
+            .page-content {
+                margin-top: 0px;
+                background-color: #eee;
+                border-radius: 0 0 0 4px;
+            }
+        </style>
+    {% endif %}
+    <div class="header navbar  navbar-fixed-top hidden-print">
         <!-- BEGIN TOP NAVIGATION BAR -->
         <div class="header-inner">
                 {% if is_granted('ROLE_ADMIN') %}
@@ -37,6 +46,9 @@
                             <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>
                         </li>
                         <li>
+                            <a href="{{ path('view_all_orders') }}"><i class="fa fa-hdd-o"></i> View All Orders</a>
+                        </li>
+                        <li>
                             <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a>
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
@@ -61,7 +73,7 @@
     </div>
     <!-- BEGIN CONTAINER -->
 
-    <div class="page-container">
+    <div class="page-container ">
         {% if is_granted('ROLE_ADMIN') %}
         <!-- BEGIN SIDEBAR -->
         <div class="page-sidebar-wrapper">

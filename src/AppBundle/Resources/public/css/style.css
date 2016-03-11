@@ -887,9 +887,10 @@ Sidebar toggler(show/hide)
 /***
 Page content
 ***/
+
 .page-content {
-    margin-top: 0px;
-    background-color: #eee;
+  margin-top: 0px;
+  background-color: #7E7E7E;
   border-radius: 0 0 0 4px;
 }
 
