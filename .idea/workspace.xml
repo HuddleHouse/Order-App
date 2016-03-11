@@ -4,6 +4,7 @@
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Finishing up the API some">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-all-orders.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-all-orders.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations." />
     <ignored path="uster-order-app.iws" />
@@ -42,26 +43,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view-all-orders.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="view-all-orders.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-all-orders.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-42.5">
-              <caret line="105" column="103" selection-start-line="105" selection-start-column="103" selection-end-line="105" selection-end-column="103" />
+            <state vertical-scroll-proportion="0.28368795">
+              <caret line="47" column="89" selection-start-line="47" selection-start-column="89" selection-end-line="47" selection-end-column="89" />
               <folding>
                 <element signature="e#671#736#0#HTML" expanded="true" />
                 <element signature="e#813#838#0#HTML" expanded="true" />
                 <element signature="e#1600#1626#0#HTML" expanded="true" />
                 <element signature="e#1690#1716#0#HTML" expanded="true" />
-                <element signature="e#1798#1824#0#HTML" expanded="true" />
-                <element signature="e#2022#2048#0#HTML" expanded="true" />
-                <element signature="e#2688#2736#0#HTML" expanded="true" />
-                <element signature="e#3272#3337#0#HTML" expanded="true" />
-                <element signature="e#3414#3439#0#HTML" expanded="true" />
-                <element signature="e#4200#4226#0#HTML" expanded="true" />
-                <element signature="e#4290#4316#0#HTML" expanded="true" />
-                <element signature="e#4398#4424#0#HTML" expanded="true" />
-                <element signature="e#4625#4651#0#HTML" expanded="true" />
-                <element signature="e#5291#5339#0#HTML" expanded="true" />
+                <element signature="e#1804#1830#0#HTML" expanded="true" />
+                <element signature="e#2028#2054#0#HTML" expanded="true" />
+                <element signature="e#2694#2742#0#HTML" expanded="true" />
+                <element signature="e#3278#3343#0#HTML" expanded="true" />
+                <element signature="e#3420#3445#0#HTML" expanded="true" />
+                <element signature="e#4206#4232#0#HTML" expanded="true" />
+                <element signature="e#4296#4322#0#HTML" expanded="true" />
+                <element signature="e#4410#4436#0#HTML" expanded="true" />
+                <element signature="e#4637#4663#0#HTML" expanded="true" />
+                <element signature="e#5303#5351#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44117647">
-              <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+            <state vertical-scroll-proportion="-31.75">
+              <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -253,7 +254,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/CartProduct.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/CartProductLineNumber.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/review-order.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-all-orders.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-past-order.html.twig" />
@@ -261,6 +261,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Profile/edit.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-all-orders.html.twig" />
       </list>
     </option>
   </component>
@@ -1051,12 +1052,6 @@
       <option name="number" value="Default" />
       <updated>1456007264113</updated>
     </task>
-    <task id="LOCAL-00025" summary="Fixed template">
-      <created>1456798655563</created>
-      <option name="number" value="00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1456798655563</updated>
-    </task>
     <task id="LOCAL-00026" summary="Fixed template">
       <created>1456798868912</created>
       <option name="number" value="00026" />
@@ -1345,7 +1340,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457710879736</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Finishing up the API some">
+      <created>1457710962292</created>
+      <option name="number" value="00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1457710962292</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1368,7 +1369,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42013627" sideWeight="0.49564713" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33838" sideWeight="0.49564713" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1953,29 +1954,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-all-orders.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-42.5">
-          <caret line="105" column="103" selection-start-line="105" selection-start-column="103" selection-end-line="105" selection-end-column="103" />
-          <folding>
-            <element signature="e#671#736#0#HTML" expanded="true" />
-            <element signature="e#813#838#0#HTML" expanded="true" />
-            <element signature="e#1600#1626#0#HTML" expanded="true" />
-            <element signature="e#1690#1716#0#HTML" expanded="true" />
-            <element signature="e#1798#1824#0#HTML" expanded="true" />
-            <element signature="e#2022#2048#0#HTML" expanded="true" />
-            <element signature="e#2688#2736#0#HTML" expanded="true" />
-            <element signature="e#3272#3337#0#HTML" expanded="true" />
-            <element signature="e#3414#3439#0#HTML" expanded="true" />
-            <element signature="e#4200#4226#0#HTML" expanded="true" />
-            <element signature="e#4290#4316#0#HTML" expanded="true" />
-            <element signature="e#4398#4424#0#HTML" expanded="true" />
-            <element signature="e#4625#4651#0#HTML" expanded="true" />
-            <element signature="e#5291#5339#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-38.75">
@@ -2082,9 +2060,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44117647">
-          <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+        <state vertical-scroll-proportion="-31.75">
+          <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-all-orders.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28368795">
+          <caret line="47" column="89" selection-start-line="47" selection-start-column="89" selection-end-line="47" selection-end-column="89" />
+          <folding>
+            <element signature="e#671#736#0#HTML" expanded="true" />
+            <element signature="e#813#838#0#HTML" expanded="true" />
+            <element signature="e#1600#1626#0#HTML" expanded="true" />
+            <element signature="e#1690#1716#0#HTML" expanded="true" />
+            <element signature="e#1804#1830#0#HTML" expanded="true" />
+            <element signature="e#2028#2054#0#HTML" expanded="true" />
+            <element signature="e#2694#2742#0#HTML" expanded="true" />
+            <element signature="e#3278#3343#0#HTML" expanded="true" />
+            <element signature="e#3420#3445#0#HTML" expanded="true" />
+            <element signature="e#4206#4232#0#HTML" expanded="true" />
+            <element signature="e#4296#4322#0#HTML" expanded="true" />
+            <element signature="e#4410#4436#0#HTML" expanded="true" />
+            <element signature="e#4637#4663#0#HTML" expanded="true" />
+            <element signature="e#5303#5351#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
