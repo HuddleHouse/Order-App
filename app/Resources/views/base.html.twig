@@ -19,7 +19,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     {% if is_granted('ROLE_ADMIN') %}
-    <body class="page-header-fixed">
+    <body class="page-header-fixed page-sidebar-closed">
     {% else %}
     <body class="page-header-fixed page-sidebar-closed">
     {% endif %}

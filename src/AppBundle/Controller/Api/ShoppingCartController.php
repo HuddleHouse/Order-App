@@ -85,6 +85,75 @@ class ShoppingCartController extends Controller
     }
 
     /**
+     * @Route("/api/add-cart-item-by-id", name="api-add-item-by-id")
+     */
+    public function addCartItemByIdAction(Request $request)
+    {
+        $user = $this->getUser();
+        $id = $request->request->get('product_id');
+        $em = $this->getDoctrine()->getManager();
+        $cartid = $request->request->get('order_id');
+
+        if(!$cart = $em->getRepository('AppBundle:Cart')->find($cartid)) {
+            $cart = new Cart();
+            $cart->setUser($user);
+            $cart->setOffice($user->getOffice());
+            $cart->setDate(date_create(date("Y-m-d H:i:s")));
+            $em->persist($cart);
+            $em->flush();
+        }
+        $part = $em->getRepository('AppBundle:Part')->find($id);
+        if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
+            $product = new CartProduct();
+            $product->setCart($cart);
+            $product->setPart($part);
+            $product->setStockLocation("ADD THIS");
+
+
+            $lineNumber = new CartProductLineNumber();
+            $lineNumber->setCartProduct($product);
+            $product->addCartProductLineNumber($lineNumber);
+            $em->persist($lineNumber);
+            $em->persist($product);
+            $em->flush();
+        }
+
+        $product->setQuantity($product->getQuantity() + 1);
+        $em->persist($product);
+        $em->flush();
+
+        return $this->sumCart($cart);
+    }
+
+    /**
+     * @Route("/api/remove-cart-item-by-id", name="api-remove-item-by-id")
+     */
+    public function removeCartItemByIdAction(Request $request)
+    {
+        $user = $this->getUser();
+        $id = $request->request->get('product_id');
+        $em = $this->getDoctrine()->getManager();
+        $cartid = $request->request->get('order_id');
+
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+
+        if($product->getQuantity() == 1) {
+            foreach($product->getCartProductLineNumbers() as $lineNumber)
+                $em->remove($lineNumber);
+            $em->remove($product);
+        }
+        else {
+            $product->setQuantity($product->getQuantity() - 1);
+            $em->persist($product);
+        }
+        $em->flush();
+
+        return $this->sumCart($cart);
+    }
+
+    /**
      * @Route("/api/add-cart-item", name="api-add-item")
      */
     public function addCartItemAction(Request $request)

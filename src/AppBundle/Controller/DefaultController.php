@@ -15,7 +15,7 @@ class DefaultController extends Controller
      */
     public function adminHomeAction()
     {
-        $user = $this->getUser();
+        $users = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $submitted = $em->getRepository('AppBundle:Cart')->findBy(array(
             'submitted' => 1,
@@ -27,9 +27,36 @@ class DefaultController extends Controller
             'approved' => 1
         ));
 
+        $sql = "select count(*) as num from users";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $numUsers = $stmt->fetch();
+
+        $sql = "select count(*) as num from parts";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $numParts = $stmt->fetch();
+
+        $sql = "select count(*) as num from offices";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $numOffices = $stmt->fetch();
+
+        $sql = "select count(*) as num from cart where approved = 1";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $numApproved = $stmt->fetch();
+
+        if(!$numApproved['num'])
+            $numApproved['num'] = 0;
+
         return $this->render('AppBundle:Admin:home.html.twig', array(
             'submitted' => $submitted,
-            'approved' => $approved
+            'approved' => $approved,
+            'num_users' => $numUsers['num'],
+            'num_parts' => $numParts['num'],
+            'num_offices' => $numOffices['num'],
+            'num_approved' => $numApproved['num'],
         ));
     }
 
