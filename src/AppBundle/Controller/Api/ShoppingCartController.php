@@ -65,6 +65,26 @@ class ShoppingCartController extends Controller
     }
 
     /**
+     * @Route("/api/load-cart-by-id", name="api-load-cart-by-id")
+     */
+    public function loadCartByIdAction(Request $request)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $id = $request->request->get('order_id');
+
+        if(!$cart = $em->getRepository('AppBundle:Cart')->find($id)) {
+            $cart = new Cart();
+            $cart->setUser($user);
+            $cart->setOffice($user->getOffice());
+            $cart->setDate(date_create(date("Y-m-d H:i:s")));
+            $em->persist($cart);
+            $em->flush();
+        }
+        return $this->sumCart($cart);
+    }
+
+    /**
      * @Route("/api/add-cart-item", name="api-add-item")
      */
     public function addCartItemAction(Request $request)
