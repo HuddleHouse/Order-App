@@ -16,31 +16,107 @@
 {% endblock page_name %}
 
 {% block content %}
-    <div id="shopping-cart" class="col-md-12">
-        <div class="stats-overview stat-block">
-            <div class="details">
+    <div class="row">
+        <div id="submitted" class="col-md-6">
+            <div class="stats-overview stat-block">
+                <div class="details">
 
-                <div class="numbers">
-                    SUBMITTED ORDERS
-                </div>
-                <hr>
-                <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
-                    {% for item in submitted %}
-                        {{ item.date | date('Y-m-d') }}
-                    {% endfor %}
+                    <div class="numbers">
+                        SUBMITTED ORDERS
+                    </div>
+                    <hr>
+                    {% if submitted %}
+                        <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+                            <table class="table table-striped table-hover" style="margin-top: 40px;">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        ORDER #
+                                    </th>
+                                    <th class="hidden-480">
+                                        DATE SUBMITTED
+                                    </th>
+                                    <th class="hidden-480"></th>
+                                    <th class="hidden-480"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for item in submitted %}
+                                    <tr>
+                                        <td style="padding-top: 20px;">{{ item.id }}</td>
+                                        <td style="padding-top: 20px;">{{ item.date | date('m/d/Y') }}</td>
+                                        <td style="padding-top: 20px;">
+                                            <span class="label label-sm label-info">Review Pending</span>
+                                        </td>
+                                        <td style="padding-top: 20px;">
+                                            <a class="btn btn-default btn-xs purple"
+                                               href="/app_dev.php/admin/group/A%20Auctor%20Non%20Associates/edit">
+                                                <i class="fa fa-book"></i> view
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="title" style="padding-bottom: 20px; padding-top: 20px;">
+                            No submitted orders at this time.
+                        </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
-    </div>
-    <div id="shopping-cart" class="col-md-12">
-        <div class="stats-overview stat-block">
-            <div class="details">
+        <div id="approved" class="col-md-6">
+            <div class="stats-overview stat-block">
+                <div class="details">
 
-                <div class="numbers">
-                    APPROVED ORDERS
-                </div>
-                <hr>
-                <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+                    <div class="numbers">
+                        APPROVED ORDERS
+                    </div>
+                    <hr>
+                    {% if approved %}
+                        <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+                            <table class="table table-striped table-hover" style="margin-top: 40px;">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        ORDER #
+                                    </th>
+                                    <th class="hidden-480">
+                                        DATE SUBMITTED
+                                    </th>
+                                    <th class="hidden-480"></th>
+                                    <th class="hidden-480"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for item in approved %}
+                                    <tr>
+                                        <td style="padding-top: 20px;">{{ item.id }}</td>
+                                        <td style="padding-top: 20px;">{{ item.date | date('m/d/Y') }}</td>
+                                        <td style="padding-top: 20px;">
+                                            <span class="label label-sm label-success">Order Approved</span>
+                                        </td>
+                                        <td style="padding-top: 20px;">
+                                            <a class="btn btn-default btn-xs purple"
+                                               href="/app_dev.php/admin/group/A%20Auctor%20Non%20Associates/edit">
+                                                <i class="fa fa-book"></i> view
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="title" style="padding-bottom: 20px; padding-top: 20px;">
+                            No approved orders at this time.
+                        </div>
+                    {% endif %}
 
                 </div>
             </div>

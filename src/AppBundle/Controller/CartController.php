@@ -81,7 +81,7 @@ class CartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1));
+        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1, 'approved' => 0));
         $approved = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'approved' => 1));
 
         return $this->render('AppBundle:User:view-all-orders.html.twig',
