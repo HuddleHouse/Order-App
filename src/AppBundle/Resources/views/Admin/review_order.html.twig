@@ -58,10 +58,10 @@
                                                 <input ng-model="num.line_number" type="text" class="form-control line-number" ng-change="updateLineNumber(num)" maxlength="4" style="width: 60px;">
                                            </div>
                                            <div style="display: inline-flex;">
-                                            <button ng-click="removeLineNumber(item.id)" style="background: transparent; border: none;">
+                                            <button ng-click="removeLineNumber(item)" style="background: transparent; border: none;">
                                                     <i class="fa fa-minus" style="font-size: 20px;color: #e2001a;"></i>
                                                 </button>
-                                           <button ng-click="addLineNumber(item.id)" style="background: transparent; border: none;">
+                                           <button ng-click="addLineNumber(item)" style="background: transparent; border: none;">
                                                     <i class="fa fa-plus" style="font-size: 20px;color: #e2001a;"></i>
                                                 </button>
                                                 </div>
@@ -107,7 +107,7 @@
                                         </address>
                                     </div>
                                 </div>
-                                <div class="col-xs-8 invoice-block" style="text-align: right; margin-top: 55px;">
+                                <div class="col-xs-8 invoice-block" style="text-align: right; margin-top: 30px;">
                                     <ul class="list-unstyled amounts">
                                         <li>
                                             <strong>Items Requested:</strong> <input ng-model="requested" disabled
@@ -250,7 +250,7 @@
                 },
                 type: 'POST',
                 data: {order_id: {{ cart_id }} },
-                url: "{{ path('api-load-cart-by-id') }}",
+                url: "{{ path('api_load_cart_by_id') }}",
                 success: function (data) {
                     $scope.$apply(function () {
                         $scope.cart = data.cart;
@@ -283,7 +283,7 @@
                 console.log(item);
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('api-add-item-by-id') }}",
+                    url: "{{ path('api_add_item_by_id') }}",
                     data: {product_id: item, order_id: {{ cart_id }}},
                     dataType: 'json',
                     success: function (data) {
@@ -301,7 +301,7 @@
             $scope.removeItem = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('api-remove-item-by-id') }}",
+                    url: "{{ path('api_remove_item_by_id') }}",
                     data: {product_id: item, order_id: {{ cart_id }}},
                     dataType: 'json',
                     success: function (data) {
@@ -315,8 +315,8 @@
             $scope.updateProduct = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('update-product') }}",
-                    data: {product: item, order_id: {{ cart_id }}},
+                    url: "{{ path('update_product') }}",
+                    data: {data: item, order_id: {{ cart_id }}},
                     dataType: 'json',
                     success: function (data) {
                         $scope.$apply(function () {
@@ -334,8 +334,8 @@
             $scope.addLineNumber = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('add-line-number') }}",
-                    data: {product_id: item},
+                    url: "{{ path('add_line_number_review_order') }}",
+                    data: {data: item, order_id: {{ cart_id }}},
                     dataType: 'json',
                     success: function (data) {
                         $scope.$apply(function () {
@@ -350,7 +350,7 @@
             $scope.updateLineNumber = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('update-line-number') }}",
+                    url: "{{ path('update_line_number_review_order') }}",
                     data: {line_number: item},
                     dataType: 'json',
                     success: function () {
@@ -364,8 +364,8 @@
             $scope.removeLineNumber = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('remove-line-number') }}",
-                    data: {product_id: item},
+                    url: "{{ path('remove_line_number_review_order') }}",
+                    data: {data: item, order_id: {{ cart_id }}},
                     dataType: 'json',
                     success: function (data) {
                         $scope.$apply(function () {

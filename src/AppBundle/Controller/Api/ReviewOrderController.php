@@ -22,7 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class ReviewOrderController extends Controller
 {
     /**
-     * @Route("/api/load-cart-by-id", name="api-load-cart-by-id")
+     * @Route("/api/load-cart-by-id", name="api_load_cart_by_id")
      */
     public function loadCartByIdAction(Request $request)
     {
@@ -42,7 +42,7 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/add-cart-item-by-id", name="api-add-item-by-id")
+     * @Route("/api/add-cart-item-by-id", name="api_add_item_by_id")
      */
     public function addCartItemByIdAction(Request $request)
     {
@@ -83,7 +83,7 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/remove-cart-item-by-id", name="api-remove-item-by-id")
+     * @Route("/api/remove-cart-item-by-id", name="api_remove_item_by_id")
      */
     public function removeCartItemByIdAction(Request $request)
     {
@@ -112,7 +112,7 @@ class ReviewOrderController extends Controller
 
 
     /**
-     * @Route("/api/update-line-number", name="update-line-number")
+     * @Route("/api/update-line-number-review-order", name="update_line_number_review_order")
      */
     public function updateLineNumberAction(Request $request)
     {
@@ -128,18 +128,17 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/add-line-number", name="add-line-number")
+     * @Route("/api/add-line-number-review-order", name="add_line_number_review_order")
      */
     public function addLineNumberAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
+        $data = $request->request->get('data');
+        $cartid = $request->request->get('order_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
-        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        $part = $em->getRepository('AppBundle:Part')->find($data['id']);
         $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
-
 
         $lineNumber = new CartProductLineNumber();
         $lineNumber->setCartProduct($product);
@@ -154,16 +153,16 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/remove-line-number", name="remove-line-number")
+     * @Route("/api/remove-line-number-review-order", name="remove_line_number_review_order")
      */
     public function removeLineNumberAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
+        $data = $request->request->get('data');
+        $cartid = $request->request->get('order_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
-        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        $part = $em->getRepository('AppBundle:Part')->find($data['id']);
         $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
         $lineNumber = $em->getRepository('AppBundle:CartProductLineNumber')
             ->findOneBy(
@@ -181,13 +180,13 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/update-ship-quantity", name="update-product")
+     * @Route("/api/update-ship-quantity", name="update_product")
      */
     public function updateProductAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $data = $request->request->get('product');
+        $data = $request->request->get('data');
 
         $product = $em->getRepository('AppBundle:CartProduct')->find($data['product_id']);
         $product->setBackOrderQuantity($data['back_order_quantity']);
