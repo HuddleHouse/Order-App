@@ -34,10 +34,13 @@
                                 <thead>
                                 <tr>
                                     <th width="12%">PRODUCT #</th>
-                                    <th width="29%">DESCRIPTION</th>
-                                    <th width="9%">RETURN REQUIRED</th>
-                                    <th width="35%">LINE NUMBER (S)</th>
-                                    <th width="15%">QUANTITY</th>
+                                    <th width="25%">DESCRIPTION</th>
+                                    <th width="5%">RETURN REQUIRED</th>
+                                    <th width="25%">LINE NUMBER (S)</th>
+                                    <th width="5%">QTY</th>
+                                    <th width="5%">SHIP QTY</th>
+                                    <th width="5%">BACK ORDER QTY</th>
+                                    <th width="18%">Notes</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -63,26 +66,22 @@
                                                 </button>
                                                 </div>
                                         </td>
-                           <td style="padding-top: 20px;">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <button ng-click="removeItem(item.id)" style="background: transparent; border: none;">
-                                                    <i class="fa fa-minus" style="font-size: 20px;color: #e2001a;"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-2">
-                                            <center>
+                                        <td style="padding-top: 20px;">
+                                            <div class="row">
+                                                <center>
                                                 {{ item.quantity }}
-                                             </center>
-                                             </div>
-                                             <div class="col-md-4">
-                                                <button ng-click="addItem(item.id)" style="background: transparent; border: none;">
-                                                    <i class="fa fa-plus" style="font-size: 20px;color: #e2001a;"></i>
-                                                </button>
-                                              </div>
-                                           </div>
+                                                </center>
+                                            </div>
                                         </td>
-
+                                        <td>
+                                            <input ng-model="item.ship_quantity" type="text" class="form-control line-number" ng-change="updateProduct(item)" maxlength="3" style="width: 60px;">
+                                        </td>
+                                        <td>
+                                            <input ng-model="item.back_order_quantity" type="text" class="form-control line-number" ng-change="updateProduct(item)" maxlength="3" style="width: 60px;">
+                                        </td>
+                                        <td>
+                                            <textarea ng-model="item.note" type="text" class="form-control line-number" ng-change="updateProduct(item)"></textarea>
+                                        </td>
                                         </div>
                                     </tr>
                             </tbody>
@@ -108,26 +107,25 @@
                                         </address>
                                     </div>
                                 </div>
-                                <div class="col-xs-8 invoice-block" style="text-align: right; margin-top: 25px;">
+                                <div class="col-xs-8 invoice-block" style="text-align: right; margin-top: 55px;">
                                     <ul class="list-unstyled amounts">
                                         <li>
-                                            <strong>Sub - Total amount:</strong> $9265
+                                            <strong>Items Requested:</strong> <input ng-model="requested" disabled
+                                                                                     style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
                                         </li>
                                         <li>
-                                            <strong>Discount:</strong> 12.9%
+                                            <strong>Items Back Ordered:</strong> <input ng-model="backOrders" disabled
+                                                                                        style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
                                         </li>
                                         <li>
-                                            <strong>VAT:</strong> -----
-                                        </li>
-                                        <li>
-                                            <strong>Grand Total:</strong> $12489
+                                            <hr>
+                                            <strong>Items Shipped:</strong> <input ng-model="shipped" disabled
+                                                                                   style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
                                         </li>
                                     </ul>
                                     <br>
-                                    <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print <i
-                                                class="fa fa-print"></i></a>
-                                    <a class="btn btn-lg btn-success hidden-print">Submit Your Invoice <i
-                                                class="fa fa-check"></i></a>
+                                    <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
+                                    <a class="btn btn-lg btn-success hidden-print">Approve Order</a>
                                 </div>
                             </div>
                         </div>
@@ -239,7 +237,9 @@
 
         var app = angular.module("myShoppingList", []);
         app.controller("myCtrl", function ($scope) {
-            $scope.numItems = 0;
+            $scope.shipped = 0;
+            $scope.requested = 0;
+            $scope.backOrders = 0;
             $scope.cart = [];
             $scope.products = [];
 
@@ -254,8 +254,10 @@
                 success: function (data) {
                     $scope.$apply(function () {
                         $scope.cart = data.cart;
+                        $scope.shipped = data.shipped;
+                        $scope.requested = data.requested;
+                        $scope.backOrders = data.backOrders;
                         $scope.numItems = data.num_items;
-                        console.log($scope.cart);
                     });
                 }
             });
@@ -287,8 +289,10 @@
                     success: function (data) {
                         $scope.$apply(function () {
                             $scope.cart = data.cart;
+                            $scope.shipped = data.shipped;
+                            $scope.requested = data.requested;
+                            $scope.backOrders = data.backOrders;
                             $scope.numItems = data.num_items;
-                            console.log($scope.cart);
                         });
                     }
                 });
@@ -303,8 +307,26 @@
                     success: function (data) {
                         $scope.$apply(function () {
                             $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
                         });
+                    }
+                });
+            };
+
+            $scope.updateProduct = function (item) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('update-product') }}",
+                    data: {product: item, order_id: {{ cart_id }}},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.shipped = data.shipped;
+                            $scope.requested = data.requested;
+                            $scope.backOrders = data.backOrders;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
                     }
                 });
             };
@@ -318,7 +340,6 @@
                     success: function (data) {
                         $scope.$apply(function () {
                             $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
                         });
                     },
                     error: function (data) {
@@ -349,7 +370,6 @@
                     success: function (data) {
                         $scope.$apply(function () {
                             $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
                         });
                     },
                     error: function (data) {

@@ -64,9 +64,9 @@ class CartProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="notes", type="string", length=255, nullable=true)
+     * @ORM\Column(name="note", type="text", nullable=true)
      */
-    private $notes;
+    private $note;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", mappedBy="cartProduct")
@@ -187,17 +187,17 @@ class CartProduct
     /**
      * @return string
      */
-    public function getNotes()
+    public function getNote()
     {
-        return $this->notes;
+        return $this->note;
     }
 
     /**
      * @param string $notes
      */
-    public function setNotes($notes)
+    public function setNote($note)
     {
-        $this->notes = $notes;
+        $this->note = $note;
     }
 
     public function addCartProductLineNumber(\AppBundle\Entity\CartProductLineNumber $cartProductLineNumber)

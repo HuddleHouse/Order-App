@@ -75,7 +75,7 @@ class Cart
     /**
      * @var string
      *
-     * @ORM\Column(name="notes", type="string", length=255, nullable=true)
+     * @ORM\Column(name="note", type="text", nullable=true)
      */
     private $note;
 

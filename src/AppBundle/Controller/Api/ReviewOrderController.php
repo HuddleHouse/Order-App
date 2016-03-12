@@ -180,9 +180,31 @@ class ReviewOrderController extends Controller
         return $this->sumCart($cart);
     }
 
+    /**
+     * @Route("/api/update-ship-quantity", name="update-product")
+     */
+    public function updateProductAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $data = $request->request->get('product');
+
+        $product = $em->getRepository('AppBundle:CartProduct')->find($data['product_id']);
+        $product->setBackOrderQuantity($data['back_order_quantity']);
+        $product->setShipQuantity($data['ship_quantity']);
+        $product->setNote($data['note']);
+
+        $em->persist($product);
+        $em->flush();
+        $cartid = $request->request->get('order_id');
+
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        return $this->sumCart($cart);
+    }
+
     public function sumCart($cart)
     {
-        $count = 0;
+        $shipped = $requested = $backOrders = 0;
         $json_cart = array();
         foreach($cart->getCartProducts() as $product) {
             $line_numbers = array();
@@ -201,10 +223,21 @@ class ReviewOrderController extends Controller
                 'category' => $product->getPart()->getPartCategory()->getName(),
                 'part_name_cononical' => $product->getPart()->getPartCategory()->getNameCononical(),
                 'quantity' => $product->getQuantity(),
-                'line_numbers' => $line_numbers
+                'ship_quantity' => $product->getShipQuantity(),
+                'back_order_quantity' => $product->getBackOrderQuantity(),
+                'line_numbers' => $line_numbers,
+                'product_id' => $product->getId(),
+                'note' => $product->getNote()
             );
-            $count += $product->getQuantity();
+            $shipped += $product->getShipQuantity();
+            $requested += $product->getQuantity();
+            $backOrders += $product->getBackOrderQuantity();
         }
-        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count));
+        return JsonResponse::create(array(
+            'cart' => $json_cart,
+            'shipped' => $shipped,
+            'requested' => $requested,
+            'backOrders' => $backOrders
+        ));
     }
 }
