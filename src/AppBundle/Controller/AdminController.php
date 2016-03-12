@@ -155,7 +155,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/order/{cart_id}/edit", name="admin_order_edit")
+     * @Route("/admin/order/{cart_id}/review", name="admin_order_edit")
      */
     public function viewAdminEditOrderAction(Request $request, $cart_id)
     {

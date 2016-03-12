@@ -88,16 +88,54 @@
                             </tbody>
                             </table>
                             {% endverbatim %}
-                            <div class="container">
-                                <button type="button" class="btn btn-primary" style="float: right;margin-right: 38px;">
-                                    <a href="{{ path('review_order') }}">REVIEW ORDER</a>
-                                </button>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <div class="well">
+                                        <div class="numbers">
+                                            Order Info
+                                        </div>
+                                        <hr>
+                                        <address>
+                                            <strong>{{ user.firstName }} {{ user.lastName }}</strong><br>
+                                            <a href="mailto:{{ user.email }}"
+                                               style="color: #e2001a;">{{ user.email }}</a>
+                                        </address>
+                                        <address style="margin-bottom: 5px;">
+                                            <strong>#{{ office.officeNumber }} {{ office.name }}</strong><br>
+                                            {{ office.address }}<br>
+                                            {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
+                                            <abbr title="Phone">P:</abbr> {{ office.phone }}
+                                        </address>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8 invoice-block" style="text-align: right; margin-top: 25px;">
+                                    <ul class="list-unstyled amounts">
+                                        <li>
+                                            <strong>Sub - Total amount:</strong> $9265
+                                        </li>
+                                        <li>
+                                            <strong>Discount:</strong> 12.9%
+                                        </li>
+                                        <li>
+                                            <strong>VAT:</strong> -----
+                                        </li>
+                                        <li>
+                                            <strong>Grand Total:</strong> $12489
+                                        </li>
+                                    </ul>
+                                    <br>
+                                    <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print <i
+                                                class="fa fa-print"></i></a>
+                                    <a class="btn btn-lg btn-success hidden-print">Submit Your Invoice <i
+                                                class="fa fa-check"></i></a>
+                                </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="col-md-12" style="margin-top: 30px;">
