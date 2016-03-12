@@ -154,7 +154,7 @@ class ShoppingCartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $data = $request->request->get('product_id');
+        $id = $request->request->get('product_id');
 
         $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
         $part = $em->getRepository('AppBundle:Part')->find($id);

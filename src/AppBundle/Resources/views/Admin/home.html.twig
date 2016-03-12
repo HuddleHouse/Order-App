@@ -23,7 +23,7 @@
 {% endblock page_name %}
 
 {% block content %}
-    <div class="container" style="margin-left: 0px;">
+    <div class="container">
         <div class="row stats-overview-cont">
             <div class="col-md-3">
                 <div class="stats-overview stat-block">
@@ -158,7 +158,7 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            DATE SUBMITTED
+                                            DATE APPROVED
                                         </th>
                                         <th>
                                             OFFICE
@@ -167,6 +167,10 @@
                                             SUBMITTED BY
                                         </th>
                                         <th>
+                                            APPROVED BY
+                                        </th>
+                                        <th>
+
                                         </th>
                                     </tr>
                                     </thead>
@@ -182,8 +186,13 @@
                                             <td>
                                                 {{ item.user.firstName }} {{ item.user.lastName }}
                                             </td>
+
+                                            <td>
+                                                {{ item.approvedBy.firstName }} {{ item.approvedBy.lastName }}
+                                            </td>
                                             <td style="width: 60px;">
-                                                <a href="#" class="btn btn-default btn-xs">View</a>
+                                                <a href="{{ path('admin_order_approve', {'cart_id': item.id}) }}"
+                                                   class="btn btn-default btn-xs">View</a>
                                             </td>
                                         </tr>
                                     {% endfor %}

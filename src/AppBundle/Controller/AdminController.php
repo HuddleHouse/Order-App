@@ -164,6 +164,10 @@ class AdminController extends Controller
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
+        if($cart->getApproved()) {
+            $this->addFlash('error', "Order has already been approved and can not be edited.");
+            return $this->redirectToRoute('admin_order_approve', array('cart_id' => $cart->getId()));
+        }
 
         return $this->render('AppBundle:Admin:review_order.html.twig', array(
             'products' => $products,
@@ -177,15 +181,28 @@ class AdminController extends Controller
     /**
      * @Route("/admin/order/{cart_id}", name="admin_order_approve")
      */
-    public function viewAdminEditOrderAction(Request $request, $cart_id)
+    public function approveOrderAction(Request $request, $cart_id)
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
 
-        return $this->render('AppBundle:Admin:review_order.html.twig', array(
+        if(!$cart->getApproved())
+            $this->addFlash('notice', "Order Approved Successfully.");
+
+        $cart->setApproved(1);
+        $cart->setApprovedBy($user);
+        $em->persist($cart);
+        $em->flush();
+
+        /*
+         * SEND EMAILS TO EVERYONE HERE
+         *
+         */
+        return $this->render('AppBundle:Admin:approve_order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
             'cart_id' => $cart_id,
