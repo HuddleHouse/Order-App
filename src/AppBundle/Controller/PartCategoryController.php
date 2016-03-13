@@ -65,6 +65,36 @@ class PartCategoryController extends Controller
     }
 
     /**
+     * Creates a new PartCategory entity for modal use on New Part.
+     *
+     * @Route("/new-modal", name="admin_partcategory_new_modal")
+     * @Method({"GET", "POST"})
+     */
+    public function newModalAction(Request $request)
+    {
+        $partCategory = new PartCategory();
+        $form = $this->createForm('AppBundle\Form\PartCategoryType', $partCategory);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $canonical = new Canonicalizer();
+            $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
+            $name_canonical = $canonical->canonicalize($input);
+            $partCategory->setNameCononical($name_canonical);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($partCategory);
+            $em->flush();
+
+            $this->addFlash('notice', 'Category added successfully.');
+            return $this->redirectToRoute('admin_part_new');
+        }
+
+        return $this->render('AppBundle:Partcategory:new.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
      * Displays a form to edit an existing PartCategory entity.
      *
      * @Route("/{id}/edit", name="admin_partcategory_edit")

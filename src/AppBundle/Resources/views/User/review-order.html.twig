@@ -83,7 +83,7 @@
                             <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print <i
                                         class="fa fa-print"></i></a>
                             <a class="btn btn-lg btn-success hidden-print"
-                               href="{{ path('submit-cart', {'cart_id': cart_id}) }}">
+                               href="{{ path('submit_cart', {'cart_id': cart_id}) }}">
                                 Submit Your Order <i class="fa fa-check"></i></a>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                     console.log('json load cart');
                 },
                 type: 'GET',
-                url: "{{ path('api-load-cart') }}",
+                url: "{{ path('api_load_cart') }}",
                 success: function (data) {
                     $scope.$apply(function () {
                         $scope.cart = data.cart;
@@ -150,7 +150,7 @@
                     console.log('json start');
                 },
                 type: 'GET',
-                url: "{{ path('api-get-products') }}",
+                url: "{{ path('api_get_products') }}",
                 success: function (data) {
                     $scope.$apply(function () {
                         $scope.products = data;
@@ -166,7 +166,7 @@
                 console.log(item);
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('api-add-item') }}",
+                    url: "{{ path('api_add_item') }}",
                     data: {product_id: item},
                     dataType: 'json',
                     success: function (data) {
@@ -182,7 +182,7 @@
             $scope.removeItem = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('api-remove-item') }}",
+                    url: "{{ path('api_remove_item') }}",
                     data: {product_id: item},
                     dataType: 'json',
                     success: function (data) {
@@ -197,7 +197,7 @@
             $scope.addLineNumber = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('add-line-number') }}",
+                    url: "{{ path('add_line_number') }}",
                     data: {product_id: item},
                     dataType: 'json',
                     success: function (data) {
@@ -214,7 +214,7 @@
             $scope.updateLineNumber = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('update-line-number') }}",
+                    url: "{{ path('update_line_number') }}",
                     data: {line_number: item},
                     dataType: 'json',
                     success: function () {
@@ -228,7 +228,7 @@
             $scope.removeLineNumber = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('remove-line-number') }}",
+                    url: "{{ path('remove_line_number') }}",
                     data: {product_id: item},
                     dataType: 'json',
                     success: function (data) {

@@ -1,4 +1,5 @@
 {% extends ":template:layout.html.twig" %}
+{% use 'AppBundle:Partcategory:new-modal.html.twig' %}
 
 {% block title %}Add a New Part{% endblock %}
 
@@ -11,6 +12,7 @@
 {% endblock page_name %}
 
 {% block content %}
+    <div class="row">
     <style>
         form {
             display: inline;
@@ -21,7 +23,16 @@
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <input class="btn btn-success" type="submit" value="Create"/>
+        <a class="btn btn-info" data-toggle="modal" href="{{ path('admin_partcategory_new_modal') }}"
+           data-target="#newPartCategory">Add Part Category</a>
         {{ form_end(form) }}
     </div>
 
+        <div class="modal fade" id="newPartCategory" style="display: none;" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                {{ block('modal') }}
+            </div>
+        </div>
+    </div>
 {% endblock content %}
