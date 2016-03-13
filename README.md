@@ -11,7 +11,7 @@ A Symfony project created on February 20, 2016, 11:27 pm.
 
 #### Routes
 
-Default Controller:
+DefaultController:
 
 - "admin_home" /admin
 
@@ -22,3 +22,25 @@ AdminController:
 - "admin_edit_user" /admin/view-users/edit/{user_id}
 - "admin_order_edit" /admin/order/{cart_id}/review
 - "admin_order_approve" /admin/order/{cart_id}
+
+CartController
+
+- "user_home" /
+- "review_order" /review-order
+- "submit_cart" /review-order/submit/{cart_id}
+- "view_all_orders" /view-all-orders
+- "view_past_order" /view-order/{order_id}
+
+PartController "/admin/part"
+
+- "admin_part_index" /
+- "admin_part_new" /new
+- "admin_part_edit" /{id}/edit
+- "admin_part_delete" /{id}
+
+PartCategoryController "/admin/partcategory"
+
+- "admin_partcategory_index" /
+- "admin_partcategory_new" /new
+- "admin_partcategory_edit" /{id}/edit
+- "admin_partcategory_delete" /{id}

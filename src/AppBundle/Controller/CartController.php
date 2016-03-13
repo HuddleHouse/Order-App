@@ -55,7 +55,7 @@ class CartController extends Controller
     }
 
     /**
-     * @Route("/review-order/submit/{cart_id}", name="submit-cart")
+     * @Route("/review-order/submit/{cart_id}", name="submit_cart")
      */
     public function submitOrderAction(Request $request, $cart_id)
     {
