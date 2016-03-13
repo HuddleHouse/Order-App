@@ -13,11 +13,11 @@ A Symfony project created on February 20, 2016, 11:27 pm.
 
 Default Controller:
 
-> Pardon my French
-> Pardon my French
+- Pardon my French
+- Pardon my French
 
 AdminController:
 
-> skfdlj
-> lksjfd
-> lksfjd sldfkj
+- skfdlj
+- lksjfd
+- lksfjd sldfkj
