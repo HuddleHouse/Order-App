@@ -23,7 +23,7 @@ class ShoppingCartController extends Controller
 {
 
     /**
-     * @Route("/api/get-products", name="api-get-products")
+     * @Route("/api/get-products", name="api_get_products")
      */
     public function jsonGetProducts()
     {
@@ -46,7 +46,7 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/load-cart", name="api-load-cart")
+     * @Route("/api/load-cart", name="api_load_cart")
      */
     public function loadCartAction()
     {
@@ -65,7 +65,7 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/add-cart-item", name="api-add-item")
+     * @Route("/api/add-cart-item", name="api_add_item")
      */
     public function addCartItemAction(Request $request)
     {
@@ -105,7 +105,7 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/remove-cart-item", name="api-remove-item")
+     * @Route("/api/remove-cart-item", name="api_remove_item")
      */
     public function removeCartItemAction(Request $request)
     {
@@ -132,7 +132,7 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/update-line-number", name="update-line-number")
+     * @Route("/api/update-line-number", name="update_line_number")
      */
     public function updateLineNumberAction(Request $request)
     {
@@ -148,7 +148,7 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/add-line-number", name="add-line-number")
+     * @Route("/api/add-line-number", name="add_line_number")
      */
     public function addLineNumberAction(Request $request)
     {
@@ -174,7 +174,7 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/remove-line-number", name="remove-line-number")
+     * @Route("/api/remove-line-number", name="remove_line_number")
      */
     public function removeLineNumberAction(Request $request)
     {

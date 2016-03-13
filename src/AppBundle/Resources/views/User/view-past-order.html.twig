@@ -126,7 +126,7 @@
                 },
                 type: 'POST',
                 data: {order_id: {{ order_id }} },
-                url: "{{ path('api-load-cart-by-id') }}",
+                url: "{{ path('api_load_cart_by_id') }}",
                 success: function (data) {
                     $scope.$apply(function () {
                         $scope.cart = data.cart;
@@ -157,7 +157,7 @@
                 console.log(item);
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('api-add-item') }}",
+                    url: "{{ path('api_add_item_by_id') }}",
                     data: {product_id: item},
                     dataType: 'json',
                     success: function (data) {
@@ -173,7 +173,7 @@
             $scope.removeItem = function (item) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('api-remove-item') }}",
+                    url: "{{ path('api_remove_item_by_id') }}",
                     data: {product_id: item},
                     dataType: 'json',
                     success: function (data) {
