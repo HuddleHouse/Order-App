@@ -29,17 +29,17 @@
                 <div class="stats-overview stat-block">
                     <div class="details">
                         <div class="title">
-                            <center>Completed Orders</center>
+                            <center>Pending Orders</center>
                         </div>
                         <hr>
                         <div class="numbers"
                              style="margin-bottom: 15px; margin-top: 15px;font-size: 27px;font-weight: 600;">
-                            <center class="text-success">{{ num_approved }}</center>
+                            <center class="text-danger">{{ num_pending }}</center>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="stats-overview stat-block">
                     <div class="details">
                         <div class="title">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="stats-overview stat-block">
                     <div class="details">
                         <div class="title">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="stats-overview stat-block">
                     <div class="details">
                         <div class="title">
@@ -77,6 +77,20 @@
                         <div class="numbers"
                              style="margin-bottom: 15px; margin-top: 15px;font-size: 27px;font-weight: 600;">
                             <center>{{ num_offices }}</center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-overview stat-block">
+                    <div class="details">
+                        <div class="title">
+                            <center>Completed Orders</center>
+                        </div>
+                        <hr>
+                        <div class="numbers"
+                             style="margin-bottom: 15px; margin-top: 15px;font-size: 27px;font-weight: 600;">
+                            <center class="text-success">{{ num_approved }}</center>
                         </div>
                     </div>
                 </div>

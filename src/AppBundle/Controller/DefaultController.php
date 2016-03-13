@@ -47,6 +47,11 @@ class DefaultController extends Controller
         $stmt->execute();
         $numApproved = $stmt->fetch();
 
+        $sql = "select count(*) as num from cart where approved = 0 AND submitted = 1";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $numPending = $stmt->fetch();
+
         if(!$numApproved['num'])
             $numApproved['num'] = 0;
 
@@ -57,6 +62,7 @@ class DefaultController extends Controller
             'num_parts' => $numParts['num'],
             'num_offices' => $numOffices['num'],
             'num_approved' => $numApproved['num'],
+            'num_pending' => $numPending['num']
         ));
     }
 
