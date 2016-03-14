@@ -183,7 +183,8 @@
                     </div>
                     <hr>
                     <div class="title" style="padding-bottom: 10px; padding-top: 10px;">
-                        <table id="part-table" class="table table-striped no-footer" cellspacing="0" width="100%">
+                        <table id="part-table" class="responsive nowrap table table-striped no-footer" cellspacing="0"
+                               width="100%">
                             <thead>
                             <tr>
                                 <th>PRODUCT #</th>
@@ -229,12 +230,8 @@
     <script>
         $(document).ready(function () {
             oTable = $('#part-table').DataTable({
-                "sDom": '<"top">rt<"bottom"lp><"clear">',
-                responsive: true,
-                columnDefs: [
-                    {responsivePriority: 1, targets: 0},
-                    {responsivePriority: 2, targets: -2}
-                ]
+                "paging": false,
+                "sDom": '<"top">rt<"bottom"lp><"clear">'
             });
             $('#myInputTextField').keyup(function () {
                 oTable.search($(this).val()).draw();
