@@ -29,12 +29,21 @@
                             Office Information
                         </div>
                         <hr>
-                        <div class="numbers">
-                            {{ app.user.office.name }}
-                        </div>
-                        <div class="title user-info">
-                            {{ app.user.office.city }}, {{ app.user.office.state }}
-                        </div>
+                        {% if app.user.office %}
+                            <div class="numbers">
+                                {{ app.user.office.name }}
+                            </div>
+                            <div class="title user-info">
+                                {{ app.user.office.city }}, {{ app.user.office.state }}
+                            </div>
+                        {% else %}
+                            <div class="numbers">
+                                Admin
+                            </div>
+                            <div class="title user-info">
+                                Admin
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
