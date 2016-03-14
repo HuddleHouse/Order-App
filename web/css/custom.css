@@ -1,12 +1,4 @@
-@media print {
-    .container {
-        margin: -20px !important;
-    }
 
-    .page-container {
-        margin: 0px !important;
-    }
-}
 
 .cart {
     color: #777;
@@ -24,6 +16,17 @@
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 5px;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    font-size: 12px !important;
+}
+
+.form-control {
+    font-size: 12px !important;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -419,4 +422,33 @@ body {
 }
 .bs-callout-info h4 {
     color: #5bc0de;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child, table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child {
+    position: relative;
+    padding-left: 30px !important;
+    cursor: pointer;
+}
+
+.numbers.cart {
+    padding-bottom: 9px;
+}
+
+.table thead tr th {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+#navbar-toggle {
+    display: inherit !important;
+    margin-top: 12px !important;
+    margin-right: 12px !important;
+    font-size: 25px !important;
+    line-height: 14px !important;
+    color: #000 !important;
+    margin-left: -9px !important;
+}
+
+#welcome-message:hover {
+    background-color: #fff;
 }

@@ -23,7 +23,7 @@
 {% endblock page_name %}
 
 {% block content %}
-    <div class="container">
+    <div class="row" style="margin-left: 0px; margin-right: 0px;">
         <div class="row stats-overview-cont">
             <div class="col-md-3">
                 <div class="stats-overview stat-block">
@@ -34,7 +34,11 @@
                         <hr>
                         <div class="numbers"
                              style="margin-bottom: 15px; margin-top: 15px;font-size: 27px;font-weight: 600;">
-                            <center class="text-danger">{{ num_pending }}</center>
+                            {% if num_pending == 0 %}
+                                <center class="text-success">{{ num_pending }}</center>
+                            {% else %}
+                                <center class="text-danger">{{ num_pending }}</center>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -97,7 +101,7 @@
             </div>
         </div>
 
-        <hr>
+
         <br>
 
         <div class="row ">
@@ -124,6 +128,9 @@
                                             SUBMITTED BY
                                         </th>
                                         <th>
+                                            NUMBER OF ITEMS
+                                        </th>
+                                        <th>
                                         </th>
                                     </tr>
                                     </thead>
@@ -131,13 +138,18 @@
                                     {% for item in submitted %}
                                         <tr>
                                             <td>
-                                                {{ item.submitDate | date('m/d/y   h:m A') }}
+                                                {{ item.submit_date | date('m/d/y   h:m A') }}
                                             </td>
                                             <td>
-                                                {{ item.office.name ? item.office.name : 'yo' }}
+                                                {{ item.office_name ? item.office_name : ' ' }}
                                             </td>
                                             <td>
-                                                {{ item.user.firstName }} {{ item.user.lastName }}
+                                                {{ item.submitted_by }}
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    {{ item.items }}
+                                                </center>
                                             </td>
                                             <td style="width: 60px;">
                                                 <a href="{{ path('admin_order_edit', {'cart_id': item.id}) }}"
@@ -147,9 +159,14 @@
                                     {% endfor %}
                                     </tbody>
                                 {% else %}
-                                    <div>
-                                        <h3>There are no submitted orders that need review right now.</h3>
-                                    </div>
+                                    <thead>
+                                    <tr>
+                                        <th class="success">
+                                            No orders currently need to be reviewed.
+                                        </th>
+
+                                    </tr>
+                                    </thead>
                                 {% endif %}
                             </table>
                         </div>
@@ -184,6 +201,9 @@
                                             APPROVED BY
                                         </th>
                                         <th>
+                                            ITEMS SHIPPED
+                                        </th>
+                                        <th>
 
                                         </th>
                                     </tr>
@@ -192,17 +212,21 @@
                                     {% for item in approved %}
                                         <tr>
                                             <td>
-                                                {{ item.submitDate | date('m/d/y   h:m A') }}
+                                                {{ item.submit_date | date('m/d/y   h:m A') }}
                                             </td>
                                             <td>
-                                                {{ item.office.name ? item.office.name : 'yo' }}
+                                                {{ item.office_name ? item.office_name : ' ' }}
                                             </td>
                                             <td>
-                                                {{ item.user.firstName }} {{ item.user.lastName }}
+                                                {{ item.submitted_by }}
                                             </td>
-
                                             <td>
-                                                {{ item.approvedBy.firstName }} {{ item.approvedBy.lastName }}
+                                                {{ item.approved_by }}
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    {{ item.shipped }}
+                                                </center>
                                             </td>
                                             <td style="width: 60px;">
                                                 <a href="{{ path('admin_order_approve', {'cart_id': item.id}) }}"

@@ -88,6 +88,9 @@
                                     <th class="hidden-480">
                                         DATE SUBMITTED
                                     </th>
+                                    <th class="hidden-480">
+                                        ITEMS SHIPPED
+                                    </th>
                                     <th class="hidden-480"></th>
                                     <th class="hidden-480"></th>
                                 </tr>
@@ -97,9 +100,12 @@
                                 {% for item in approved %}
                                     <tr>
                                         <td style="padding-top: 20px;">{{ item.id }}</td>
-                                        <td style="padding-top: 20px;">{{ item.submitDate | date('m/d/Y') }}</td>
+                                        <td style="padding-top: 20px;">{{ item.submit_date | date('m/d/Y') }}</td>
                                         <td style="padding-top: 20px;">
-                                            <span class="label label-sm label-success">Order Approved</span>
+                                            <center>{{ item.shipped }}</center>
+                                        </td>
+                                        <td style="padding-top: 20px;">
+                                            <span class="label label-sm label-success">Approved</span>
                                         </td>
                                         <td style="padding-top: 20px;">
                                             <a class="btn btn-default btn-xs purple"

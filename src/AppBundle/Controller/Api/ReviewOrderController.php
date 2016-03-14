@@ -128,7 +128,7 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/add-line-number-review-order", name="add_line_number_review_order")
+     * @Route("/api/add-line-number-review-order", name="api_add_line_number_review_order")
      */
     public function addLineNumberAction(Request $request)
     {
@@ -153,7 +153,7 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/remove-line-number-review-order", name="remove_line_number_review_order")
+     * @Route("/api/remove-line-number-review-order", name="api_remove_line_number_review_order")
      */
     public function removeLineNumberAction(Request $request)
     {
@@ -236,7 +236,8 @@ class ReviewOrderController extends Controller
             'cart' => $json_cart,
             'shipped' => $shipped,
             'requested' => $requested,
-            'backOrders' => $backOrders
+            'backOrders' => $backOrders,
+            'numItems' => $requested
         ));
     }
 }

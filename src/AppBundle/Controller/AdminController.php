@@ -174,7 +174,8 @@ class AdminController extends Controller
             'categories' => $categories,
             'cart_id' => $cart_id,
             'office' => $cart->getOffice(),
-            'user' => $cart->getUser()
+            'user' => $cart->getUser(),
+            'user_notes' => $cart->getNote()
         ));
     }
 
@@ -207,7 +208,8 @@ class AdminController extends Controller
             'categories' => $categories,
             'cart_id' => $cart_id,
             'office' => $cart->getOffice(),
-            'user' => $cart->getUser()
+            'user' => $cart->getUser(),
+            'user_notes' => $cart->getNote()
         ));
     }
 }

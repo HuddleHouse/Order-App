@@ -89,7 +89,7 @@ class PartCategoryController extends Controller
             return $this->redirectToRoute('admin_part_new');
         }
 
-        return $this->render('AppBundle:Partcategory:new.html.twig', array(
+        return $this->render('AppBundle:Partcategory:new-modal.html.twig', array(
             'form' => $form->createView(),
         ));
     }

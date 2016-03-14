@@ -22,17 +22,17 @@
             </a>
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
                 <a href="javascript:" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <img src="{{ asset('images/menu-toggler.png') }}" alt=""/>
-            </a>
+                    <i id="navbar-toggle" class="fa fa-bars"></i>
+                </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN TOP NAVIGATION MENU -->
             <ul class="nav navbar-nav pull-right">
-                <li class="dropdown user">
+                <li id="welcome-message" class="dropdown user">
                     <a class="welcome">
                         <span class="username">Welcome back {{ app.user }}</span>
                     </a>
                 </li>
-                <li class="devider">
+                <li class="devider visible-lg visible-md visible-sm">
                     &nbsp;
                 </li>
                 <!-- BEGIN USER LOGIN DROPDOWN -->
@@ -45,9 +45,11 @@
                         <li>
                             <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>
                         </li>
+                        {% if not is_granted('ROLE_ADMIN') %}
                         <li>
                             <a href="{{ path('view_all_orders') }}"><i class="fa fa-hdd-o"></i> View All Orders</a>
                         </li>
+                        {% endif %}
                         <li>
                             <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a>
                         </li>
@@ -222,7 +224,7 @@
                     </div>
                 </div>
                 <!-- END PAGE HEADER-->
-                <div class="row">
+                <div class="row hidden-print">
                     <div class="col-xs-12">
                         {% for flash_message in app.session.flashbag.get('notice') %}
                             <div class="alert alert-success">

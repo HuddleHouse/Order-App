@@ -82,12 +82,24 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1, 'approved' => 0));
-        $approved = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'approved' => 1));
+
+        $sql = "select c.id, c.submit_date, sum(p.ship_quantity) shipped
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+	where c.approved = 1
+	AND c.submitted = 1
+	and c.user_id = :user_id
+	group by c.id;";
+        $stmt = $em->getConnection()->prepare($sql);
+        $params['user_id'] = $user->getId();
+        $stmt->execute($params);
+        $numShipped = $stmt->fetchAll();
 
         return $this->render('AppBundle:User:view-all-orders.html.twig',
             array(
                 'submitted' => $submitted,
-                'approved' => $approved
+                'approved' => $numShipped
             )
         );
     }

@@ -17,15 +17,40 @@ class DefaultController extends Controller
     {
         $users = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array(
-            'submitted' => 1,
-            'approved' => 0
-        ));
+        $sql = "select c.id, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", u.first_name, u.last_name) as submitted_by
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+		left join users u
+			on c.user_id = u.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 0
+	AND c.submitted = 1
+	group by c.id";
+        $stmt = $em->getConnection()->prepare($sql);
+//        $params['user_id'] = $user->getId();
+        $stmt->execute();
+        $submitted = $stmt->fetchAll();
 
-        $approved = $em->getRepository('AppBundle:Cart')->findBy(array(
-            'submitted' => 1,
-            'approved' => 1
-        ));
+        $sql = "select c.id, c.submit_date, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", u.first_name, u.last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 1
+	AND c.submitted = 1
+	group by c.id
+	limit 10";
+        $stmt = $em->getConnection()->prepare($sql);
+//        $params['user_id'] = $user->getId();
+        $stmt->execute();
+        $approved = $stmt->fetchAll();
 
         $sql = "select count(*) as num from users";
         $stmt = $em->getConnection()->prepare($sql);

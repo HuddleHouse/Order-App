@@ -148,7 +148,24 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/add-line-number", name="add_line_number")
+     * @Route("/api/update-notes", name="api_update_notes")
+     */
+    public function updateNotesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->request->get('note');
+        $id = $request->request->get('cart_id');
+
+        $cart = $em->getRepository('AppBundle:Cart')->find($id);
+        $cart->setNote($data);
+        $em->persist($cart);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
+
+    /**
+     * @Route("/api/add-line-number", name="api_add_line_number")
      */
     public function addLineNumberAction(Request $request)
     {
@@ -174,7 +191,7 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/remove-line-number", name="remove_line_number")
+     * @Route("/api/remove-line-number", name="api_remove_line_number")
      */
     public function removeLineNumberAction(Request $request)
     {
@@ -225,6 +242,6 @@ class ShoppingCartController extends Controller
             );
             $count += $product->getQuantity();
         }
-        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count));
+        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count, 'cart_notes' => $cart->getNote()));
     }
 }
