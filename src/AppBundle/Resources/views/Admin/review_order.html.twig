@@ -2,11 +2,10 @@
 
 {% block title %}Review Order{% endblock %}
 {% block page_title %}
-    Review Order
 {% endblock page_title %}
 
 {% block page_name %}
-    Order
+    Review Order
 {% endblock page_name %}
 
 {% block content %}
@@ -77,10 +76,10 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input ng-model="item.ship_quantity" type="number" class="form-control line-number" ng-change="updateProduct(item)" maxlength="3" style="width: 60px;">
+                                            <input ng-model="item.ship_quantity" type="number" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
                                         </td>
                                         <td>
-                                            <input ng-model="item.back_order_quantity" type="number" class="form-control line-number" ng-change="updateProduct(item)" maxlength="3" style="width: 60px;">
+                                            <input ng-model="item.back_order_quantity" type="number" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
                                         </td>
                                         <td>
                                             <center>
