@@ -446,7 +446,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child, table.dataTa
     font-size: 25px !important;
     line-height: 14px !important;
     color: #000 !important;
-    margin-left: -9px !important;
+    margin-left: 10px !important;
 }
 
 #welcome-message:hover {
