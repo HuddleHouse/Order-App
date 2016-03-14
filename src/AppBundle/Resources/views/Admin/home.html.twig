@@ -138,7 +138,7 @@
                                     {% for item in submitted %}
                                         <tr>
                                             <td>
-                                                {{ item.submit_date | date('m/d/y   h:m A') }}
+                                                {{ item.submit_date | date('m/d/y   h:i A') }}
                                             </td>
                                             <td>
                                                 {{ item.office_name ? item.office_name : ' ' }}
@@ -212,7 +212,7 @@
                                     {% for item in approved %}
                                         <tr>
                                             <td>
-                                                {{ item.submit_date | date('m/d/y   h:m A') }}
+                                                {{ item.submit_date | date('m/d/y   h:i A') }}
                                             </td>
                                             <td>
                                                 {{ item.office_name ? item.office_name : ' ' }}

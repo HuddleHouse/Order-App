@@ -46,6 +46,7 @@ class DefaultController extends Controller
 	where c.approved = 1
 	AND c.submitted = 1
 	group by c.id
+	order by c.submit_date DESC
 	limit 10";
         $stmt = $em->getConnection()->prepare($sql);
 //        $params['user_id'] = $user->getId();
