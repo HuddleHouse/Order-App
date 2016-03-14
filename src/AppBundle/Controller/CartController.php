@@ -20,7 +20,7 @@ class CartController extends Controller
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
-        return $this->render('AppBundle:User:home.html.twig', array(
+        return $this->render('AppBundle:Cart:home.html.twig', array(
             'products' => $products,
             'categories' => $categories,
         ));
@@ -47,7 +47,7 @@ class CartController extends Controller
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
 
-        return $this->render('AppBundle:User:review-order.html.twig', array(
+        return $this->render('AppBundle:Cart:review-order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
             'cart_id' => $cart->getid()
@@ -96,7 +96,7 @@ class CartController extends Controller
         $stmt->execute($params);
         $numShipped = $stmt->fetchAll();
 
-        return $this->render('AppBundle:User:view-all-orders.html.twig',
+        return $this->render('AppBundle:Cart:view-all-orders.html.twig',
             array(
                 'submitted' => $submitted,
                 'approved' => $numShipped
@@ -116,7 +116,7 @@ class CartController extends Controller
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
 
-        return $this->render('AppBundle:User:view-past-order.html.twig', array(
+        return $this->render('AppBundle:Cart:view-past-order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
             'order_id' => $order_id
