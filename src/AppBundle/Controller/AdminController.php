@@ -107,7 +107,6 @@ class AdminController extends Controller
     public function sendInvitationAction(Request $request)
     {
         $invitation = new Invitation();
-
         $officeRepository = $this->getDoctrine()->getRepository('AppBundle:Office');
 
         $form = $this->createFormBuilder($invitation)
@@ -221,7 +220,7 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('view_users');
         }
-        
+
         return $this->render('@App/Admin/admin_edit_user.html.twig', array(
             'form' => $form->createView(),
             'user_id' => $user_id
