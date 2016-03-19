@@ -106,11 +106,9 @@ class AdminController extends Controller
      */
     public function sendInvitationAction(Request $request)
     {
-        $user = $this->getUser();
         $invitation = new Invitation();
 
         $officeRepository = $this->getDoctrine()->getRepository('AppBundle:Office');
-
 
         $form = $this->createFormBuilder($invitation)
             ->add('email', EmailType::class)
@@ -138,15 +136,13 @@ class AdminController extends Controller
                 $invitation->setOffice(null);
 
             $email_service = $this->get('email_service');
-
-            $message = $email_service->sendEmail(array(
+            $email_service->sendEmail(array(
                     'subject' => 'Invitation to register for utus-orders.com',
                     'from' => 'matt@245tech.com',
                     'to' => $invitation->getEmail(),
                     'body' => $this->renderView("AppBundle:Email:send_invitation_email.html.twig", array('code' => $invitation->getCode()))
                 )
             );
-//            $this->get('mailer')->send($message);
 
             $invitation->send();
             $em->persist($invitation);
@@ -173,7 +169,6 @@ class AdminController extends Controller
                 'form' => $form->createView()
             ));
         }
-
 
         return $this->render('@App/Security/send_invitation.html.twig', array(
             'form' => $form->createView()
