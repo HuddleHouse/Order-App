@@ -221,8 +221,7 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('view_users');
         }
-
-
+        
         return $this->render('@App/Admin/admin_edit_user.html.twig', array(
             'form' => $form->createView(),
             'user_id' => $user_id
