@@ -137,19 +137,28 @@ class AdminController extends Controller
             else
                 $invitation->setOffice(null);
 
+            $email_service = $this->get('email_service');
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Invitation to Register')
-                ->setFrom('matt@245tech.com')
-                ->setTo($invitation->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'AppBundle:Email:send_invitation_email.html.twig',
-                        array('code' => $invitation->getCode())
-                    ),
-                    'text/html'
-                );
+            $message = $email_service->sendEmail(array(
+                    'subject' => 'Invitation to register for utus-orders.com',
+                    'from' => 'matt@245tech.com',
+                    'to' => $invitation->getEmail(),
+                    'body' => $this->renderView("AppBundle:Email:send_invitation_email.html.twig", array('code' => $invitation->getCode()))
+                )
+            );
             $this->get('mailer')->send($message);
+//            $message = \Swift_Message::newInstance()
+//                ->setSubject('Invitation to Register')
+//                ->setFrom('matt@245tech.com')
+//                ->setTo($invitation->getEmail())
+//                ->setBody(
+//                    $this->renderView(
+//                        'AppBundle:Email:send_invitation_email.html.twig',
+//                        array('code' => $invitation->getCode())
+//                    ),
+//                    'text/html'
+//                );
+//            $this->get('mailer')->send($message);
 
             $invitation->send();
             $em->persist($invitation);
