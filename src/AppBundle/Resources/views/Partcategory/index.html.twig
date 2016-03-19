@@ -12,37 +12,36 @@
 
 {% block content %}
     <div class="row">
-    <div class="col-md-10">
-        <button class="btn btn-success" style="margin-bottom: 15px;">
-            <a href="{{ path('admin_partcategory_new') }}">Create a new entry</a>
-        </button>
-        <div class="table">
-            <table id="part-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for partCategory in partCategories %}
+        <div class="col-md-10">
+            <button class="btn btn-success" style="margin-bottom: 15px;">
+                <a href="{{ path('admin_partcategory_new') }}">Create a new entry</a>
+            </button>
+            <div class="table">
+                <table id="part-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
                     <tr>
-                        <td>{{ partCategory.name }}</td>
-                        <td>
-                            <ul>
-                                <a class="btn btn-default btn-xs purple"
-                                   href="{{ path('admin_partcategory_edit', { 'id': partCategory.id }) }}"><i
-                                            class="fa fa-edit"></i> edit</a>
-                            </ul>
-                        </td>
+                        <th>Name</th>
+                        <th>Actions</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for partCategory in partCategories %}
+                        <tr>
+                            <td>{{ partCategory.name }}</td>
+                            <td>
+                                <ul>
+                                    <a class="btn btn-default btn-xs purple"
+                                       href="{{ path('admin_partcategory_edit', { 'id': partCategory.id }) }}"><i
+                                                class="fa fa-edit"></i> edit</a>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    </div>
-
 {% endblock content %}
 
 {% block footer %}

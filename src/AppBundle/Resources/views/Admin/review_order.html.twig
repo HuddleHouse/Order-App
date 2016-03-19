@@ -10,26 +10,26 @@
 
 {% block content %}
     <div class="row">
-    <div ng-app="myShoppingList" ng-controller="myCtrl" ng-init="init()" class="ng-cloak" ng-cloak>
+        <div ng-app="myShoppingList" ng-controller="myCtrl" ng-init="init()" class="ng-cloak" ng-cloak>
 
-        <div id="shopping-cart" class="col-md-12">
-            <div class="stats-overview stat-block">
-                <div class="display stat ok huge">
+            <div id="shopping-cart" class="col-md-12">
+                <div class="stats-overview stat-block">
+                    <div class="display stat ok huge">
 
-                </div>
-                <div class="details">
-                    <div class="numbers">
-                        REVIEW ORDER
                     </div>
-                    <hr>
-                    <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
-                        <div ng-if="numItems == 0">
-                            <div style="padding-bottom: 10px; padding-top: 20px;">
-                                No products currently in cart.
-                            </div>
+                    <div class="details">
+                        <div class="numbers">
+                            REVIEW ORDER
                         </div>
-                        <div ng-if="numItems != 0">
-                            {% verbatim %}
+                        <hr>
+                        <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+                            <div ng-if="numItems == 0">
+                                <div style="padding-bottom: 10px; padding-top: 20px;">
+                                    No products currently in cart.
+                                </div>
+                            </div>
+                            <div ng-if="numItems != 0">
+                                {% verbatim %}
 <div class="table-responsive">
  <table id="cart-table" class="display responsive nowrap table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
@@ -91,136 +91,138 @@
                             </table>
                             </div>
                             {% endverbatim %}
-                            <div class="row">
-                                <div class="col-md-4 col-xs-12">
-                                    <div class="well">
-                                        <div class="numbers">
-                                            Order Info
-                                        </div>
-                                        <hr>
-                                        <address>
-                                            <strong>{{ user.firstName }} {{ user.lastName }}</strong><br>
-                                            <a href="mailto:{{ user.email }}"
-                                               style="color: #e2001a;">{{ user.email }}</a>
-                                        </address>
-                                        <address style="margin-bottom: 5px;">
-                                            <strong>#{{ office.officeNumber }} {{ office.name }}</strong><br>
-                                            {{ office.address }}<br>
-                                            {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
-                                            <abbr title="Phone">P:</abbr> {{ office.phone }}
-                                        </address>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-xs-12">
-                                    <div class="well">
-                                        <div class="numbers">
-                                            Order Notes
-                                        </div>
-                                        <hr>
-                                        <address>
-                                            {{ user_notes }}
-                                        </address>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-xs-12 invoice-block"
-                                     style="text-align: right; margin-top: 30px;">
-                                    <ul class="list-unstyled amounts">
-                                        <li>
-                                            <strong>Items Requested:</strong> <input ng-model="requested" disabled
-                                                                                     style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
-                                        </li>
-                                        <li>
-                                            <strong>Items Back Ordered:</strong> <input ng-model="backOrders" disabled
-                                                                                        style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
-                                        </li>
-                                        <li>
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-12">
+                                        <div class="well">
+                                            <div class="numbers">
+                                                Order Info
+                                            </div>
                                             <hr>
-                                            <strong>Items Shipped:</strong> <input ng-model="shipped" disabled
-                                                                                   style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
-                                        </li>
-                                    </ul>
-                                    <br>
-                                    <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
-                                    <a href="{{ path('admin_order_approve', {'cart_id': cart_id}) }}"
-                                       class="btn btn-lg btn-success hidden-print">Approve Order</a>
+                                            <address>
+                                                <strong>{{ user.firstName }} {{ user.lastName }}</strong><br>
+                                                <a href="mailto:{{ user.email }}"
+                                                   style="color: #e2001a;">{{ user.email }}</a>
+                                            </address>
+                                            <address style="margin-bottom: 5px;">
+                                                <strong>#{{ office.officeNumber }} {{ office.name }}</strong><br>
+                                                {{ office.address }}<br>
+                                                {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
+                                                <abbr title="Phone">P:</abbr> {{ office.phone }}
+                                            </address>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12">
+                                        <div class="well">
+                                            <div class="numbers">
+                                                Order Notes
+                                            </div>
+                                            <hr>
+                                            <address>
+                                                {{ user_notes }}
+                                            </address>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12 invoice-block"
+                                         style="text-align: right; margin-top: 30px;">
+                                        <ul class="list-unstyled amounts">
+                                            <li>
+                                                <strong>Items Requested:</strong> <input ng-model="requested" disabled
+                                                                                         style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                            <li>
+                                                <strong>Items Back Ordered:</strong> <input ng-model="backOrders"
+                                                                                            disabled
+                                                                                            style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                            <li>
+                                                <hr>
+                                                <strong>Items Shipped:</strong> <input ng-model="shipped" disabled
+                                                                                       style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                        </ul>
+                                        <br>
+                                        <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
+                                        <a href="{{ path('admin_order_approve', {'cart_id': cart_id}) }}"
+                                           class="btn btn-lg btn-success hidden-print">Approve Order</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
+
             </div>
 
-        </div>
+            <div class="col-md-12" style="margin-top: 30px;">
+                <div class="stats-overview stat-block">
+                    <div class="display stat ok huge">
 
-        <div class="col-md-12" style="margin-top: 30px;">
-            <div class="stats-overview stat-block">
-                <div class="display stat ok huge">
+                    </div>
+                    <div class="details">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="numbers">
+                                    PRODUCT SEARCH
+                                </div>
+                            </div>
+                            <div id='filters' class="col-md-5">
+                                <select class="form-control">
+                                    <option value="*">-- All Categories --</option>
+                                    {% for category in categories %}
+                                        <option value=".{{ category.nameCononical }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
 
-                </div>
-                <div class="details">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="numbers">
-                                PRODUCT SEARCH
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="myInputTextField"
+                                       placeholder="Search by product Description or Number">
                             </div>
                         </div>
-                        <div id='filters' class="col-md-5">
-                            <select class="form-control">
-                                <option value="*">-- All Categories --</option>
-                                {% for category in categories %}
-                                    <option value=".{{ category.nameCononical }}">{{ category.name }}</option>
-                                {% endfor %}
-                            </select>
-
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" id="myInputTextField"
-                                   placeholder="Search by product Description or Number">
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="title" style="padding-bottom: 10px; padding-top: 10px;">
-                        <table id="part-table" class="responsive nowrap table table-striped no-footer" cellspacing="0"
-                               width="100%">
-                            <thead>
-                            <tr>
-                                <th>PRODUCT #</th>
-                                <th width="40px">PHOTO</th>
-                                <th>DESCRIPTION</th>
-                                <th width="30px">RETURN REQUIRED</th>
-                                <th width="50px">ADD TO CART</th>
-                            </tr>
-                            </thead>
-                            <tbody id="container">
-                            {% for product in products %}
-                                <tr class="grid-item {{ product.partCategory.nameCononical }}">
-                                    <td>{{ product.stockNumber }}</td>
-                                    <td>
-                                        <center>
-                                            <i class="fa fa-camera" style="font-size: 22px;color: #e2001a;"></i>
-                                        </center>
-                                    </td>
-                                    <td>{{ product.description }}</td>
-                                    <td>{{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}</td>
-                                    <td>
-                                        <center>
-                                            <button ng-click="addItem({{ product.id }})"
-                                                    style="background: transparent; border: none;">
-                                                <i class="fa fa-shopping-cart"
-                                                   style="font-size: 25px;color: #e2001a;"></i>
-                                            </button>
-                                        </center>
-                                    </td>
+                        <hr>
+                        <div class="title" style="padding-bottom: 10px; padding-top: 10px;">
+                            <table id="part-table" class="responsive nowrap table table-striped no-footer"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>PRODUCT #</th>
+                                    <th width="40px">PHOTO</th>
+                                    <th>DESCRIPTION</th>
+                                    <th width="30px">RETURN REQUIRED</th>
+                                    <th width="50px">ADD TO CART</th>
                                 </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody id="container">
+                                {% for product in products %}
+                                    <tr class="grid-item {{ product.partCategory.nameCononical }}">
+                                        <td>{{ product.stockNumber }}</td>
+                                        <td>
+                                            <center>
+                                                <i class="fa fa-camera" style="font-size: 22px;color: #e2001a;"></i>
+                                            </center>
+                                        </td>
+                                        <td>{{ product.description }}</td>
+                                        <td>{{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}</td>
+                                        <td>
+                                            <center>
+                                                <button ng-click="addItem({{ product.id }})"
+                                                        style="background: transparent; border: none;">
+                                                    <i class="fa fa-shopping-cart"
+                                                       style="font-size: 25px;color: #e2001a;"></i>
+                                                </button>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 {% endblock content %}
 
