@@ -14,6 +14,6 @@ class EmailService extends BaseService
             ->setTo($data['to'])
             ->setBody($data['body'], 'text/html');
 
-        return $message;
+        $this->mailer->send($message);
     }
 }

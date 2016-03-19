@@ -146,18 +146,6 @@ class AdminController extends Controller
                     'body' => $this->renderView("AppBundle:Email:send_invitation_email.html.twig", array('code' => $invitation->getCode()))
                 )
             );
-            $this->get('mailer')->send($message);
-//            $message = \Swift_Message::newInstance()
-//                ->setSubject('Invitation to Register')
-//                ->setFrom('matt@245tech.com')
-//                ->setTo($invitation->getEmail())
-//                ->setBody(
-//                    $this->renderView(
-//                        'AppBundle:Email:send_invitation_email.html.twig',
-//                        array('code' => $invitation->getCode())
-//                    ),
-//                    'text/html'
-//                );
 //            $this->get('mailer')->send($message);
 
             $invitation->send();
