@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Cleaning up the code some.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/config/services.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Services/BaseService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Services/EmailService.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Services/EmailService.php" afterPath="$PROJECT_DIR$/src/AppBundle/Services/EmailService.php" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations." />
     <ignored path="uster-order-app.iws" />
@@ -49,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/BaseService.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+              <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -58,8 +54,8 @@
       <file leaf-file-name="EmailService.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/EmailService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="105">
+              <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -69,19 +65,19 @@
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="145" column="135" selection-start-line="145" selection-start-column="135" selection-end-line="145" selection-end-column="135" />
+              <caret line="145" column="139" selection-start-line="145" selection-start-column="139" selection-end-line="145" selection-end-column="139" />
               <folding>
                 <element signature="e#40#72#0#PHP" expanded="true" />
-                <element signature="e#5017#5066#0#PHP" expanded="true" />
-                <element signature="e#6979#7303#0#PHP" expanded="false" />
-                <marker date="1458422334000" expanded="true" signature="863:1208" placeholder="select c.id,... cart" />
-                <marker date="1458422334000" expanded="true" signature="1394:1899" placeholder="select c.id,... cart" />
-                <marker date="1458422334000" expanded="true" signature="2084:2117" placeholder="select count... users" />
-                <marker date="1458422334000" expanded="true" signature="2252:2285" placeholder="select count... parts" />
-                <marker date="1458422334000" expanded="true" signature="2420:2455" placeholder="select count... offices" />
-                <marker date="1458422334000" expanded="true" signature="2592:2643" placeholder="select count... cart" />
-                <marker date="1458422334000" expanded="true" signature="2781:2850" placeholder="select count... cart" />
-                <marker date="1458422334000" expanded="true" signature="7135:7159" placeholder="SELECT * FRO... invitation" />
+                <element signature="e#5021#5070#0#PHP" expanded="true" />
+                <element signature="e#6983#7307#0#PHP" expanded="false" />
+                <marker date="1458422367000" expanded="true" signature="863:1208" placeholder="select c.id,... cart" />
+                <marker date="1458422367000" expanded="true" signature="1394:1899" placeholder="select c.id,... cart" />
+                <marker date="1458422367000" expanded="true" signature="2084:2117" placeholder="select count... users" />
+                <marker date="1458422367000" expanded="true" signature="2252:2285" placeholder="select count... parts" />
+                <marker date="1458422367000" expanded="true" signature="2420:2455" placeholder="select count... offices" />
+                <marker date="1458422367000" expanded="true" signature="2592:2643" placeholder="select count... cart" />
+                <marker date="1458422367000" expanded="true" signature="2781:2850" placeholder="select count... cart" />
+                <marker date="1458422367000" expanded="true" signature="7139:7163" placeholder="SELECT * FRO... invitation" />
               </folding>
             </state>
           </provider>
@@ -161,8 +157,8 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/config/services.yml" />
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Services/BaseService.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Services/EmailService.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Services/EmailService.php" />
       </list>
     </option>
   </component>
@@ -680,14 +676,7 @@
       <workItem from="1458341425187" duration="630000" />
       <workItem from="1458413640132" duration="168000" />
       <workItem from="1458418739349" duration="37000" />
-      <workItem from="1458418847725" duration="3513000" />
-    </task>
-    <task id="LOCAL-00056" summary="Adding Entities">
-      <created>1457453210489</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1457453210489</updated>
+      <workItem from="1458418847725" duration="3523000" />
     </task>
     <task id="LOCAL-00057" summary="Adding JSON/AJAX. Not working. Need to add http://symfony.com/doc/master/bundles/FOSRestBundle/index.html &#10; https://github.com/gimler/symfony-rest-edition">
       <created>1457454414099</created>
@@ -1025,11 +1014,18 @@
       <option name="project" value="LOCAL" />
       <updated>1458413694077</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="Cleaning up the code some.">
+      <created>1458422368227</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1458422368227</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9072000" />
+    <option name="totallyTimeSpent" value="9082000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1042,10 +1038,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1136" y="23" width="1423" height="1392" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19333816" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18849356" sideWeight="0.50435287" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1055,7 +1052,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3069231" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1263,7 +1259,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/src/AppBundle/Services/EmailService.php</url>
-          <line>11</line>
+          <line>10</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
@@ -1670,7 +1666,7 @@
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/BaseService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1686,27 +1682,27 @@
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="145" column="135" selection-start-line="145" selection-start-column="135" selection-end-line="145" selection-end-column="135" />
+          <caret line="145" column="139" selection-start-line="145" selection-start-column="139" selection-end-line="145" selection-end-column="139" />
           <folding>
             <element signature="e#40#72#0#PHP" expanded="true" />
-            <element signature="e#5017#5066#0#PHP" expanded="true" />
-            <element signature="e#6979#7303#0#PHP" expanded="false" />
-            <marker date="1458422334000" expanded="true" signature="863:1208" placeholder="select c.id,... cart" />
-            <marker date="1458422334000" expanded="true" signature="1394:1899" placeholder="select c.id,... cart" />
-            <marker date="1458422334000" expanded="true" signature="2084:2117" placeholder="select count... users" />
-            <marker date="1458422334000" expanded="true" signature="2252:2285" placeholder="select count... parts" />
-            <marker date="1458422334000" expanded="true" signature="2420:2455" placeholder="select count... offices" />
-            <marker date="1458422334000" expanded="true" signature="2592:2643" placeholder="select count... cart" />
-            <marker date="1458422334000" expanded="true" signature="2781:2850" placeholder="select count... cart" />
-            <marker date="1458422334000" expanded="true" signature="7135:7159" placeholder="SELECT * FRO... invitation" />
+            <element signature="e#5021#5070#0#PHP" expanded="true" />
+            <element signature="e#6983#7307#0#PHP" expanded="false" />
+            <marker date="1458422367000" expanded="true" signature="863:1208" placeholder="select c.id,... cart" />
+            <marker date="1458422367000" expanded="true" signature="1394:1899" placeholder="select c.id,... cart" />
+            <marker date="1458422367000" expanded="true" signature="2084:2117" placeholder="select count... users" />
+            <marker date="1458422367000" expanded="true" signature="2252:2285" placeholder="select count... parts" />
+            <marker date="1458422367000" expanded="true" signature="2420:2455" placeholder="select count... offices" />
+            <marker date="1458422367000" expanded="true" signature="2592:2643" placeholder="select count... cart" />
+            <marker date="1458422367000" expanded="true" signature="2781:2850" placeholder="select count... cart" />
+            <marker date="1458422367000" expanded="true" signature="7139:7163" placeholder="SELECT * FRO... invitation" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/EmailService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
           <folding />
         </state>
       </provider>

@@ -6,7 +6,6 @@ use AppBundle\Services\BaseService;
 
 class EmailService extends BaseService
 {
-
     public function sendEmail($data)
     {
         $message = \Swift_Message::newInstance()
