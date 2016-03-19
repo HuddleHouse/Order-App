@@ -25,7 +25,6 @@ class PartCategoryController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $partCategories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
         return $this->render('AppBundle:Partcategory:index.html.twig', array(
