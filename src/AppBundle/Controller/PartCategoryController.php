@@ -141,6 +141,7 @@ class PartCategoryController extends Controller
             $em->remove($partCategory);
             $em->flush();
         }
+
         
         $this->addFlash('notice', 'Category deleted successfully.');
         return $this->redirectToRoute('admin_partcategory_index');
