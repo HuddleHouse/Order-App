@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Cleaning up the code some.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations." />
     <ignored path="uster-order-app.iws" />
@@ -29,21 +29,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="637">
-              <caret line="272" column="8" selection-start-line="272" selection-start-column="8" selection-end-line="272" selection-end-column="8" />
+            <state relative-caret-position="787">
+              <caret line="282" column="0" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
               <folding>
                 <element signature="e#40#72#0#PHP" expanded="true" />
-                <marker date="1458653579000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
-                <marker date="1458653579000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
-                <marker date="1458653579000" expanded="true" signature="1813:1846" placeholder="select count... users" />
-                <marker date="1458653579000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
-                <marker date="1458653579000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
-                <marker date="1458653579000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
-                <marker date="1458653579000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
-                <marker date="1458653579000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
+                <marker date="1458653580000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
+                <marker date="1458653580000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
+                <marker date="1458653580000" expanded="true" signature="1813:1846" placeholder="select count... users" />
+                <marker date="1458653580000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
+                <marker date="1458653580000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
+                <marker date="1458653580000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
+                <marker date="1458653580000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
+                <marker date="1458653580000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CartController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="615">
+              <caret line="46" column="78" selection-start-line="46" selection-start-column="78" selection-end-line="46" selection-end-column="78" />
+              <folding>
+                <marker date="1458653595000" expanded="true" signature="2757:2961" placeholder="select c.id,... cart" />
               </folding>
             </state>
           </provider>
@@ -98,7 +110,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/view-past-order.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/approve_order.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/home.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/view-past-order.html.twig" />
@@ -115,6 +126,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Services/BaseService.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/PartCategoryController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" />
       </list>
     </option>
   </component>
@@ -682,14 +694,7 @@
       <workItem from="1458418739349" duration="37000" />
       <workItem from="1458418847725" duration="5467000" />
       <workItem from="1458579888831" duration="353000" />
-      <workItem from="1458653414913" duration="164000" />
-    </task>
-    <task id="LOCAL-00069" summary="Finishing up the API some">
-      <created>1457709262074</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1457709262075</updated>
+      <workItem from="1458653414913" duration="181000" />
     </task>
     <task id="LOCAL-00070" summary="Finishing up the API some">
       <created>1457710232458</created>
@@ -1027,11 +1032,18 @@
       <option name="project" value="LOCAL" />
       <updated>1458653566500</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="Cleaning up the code some.">
+      <created>1458653582720</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1458653582720</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11543000" />
+    <option name="totallyTimeSpent" value="11560000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1250,7 +1262,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php</url>
-          <line>81</line>
+          <line>80</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -1418,16 +1430,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1725">
-          <caret line="120" column="29" selection-start-line="120" selection-start-column="29" selection-end-line="120" selection-end-column="29" />
-          <folding>
-            <marker date="1457977420000" expanded="true" signature="2758:2962" placeholder="select c.id,... cart" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1638,18 +1640,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="272" column="8" selection-start-line="272" selection-start-column="8" selection-end-line="272" selection-end-column="8" />
+        <state relative-caret-position="787">
+          <caret line="282" column="0" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
           <folding>
             <element signature="e#40#72#0#PHP" expanded="true" />
-            <marker date="1458653579000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
-            <marker date="1458653579000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
-            <marker date="1458653579000" expanded="true" signature="1813:1846" placeholder="select count... users" />
-            <marker date="1458653579000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
-            <marker date="1458653579000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
-            <marker date="1458653579000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
-            <marker date="1458653579000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
-            <marker date="1458653579000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
+            <marker date="1458653580000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
+            <marker date="1458653580000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
+            <marker date="1458653580000" expanded="true" signature="1813:1846" placeholder="select count... users" />
+            <marker date="1458653580000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
+            <marker date="1458653580000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
+            <marker date="1458653580000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
+            <marker date="1458653580000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
+            <marker date="1458653580000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="46" column="78" selection-start-line="46" selection-start-column="78" selection-end-line="46" selection-end-column="78" />
+          <folding>
+            <marker date="1458653595000" expanded="true" signature="2757:2961" placeholder="select c.id,... cart" />
           </folding>
         </state>
       </provider>

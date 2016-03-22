@@ -46,7 +46,6 @@ class CartController extends Controller
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
-
         return $this->render('AppBundle:Cart:review-order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
