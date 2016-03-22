@@ -52,10 +52,10 @@
       <file leaf-file-name="CartController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="46" column="78" selection-start-line="46" selection-start-column="78" selection-end-line="46" selection-end-column="78" />
+            <state relative-caret-position="635">
+              <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
               <folding>
-                <marker date="1458653595000" expanded="true" signature="2757:2961" placeholder="select c.id,... cart" />
+                <marker date="1458653622000" expanded="true" signature="2757:2961" placeholder="select c.id,... cart" />
               </folding>
             </state>
           </provider>
@@ -694,14 +694,7 @@
       <workItem from="1458418739349" duration="37000" />
       <workItem from="1458418847725" duration="5467000" />
       <workItem from="1458579888831" duration="353000" />
-      <workItem from="1458653414913" duration="181000" />
-    </task>
-    <task id="LOCAL-00070" summary="Finishing up the API some">
-      <created>1457710232458</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1457710232458</updated>
+      <workItem from="1458653414913" duration="207000" />
     </task>
     <task id="LOCAL-00071" summary="Finishing up the API some">
       <created>1457710402791</created>
@@ -1039,11 +1032,18 @@
       <option name="project" value="LOCAL" />
       <updated>1458653582720</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="Cleaning up the code some.">
+      <created>1458653599905</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1458653599905</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11560000" />
+    <option name="totallyTimeSpent" value="11586000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1658,10 +1658,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="46" column="78" selection-start-line="46" selection-start-column="78" selection-end-line="46" selection-end-column="78" />
+        <state relative-caret-position="635">
+          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding>
-            <marker date="1458653595000" expanded="true" signature="2757:2961" placeholder="select c.id,... cart" />
+            <marker date="1458653622000" expanded="true" signature="2757:2961" placeholder="select c.id,... cart" />
           </folding>
         </state>
       </provider>

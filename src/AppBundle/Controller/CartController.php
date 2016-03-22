@@ -108,12 +108,9 @@ class CartController extends Controller
      */
     public function viePastOrderAction($order_id)
     {
-        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('AppBundle:Cart')->find($order_id);
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-
 
         return $this->render('AppBundle:Cart:view-past-order.html.twig', array(
             'products' => $products,
