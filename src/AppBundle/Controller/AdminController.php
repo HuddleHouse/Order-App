@@ -268,7 +268,8 @@ class AdminController extends Controller
          * SEND EMAILS TO EVERYONE HERE
          *
          */
-        
+
+
         return $this->render('AppBundle:Admin:approve_order.html.twig', array(
             'products' => $products,
             'categories' => $categories,

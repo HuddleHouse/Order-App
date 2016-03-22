@@ -32,18 +32,18 @@
       <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="270" column="8" selection-start-line="270" selection-start-column="8" selection-end-line="270" selection-end-column="8" />
+            <state relative-caret-position="637">
+              <caret line="272" column="8" selection-start-line="272" selection-start-column="8" selection-end-line="272" selection-end-column="8" />
               <folding>
                 <element signature="e#40#72#0#PHP" expanded="true" />
-                <marker date="1458653562000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
-                <marker date="1458653562000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
-                <marker date="1458653562000" expanded="true" signature="1813:1846" placeholder="select count... users" />
-                <marker date="1458653562000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
-                <marker date="1458653562000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
-                <marker date="1458653562000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
-                <marker date="1458653562000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
-                <marker date="1458653562000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
+                <marker date="1458653579000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
+                <marker date="1458653579000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
+                <marker date="1458653579000" expanded="true" signature="1813:1846" placeholder="select count... users" />
+                <marker date="1458653579000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
+                <marker date="1458653579000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
+                <marker date="1458653579000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
+                <marker date="1458653579000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
+                <marker date="1458653579000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
               </folding>
             </state>
           </provider>
@@ -682,14 +682,7 @@
       <workItem from="1458418739349" duration="37000" />
       <workItem from="1458418847725" duration="5467000" />
       <workItem from="1458579888831" duration="353000" />
-      <workItem from="1458653414913" duration="147000" />
-    </task>
-    <task id="LOCAL-00068" summary="Finishing up the API some">
-      <created>1457660779179</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1457660779179</updated>
+      <workItem from="1458653414913" duration="164000" />
     </task>
     <task id="LOCAL-00069" summary="Finishing up the API some">
       <created>1457709262074</created>
@@ -1027,11 +1020,18 @@
       <option name="project" value="LOCAL" />
       <updated>1458653556007</updated>
     </task>
-    <option name="localTasksCounter" value="117" />
+    <task id="LOCAL-00117" summary="Cleaning up the code some.">
+      <created>1458653566500</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1458653566500</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11526000" />
+    <option name="totallyTimeSpent" value="11543000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1638,18 +1638,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="270" column="8" selection-start-line="270" selection-start-column="8" selection-end-line="270" selection-end-column="8" />
+        <state relative-caret-position="637">
+          <caret line="272" column="8" selection-start-line="272" selection-start-column="8" selection-end-line="272" selection-end-column="8" />
           <folding>
             <element signature="e#40#72#0#PHP" expanded="true" />
-            <marker date="1458653562000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
-            <marker date="1458653562000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
-            <marker date="1458653562000" expanded="true" signature="1813:1846" placeholder="select count... users" />
-            <marker date="1458653562000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
-            <marker date="1458653562000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
-            <marker date="1458653562000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
-            <marker date="1458653562000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
-            <marker date="1458653562000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
+            <marker date="1458653579000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
+            <marker date="1458653579000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
+            <marker date="1458653579000" expanded="true" signature="1813:1846" placeholder="select count... users" />
+            <marker date="1458653579000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
+            <marker date="1458653579000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
+            <marker date="1458653579000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
+            <marker date="1458653579000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
+            <marker date="1458653579000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
           </folding>
         </state>
       </provider>
