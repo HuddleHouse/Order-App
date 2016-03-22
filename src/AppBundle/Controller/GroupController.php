@@ -84,7 +84,6 @@ class GroupController extends Controller
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_SUCCESS, $event);
-
             $groupManager->updateGroup($group);
 
             if(null === $response = $event->getResponse()) {
