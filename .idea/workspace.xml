@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Cleaning up the code some.">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" />
     </list>
@@ -33,18 +32,18 @@
       <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="637">
-              <caret line="272" column="8" selection-start-line="272" selection-start-column="8" selection-end-line="272" selection-end-column="8" />
+            <state relative-caret-position="607">
+              <caret line="270" column="8" selection-start-line="270" selection-start-column="8" selection-end-line="270" selection-end-column="8" />
               <folding>
                 <element signature="e#40#72#0#PHP" expanded="true" />
-                <marker date="1458653551000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
-                <marker date="1458653551000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
-                <marker date="1458653551000" expanded="true" signature="1813:1846" placeholder="select count... users" />
-                <marker date="1458653551000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
-                <marker date="1458653551000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
-                <marker date="1458653551000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
-                <marker date="1458653551000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
-                <marker date="1458653551000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
+                <marker date="1458653562000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
+                <marker date="1458653562000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
+                <marker date="1458653562000" expanded="true" signature="1813:1846" placeholder="select count... users" />
+                <marker date="1458653562000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
+                <marker date="1458653562000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
+                <marker date="1458653562000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
+                <marker date="1458653562000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
+                <marker date="1458653562000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
               </folding>
             </state>
           </provider>
@@ -683,14 +682,7 @@
       <workItem from="1458418739349" duration="37000" />
       <workItem from="1458418847725" duration="5467000" />
       <workItem from="1458579888831" duration="353000" />
-      <workItem from="1458653414913" duration="136000" />
-    </task>
-    <task id="LOCAL-00067" summary="Finishing up the API some">
-      <created>1457660042486</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1457660042486</updated>
+      <workItem from="1458653414913" duration="147000" />
     </task>
     <task id="LOCAL-00068" summary="Finishing up the API some">
       <created>1457660779179</created>
@@ -1028,11 +1020,18 @@
       <option name="project" value="LOCAL" />
       <updated>1458579900570</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="Cleaning up the code some.">
+      <created>1458653556007</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1458653556007</updated>
+    </task>
+    <option name="localTasksCounter" value="117" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11515000" />
+    <option name="totallyTimeSpent" value="11526000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1049,14 +1048,14 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09293193" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18849356" sideWeight="0.50435287" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32253203" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32301888" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.106153846" sideWeight="0.49564713" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1639,18 +1638,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="272" column="8" selection-start-line="272" selection-start-column="8" selection-end-line="272" selection-end-column="8" />
+        <state relative-caret-position="607">
+          <caret line="270" column="8" selection-start-line="270" selection-start-column="8" selection-end-line="270" selection-end-column="8" />
           <folding>
             <element signature="e#40#72#0#PHP" expanded="true" />
-            <marker date="1458653551000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
-            <marker date="1458653551000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
-            <marker date="1458653551000" expanded="true" signature="1813:1846" placeholder="select count... users" />
-            <marker date="1458653551000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
-            <marker date="1458653551000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
-            <marker date="1458653551000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
-            <marker date="1458653551000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
-            <marker date="1458653551000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
+            <marker date="1458653562000" expanded="true" signature="686:1031" placeholder="select c.id,... cart" />
+            <marker date="1458653562000" expanded="true" signature="1170:1675" placeholder="select c.id,... cart" />
+            <marker date="1458653562000" expanded="true" signature="1813:1846" placeholder="select count... users" />
+            <marker date="1458653562000" expanded="true" signature="1981:2014" placeholder="select count... parts" />
+            <marker date="1458653562000" expanded="true" signature="2149:2184" placeholder="select count... offices" />
+            <marker date="1458653562000" expanded="true" signature="2321:2372" placeholder="select count... cart" />
+            <marker date="1458653562000" expanded="true" signature="2510:2579" placeholder="select count... cart" />
+            <marker date="1458653562000" expanded="true" signature="6212:6236" placeholder="SELECT * FRO... invitation" />
           </folding>
         </state>
       </provider>
