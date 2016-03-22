@@ -6,15 +6,11 @@ use AppBundle\Entity\Invitation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
 use AppBundle\Form\UserType;
-use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Doctrine\ORM\EntityRepository;
 
 class AdminController extends Controller
 {
@@ -23,7 +19,6 @@ class AdminController extends Controller
      */
     public function adminHomeAction()
     {
-        $users = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $sql = "select c.id, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", u.first_name, u.last_name) as submitted_by
 	from cart c
@@ -37,7 +32,6 @@ class AdminController extends Controller
 	AND c.submitted = 1
 	group by c.id";
         $stmt = $em->getConnection()->prepare($sql);
-//        $params['user_id'] = $user->getId();
         $stmt->execute();
         $submitted = $stmt->fetchAll();
 
@@ -57,7 +51,6 @@ class AdminController extends Controller
 	order by c.submit_date DESC
 	limit 10";
         $stmt = $em->getConnection()->prepare($sql);
-//        $params['user_id'] = $user->getId();
         $stmt->execute();
         $approved = $stmt->fetchAll();
 
@@ -99,7 +92,6 @@ class AdminController extends Controller
             'num_pending' => $numPending['num']
         ));
     }
-
 
     /**
      * @Route("/admin/add-user", name="send_invitation")
@@ -276,6 +268,8 @@ class AdminController extends Controller
          * SEND EMAILS TO EVERYONE HERE
          *
          */
+
+
         return $this->render('AppBundle:Admin:approve_order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
