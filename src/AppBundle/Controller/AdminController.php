@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Invitation;
+use AppBundle\Repository\OfficeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -110,7 +111,10 @@ class AdminController extends Controller
             ->add('office', EntityType::class, array(
                 'class' => 'AppBundle:Office',
                 'label' => 'Office to assign to?',
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'query_builder' => function (OfficeRepository $officeRepository) {
+                    return $officeRepository->createQueryBuilder('u')->orderBy('u.name', 'ASC');
+                }
             ))
             ->getForm();
         $form->handleRequest($request);
