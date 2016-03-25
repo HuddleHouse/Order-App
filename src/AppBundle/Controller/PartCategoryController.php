@@ -25,7 +25,6 @@ class PartCategoryController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $partCategories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
         return $this->render('AppBundle:Partcategory:index.html.twig', array(
@@ -60,6 +59,36 @@ class PartCategoryController extends Controller
 
         return $this->render('AppBundle:Partcategory:new.html.twig', array(
             'partCategory' => $partCategory,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Creates a new PartCategory entity for modal use on New Part.
+     *
+     * @Route("/new-modal", name="admin_partcategory_new_modal")
+     * @Method({"GET", "POST"})
+     */
+    public function newModalAction(Request $request)
+    {
+        $partCategory = new PartCategory();
+        $form = $this->createForm('AppBundle\Form\PartCategoryType', $partCategory);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $canonical = new Canonicalizer();
+            $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
+            $name_canonical = $canonical->canonicalize($input);
+            $partCategory->setNameCononical($name_canonical);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($partCategory);
+            $em->flush();
+
+            $this->addFlash('notice', 'Category added successfully.');
+            return $this->redirectToRoute('admin_part_new');
+        }
+
+        return $this->render('AppBundle:Partcategory:new-modal.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -112,6 +141,8 @@ class PartCategoryController extends Controller
             $em->remove($partCategory);
             $em->flush();
         }
+
+        
         $this->addFlash('notice', 'Category deleted successfully.');
         return $this->redirectToRoute('admin_partcategory_index');
     }

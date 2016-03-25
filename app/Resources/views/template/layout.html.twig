@@ -1,7 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="header navbar  navbar-fixed-top">
+    {% if is_granted('ROLE_ADMIN') %}
+        <style>
+            .page-content {
+                margin-top: 0px;
+                background-color: #eee;
+                border-radius: 0 0 0 4px;
+            }
+        </style>
+    {% endif %}
+    <div class="header navbar  navbar-fixed-top hidden-print">
         <!-- BEGIN TOP NAVIGATION BAR -->
         <div class="header-inner">
                 {% if is_granted('ROLE_ADMIN') %}
@@ -13,17 +22,17 @@
             </a>
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
                 <a href="javascript:" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <img src="{{ asset('images/menu-toggler.png') }}" alt=""/>
-            </a>
+                    <i id="navbar-toggle" class="fa fa-bars"></i>
+                </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN TOP NAVIGATION MENU -->
             <ul class="nav navbar-nav pull-right">
-                <li class="dropdown user">
+                <li id="welcome-message" class="dropdown user">
                     <a class="welcome">
                         <span class="username">Welcome back {{ app.user }}</span>
                     </a>
                 </li>
-                <li class="devider">
+                <li class="devider visible-lg visible-md visible-sm">
                     &nbsp;
                 </li>
                 <!-- BEGIN USER LOGIN DROPDOWN -->
@@ -36,6 +45,11 @@
                         <li>
                             <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>
                         </li>
+                        {% if not is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('view_all_orders') }}"><i class="fa fa-hdd-o"></i> View All Orders</a>
+                        </li>
+                        {% endif %}
                         <li>
                             <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a>
                         </li>
@@ -61,10 +75,10 @@
     </div>
     <!-- BEGIN CONTAINER -->
 
-    <div class="page-container">
+    <div class="page-container ">
         {% if is_granted('ROLE_ADMIN') %}
         <!-- BEGIN SIDEBAR -->
-        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar-wrapper hidden-print">
             <div class="page-sidebar navbar-collapse collapse">
                 <!-- BEGIN SIDEBAR MENU -->
                 <ul class="page-sidebar-menu">
@@ -118,13 +132,14 @@
                                     View All
                                     Part Categories</a>
                             </li>
-                            <li {% if app.request.get('_route') == 'send_invitation' %} class="active"{% endif %}>
-                                <a href="{{ path('send_invitation') }}"><i class="fa fa-user"></i> Send User Invite</a>
-                            </li>
                             <li {% if app.request.get('_route') == 'view_users' %} class="active"{% endif %}>
                                 <a href="{{ path('view_users') }}"><i class="icon-book-open"></i> View Registered
                                     Users</a>
                             </li>
+                            <li {% if app.request.get('_route') == 'send_invitation' %} class="active"{% endif %}>
+                                <a href="{{ path('send_invitation') }}"><i class="fa fa-user"></i> Send User Invite</a>
+                            </li>
+
 
                         </ul>
                     </li>
@@ -209,8 +224,8 @@
                     </div>
                 </div>
                 <!-- END PAGE HEADER-->
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="row hidden-print">
+                    <div class="col-xs-12">
                         {% for flash_message in app.session.flashbag.get('notice') %}
                             <div class="alert alert-success">
                                 {{ flash_message }}
@@ -224,9 +239,7 @@
                     </div>
                 </div>
                 <!-- BEGIN PAGE CONTENT-->
-                <div class="container">
                     {{ block('content') }}
-                </div>
                 <!-- END PAGE CONTENT-->
             </div>
         </div>

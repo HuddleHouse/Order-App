@@ -1,0 +1,66 @@
+#wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+
+#wrapper table {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+}
+
+body {
+    background-color: transparent;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    color: #000000;
+}
+
+.table thead tr th {
+    background-color: transparent;
+    font-size: 12px;
+    color: #000000;
+    font-weight: 100;
+}
+
+th {
+    border: 0px solid #ddd !important;
+}
+
+.stats-overview {
+    clear: both;
+    padding: 0px 0px 0px 0px !important;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
+.stat-block {
+    background-color: #F6F6F6;
+    border: 0px solid #dedede !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    line-height: 18px;
+    margin: 0 0 20px 0;
+    padding: 0px !important;
+}
+
+.stats-overview .details .title {
+    color: #777;
+    font-size: 12px !important;
+    font-weight: normal;
+    margin-bottom: 3px;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+input.form-control.line-number.ng-pristine.ng-untouched.ng-valid.ng-not-empty.ng-valid-maxlength {
+    padding: 0px;
+    margin: 0px;
+    width: 35px;
+}

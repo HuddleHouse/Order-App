@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Repository\PartCategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,6 +25,9 @@ class PartType extends AbstractType
             ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
             ->add('part_category', EntityType::class, array(
                 'class' => 'AppBundle:PartCategory',
+                'query_builder' => function (PartCategoryRepository $repository) {
+                    return $repository->createQueryBuilder('u')->orderBy('u.name', 'ASC');
+                },
                 'choice_label' => 'name',
                 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
             ->add('require_return', ChoiceType::class, array(

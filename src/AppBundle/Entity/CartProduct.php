@@ -1,8 +1,8 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * CartProduct
@@ -22,7 +22,7 @@ class CartProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cart")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cart", inversedBy="cart_products")
      * @ORM\JoinColumn(name="cart_id", referencedColumnName="id")
      */
     private $cart;
@@ -64,10 +64,19 @@ class CartProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="notes", type="string", length=255, nullable=true)
+     * @ORM\Column(name="note", type="text", nullable=true)
      */
-    private $notes;
+    private $note;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", mappedBy="cartProduct")
+     */
+    private $cartProductLineNumbers;
+
+    public function __construct()
+    {
+        $this->cartProductLineNumbers = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -178,16 +187,43 @@ class CartProduct
     /**
      * @return string
      */
-    public function getNotes()
+    public function getNote()
     {
-        return $this->notes;
+        return $this->note;
     }
 
     /**
      * @param string $notes
      */
-    public function setNotes($notes)
+    public function setNote($note)
     {
-        $this->notes = $notes;
+        $this->note = $note;
+    }
+
+    public function addCartProductLineNumber(\AppBundle\Entity\CartProductLineNumber $cartProductLineNumber)
+    {
+        $this->cartProductLineNumbers[] = $cartProductLineNumber;
+
+        return $this;
+    }
+
+    /**
+     * Remove payTypes
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeCartProductLineNumber(\AppBundle\Entity\CartProductLineNumber $cartProductLineNumber)
+    {
+        $this->cartProductLineNumbers->removeElement($cartProductLineNumber);
+    }
+
+    /**
+     * Get payTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCartProductLineNumbers()
+    {
+        return $this->cartProductLineNumbers;
     }
 }

@@ -1,0 +1,403 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}Review Order{% endblock %}
+{% block page_title %}
+{% endblock page_title %}
+
+{% block page_name %}
+    Review Order
+{% endblock page_name %}
+
+{% block content %}
+    <div class="row">
+        <div ng-app="myShoppingList" ng-controller="myCtrl" ng-init="init()" class="ng-cloak" ng-cloak>
+
+            <div id="shopping-cart" class="col-md-12">
+                <div class="stats-overview stat-block">
+                    <div class="display stat ok huge">
+
+                    </div>
+                    <div class="details">
+                        <div class="numbers">
+                            REVIEW ORDER
+                        </div>
+                        <hr>
+                        <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+                            <div ng-if="numItems == 0">
+                                <div style="padding-bottom: 10px; padding-top: 20px;">
+                                    No products currently in cart.
+                                </div>
+                            </div>
+                            <div ng-if="numItems != 0">
+                                {% verbatim %}
+<div class="table-responsive">
+ <table id="cart-table" class="display responsive nowrap table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>PRODUCT #</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>RETURN</th>
+                                    <th>LINE NUMBER (S)</th>
+                                    <th>QTY</th>
+                                    <th>SHIP QTY</th>
+                                    <th>B.O. QTY</th>
+                                    <th>NOTES</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in cart track by $index">
+                                    <div ng-if="angular.isobject(item)">
+                                        <td style="padding-top: 20px;">{{ item.stock_number }}</td>
+                                        <td style="padding-top: 20px;">{{ item.description }}</td>
+                                        <td  style="padding-top: 20px;">
+                                            <div ng-if="item.require_return == 1">
+                                                <center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>
+                                             </div>
+                                        </td>
+                                        <td>
+                                           <div ng-repeat="num in item.line_numbers track by $index" style="display: inline-block;">
+                                                <input ng-model="num.line_number" type="text" class="form-control line-number" ng-change="updateLineNumber(num)" maxlength="4" style="width: 60px;">
+                                           </div>
+                                           <div style="display: inline-flex;">
+                                            <button ng-click="removeLineNumber(item)" style="background: transparent; border: none;">
+                                                    <i class="fa fa-minus" style="font-size: 20px;color: #e2001a;"></i>
+                                                </button>
+                                           <button ng-click="addLineNumber(item)" style="background: transparent; border: none;">
+                                                    <i class="fa fa-plus" style="font-size: 20px;color: #e2001a;"></i>
+                                                </button>
+                                                </div>
+                                        </td>
+                                        <td style="padding-top: 20px;">
+                                            <div class="row">
+                                                <center>
+                                                {{ item.quantity }}
+                                                </center>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input ng-model="item.ship_quantity" type="number" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
+                                        </td>
+                                        <td>
+                                            <input ng-model="item.back_order_quantity" type="number" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <textarea ng-model="item.note" type="text" class="form-control line-number" ng-change="updateProduct(item)"></textarea>
+                                            </center>
+                                        </td>
+                                        </div>
+                                    </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            {% endverbatim %}
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-12">
+                                        <div class="well">
+                                            <div class="numbers">
+                                                Order Info
+                                            </div>
+                                            <hr>
+                                            <address>
+                                                <strong>{{ user.firstName }} {{ user.lastName }}</strong><br>
+                                                <a href="mailto:{{ user.email }}"
+                                                   style="color: #e2001a;">{{ user.email }}</a>
+                                            </address>
+                                            <address style="margin-bottom: 5px;">
+                                                <strong>#{{ office.officeNumber }} {{ office.name }}</strong><br>
+                                                {{ office.address }}<br>
+                                                {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
+                                                <abbr title="Phone">P:</abbr> {{ office.phone }}
+                                            </address>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12">
+                                        <div class="well">
+                                            <div class="numbers">
+                                                Order Notes
+                                            </div>
+                                            <hr>
+                                            <address>
+                                                {{ user_notes }}
+                                            </address>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12 invoice-block"
+                                         style="text-align: right; margin-top: 30px;">
+                                        <ul class="list-unstyled amounts">
+                                            <li>
+                                                <strong>Items Requested:</strong> <input ng-model="requested" disabled
+                                                                                         style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                            <li>
+                                                <strong>Items Back Ordered:</strong> <input ng-model="backOrders"
+                                                                                            disabled
+                                                                                            style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                            <li>
+                                                <hr>
+                                                <strong>Items Shipped:</strong> <input ng-model="shipped" disabled
+                                                                                       style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                        </ul>
+                                        <br>
+                                        <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
+                                        <a href="{{ path('admin_order_approve', {'cart_id': cart_id}) }}"
+                                           class="btn btn-lg btn-success hidden-print">Approve Order</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12" style="margin-top: 30px;">
+                <div class="stats-overview stat-block">
+                    <div class="display stat ok huge">
+
+                    </div>
+                    <div class="details">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="numbers">
+                                    PRODUCT SEARCH
+                                </div>
+                            </div>
+                            <div id='filters' class="col-md-5">
+                                <select class="form-control">
+                                    <option value="*">-- All Categories --</option>
+                                    {% for category in categories %}
+                                        <option value=".{{ category.nameCononical }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="myInputTextField"
+                                       placeholder="Search by product Description or Number">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="title" style="padding-bottom: 10px; padding-top: 10px;">
+                            <table id="part-table" class="responsive nowrap table table-striped no-footer"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>PRODUCT #</th>
+                                    <th width="40px">PHOTO</th>
+                                    <th>DESCRIPTION</th>
+                                    <th width="30px">RETURN REQUIRED</th>
+                                    <th width="50px">ADD TO CART</th>
+                                </tr>
+                                </thead>
+                                <tbody id="container">
+                                {% for product in products %}
+                                    <tr class="grid-item {{ product.partCategory.nameCononical }}">
+                                        <td>{{ product.stockNumber }}</td>
+                                        <td>
+                                            <center>
+                                                <i class="fa fa-camera" style="font-size: 22px;color: #e2001a;"></i>
+                                            </center>
+                                        </td>
+                                        <td>{{ product.description }}</td>
+                                        <td>{{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}</td>
+                                        <td>
+                                            <center>
+                                                <button ng-click="addItem({{ product.id }})"
+                                                        style="background: transparent; border: none;">
+                                                    <i class="fa fa-shopping-cart"
+                                                       style="font-size: 25px;color: #e2001a;"></i>
+                                                </button>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+    <script>
+        $(document).ready(function () {
+            oTable = $('#part-table').DataTable({
+                "paging": false,
+                "sDom": '<"top">rt<"bottom"lp><"clear">'
+            });
+            $('#myInputTextField').keyup(function () {
+                oTable.search($(this).val()).draw();
+            })
+        });
+        $(function () {
+
+            var $container = $('#container'),
+                    $select = $('#filters select');
+
+            $container.isotope({
+                itemSelector: '.grid-item'
+            });
+
+            $select.change(function () {
+                var filters = $(this).val();
+                $container.isotope({
+                    filter: filters,
+                    animationEngine: 'css'
+                });
+            });
+
+        });
+
+        var app = angular.module("myShoppingList", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.shipped = 0;
+            $scope.requested = 0;
+            $scope.backOrders = 0;
+            $scope.cart = [];
+            $scope.products = [];
+
+
+            $.ajax({
+                beforeSend: function () {
+                    console.log('json load cart');
+                },
+                type: 'POST',
+                data: {order_id: {{ cart_id }} },
+                url: "{{ path('api_load_cart_by_id') }}",
+                success: function (data) {
+                    $scope.$apply(function () {
+                        $scope.cart = data.cart;
+                        $scope.shipped = data.shipped;
+                        $scope.requested = data.requested;
+                        $scope.backOrders = data.backOrders;
+                        $scope.numItems = data.num_items;
+                    });
+                }
+            });
+
+            $.ajax({
+                beforeSend: function () {
+                    console.log('json start');
+                },
+                type: 'GET',
+                url: "{{ path('api_get_products') }}",
+                success: function (data) {
+                    $scope.$apply(function () {
+                        $scope.products = data;
+                    });
+                }
+            });
+
+            $scope.inArray = function (item, array) {
+                return array.indexOf(item);
+            };
+
+            $scope.addItem = function (item) {
+                console.log(item);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_add_item_by_id') }}",
+                    data: {product_id: item, order_id: {{ cart_id }}},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                            $scope.shipped = data.shipped;
+                            $scope.requested = data.requested;
+                            $scope.backOrders = data.backOrders;
+                            $scope.numItems = data.num_items;
+                        });
+                    }
+                });
+            };
+
+            $scope.removeItem = function (item) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_remove_item_by_id') }}",
+                    data: {product_id: item, order_id: {{ cart_id }}},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                        });
+                    }
+                });
+            };
+
+            $scope.updateProduct = function (item) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('update_product') }}",
+                    data: {data: item, order_id: {{ cart_id }}},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.shipped = data.shipped;
+                            $scope.requested = data.requested;
+                            $scope.backOrders = data.backOrders;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+
+            $scope.addLineNumber = function (item) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_add_line_number_review_order') }}",
+                    data: {data: item, order_id: {{ cart_id }}},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+            $scope.updateLineNumber = function (item) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('update_line_number_review_order') }}",
+                    data: {line_number: item},
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+            $scope.removeLineNumber = function (item) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_remove_line_number_review_order') }}",
+                    data: {data: item, order_id: {{ cart_id }}},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+        });
+    </script>
+{% endblock footer %}

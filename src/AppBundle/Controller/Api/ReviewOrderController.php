@@ -19,41 +19,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
-class ShoppingCartController extends Controller
+class ReviewOrderController extends Controller
 {
-
     /**
-     * @Route("/api/get-products", name="api_get_products")
+     * @Route("/api/load-cart-by-id", name="api_load_cart_by_id")
      */
-    public function jsonGetProducts()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('AppBundle:Part')->findAll();
-        $line_numbers = array();
-        $line_numbers[] = '';
-        foreach($products as $item) {
-            $json_products[$item->getId()] = array(
-                'stock_number' => $item->getStockNumber(),
-                'description' => $item->getDescription(),
-                'require_return' => $item->getRequireReturn(),
-                'category' => $item->getPartCategory()->getName(),
-                'part_name_cononical' => $item->getPartCategory()->getNameCononical(),
-                'quantity' => 0,
-                'line_numbers' => $line_numbers
-            );
-        }
-        return JsonResponse::create($json_products);
-    }
-
-    /**
-     * @Route("/api/load-cart", name="api_load_cart")
-     */
-    public function loadCartAction()
+    public function loadCartByIdAction(Request $request)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+        $id = $request->request->get('order_id');
 
-        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
+        if(!$cart = $em->getRepository('AppBundle:Cart')->find($id)) {
             $cart = new Cart();
             $cart->setUser($user);
             $cart->setOffice($user->getOffice());
@@ -65,15 +42,16 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/add-cart-item", name="api_add_item")
+     * @Route("/api/add-cart-item-by-id", name="api_add_item_by_id")
      */
-    public function addCartItemAction(Request $request)
+    public function addCartItemByIdAction(Request $request)
     {
         $user = $this->getUser();
         $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
+        $cartid = $request->request->get('order_id');
 
-        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
+        if(!$cart = $em->getRepository('AppBundle:Cart')->find($cartid)) {
             $cart = new Cart();
             $cart->setUser($user);
             $cart->setOffice($user->getOffice());
@@ -105,15 +83,16 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/remove-cart-item", name="api_remove_item")
+     * @Route("/api/remove-cart-item-by-id", name="api_remove_item_by_id")
      */
-    public function removeCartItemAction(Request $request)
+    public function removeCartItemByIdAction(Request $request)
     {
         $user = $this->getUser();
         $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
+        $cartid = $request->request->get('order_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
         $part = $em->getRepository('AppBundle:Part')->find($id);
         $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
 
@@ -131,8 +110,9 @@ class ShoppingCartController extends Controller
         return $this->sumCart($cart);
     }
 
+
     /**
-     * @Route("/api/update-line-number", name="update_line_number")
+     * @Route("/api/update-line-number-review-order", name="update_line_number_review_order")
      */
     public function updateLineNumberAction(Request $request)
     {
@@ -148,35 +128,17 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/update-notes", name="api_update_notes")
-     */
-    public function updateNotesAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data = $request->request->get('note');
-        $id = $request->request->get('cart_id');
-
-        $cart = $em->getRepository('AppBundle:Cart')->find($id);
-        $cart->setNote($data);
-        $em->persist($cart);
-        $em->flush();
-
-        return JsonResponse::create(true);
-    }
-
-    /**
-     * @Route("/api/add-line-number", name="api_add_line_number")
+     * @Route("/api/add-line-number-review-order", name="api_add_line_number_review_order")
      */
     public function addLineNumberAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
+        $data = $request->request->get('data');
+        $cartid = $request->request->get('order_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
-        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        $part = $em->getRepository('AppBundle:Part')->find($data['id']);
         $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
-
 
         $lineNumber = new CartProductLineNumber();
         $lineNumber->setCartProduct($product);
@@ -191,16 +153,16 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/remove-line-number", name="api_remove_line_number")
+     * @Route("/api/remove-line-number-review-order", name="api_remove_line_number_review_order")
      */
     public function removeLineNumberAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
+        $data = $request->request->get('data');
+        $cartid = $request->request->get('order_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
-        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        $part = $em->getRepository('AppBundle:Part')->find($data['id']);
         $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
         $lineNumber = $em->getRepository('AppBundle:CartProductLineNumber')
             ->findOneBy(
@@ -217,9 +179,31 @@ class ShoppingCartController extends Controller
         return $this->sumCart($cart);
     }
 
+    /**
+     * @Route("/api/update-ship-quantity", name="update_product")
+     */
+    public function updateProductAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $data = $request->request->get('data');
+
+        $product = $em->getRepository('AppBundle:CartProduct')->find($data['product_id']);
+        $product->setBackOrderQuantity($data['back_order_quantity']);
+        $product->setShipQuantity($data['ship_quantity']);
+        $product->setNote($data['note']);
+
+        $em->persist($product);
+        $em->flush();
+        $cartid = $request->request->get('order_id');
+
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        return $this->sumCart($cart);
+    }
+
     public function sumCart($cart)
     {
-        $count = 0;
+        $shipped = $requested = $backOrders = 0;
         $json_cart = array();
         foreach($cart->getCartProducts() as $product) {
             $line_numbers = array();
@@ -238,10 +222,22 @@ class ShoppingCartController extends Controller
                 'category' => $product->getPart()->getPartCategory()->getName(),
                 'part_name_cononical' => $product->getPart()->getPartCategory()->getNameCononical(),
                 'quantity' => $product->getQuantity(),
-                'line_numbers' => $line_numbers
+                'ship_quantity' => $product->getShipQuantity(),
+                'back_order_quantity' => $product->getBackOrderQuantity(),
+                'line_numbers' => $line_numbers,
+                'product_id' => $product->getId(),
+                'note' => $product->getNote()
             );
-            $count += $product->getQuantity();
+            $shipped += $product->getShipQuantity();
+            $requested += $product->getQuantity();
+            $backOrders += $product->getBackOrderQuantity();
         }
-        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count, 'cart_notes' => $cart->getNote()));
+        return JsonResponse::create(array(
+            'cart' => $json_cart,
+            'shipped' => $shipped,
+            'requested' => $requested,
+            'backOrders' => $backOrders,
+            'numItems' => $requested
+        ));
     }
 }

@@ -1,0 +1,15 @@
+{% block modal %}
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title" id="myModalLabel">New Part Category</h4>
+        </div>
+        <div class="modal-body">
+            {{ form_start(form, { 'action': path('admin_partcategory_new_modal'), 'attr': { 'class': 'form-group' } }) }}
+            {{ form_widget(form) }}
+            <hr>
+            <input class="btn btn-success" type="submit" value="Create"/>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock modal %}

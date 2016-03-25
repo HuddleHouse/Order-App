@@ -25,7 +25,6 @@ class PartController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $parts = $em->getRepository('AppBundle:Part')->findAll();
 
         return $this->render('@App/Part/index.html.twig', array(
