@@ -123,7 +123,6 @@ class GroupController extends Controller
 
         $form = $formFactory->createForm();
         $form->setData($group);
-
         $form->handleRequest($request);
 
         if($form->isValid()) {
