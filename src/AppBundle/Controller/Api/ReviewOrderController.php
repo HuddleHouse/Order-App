@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: work
- * Date: 3/9/16
- * Time: 7:36 PM
- */
 
 namespace AppBundle\Controller\Api;
 
@@ -17,7 +11,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 
 class ReviewOrderController extends Controller
 {
@@ -66,7 +59,6 @@ class ReviewOrderController extends Controller
             $product->setPart($part);
             $product->setStockLocation("ADD THIS");
 
-
             $lineNumber = new CartProductLineNumber();
             $lineNumber->setCartProduct($product);
             $product->addCartProductLineNumber($lineNumber);
@@ -87,7 +79,6 @@ class ReviewOrderController extends Controller
      */
     public function removeCartItemByIdAction(Request $request)
     {
-        $user = $this->getUser();
         $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
         $cartid = $request->request->get('order_id');
