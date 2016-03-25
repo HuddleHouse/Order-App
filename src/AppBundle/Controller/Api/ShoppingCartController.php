@@ -82,7 +82,6 @@ class ShoppingCartController extends Controller
             $product->setPart($part);
             $product->setStockLocation("ADD THIS");
 
-
             $lineNumber = new CartProductLineNumber();
             $lineNumber->setCartProduct($product);
             $product->addCartProductLineNumber($lineNumber);
@@ -170,7 +169,6 @@ class ShoppingCartController extends Controller
         $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
         $part = $em->getRepository('AppBundle:Part')->find($id);
         $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
-
 
         $lineNumber = new CartProductLineNumber();
         $lineNumber->setCartProduct($product);
