@@ -42,7 +42,6 @@ class CartController extends Controller
             $em->persist($cart);
             $em->flush();
         }
-
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
