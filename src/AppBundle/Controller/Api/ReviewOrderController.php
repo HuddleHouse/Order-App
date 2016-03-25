@@ -161,7 +161,6 @@ class ReviewOrderController extends Controller
                 array('id' => 'DESC')
             );
 
-
         if($lineNumber) {
             $em->remove($lineNumber);
             $em->flush();
