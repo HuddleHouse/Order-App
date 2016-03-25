@@ -175,7 +175,6 @@ class ReviewOrderController extends Controller
     public function updateProductAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
         $data = $request->request->get('data');
 
         $product = $em->getRepository('AppBundle:CartProduct')->find($data['product_id']);
