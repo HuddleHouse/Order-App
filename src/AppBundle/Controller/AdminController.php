@@ -273,7 +273,6 @@ class AdminController extends Controller
          *
          */
 
-
         return $this->render('AppBundle:Admin:approve_order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
