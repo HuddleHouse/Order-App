@@ -50,7 +50,7 @@ class PartController extends Controller
             $em->flush();
 
             $this->addFlash('notice', 'Part added successfully.');
-            return $this->redirectToRoute('admin_part_index', array('id' => $part->getId()));
+            return $this->redirectToRoute('admin_part_index');
         }
 
         return $this->render('@App/Part/new.html.twig', array(
