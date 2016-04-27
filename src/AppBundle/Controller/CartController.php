@@ -20,6 +20,14 @@ class CartController extends Controller
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
+//        foreach($products as $product) {
+//            $num = substr($product->getStockNumber(), 0, -4);
+//
+//            $product->setPictureUrl('/USDA_Parts/'. $num . '.jpg');
+//            $em->persist($product);
+//        }
+        $em->flush();
+
         return $this->render('AppBundle:Cart:home.html.twig', array(
             'products' => $products,
             'categories' => $categories,
