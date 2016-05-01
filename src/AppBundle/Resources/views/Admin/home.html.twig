@@ -159,14 +159,10 @@
                                     {% endfor %}
                                     </tbody>
                                 {% else %}
-                                    <thead>
-                                    <tr>
-                                        <th class="success">
-                                            No orders currently need to be reviewed.
-                                        </th>
-
-                                    </tr>
-                                    </thead>
+                                    <div style="padding: 10px;">
+                                        <center><h4>There are no submitted orders that need to be reviewed.</h4>
+                                        </center>
+                                    </div>
                                 {% endif %}
                             </table>
                         </div>
@@ -236,8 +232,8 @@
                                     {% endfor %}
                                     </tbody>
                                 {% else %}
-                                    <div>
-                                        <h3>There are no submitted orders that need review right now.</h3>
+                                    <div style="padding: 10px;">
+                                        <center><h4>There are no recently approved orders.</h4></center>
                                     </div>
                                 {% endif %}
                             </table>
