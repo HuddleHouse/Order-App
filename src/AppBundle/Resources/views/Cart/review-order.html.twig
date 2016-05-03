@@ -77,11 +77,19 @@
                         </div>
                     </div>
                     <div class="row" style="padding-bottom: 25px;">
+                        <div class="container" style="text-align: center; padding-bottom: 25px;">
+                            <div class="numbers" style="    padding-bottom: 15px;">
+                                <center>REQUESTER NAME</center>
+                            </div>
+                            <input style="width: 45%; margin-left: auto; margin-right: auto; height: 45px; font-size: 18px !important; text-align: center;"
+                                   ng-model="requester_name" class="form-control"
+                                   ng-change="updateRequesterName(requester_name)"></input>
+                        </div>
                         <div class="container" style="text-align: center;">
                             <div class="numbers" style="    padding-bottom: 15px;">
                                 <center>NOTES</center>
                             </div>
-                            <textarea style="width: 75%; margin-left: auto; margin-right: auto;     height: 100px;"
+                            <textarea style="width: 75%; margin-left: auto; margin-right: auto; height: 100px;"
                                       ng-model="notes" class="form-control" ng-change="updateNotes(notes)"></textarea>
                         </div>
                     </div>
@@ -154,6 +162,7 @@
                         $scope.cart = data.cart;
                         $scope.numItems = data.num_items;
                         $scope.notes = data.cart_notes;
+                        $scope.requester_name = data.requester_name;
                         console.log($scope.cart);
                     });
                 }
@@ -164,6 +173,21 @@
                     type: 'POST',
                     url: "{{ path('api_update_notes') }}",
                     data: {note: item, cart_id: {{ cart_id }} },
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+
+            $scope.updateRequesterName = function (name) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_update_requester_name') }}",
+                    data: {note: name, cart_id: {{ cart_id }} },
                     dataType: 'json',
                     success: function () {
 

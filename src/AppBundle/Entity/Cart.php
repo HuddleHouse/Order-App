@@ -79,6 +79,15 @@ class Cart
      */
     private $note;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $requester_name;
+    
+    
+    
     public function __construct()
     {
         $this->cart_products = new ArrayCollection();
@@ -271,6 +280,22 @@ class Cart
     public function setNote($note)
     {
         $this->note = $note;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequesterName()
+    {
+        return $this->requester_name;
+    }
+
+    /**
+     * @param mixed $requester_name
+     */
+    public function setRequesterName($requester_name)
+    {
+        $this->requester_name = $requester_name;
     }
 
 
