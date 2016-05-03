@@ -53,11 +53,11 @@
                         <li>
                             <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a>
                         </li>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li>
-                                <a href="{{ path('send_invitation') }}"><i class="icon-anchor"></i> Invite User</a>
-                            </li>
-                        {% endif %}
+                        {#{% if is_granted('ROLE_ADMIN') %}#}
+                        {#<li>#}
+                        {#<a href="{{ path('send_invitation') }}"><i class="icon-anchor"></i> Invite User</a>#}
+                        {#</li>#}
+                        {#{% endif %}#}
                         <li class="divider">
                         </li>
                         <li>
