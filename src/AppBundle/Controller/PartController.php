@@ -73,6 +73,9 @@ class PartController extends Controller
 
         if($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $part->upload();
+            
             $em->persist($part);
             $em->flush();
             $this->addFlash('notice', 'Part updated successfully.');
@@ -97,13 +100,19 @@ class PartController extends Controller
         $form = $this->createDeleteForm($part);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($part);
-            $em->flush();
+        try {
+            if($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($part);
+                $em->flush();
+            }
+            $this->addFlash('notice', 'Part deleted successfully.');
+            return $this->redirectToRoute('admin_part_index');
+        } catch(Exception $e) {
+            return 'Caught exception: ' . $e->getMessage() . "\n";
         }
-        $this->addFlash('notice', 'Part deleted successfully.');
-        return $this->redirectToRoute('admin_part_index');
+
+
     }
 
     /**
