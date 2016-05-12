@@ -101,24 +101,25 @@
         }
     </style>
     <div class="row">
-    <div id="shopping-cart" class="col-md-12">
-        <div class="stats-overview stat-block" style="border-color: #e2001a; border-width: 5px; border-style: solid;">
-            <div class="display stat ok huge">
+        <div id="shopping-cart" class="col-md-12">
+            <div class="stats-overview stat-block"
+                 style="border-color: #e2001a; border-width: 5px; border-style: solid;">
+                <div class="display stat ok huge">
 
-            </div>
-            <div class="details">
-
-                <div class="numbers">
-                    PRODUCT SHOPPING CART
                 </div>
-                <hr>
-                <div ng-if="numItems == 0">
-                    <div style="padding-bottom: 10px; padding-top: 20px;">
-                        No products currently in cart.
+                <div class="details">
+
+                    <div class="numbers">
+                        PRODUCT SHOPPING CART
                     </div>
-                </div>
-                <div ng-if="numItems != 0">
-                    {% verbatim %}
+                    <hr>
+                    <div ng-if="numItems == 0">
+                        <div style="padding-bottom: 10px; padding-top: 20px;">
+                            No products currently in cart.
+                        </div>
+                    </div>
+                    <div ng-if="numItems != 0">
+                        {% verbatim %}
                             <table id="cart-table" class="table table-striped table-bordered" cellspacing="0" style="margin-top: -7px;">
                                 <thead style="background: #fff;">
                                 <tr>
@@ -177,15 +178,15 @@
                             </tbody>
                             </table>
                             {% endverbatim %}
-                    <div class="row">
-                        <a class="btn btn-primary" style="float: right;margin-right: 20px; margin-bottom: 20px;  "
-                           href="{{ path('review_order') }}">REVIEW ORDER</a>
+                        <div class="row">
+                            <a class="btn btn-primary" style="float: right;margin-right: 20px; margin-bottom: 20px;  "
+                               href="{{ path('review_order') }}">REVIEW ORDER</a>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="row">
         <div class="col-md-12" style="margin-top: 30px;">
@@ -335,33 +336,33 @@
             $scope.cart = [];
             $scope.products = [];
 
-                $.ajax({
-                    beforeSend: function () {
-                        console.log('json load cart');
-                    },
-                    type: 'GET',
-                    url: "{{ path('api_load_cart') }}",
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
-                            console.log($scope.cart);
-                        });
-                    }
-                });
+            $.ajax({
+                beforeSend: function () {
+                    console.log('json load cart');
+                },
+                type: 'GET',
+                url: "{{ path('api_load_cart') }}",
+                success: function (data) {
+                    $scope.$apply(function () {
+                        $scope.cart = data.cart;
+                        $scope.numItems = data.num_items;
+                        console.log($scope.cart);
+                    });
+                }
+            });
 
-                $.ajax({
-                    beforeSend: function () {
-                        console.log('json start');
-                    },
-                    type: 'GET',
-                    url: "{{ path('api_get_products') }}",
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.products = data;
-                        });
-                    }
-                });
+            $.ajax({
+                beforeSend: function () {
+                    console.log('json start');
+                },
+                type: 'GET',
+                url: "{{ path('api_get_products') }}",
+                success: function (data) {
+                    $scope.$apply(function () {
+                        $scope.products = data;
+                    });
+                }
+            });
 
             $scope.inArray = function (item, array) {
                 return array.indexOf(item);
