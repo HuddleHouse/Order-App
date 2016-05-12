@@ -198,14 +198,14 @@
                         <div class="col-md-3">
                             <div class="numbers">
                                 PRODUCT SEARCH
+                            </div>
                         </div>
-                    </div>
                         <div id='filters' class="col-md-5">
                             <select class="form-control">
                                 <option value="*">-- All Categories --</option>
                                 {% for category in categories %}
                                     <option value=".{{ category.nameCononical }}">{{ category.name }}</option>
-                            {% endfor %}
+                                {% endfor %}
                             </select>
 
                         </div>
@@ -213,7 +213,7 @@
                             <input type="text" class="form-control" id="myInputTextField"
                                    placeholder="Search by product Description or Number">
                         </div>
-                </div>
+                    </div>
                     <hr>
                     <div class="title" style="padding-bottom: 10px; padding-top: 10px;">
 
@@ -257,7 +257,7 @@
                             </tbody>
                         </table>
                     </div>
-            </div>
+                </div>
             </div>
         </div>
     </div>
