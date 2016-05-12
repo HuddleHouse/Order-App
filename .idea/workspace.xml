@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Small CHanges">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/3e7b5a2.css" afterPath="$PROJECT_DIR$/web/css/3e7b5a2.css" />
@@ -49,11 +50,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CartController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CartController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1239">
               <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3870">
+              <caret line="258" column="14" selection-start-line="258" selection-start-column="14" selection-end-line="258" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -168,7 +179,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Cart.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig" />
-        <option value="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/PartController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Part.php" />
@@ -176,6 +186,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Part/edit.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/home.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" />
+        <option value="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
       </list>
     </option>
   </component>
@@ -867,14 +878,7 @@
       <workItem from="1462375911293" duration="5000" />
       <workItem from="1462736752507" duration="7936000" />
       <workItem from="1462800322738" duration="1264000" />
-      <workItem from="1463059578912" duration="457000" />
-    </task>
-    <task id="LOCAL-00033" summary="Added checks on registration.">
-      <created>1457238807896</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1457238807896</updated>
+      <workItem from="1463059578912" duration="476000" />
     </task>
     <task id="LOCAL-00034" summary="Added checks on registration.">
       <created>1457239124510</created>
@@ -1212,11 +1216,18 @@
       <option name="project" value="LOCAL" />
       <updated>1463062532788</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Small CHanges">
+      <created>1463062541578</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1463062541578</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50438000" />
+    <option name="totallyTimeSpent" value="50457000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="367" y="23" width="1627" height="1413" extended-state="0" />
@@ -1670,14 +1681,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="72" column="10" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/app.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -1799,6 +1802,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1239">
           <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3870">
+          <caret line="258" column="14" selection-start-line="258" selection-start-column="14" selection-end-line="258" selection-end-column="14" />
           <folding />
         </state>
       </provider>

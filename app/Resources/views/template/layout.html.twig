@@ -13,61 +13,63 @@
     <div class="header navbar  navbar-fixed-top hidden-print">
         <!-- BEGIN TOP NAVIGATION BAR -->
         <div class="header-inner">
-                {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') %}
             <a id="home-logo" href="{{ path('admin_home') }}">
                 {% elseif is_granted('ROLE_USER') %}
                 <a id="home-logo" href="{{ path('user_home') }}">
                     {% endif %}
                     <img height="35" src="{{ asset('images/logo.png') }}" alt="logo"/>
-            </a>
-            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                </a>
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
                 <a href="javascript:" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <i id="navbar-toggle" class="fa fa-bars"></i>
                 </a>
-            <!-- END RESPONSIVE MENU TOGGLER -->
-            <!-- BEGIN TOP NAVIGATION MENU -->
-            <ul class="nav navbar-nav pull-right">
-                <li id="welcome-message" class="dropdown user">
-                    <a class="welcome">
-                        <span class="username">Welcome back {{ app.user }}</span>
-                    </a>
-                </li>
-                <li class="devider visible-lg visible-md visible-sm">
-                    &nbsp;
-                </li>
-                <!-- BEGIN USER LOGIN DROPDOWN -->
-                <li class="dropdown user">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <span class="username">User Settings</span>
-                        <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>
-                        </li>
-                        {% if not is_granted('ROLE_ADMIN') %}
-                        <li>
-                            <a href="{{ path('view_all_orders') }}"><i class="fa fa-hdd-o"></i> View All Orders</a>
-                        </li>
-                        {% endif %}
-                        <li>
-                            <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a>
-                        </li>
-                        {#{% if is_granted('ROLE_ADMIN') %}#}
-                        {#<li>#}
-                        {#<a href="{{ path('send_invitation') }}"><i class="icon-anchor"></i> Invite User</a>#}
-                        {#</li>#}
-                        {#{% endif %}#}
-                        <li class="divider">
-                        </li>
-                        <li>
-                        <a href="{{ path('fos_user_security_logout') }}"><i class="icon-rocket"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- END USER LOGIN DROPDOWN -->
-            </ul>
-            <!-- END TOP NAVIGATION MENU -->
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <ul class="nav navbar-nav pull-right">
+                    <li id="welcome-message" class="dropdown user">
+                        <a class="welcome">
+                            <span class="username">Welcome back {{ app.user }}</span>
+                        </a>
+                    </li>
+                    <li class="devider visible-lg visible-md visible-sm">
+                        &nbsp;
+                    </li>
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <li class="dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
+                            <span class="username">User Settings</span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>
+                            </li>
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('view_all_orders') }}"><i class="fa fa-hdd-o"></i> View All Orders</a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change
+                                    Password</a>
+                            </li>
+                            {#{% if is_granted('ROLE_ADMIN') %}#}
+                            {#<li>#}
+                            {#<a href="{{ path('send_invitation') }}"><i class="icon-anchor"></i> Invite User</a>#}
+                            {#</li>#}
+                            {#{% endif %}#}
+                            <li class="divider">
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_security_logout') }}"><i class="icon-rocket"></i> Log Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                </ul>
+                <!-- END TOP NAVIGATION MENU -->
         </div>
         <!-- END TOP NAVIGATION BAR -->
     </div>
@@ -77,107 +79,113 @@
 
     <div class="page-container ">
         {% if is_granted('ROLE_ADMIN') %}
-        <!-- BEGIN SIDEBAR -->
+            <!-- BEGIN SIDEBAR -->
             <div class="page-sidebar-wrapper hidden-print">
-            <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
-                <ul class="page-sidebar-menu">
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <ul class="page-sidebar-menu">
 
-                <li class="sidebar-toggler-wrapper">
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        <div class="sidebar-toggler">
-                        </div>
-                        <div class="clearfix">
-                        </div>
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                    </li>
+                        <li class="sidebar-toggler-wrapper">
+                            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                            <div class="sidebar-toggler">
+                            </div>
+                            <div class="clearfix">
+                            </div>
+                            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        </li>
 
-                    <li class="start {% if app.request.get('_route') == 'user_home' %}active{% elseif app.request.get('_route') == 'admin_home' %}active{% endif %}">
+                        <li class="start {% if app.request.get('_route') == 'user_home' %}active{% elseif app.request.get('_route') == 'admin_home' %}active{% endif %}">
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('admin_home') }}">
+                                {% elseif is_granted('ROLE_USER') %}
+                                <a href="{{ path('user_home') }}">
+                                    {% endif %}
+
+                                    <i class="icon-home"></i>
+                                    <span class="title">Dashboard</span>
+                                </a>
+                        </li>
                         {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('admin_home') }}">
-                            {% elseif is_granted('ROLE_USER') %}
-                            <a href="{{ path('user_home') }}">
+                            <li class="z {% if app.request.attributes.get('_route') in [
+                            'fos_user_group_list',
+                            'admin_part_index',
+                            'fos_user_group_edit',
+                            'send_invitation',
+                            'view_users',
+                            'admin_edit_user',
+                            'admin_partcategory_index'
+                            ] %}active{% endif %}">
+                                <a href="javascript:">
+                                    <i class="fa fa-lock"></i>
+                                    <span class="title">Admin</span>
+                                    <span class="selected"></span>
+                                    <span class="arrow "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li {% if app.request.get('_route') == 'fos_user_group_list' %} class="active"{% endif %}>
+                                        <a href="{{ path('fos_user_group_list') }}"><i class="fa fa-users"></i> View All
+                                            Offices</a>
+                                    </li>
+                                    <li {% if app.request.get('_route') == 'admin_part_index' %} class="active"{% endif %}>
+                                        <a href="{{ path('admin_part_index') }}"><i class="fa fa-archive"></i> View All
+                                            Parts</a>
+                                    </li>
+                                    <li {% if app.request.get('_route') == 'admin_partcategory_index' %} class="active"{% endif %}>
+                                        <a href="{{ path('admin_partcategory_index') }}"><i
+                                                    class="fa fa-folder-open-o"></i>
+                                            View All
+                                            Part Categories</a>
+                                    </li>
+                                    <li {% if app.request.get('_route') == 'view_users' %} class="active"{% endif %}>
+                                        <a href="{{ path('view_users') }}"><i class="icon-book-open"></i> View
+                                            Registered
+                                            Users</a>
+                                    </li>
+                                    <li {% if app.request.get('_route') == 'send_invitation' %} class="active"{% endif %}>
+                                        <a href="{{ path('send_invitation') }}"><i class="fa fa-user"></i> Send User
+                                            Invite</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
                         {% endif %}
-
-                            <i class="icon-home"></i>
-                            <span class="title">Dashboard</span>
-                        </a>
-                    </li>
-                    {% if is_granted('ROLE_ADMIN') %}
                         <li class="z {% if app.request.attributes.get('_route') in [
-                        'fos_user_group_list',
-                        'admin_part_index',
-                        'fos_user_group_edit',
-                        'send_invitation',
-                        'view_users',
-                        'admin_edit_user',
-                        'admin_partcategory_index'
+                        'fos_user_group_new',
+                        'admin_part_new',
+                        'admin_partcategory_new',
                         ] %}active{% endif %}">
-                        <a href="javascript:">
-                            <i class="fa fa-lock"></i>
-                            <span class="title">Admin</span>
-                            <span class="selected"></span>
-                            <span class="arrow "></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li {% if app.request.get('_route') == 'fos_user_group_list' %} class="active"{% endif %}>
-                                <a href="{{ path('fos_user_group_list') }}"><i class="fa fa-users"></i> View All Offices</a>
-                            </li>
-                            <li {% if app.request.get('_route') == 'admin_part_index' %} class="active"{% endif %}>
-                                <a href="{{ path('admin_part_index') }}"><i class="fa fa-archive"></i> View All
-                                    Parts</a>
-                            </li>
-                            <li {% if app.request.get('_route') == 'admin_partcategory_index' %} class="active"{% endif %}>
-                                <a href="{{ path('admin_partcategory_index') }}"><i class="fa fa-folder-open-o"></i>
-                                    View All
-                                    Part Categories</a>
-                            </li>
-                            <li {% if app.request.get('_route') == 'view_users' %} class="active"{% endif %}>
-                                <a href="{{ path('view_users') }}"><i class="icon-book-open"></i> View Registered
-                                    Users</a>
-                            </li>
-                            <li {% if app.request.get('_route') == 'send_invitation' %} class="active"{% endif %}>
-                                <a href="{{ path('send_invitation') }}"><i class="fa fa-user"></i> Send User Invite</a>
-                            </li>
+                            <a href="javascript:">
+                                <i class="icon-settings"></i>
+                                <span class="title">Settings</span>
+                                <span class="selected"></span>
+                                <span class="arrow "></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li {% if app.request.get('_route') == 'fos_user_group_new' %} class="active"{% endif %}>
+                                    <a href="{{ path('fos_user_group_new') }}"><i class="fa fa-plus-square-o"></i> Add
+                                        New
+                                        Office</a>
+                                </li>
+                                <li {% if app.request.get('_route') == 'admin_part_new' %} class="active"{% endif %}>
+                                    <a href="{{ path('admin_part_new') }}"><i class="fa fa-plus-square-o"></i> Add New
+                                        Part</a>
+                                </li>
+                                <li {% if app.request.get('_route') == 'admin_partcategory_new' %} class="active"{% endif %}>
+                                    <a href="{{ path('admin_partcategory_new') }}"><i class="fa fa-plus-square-o"></i>
+                                        Add
+                                        New
+                                        Part Category</a>
+                                </li>
+                            </ul>
+                        </li>
 
 
-                        </ul>
-                    </li>
-                    {% endif %}
-                    <li class="z {% if app.request.attributes.get('_route') in [
-                    'fos_user_group_new',
-                    'admin_part_new',
-                    'admin_partcategory_new',
-                    ] %}active{% endif %}">
-                        <a href="javascript:">
-                            <i class="icon-settings"></i>
-                            <span class="title">Settings</span>
-                            <span class="selected"></span>
-                            <span class="arrow "></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li {% if app.request.get('_route') == 'fos_user_group_new' %} class="active"{% endif %}>
-                                <a href="{{ path('fos_user_group_new') }}"><i class="fa fa-plus-square-o"></i> Add New
-                                    Office</a>
-                            </li>
-                            <li {% if app.request.get('_route') == 'admin_part_new' %} class="active"{% endif %}>
-                                <a href="{{ path('admin_part_new') }}"><i class="fa fa-plus-square-o"></i> Add New
-                                    Part</a>
-                            </li>
-                            <li {% if app.request.get('_route') == 'admin_partcategory_new' %} class="active"{% endif %}>
-                                <a href="{{ path('admin_partcategory_new') }}"><i class="fa fa-plus-square-o"></i> Add
-                                    New
-                                    Part Category</a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-                </ul>
-                <!-- END SIDEBAR MENU -->
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                </div>
             </div>
-        </div>
-        <!-- END SIDEBAR -->
+            <!-- END SIDEBAR -->
         {% else %}
             <style>
                 .page-sidebar-closed .page-content {
@@ -239,7 +247,7 @@
                     </div>
                 </div>
                 <!-- BEGIN PAGE CONTENT-->
-                    {{ block('content') }}
+                {{ block('content') }}
                 <!-- END PAGE CONTENT-->
             </div>
         </div>
