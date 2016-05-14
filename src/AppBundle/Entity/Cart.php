@@ -84,7 +84,14 @@ class Cart
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $requester_name;
+    private $requester_first_name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $requester_last_name;
     
     
     
@@ -283,21 +290,35 @@ class Cart
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getRequesterName()
+    public function getRequesterFirstName()
     {
-        return $this->requester_name;
+        return $this->requester_first_name;
     }
 
     /**
-     * @param mixed $requester_name
+     * @param string $requester_first_name
      */
-    public function setRequesterName($requester_name)
+    public function setRequesterFirstName($requester_first_name)
     {
-        $this->requester_name = $requester_name;
+        $this->requester_first_name = $requester_first_name;
     }
 
+    /**
+     * @return string
+     */
+    public function getRequesterLastName()
+    {
+        return $this->requester_last_name;
+    }
 
+    /**
+     * @param string $requester_last_name
+     */
+    public function setRequesterLastName($requester_last_name)
+    {
+        $this->requester_last_name = $requester_last_name;
+    }
 }
 

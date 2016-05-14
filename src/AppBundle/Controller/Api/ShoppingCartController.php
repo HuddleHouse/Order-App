@@ -208,13 +208,30 @@ class ShoppingCartController extends Controller
         $id = $request->request->get('cart_id');
 
         $cart = $em->getRepository('AppBundle:Cart')->find($id);
-        $cart->setRequesterName($data);
+        $cart->setRequesterFirstName($data);
         $em->persist($cart);
         $em->flush();
 
         return JsonResponse::create(true);
     }
 
+    /**
+     * @Route("/api/update-requester-last-name", name="api_update_requester_last_name")
+     */
+    public function updateRequesterLastName(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->request->get('note');
+        $id = $request->request->get('cart_id');
+
+        $cart = $em->getRepository('AppBundle:Cart')->find($id);
+        $cart->setRequesterLastName($data);
+        $em->persist($cart);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
+    
     /**
      * @Route("/api/add-line-number", name="api_add_line_number")
      */
@@ -291,6 +308,6 @@ class ShoppingCartController extends Controller
             );
             $count += $product->getQuantity();
         }
-        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count, 'cart_notes' => $cart->getNote(), 'requester_name' => $cart->getRequesterName()));
+        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count, 'cart_notes' => $cart->getNote(), 'requester_name' => $cart->getRequesterFirstName() . " " . $cart->getRequesterLastName()));
     }
 }

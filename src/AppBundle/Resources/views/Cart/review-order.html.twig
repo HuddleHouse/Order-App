@@ -14,6 +14,11 @@
                     </div>
                     <hr>
                     <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xs-12">
                             <div ng-if="numItems == 0">
                                 <div style="padding-bottom: 10px; padding-top: 20px;">
@@ -79,11 +84,17 @@
                     <div class="row" style="padding-bottom: 25px;">
                         <div class="container" style="text-align: center; padding-bottom: 25px;">
                             <div class="numbers" style="    padding-bottom: 15px;">
-                                <center>REQUESTER NAME</center>
+                                <center>REQUESTING TECH</center>
                             </div>
-                            <input style="width: 45%; margin-left: auto; margin-right: auto; height: 45px; font-size: 18px !important; text-align: center;"
-                                   ng-model="requester_name" class="form-control"
-                                   ng-change="updateRequesterName(requester_name)"></input>
+                            <div style="display: inline-flex;">
+                                <input style="height: 45px; font-size: 18px !important; text-align: center;"
+                                       ng-model="requester_name" class="form-control"
+                                       ng-change="updateRequesterName(requester_name)"></input>
+                                <input style="height: 45px; font-size: 18px !important; text-align: center;"
+                                       ng-model="requester_last_name" class="form-control"
+                                       ng-change="updateRequesterLastName(requester_last_name)"></input>
+                            </div>
+
                         </div>
                         <div class="container" style="text-align: center;">
                             <div class="numbers" style="    padding-bottom: 15px;">
@@ -98,6 +109,9 @@
                         </div>
                         <div class="col-xs-6 invoice-block">
                             <br/>
+                            <button class="btn btn-lg btn-default" onclick="goBack()"><i class="fa fa-arrow-left"></i>
+                                Back To Order Screen
+                            </button>
                             <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print <i
                                         class="fa fa-print"></i></a>
 
@@ -117,6 +131,9 @@
 
 {% block footer %}
     <script>
+        function goBack() {
+            window.history.back();
+        }
         $(document).ready(function () {
             oTable = $('#part-table').DataTable({
                 "paging": false,
@@ -149,6 +166,8 @@
             $scope.numItems = 0;
             $scope.cart = [];
             $scope.products = [];
+            $scope.requester_name = "First Name";
+            $scope.requester_last_name = "Last Name";
 
 
             $.ajax({
@@ -162,7 +181,7 @@
                         $scope.cart = data.cart;
                         $scope.numItems = data.num_items;
                         $scope.notes = data.cart_notes;
-                        $scope.requester_name = data.requester_name;
+
                         console.log($scope.cart);
                     });
                 }
@@ -187,6 +206,21 @@
                 $.ajax({
                     type: 'POST',
                     url: "{{ path('api_update_requester_name') }}",
+                    data: {note: name, cart_id: {{ cart_id }} },
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+
+            $scope.updateRequesterLastName = function (name) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_update_requester_last_name') }}",
                     data: {note: name, cart_id: {{ cart_id }} },
                     dataType: 'json',
                     success: function () {
