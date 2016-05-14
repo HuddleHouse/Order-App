@@ -98,6 +98,47 @@ class ShoppingCartController extends Controller
     }
 
     /**
+     * @Route("/api/add-cart-unknown-item", name="api_add_unknown_item")
+     */
+    public function addCartUnknownItemAction(Request $request)
+    {
+        $user = $this->getUser();
+        $description = $request->request->get('description');
+        $em = $this->getDoctrine()->getManager();
+
+        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
+            $cart = new Cart();
+            $cart->setUser($user);
+            $cart->setOffice($user->getOffice());
+            $cart->setDate(date_create(date("Y-m-d H:i:s")));
+            $em->persist($cart);
+            $em->flush();
+        }
+
+        $part = $em->getRepository('AppBundle:Part')->findOneBy(array('stockNumber' => '999-999-99999'));
+        if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
+            $product = new CartProduct();
+            $product->setCart($cart);
+            $product->setPart($part);
+            $product->setStockLocation("ADD THIS");
+            $product->setDescription($description);
+
+            $lineNumber = new CartProductLineNumber();
+            $lineNumber->setCartProduct($product);
+            $product->addCartProductLineNumber($lineNumber);
+            $em->persist($lineNumber);
+            $em->persist($product);
+            $em->flush();
+        }
+
+        $product->setQuantity($product->getQuantity() + 1);
+        $em->persist($product);
+        $em->flush();
+
+        return $this->sumCart($cart);
+    }
+    
+    /**
      * @Route("/api/remove-cart-item", name="api_remove_item")
      */
     public function removeCartItemAction(Request $request)
@@ -240,7 +281,7 @@ class ShoppingCartController extends Controller
             }
             $json_cart[] = array(
                 'stock_number' => $product->getPart()->getStockNumber(),
-                'description' => $product->getPart()->getDescription(),
+                'description' => ($product->getPart()->getStockNumber() == '999-999-99999' ? $product->getDescription() : $product->getPart()->getDescription()),
                 'id' => $product->getPart()->getId(),
                 'require_return' => $product->getPart()->getRequireReturn(),
                 'category' => $product->getPart()->getPartCategory()->getName(),

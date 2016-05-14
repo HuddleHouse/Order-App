@@ -71,11 +71,9 @@ class PartController extends Controller
         $editForm = $this->createForm('AppBundle\Form\PartType', $part);
         $editForm->handleRequest($request);
 
-        if($editForm->isSubmitted() && $editForm->isValid()) {
+        if($editForm->isSubmitted() && $editForm->isValid() && ($part->getStockNumber() != '999-999-99999' && $part->getDescription() != "UNKNOWN ITEM")) {
             $em = $this->getDoctrine()->getManager();
-
             $part->upload();
-            
             $em->persist($part);
             $em->flush();
             $this->addFlash('notice', 'Part updated successfully.');

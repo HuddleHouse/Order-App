@@ -42,6 +42,7 @@ class PartType extends AbstractType
                 'attr' => array(
                     'style' => 'margin-bottom: 29px'),
                 'label' => 'Picture',
+                'required' => false,
             ));
     }
 
