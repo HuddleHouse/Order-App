@@ -423,7 +423,6 @@
                     $scope.$apply(function () {
                         $scope.cart = data.cart;
                         $scope.numItems = data.num_items;
-                        console.log($scope.cart);
                     });
                 }
             });
@@ -447,7 +446,6 @@
 
             $scope.addUnknownItem = function () {
                 var description = $("#unknown_item_description").val();
-                console.log(description);
                 if (description.length <= 0)
                     alert('Description cannot be left blank.');
                 else {
@@ -472,7 +470,6 @@
 
             $scope.addUnknownItem2 = function () {
                 var description = $("#unknown_item_description2").val();
-                console.log(description);
                 if (description.length <= 0)
                     alert('Description cannot be left blank.');
                 else {
@@ -496,7 +493,6 @@
             };
 
             $scope.addItem = function (item) {
-                console.log(item);
                 $.ajax({
                     type: 'POST',
                     url: "{{ path('api_add_item') }}",
