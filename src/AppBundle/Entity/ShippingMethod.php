@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ShippingMethod
  *
  * @ORM\Table(name="shipping_method")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ShippingMethodRepository")
  */
 class ShippingMethod
 {
