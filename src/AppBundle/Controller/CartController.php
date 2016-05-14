@@ -18,6 +18,7 @@ class CartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('AppBundle:Part')->findAll();
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
 
 //        foreach($products as $product) {
@@ -31,6 +32,7 @@ class CartController extends Controller
         return $this->render('AppBundle:Cart:home.html.twig', array(
             'products' => $products,
             'categories' => $categories,
+            'shipping' => $shipping,
         ));
     }
 

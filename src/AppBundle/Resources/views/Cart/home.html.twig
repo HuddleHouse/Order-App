@@ -108,9 +108,21 @@
 
                 </div>
                 <div class="details">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="numbers">
+                                PRODUCT SHOPPING CART
+                            </div>
+                        </div>
 
-                    <div class="numbers">
-                        PRODUCT SHOPPING CART
+                        <div class="numbers" class="col-md-4">
+                            <select id="shipping" style="float: right; margin-right: 25px;" required="required">
+                                <option disabled selected value="0">-- Choose Your Shipping Method --</option>
+                                {% for ship in shipping %}
+                                    <option value=".{{ ship.id }}">{{ ship.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                     <hr>
                     <div ng-if="numItems == 0">
@@ -206,7 +218,8 @@
                             </table>
                             {% endverbatim %}
                         <div class="row">
-                            <a class="btn btn-primary" style="float: right;margin-right: 20px; margin-bottom: 20px;  "
+                            <a class="btn btn-primary" id="review_order"
+                               style="float: right;margin-right: 20px; margin-bottom: 20px;  "
                                href="{{ path('review_order') }}">REVIEW ORDER</a>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
                                     style="float: right;margin-right: 20px; margin-bottom: 20px;">ADD AN UNKNOWN ITEM
@@ -358,6 +371,13 @@
             modalImg.alt = img.alt;
             captionText.innerHTML = img.alt;
         }
+
+        $("#review_order").click(function (event) {
+            if ($("#shipping").valueOf() == 0) {
+                alert('ldkjf'
+                );
+            }
+        });
 
         $(document).ready(function () {
             oTable = $('#part-table').DataTable({
