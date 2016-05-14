@@ -23,6 +23,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
  */
 $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();
+umask(0002);
 
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
