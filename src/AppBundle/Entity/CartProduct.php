@@ -69,6 +69,13 @@ class CartProduct
     private $note;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", mappedBy="cartProduct")
      */
     private $cartProductLineNumbers;
@@ -226,4 +233,22 @@ class CartProduct
     {
         return $this->cartProductLineNumbers;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+
 }
