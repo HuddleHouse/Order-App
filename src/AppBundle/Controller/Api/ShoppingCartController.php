@@ -137,7 +137,7 @@ class ShoppingCartController extends Controller
 
         return $this->sumCart($cart);
     }
-    
+
     /**
      * @Route("/api/remove-cart-item", name="api_remove_item")
      */
