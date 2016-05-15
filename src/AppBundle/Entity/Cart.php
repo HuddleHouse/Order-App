@@ -36,6 +36,12 @@ class Cart
     private $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ShippingMethod")
+     * @ORM\JoinColumn(name="shipping_method_id", referencedColumnName="id")
+     */
+    private $shipping_method;
+    
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProduct", mappedBy="cart")
      */
     private $cart_products;
@@ -320,5 +326,23 @@ class Cart
     {
         $this->requester_last_name = $requester_last_name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getShippingMethod()
+    {
+        return $this->shipping_method;
+    }
+
+    /**
+     * @param mixed $shipping_method
+     */
+    public function setShippingMethod($shipping_method)
+    {
+        $this->shipping_method = $shipping_method;
+    }
+    
+    
 }
 

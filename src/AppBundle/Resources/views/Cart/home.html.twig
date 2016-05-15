@@ -116,10 +116,11 @@
                         </div>
 
                         <div class="numbers" class="col-md-4">
-                            <select id="shipping" style="float: right; margin-right: 25px;" required="required">
+                            <select id="shipping" style="float: right; margin-right: 25px;" required="required"
+                                    ng-change="updateShipping()" ng-model="shipping">
                                 <option disabled selected value="0">-- Choose Your Shipping Method --</option>
                                 {% for ship in shipping %}
-                                    <option value=".{{ ship.id }}">{{ ship.name }}</option>
+                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -412,6 +413,7 @@
             $scope.numItems = 0;
             $scope.cart = [];
             $scope.products = [];
+            $scope.shipping = '0';
 
             $.ajax({
                 beforeSend: function () {
@@ -423,6 +425,8 @@
                     $scope.$apply(function () {
                         $scope.cart = data.cart;
                         $scope.numItems = data.num_items;
+                        $scope.shipping = data.shipping;
+                        console.log(data.shipping);
                     });
                 }
             });
@@ -442,6 +446,23 @@
 
             $scope.inArray = function (item, array) {
                 return array.indexOf(item);
+            };
+
+            $scope.updateShipping = function () {
+                var id = $("#shipping").val();
+                console.log('id: ' + id);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('update_shipping') }}",
+                    data: {line_number: id},
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
             };
 
             $scope.addUnknownItem = function () {

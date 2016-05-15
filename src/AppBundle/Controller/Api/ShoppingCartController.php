@@ -182,6 +182,27 @@ class ShoppingCartController extends Controller
     }
 
     /**
+     * @Route("/api/update-shipping", name="update_shipping")
+     */
+    public function updateShipping(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $request->request->get('line_number');
+        $shippingMehtod = $em->getRepository('AppBundle:ShippingMethod')->find($data);
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
+        $cart->setShippingMethod($shippingMehtod);
+
+        $em->persist($cart);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
+
+    /**
      * @Route("/api/update-notes", name="api_update_notes")
      */
     public function updateNotesAction(Request $request)
@@ -308,6 +329,6 @@ class ShoppingCartController extends Controller
             );
             $count += $product->getQuantity();
         }
-        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count, 'cart_notes' => $cart->getNote(), 'requester_name' => $cart->getRequesterFirstName() . " " . $cart->getRequesterLastName()));
+        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count, 'cart_notes' => $cart->getNote(), 'requester_name' => $cart->getRequesterFirstName() . " " . $cart->getRequesterLastName(), 'shipping' => ($cart->getShippingMethod() != null ? (string)$cart->getShippingMethod()->getId() : '0')));
     }
 }
