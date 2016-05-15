@@ -83,11 +83,11 @@
                                         </td>
 
                                         <td>
-                                            <select id="stock_location" class="form-control" required="required" ng-change="updateStockLocation(item)" ng-model="stock_location" style="
+                                            <select id="stock_location{{item.id}}" name="stock_location{{item.id}}" class="form-control" required="required" ng-change="updateStockLocation(item)" ng-model="stock_location" style="
     height: 40px;
 ">
 {% endverbatim %}
-                                <option disabled selected value="0">-- Location --</option>
+                                <option disabled value="0">Location</option>
                                 {% for ship in stock_location %}
                                     <option value="{{ ship.id }}">{{ ship.name }}</option>
                                 {% endfor %}
@@ -294,7 +294,7 @@
             $scope.cart = [];
             $scope.products = [];
             $scope.shipping = '0';
-            $scope.stock_location = '0';
+            $scope.stock_location = {};
 
 
             $.ajax({
@@ -312,6 +312,11 @@
                         $scope.backOrders = data.backOrders;
                         $scope.numItems = data.num_items;
                         $scope.shipping = data.shipping;
+
+                        angular.forEach($scope.cart, function (product) {
+                            $scope[product.id] = product.product_id;
+                            console.log($scope.stock_location);
+                        });
                     });
                 }
             });
@@ -325,6 +330,7 @@
                 success: function (data) {
                     $scope.$apply(function () {
                         $scope.products = data;
+
                     });
                 }
             });
@@ -386,7 +392,8 @@
             };
 
             $scope.updateStockLocation = function (product_id) {
-                var id = $("#stock_location").val();
+                var id = $("#stock_location" + product_id.id).val();
+                console.log("#stock_location" + product_id.id);
                 $.ajax({
                     type: 'POST',
                     url: "{{ path('update_stock_location') }}",
