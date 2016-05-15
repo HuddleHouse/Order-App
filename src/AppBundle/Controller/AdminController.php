@@ -236,10 +236,10 @@ class AdminController extends Controller
         $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
         $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
-        if($cart->getApproved()) {
-            $this->addFlash('error', "Order has already been approved and can not be edited.");
-            return $this->redirectToRoute('admin_order_approve', array('cart_id' => $cart->getId()));
-        }
+//        if($cart->getApproved()) {
+//            $this->addFlash('error', "Order has already been approved and can not be edited.");
+//            return $this->redirectToRoute('admin_order_approve', array('cart_id' => $cart->getId()));
+//        }
         $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
         return $this->render('AppBundle:Admin:review_order.html.twig', array(
             'products' => $products,

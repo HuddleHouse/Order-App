@@ -147,10 +147,11 @@
                                             </li>
                                         </ul>
                                         <br>
-                                        <button class="btn btn-lg btn-default" onclick="goBack()"><i
+                                        <a class="btn btn-lg btn-default"
+                                           href="{{ path('admin_order_edit', {'cart_id': cart.id}) }}"><i
                                                     class="fa fa-arrow-left"></i>
                                             Edit Order
-                                        </button>
+                                        </a>
                                         <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
                                     </div>
                                 </div>
