@@ -216,6 +216,7 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('view_users');
         }
+        $em = $this->getDoctrine()->getManager();
 
         return $this->render('@App/Admin/admin_edit_user.html.twig', array(
             'form' => $form->createView(),
@@ -237,14 +238,15 @@ class AdminController extends Controller
             $this->addFlash('error', "Order has already been approved and can not be edited.");
             return $this->redirectToRoute('admin_order_approve', array('cart_id' => $cart->getId()));
         }
-
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
         return $this->render('AppBundle:Admin:review_order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
             'cart_id' => $cart_id,
             'office' => $cart->getOffice(),
             'user' => $cart->getUser(),
-            'user_notes' => $cart->getNote()
+            'user_notes' => $cart->getNote(),
+            'shipping' => $shipping
         ));
     }
 

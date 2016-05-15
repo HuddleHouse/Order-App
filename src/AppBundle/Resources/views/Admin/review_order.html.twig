@@ -103,12 +103,14 @@
                                                 <a href="mailto:{{ user.email }}"
                                                    style="color: #e2001a;">{{ user.email }}</a>
                                             </address>
+                                            {% if office %}
                                             <address style="margin-bottom: 5px;">
-                                                <strong>#{{ office.officeNumber }} {{ office.name }}</strong><br>
+                                                <strong># {{ office.name }}</strong><br>
                                                 {{ office.address }}<br>
                                                 {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
                                                 <abbr title="Phone">P:</abbr> {{ office.phone }}
                                             </address>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-xs-12">
@@ -124,6 +126,19 @@
                                     </div>
                                     <div class="col-md-4 col-xs-12 invoice-block"
                                          style="text-align: right; margin-top: 30px;">
+                                        <div class="row">
+                                            <strong style="    margin-right: 131px;">Shipping</strong><br>
+                                            <select id="shipping" style="float: right; margin-right: 25px;    margin-bottom: 20px;
+    margin-top: 20px;" required="required"
+                                                    ng-change="updateShipping()" ng-model="shipping">
+                                                <option disabled selected value="0">-- Choose Your Shipping Method --
+                                                </option>
+                                                {% for ship in shipping %}
+                                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <hr>
                                         <ul class="list-unstyled amounts">
                                             <li>
                                                 <strong>Items Requested:</strong> <input ng-model="requested" disabled
@@ -263,6 +278,7 @@
             $scope.backOrders = 0;
             $scope.cart = [];
             $scope.products = [];
+            $scope.shipping = '0';
 
 
             $.ajax({
@@ -279,6 +295,7 @@
                         $scope.requested = data.requested;
                         $scope.backOrders = data.backOrders;
                         $scope.numItems = data.num_items;
+                        $scope.shipping = data.shipping;
                     });
                 }
             });

@@ -100,16 +100,19 @@
                                             </div>
                                             <hr>
                                             <address>
+                                                <strong>{{ shipping }}</strong>
                                                 <strong>{{ user.firstName }} {{ user.lastName }}</strong><br>
                                                 <a href="mailto:{{ user.email }}"
                                                    style="color: #e2001a;">{{ user.email }}</a>
                                             </address>
+                                            {% if office %}
                                             <address style="margin-bottom: 5px;">
                                                 <strong>#{{ office.officeNumber }} {{ office.name }}</strong><br>
                                                 {{ office.address }}<br>
                                                 {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
                                                 <abbr title="Phone">P:</abbr> {{ office.phone }}
                                             </address>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-xs-12">
@@ -142,6 +145,10 @@
                                             </li>
                                         </ul>
                                         <br>
+                                        <button class="btn btn-lg btn-default" onclick="goBack()"><i
+                                                    class="fa fa-arrow-left"></i>
+                                            Edit Order
+                                        </button>
                                         <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
                                     </div>
                                 </div>
@@ -158,6 +165,9 @@
 
 {% block footer %}
     <script>
+        function goBack() {
+            window.history.back();
+        }
         $(document).ready(function () {
             oTable = $('#part-table').DataTable({
                 "paging": false,

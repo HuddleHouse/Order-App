@@ -226,7 +226,10 @@ class ReviewOrderController extends Controller
             'shipped' => $shipped,
             'requested' => $requested,
             'backOrders' => $backOrders,
-            'numItems' => $requested
+            'numItems' => $requested,
+            'requester_first_name' => $cart->getRequesterFirstName(),
+            'requester_last_name' => $cart->getRequesterLastName(),
+            'shipping' => ($cart->getShippingMethod() != null ? (string)$cart->getShippingMethod()->getId() : '0'),
         ));
     }
 }
