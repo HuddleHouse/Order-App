@@ -58,7 +58,8 @@ class CartController extends Controller
         return $this->render('AppBundle:Cart:review-order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
-            'cart_id' => $cart->getid()
+            'cart_id' => $cart->getid(),
+            'shipping' => $cart->getShippingMethod()->getName()
         ));
     }
 

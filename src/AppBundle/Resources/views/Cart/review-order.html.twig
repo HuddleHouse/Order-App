@@ -14,11 +14,6 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-12">
-                            Shipping:
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-xs-12">
                             <div ng-if="numItems == 0">
                                 <div style="padding-bottom: 10px; padding-top: 20px;">
@@ -81,9 +76,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="numbers" style="padding-bottom: 30px; padding-top: 15px;">
+                                <center><b>Shipping:</b> {{ shipping }}</center>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row" style="padding-bottom: 25px;">
                         <div class="container" style="text-align: center; padding-bottom: 25px;">
-                            <div class="numbers" style="    padding-bottom: 15px;">
+                            <div class="numbers" style="padding-bottom: 15px;">
                                 <center>REQUESTING TECH</center>
                             </div>
                             <div style="display: inline-flex;">
