@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Finishing up I hope.&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations.">
@@ -51,7 +51,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CartController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CartController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="615">
@@ -76,10 +76,9 @@
       <file leaf-file-name="home.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/home.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="944">
+            <state relative-caret-position="2939">
               <caret line="453" column="24" selection-start-line="453" selection-start-column="24" selection-end-line="453" selection-end-column="24" />
               <folding>
-                <element signature="e#12#48#0#Twig" expanded="false" />
                 <element signature="e#2821#2891#0#HTML" expanded="true" />
                 <element signature="e#3375#3416#0#HTML" expanded="true" />
                 <element signature="e#12785#12810#0#HTML" expanded="true" />
@@ -127,7 +126,6 @@
                 <marker date="1463330184000" expanded="true" signature="9695:9733" placeholder="..." />
                 <marker date="1463330184000" expanded="true" signature="9734:9911" placeholder="..." />
                 <marker date="1463330184000" expanded="true" signature="9817:9848" placeholder="..." />
-                <marker date="1463330184000" expanded="true" signature="17233:25866" placeholder="{% block footer ...%}" />
               </folding>
             </state>
           </provider>
@@ -136,8 +134,8 @@
       <file leaf-file-name="ShoppingCartController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="331" column="271" selection-start-line="331" selection-start-column="271" selection-end-line="331" selection-end-column="271" />
+            <state relative-caret-position="1062">
+              <caret line="338" column="32" selection-start-line="338" selection-start-column="32" selection-end-line="338" selection-end-column="32" />
               <folding>
                 <element signature="e#44#77#0#PHP" expanded="true" />
                 <element signature="e#690#706#1#PHP" expanded="true" />
@@ -179,42 +177,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="review-order.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="review-order.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-558">
-              <caret line="80" column="74" selection-start-line="80" selection-start-column="74" selection-end-line="80" selection-end-column="74" />
+            <state relative-caret-position="882">
+              <caret line="185" column="79" selection-start-line="185" selection-start-column="79" selection-end-line="185" selection-end-column="79" />
               <folding>
+                <element signature="e#4136#4184#0#HTML" expanded="true" />
                 <element signature="e#4575#4604#0#HTML" expanded="true" />
                 <element signature="e#4739#4768#0#HTML" expanded="true" />
                 <element signature="e#4809#4878#0#HTML" expanded="true" />
-                <element signature="e#5100#5169#0#HTML" expanded="true" />
-                <marker date="1463330469000" expanded="false" signature="1056:1073" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="1074:3860" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="1114:1962" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="1151:1921" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="1192:1284" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="1344:1438" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="1498:1596" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="1656:1751" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="1792:1883" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="2002:3823" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="2081:3743" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="2154:3705" placeholder="..." />
-                <marker date="1463330469000" expanded="false" signature="2207:2225" placeholder="..." />
-                <marker date="1463330469000" expanded="false" signature="2307:2325" placeholder="..." />
-                <marker date="1463330469000" expanded="false" signature="2407:2425" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="2426:2748" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="2509:2702" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="2606:2637" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="2793:3230" placeholder="..." />
-                <marker date="1463330469000" expanded="false" signature="2904:2926" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="2927:3184" placeholder="..." />
-                <marker date="1463330469000" expanded="false" signature="3120:3132" placeholder="..." />
-                <marker date="1463330469000" expanded="false" signature="3283:3301" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="3302:3661" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="3364:3615" placeholder="..." />
-                <marker date="1463330469000" expanded="true" signature="3425:3563" placeholder="..." />
+                <element signature="e#5106#5175#0#HTML" expanded="true" />
+                <marker date="1463330722000" expanded="false" signature="1056:1073" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="1074:3860" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="1114:1962" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="1151:1921" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="1192:1284" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="1344:1438" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="1498:1596" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="1656:1751" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="1792:1883" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="2002:3823" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="2081:3743" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="2154:3705" placeholder="..." />
+                <marker date="1463330722000" expanded="false" signature="2207:2225" placeholder="..." />
+                <marker date="1463330722000" expanded="false" signature="2307:2325" placeholder="..." />
+                <marker date="1463330722000" expanded="false" signature="2407:2425" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="2426:2748" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="2509:2702" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="2606:2637" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="2793:3230" placeholder="..." />
+                <marker date="1463330722000" expanded="false" signature="2904:2926" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="2927:3184" placeholder="..." />
+                <marker date="1463330722000" expanded="false" signature="3120:3132" placeholder="..." />
+                <marker date="1463330722000" expanded="false" signature="3283:3301" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="3302:3661" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="3364:3615" placeholder="..." />
+                <marker date="1463330722000" expanded="true" signature="3425:3563" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -323,8 +322,8 @@
         <option value="$PROJECT_DIR$/web/bundles/app/css/style.css" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Cart.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/home.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig" />
       </list>
     </option>
@@ -969,14 +968,7 @@
       <workItem from="1462800322738" duration="1264000" />
       <workItem from="1463059578912" duration="533000" />
       <workItem from="1463251946458" duration="1437000" />
-      <workItem from="1463253419176" duration="15328000" />
-    </task>
-    <task id="LOCAL-00054" summary="Adding Angular to the cart.">
-      <created>1457411220487</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1457411220487</updated>
+      <workItem from="1463253419176" duration="15537000" />
     </task>
     <task id="LOCAL-00055" summary="Adding Entities">
       <created>1457450783078</created>
@@ -1314,11 +1306,18 @@
       <option name="project" value="LOCAL" />
       <updated>1463330242193</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="Finishing up I hope.&#10;">
+      <created>1463330525432</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1463330525432</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67279000" />
+    <option name="totallyTimeSpent" value="67488000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="483" y="23" width="2053" height="1413" extended-state="0" />
@@ -1850,12 +1849,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="61" column="63" selection-start-line="61" selection-start-column="63" selection-end-line="61" selection-end-column="63" />
+          <folding>
+            <element signature="e#537#553#1#PHP" expanded="true" />
+            <element signature="e#606#632#1#PHP" expanded="true" />
+            <element signature="e#687#711#1#PHP" expanded="true" />
+            <element signature="e#1420#1436#1#PHP" expanded="true" />
+            <element signature="e#1781#1797#1#PHP" expanded="true" />
+            <element signature="e#1852#1876#1#PHP" expanded="true" />
+            <element signature="e#2411#2427#1#PHP" expanded="true" />
+            <element signature="e#3087#3103#1#PHP" expanded="true" />
+            <element signature="e#4005#4021#1#PHP" expanded="true" />
+            <element signature="e#4076#4100#1#PHP" expanded="true" />
+            <marker date="1463330291000" expanded="true" signature="3190:3394" placeholder="select c.id,... cart" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1062">
+          <caret line="338" column="32" selection-start-line="338" selection-start-column="32" selection-end-line="338" selection-end-column="32" />
+          <folding>
+            <element signature="e#44#77#0#PHP" expanded="true" />
+            <element signature="e#690#706#1#PHP" expanded="true" />
+            <element signature="e#1610#1626#1#PHP" expanded="true" />
+            <element signature="e#2288#2304#1#PHP" expanded="true" />
+            <element signature="e#2645#2661#1#PHP" expanded="true" />
+            <element signature="e#2717#2740#1#PHP" expanded="true" />
+            <element signature="e#3751#3767#1#PHP" expanded="true" />
+            <element signature="e#4109#4125#1#PHP" expanded="true" />
+            <element signature="e#4222#4245#1#PHP" expanded="true" />
+            <element signature="e#5280#5296#1#PHP" expanded="true" />
+            <element signature="e#5387#5403#1#PHP" expanded="true" />
+            <element signature="e#5455#5478#1#PHP" expanded="true" />
+            <element signature="e#6229#6262#1#PHP" expanded="true" />
+            <element signature="e#6738#6764#1#PHP" expanded="true" />
+            <element signature="e#6900#6916#1#PHP" expanded="true" />
+            <element signature="e#7447#7463#1#PHP" expanded="true" />
+            <element signature="e#7951#7967#1#PHP" expanded="true" />
+            <element signature="e#8483#8499#1#PHP" expanded="true" />
+            <element signature="e#8981#8997#1#PHP" expanded="true" />
+            <element signature="e#9088#9104#1#PHP" expanded="true" />
+            <element signature="e#9156#9179#1#PHP" expanded="true" />
+            <element signature="e#9854#9870#1#PHP" expanded="true" />
+            <element signature="e#9961#9977#1#PHP" expanded="true" />
+            <element signature="e#10029#10052#1#PHP" expanded="true" />
+            <element signature="e#10148#10181#1#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/home.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="944">
+        <state relative-caret-position="2939">
           <caret line="453" column="24" selection-start-line="453" selection-start-column="24" selection-end-line="453" selection-end-column="24" />
           <folding>
-            <element signature="e#12#48#0#Twig" expanded="false" />
             <element signature="e#2821#2891#0#HTML" expanded="true" />
             <element signature="e#3375#3416#0#HTML" expanded="true" />
             <element signature="e#12785#12810#0#HTML" expanded="true" />
@@ -1903,100 +1955,46 @@
             <marker date="1463330184000" expanded="true" signature="9695:9733" placeholder="..." />
             <marker date="1463330184000" expanded="true" signature="9734:9911" placeholder="..." />
             <marker date="1463330184000" expanded="true" signature="9817:9848" placeholder="..." />
-            <marker date="1463330184000" expanded="true" signature="17233:25866" placeholder="{% block footer ...%}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="331" column="271" selection-start-line="331" selection-start-column="271" selection-end-line="331" selection-end-column="271" />
-          <folding>
-            <element signature="e#44#77#0#PHP" expanded="true" />
-            <element signature="e#690#706#1#PHP" expanded="true" />
-            <element signature="e#1610#1626#1#PHP" expanded="true" />
-            <element signature="e#2288#2304#1#PHP" expanded="true" />
-            <element signature="e#2645#2661#1#PHP" expanded="true" />
-            <element signature="e#2717#2740#1#PHP" expanded="true" />
-            <element signature="e#3751#3767#1#PHP" expanded="true" />
-            <element signature="e#4109#4125#1#PHP" expanded="true" />
-            <element signature="e#4222#4245#1#PHP" expanded="true" />
-            <element signature="e#5280#5296#1#PHP" expanded="true" />
-            <element signature="e#5387#5403#1#PHP" expanded="true" />
-            <element signature="e#5455#5478#1#PHP" expanded="true" />
-            <element signature="e#6229#6262#1#PHP" expanded="true" />
-            <element signature="e#6738#6764#1#PHP" expanded="true" />
-            <element signature="e#6900#6916#1#PHP" expanded="true" />
-            <element signature="e#7447#7463#1#PHP" expanded="true" />
-            <element signature="e#7951#7967#1#PHP" expanded="true" />
-            <element signature="e#8483#8499#1#PHP" expanded="true" />
-            <element signature="e#8981#8997#1#PHP" expanded="true" />
-            <element signature="e#9088#9104#1#PHP" expanded="true" />
-            <element signature="e#9156#9179#1#PHP" expanded="true" />
-            <element signature="e#9854#9870#1#PHP" expanded="true" />
-            <element signature="e#9961#9977#1#PHP" expanded="true" />
-            <element signature="e#10029#10052#1#PHP" expanded="true" />
-            <element signature="e#10148#10181#1#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-558">
-          <caret line="80" column="74" selection-start-line="80" selection-start-column="74" selection-end-line="80" selection-end-column="74" />
+        <state relative-caret-position="882">
+          <caret line="185" column="79" selection-start-line="185" selection-start-column="79" selection-end-line="185" selection-end-column="79" />
           <folding>
+            <element signature="e#4136#4184#0#HTML" expanded="true" />
             <element signature="e#4575#4604#0#HTML" expanded="true" />
             <element signature="e#4739#4768#0#HTML" expanded="true" />
             <element signature="e#4809#4878#0#HTML" expanded="true" />
-            <element signature="e#5100#5169#0#HTML" expanded="true" />
-            <marker date="1463330469000" expanded="false" signature="1056:1073" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="1074:3860" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="1114:1962" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="1151:1921" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="1192:1284" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="1344:1438" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="1498:1596" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="1656:1751" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="1792:1883" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="2002:3823" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="2081:3743" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="2154:3705" placeholder="..." />
-            <marker date="1463330469000" expanded="false" signature="2207:2225" placeholder="..." />
-            <marker date="1463330469000" expanded="false" signature="2307:2325" placeholder="..." />
-            <marker date="1463330469000" expanded="false" signature="2407:2425" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="2426:2748" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="2509:2702" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="2606:2637" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="2793:3230" placeholder="..." />
-            <marker date="1463330469000" expanded="false" signature="2904:2926" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="2927:3184" placeholder="..." />
-            <marker date="1463330469000" expanded="false" signature="3120:3132" placeholder="..." />
-            <marker date="1463330469000" expanded="false" signature="3283:3301" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="3302:3661" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="3364:3615" placeholder="..." />
-            <marker date="1463330469000" expanded="true" signature="3425:3563" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CartController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="61" column="63" selection-start-line="61" selection-start-column="63" selection-end-line="61" selection-end-column="63" />
-          <folding>
-            <element signature="e#537#553#1#PHP" expanded="true" />
-            <element signature="e#606#632#1#PHP" expanded="true" />
-            <element signature="e#687#711#1#PHP" expanded="true" />
-            <element signature="e#1420#1436#1#PHP" expanded="true" />
-            <element signature="e#1781#1797#1#PHP" expanded="true" />
-            <element signature="e#1852#1876#1#PHP" expanded="true" />
-            <element signature="e#2411#2427#1#PHP" expanded="true" />
-            <element signature="e#3087#3103#1#PHP" expanded="true" />
-            <element signature="e#4005#4021#1#PHP" expanded="true" />
-            <element signature="e#4076#4100#1#PHP" expanded="true" />
-            <marker date="1463330291000" expanded="true" signature="3190:3394" placeholder="select c.id,... cart" />
+            <element signature="e#5106#5175#0#HTML" expanded="true" />
+            <marker date="1463330722000" expanded="false" signature="1056:1073" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="1074:3860" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="1114:1962" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="1151:1921" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="1192:1284" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="1344:1438" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="1498:1596" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="1656:1751" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="1792:1883" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="2002:3823" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="2081:3743" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="2154:3705" placeholder="..." />
+            <marker date="1463330722000" expanded="false" signature="2207:2225" placeholder="..." />
+            <marker date="1463330722000" expanded="false" signature="2307:2325" placeholder="..." />
+            <marker date="1463330722000" expanded="false" signature="2407:2425" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="2426:2748" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="2509:2702" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="2606:2637" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="2793:3230" placeholder="..." />
+            <marker date="1463330722000" expanded="false" signature="2904:2926" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="2927:3184" placeholder="..." />
+            <marker date="1463330722000" expanded="false" signature="3120:3132" placeholder="..." />
+            <marker date="1463330722000" expanded="false" signature="3283:3301" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="3302:3661" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="3364:3615" placeholder="..." />
+            <marker date="1463330722000" expanded="true" signature="3425:3563" placeholder="..." />
           </folding>
         </state>
       </provider>

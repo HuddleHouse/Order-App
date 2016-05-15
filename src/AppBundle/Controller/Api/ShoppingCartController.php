@@ -329,6 +329,17 @@ class ShoppingCartController extends Controller
             );
             $count += $product->getQuantity();
         }
-        return JsonResponse::create(array('cart' => $json_cart, 'num_items' => $count, 'cart_notes' => $cart->getNote(), 'requester_name' => $cart->getRequesterFirstName() . " " . $cart->getRequesterLastName(), 'shipping' => ($cart->getShippingMethod() != null ? (string)$cart->getShippingMethod()->getId() : '0')));
+        return JsonResponse::create(
+            array(
+                'cart' => $json_cart,
+                'num_items' => $count,
+                'cart_notes' => $cart->getNote(),
+                'requester_name' => $cart->getRequesterFirstName() . " " . $cart->getRequesterLastName(),
+                'requester_first_name' => $cart->getRequesterFirstName(),
+                'requester_last_name' => $cart->getRequesterLastName(),
+                'shipping' => ($cart->getShippingMethod() != null ? (string)$cart->getShippingMethod()->getId() : '0'),
+                ''
+
+            ));
     }
 }
