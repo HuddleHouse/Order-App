@@ -38,6 +38,7 @@
                                     <th>DESCRIPTION</th>
                                     <th>RETURN</th>
                                     <th>LINE NUMBER (S)</th>
+                                    <th>PREFIX</th>
                                     <th>QTY</th>
                                     <th>SHIP QTY</th>
                                     <th>B.O. QTY</th>
@@ -68,6 +69,17 @@
                                                 </button>
                                                 </div>
                                         </td>
+                                                                                <td>
+                                            <select id="part_prefix{{item.id}}" name="part_prefix{{item.id}}" class="form-control" required="required" ng-change="updatePartPrefix(item)" ng-model="part_prefix" style="
+    height: 40px;
+">
+{% endverbatim %}
+                                {% for ship in part_prefix %}
+                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
+                                {% endfor %}
+                                </select>
+                                </td>
+                                {% verbatim %}
                                         <td style="padding-top: 20px;">
                                             <div class="row">
                                                 <center>
@@ -295,7 +307,7 @@
             $scope.products = [];
             $scope.shipping = '0';
             $scope.stock_location = {};
-
+            $scope.part_prefix = {};
 
             $.ajax({
                 beforeSend: function () {
@@ -408,6 +420,22 @@
                 });
             };
 
+            $scope.updatePartPrefix = function (product_id) {
+                var id = $("#part_prefix" + product_id.id).val();
+                console.log("#part_prefix" + product_id.id);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('update_part_prefix') }}",
+                    data: {stock_location_id: id, cart_product_id: product_id},
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
 
             $scope.addLineNumber = function (item) {
                 $.ajax({

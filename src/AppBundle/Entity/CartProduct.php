@@ -40,6 +40,13 @@ class CartProduct
     private $stockLocation;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartNumberPrefix")
+     * @ORM\JoinColumn(name="part_number_prefix_id", referencedColumnName="id")
+     */
+    private $partNumberPrefix;
+
+
+    /**
      * @var int
      *
      * @ORM\Column(name="quantity", type="integer")
@@ -247,6 +254,22 @@ class CartProduct
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPartNumberPrefix()
+    {
+        return $this->partNumberPrefix;
+    }
+
+    /**
+     * @param mixed $partNumberPrefix
+     */
+    public function setPartNumberPrefix($partNumberPrefix)
+    {
+        $this->partNumberPrefix = $partNumberPrefix;
     }
 
 

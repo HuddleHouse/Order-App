@@ -122,6 +122,26 @@ class ReviewOrderController extends Controller
     }
 
     /**
+     * @Route("/api/update-part-prefix", name="update_part_prefix")
+     */
+    public function updatePartPrefix(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $request->request->get('cart_product_id');
+        $stock_locaton_id = $request->request->get('stock_location_id');
+        $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->find($stock_locaton_id);
+
+
+        $cart_product = $em->getRepository('AppBundle:CartProduct')->find($product['product_id']);
+        $cart_product->setPartNumberPrefix($part_prefix);
+        $em->persist($cart_product);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
+
+    /**
      * @Route("/api/update-line-number-review-order", name="update_line_number_review_order")
      */
     public function updateLineNumberAction(Request $request)

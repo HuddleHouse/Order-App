@@ -249,7 +249,8 @@ class AdminController extends Controller
             'user' => $cart->getUser(),
             'user_notes' => $cart->getNote(),
             'shipping' => $shipping,
-            'stock_location' => $stock_location
+            'stock_location' => $stock_location,
+            'part_prefix' => $part_prefix
         ));
     }
 
@@ -264,7 +265,7 @@ class AdminController extends Controller
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
-
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
         if(!$cart->getApproved())
             $this->addFlash('notice', "Order Approved Successfully.");
 
@@ -284,7 +285,9 @@ class AdminController extends Controller
             'cart_id' => $cart_id,
             'office' => $cart->getOffice(),
             'user' => $cart->getUser(),
-            'user_notes' => $cart->getNote()
+            'user_notes' => $cart->getNote(),
+            'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : "None"),
+            'cart' => $cart
         ));
     }
 }

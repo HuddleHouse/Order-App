@@ -100,7 +100,9 @@
                                             </div>
                                             <hr>
                                             <address>
-                                                <strong>{{ shipping }}</strong>
+                                                {% if shipping %}
+                                                    Shipping: <strong>{{ shipping }}</strong><br>
+                                                {% endif %}
                                                 <strong>{{ user.firstName }} {{ user.lastName }}</strong><br>
                                                 <a href="mailto:{{ user.email }}"
                                                    style="color: #e2001a;">{{ user.email }}</a>
