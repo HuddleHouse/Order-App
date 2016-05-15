@@ -52,7 +52,9 @@
 {% block footer %}
     <script>
         $(document).ready(function () {
-            $('#part-table').DataTable();
+            $('#part-table').DataTable({
+                paging: false
+            });
         });
     </script>
 {% endblock footer %}
