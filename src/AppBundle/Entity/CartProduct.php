@@ -34,9 +34,8 @@ class CartProduct
     private $part;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="stock_location", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\StockLocation")
+     * @ORM\JoinColumn(name="stock_location_id", referencedColumnName="id")
      */
     private $stockLocation;
 

@@ -57,7 +57,6 @@ class ReviewOrderController extends Controller
             $product = new CartProduct();
             $product->setCart($cart);
             $product->setPart($part);
-            $product->setStockLocation("ADD THIS");
 
             $lineNumber = new CartProductLineNumber();
             $lineNumber->setCartProduct($product);
@@ -101,6 +100,26 @@ class ReviewOrderController extends Controller
         return $this->sumCart($cart);
     }
 
+
+    /**
+     * @Route("/api/update-stock-location", name="update_stock_location")
+     */
+    public function updateStockLocation(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $request->request->get('cart_product_id');
+        $stock_locaton_id = $request->request->get('stock_location_id');
+        $stock_location = $em->getRepository('AppBundle:StockLocation')->find($stock_locaton_id);
+
+
+        $cart_product = $em->getRepository('AppBundle:CartProduct')->find($product['product_id']);
+        $cart_product->setStockLocation($stock_location);
+        $em->persist($cart_product);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
 
     /**
      * @Route("/api/update-line-number-review-order", name="update_line_number_review_order")
@@ -215,7 +234,9 @@ class ReviewOrderController extends Controller
                 'back_order_quantity' => $product->getBackOrderQuantity(),
                 'line_numbers' => $line_numbers,
                 'product_id' => $product->getId(),
-                'note' => $product->getNote()
+                'note' => $product->getNote(),
+                'stock_location' => ($product->getStockLocation() != null ? (string)$product->getStockLocation()->getId() : '0'),
+
             );
             $shipped += $product->getShipQuantity();
             $requested += $product->getQuantity();

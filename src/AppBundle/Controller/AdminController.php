@@ -233,6 +233,7 @@ class AdminController extends Controller
 
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
         if($cart->getApproved()) {
             $this->addFlash('error', "Order has already been approved and can not be edited.");
@@ -246,7 +247,8 @@ class AdminController extends Controller
             'office' => $cart->getOffice(),
             'user' => $cart->getUser(),
             'user_notes' => $cart->getNote(),
-            'shipping' => $shipping
+            'shipping' => $shipping,
+            'stock_location' => $stock_location
         ));
     }
 

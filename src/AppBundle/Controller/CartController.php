@@ -59,7 +59,7 @@ class CartController extends Controller
             'products' => $products,
             'categories' => $categories,
             'cart_id' => $cart->getid(),
-            'shipping' => $cart->getShippingMethod()->getName()
+            'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : 'none')
         ));
     }
 

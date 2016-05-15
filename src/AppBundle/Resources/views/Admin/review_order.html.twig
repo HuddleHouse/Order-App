@@ -41,6 +41,7 @@
                                     <th>QTY</th>
                                     <th>SHIP QTY</th>
                                     <th>B.O. QTY</th>
+                                    <th>Stock Location</th>
                                     <th>NOTES</th>
                                 </tr>
                                 </thead>
@@ -80,6 +81,19 @@
                                         <td>
                                             <input ng-model="item.back_order_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
                                         </td>
+
+                                        <td>
+                                            <select id="stock_location" class="form-control" required="required" ng-change="updateStockLocation(item)" ng-model="stock_location" style="
+    height: 40px;
+">
+{% endverbatim %}
+                                <option disabled selected value="0">-- Location --</option>
+                                {% for ship in stock_location %}
+                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
+                                {% endfor %}
+                                </select>
+                                </td>
+                                {% verbatim %}
                                         <td>
                                             <center>
                                                 <textarea ng-model="item.note" type="text" class="form-control line-number" ng-change="updateProduct(item)"></textarea>
@@ -128,7 +142,8 @@
                                          style="text-align: right; margin-top: 30px;">
                                         <div class="row">
                                             <strong style="    margin-right: 131px;">Shipping</strong><br>
-                                            <select id="shipping" style="float: right; margin-right: 25px;    margin-bottom: 20px;
+                                            <select id="shipping" class="form-control" style="float: right; margin-right: 25px;width: 65%;
+    margin-bottom: 20px;
     margin-top: 20px;" required="required"
                                                     ng-change="updateShipping()" ng-model="shipping">
                                                 <option disabled selected value="0">-- Choose Your Shipping Method --
@@ -279,6 +294,7 @@
             $scope.cart = [];
             $scope.products = [];
             $scope.shipping = '0';
+            $scope.stock_location = '0';
 
 
             $.ajax({
@@ -368,6 +384,23 @@
                     }
                 });
             };
+
+            $scope.updateStockLocation = function (product_id) {
+                var id = $("#stock_location").val();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('update_stock_location') }}",
+                    data: {stock_location_id: id, cart_product_id: product_id},
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+
 
             $scope.addLineNumber = function (item) {
                 $.ajax({
