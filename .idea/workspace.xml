@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Remove the “show 10 / 100” boxes and set the system to default to “show all” on all pages&#10;">
+    <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="When Uster is reviewing an order, in the Ship QTY and BO QTY fields, remove the arrows, and make those fields just a number that will be typed in.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/UserType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/UserType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/admin_edit_user.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/admin_edit_user.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/review_order.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/review_order.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/3e7b5a2.css" afterPath="$PROJECT_DIR$/web/css/3e7b5a2.css" />
@@ -62,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="review_order.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="review_order.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/review_order.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="840">
@@ -109,11 +107,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserInterface.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Model/UserInterface.php">
+      <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2181">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="242">
+              <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -227,7 +225,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/home.html.twig" />
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Part.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Part/edit.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/PartType.php" />
@@ -255,6 +252,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Form/UserType.php" />
         <option value="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Model/User.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/review_order.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
       </list>
     </option>
   </component>
@@ -868,14 +866,7 @@
       <workItem from="1462800322738" duration="1264000" />
       <workItem from="1463059578912" duration="533000" />
       <workItem from="1463251946458" duration="1437000" />
-      <workItem from="1463253419176" duration="19199000" />
-    </task>
-    <task id="LOCAL-00059" summary="Adding JSON/AJAX. Not working. Need to add http://symfony.com/doc/master/bundles/FOSRestBundle/index.html &#10; https://github.com/gimler/symfony-rest-edition">
-      <created>1459026334157</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1459026334157</updated>
+      <workItem from="1463253419176" duration="19245000" />
     </task>
     <task id="LOCAL-00060" summary="Adding JSON/AJAX. Not working. Need to add http://symfony.com/doc/master/bundles/FOSRestBundle/index.html &#10; https://github.com/gimler/symfony-rest-edition">
       <created>1459172492035</created>
@@ -1213,11 +1204,18 @@
       <option name="project" value="LOCAL" />
       <updated>1463333119433</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="When Uster is reviewing an order, in the Ship QTY and BO QTY fields, remove the arrows, and make those fields just a number that will be typed in.">
+      <created>1463334513316</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1463334513316</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71150000" />
+    <option name="totallyTimeSpent" value="71196000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="483" y="23" width="2053" height="1413" extended-state="0" />
@@ -1283,7 +1281,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Updating small bugs and pushing to server." />
     <MESSAGE value="Invitations sent screen." />
     <MESSAGE value="Added First/Last name to user and registrations." />
     <MESSAGE value="Added groups" />
@@ -1308,7 +1305,8 @@
     <MESSAGE value="Finishing up I hope.&#10;" />
     <MESSAGE value="After the user has submitted the completed order, they should have a button or a link to return to the home page so that they can immediately place another order.  (or this can just be a redirect). &#10;" />
     <MESSAGE value="Remove the “show 10 / 100” boxes and set the system to default to “show all” on all pages&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove the “show 10 / 100” boxes and set the system to default to “show all” on all pages&#10;" />
+    <MESSAGE value="When Uster is reviewing an order, in the Ship QTY and BO QTY fields, remove the arrows, and make those fields just a number that will be typed in." />
+    <option name="LAST_COMMIT_MESSAGE" value="When Uster is reviewing an order, in the Ship QTY and BO QTY fields, remove the arrows, and make those fields just a number that will be typed in." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1408,14 +1406,6 @@
           <folding>
             <element signature="e#36#68#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3990">
-          <caret line="266" column="14" selection-start-line="266" selection-start-column="14" selection-end-line="266" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2003,6 +1993,14 @@
             <marker date="1463334489000" expanded="true" signature="4996:5317" placeholder="..." />
             <marker date="1463334489000" expanded="true" signature="5049:5271" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
