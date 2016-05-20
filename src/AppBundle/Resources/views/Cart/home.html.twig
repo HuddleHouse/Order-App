@@ -220,8 +220,8 @@
                             {% endverbatim %}
                         <div class="row">
                             <a class="btn btn-primary" id="review_order"
-                               style="float: right;margin-right: 20px; margin-bottom: 20px;  "
-                               href="{{ path('review_order') }}">REVIEW ORDER</a>
+                               style="float: right;margin-right: 20px; margin-bottom: 20px;" ng-click="reviewOrder()">REVIEW
+                                ORDER</a>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
                                     style="float: right;margin-right: 20px; margin-bottom: 20px;">ADD AN UNKNOWN ITEM
                             </button>
@@ -446,6 +446,24 @@
 
             $scope.inArray = function (item, array) {
                 return array.indexOf(item);
+            };
+
+
+            $scope.reviewOrder = function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_review_order_validation') }}",
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.cart = data.cart;
+                            $scope.numItems = data.num_items;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
             };
 
             $scope.updateShipping = function () {

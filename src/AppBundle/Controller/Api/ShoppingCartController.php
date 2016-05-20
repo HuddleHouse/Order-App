@@ -59,6 +59,25 @@ class ShoppingCartController extends Controller
     }
 
     /**
+     * @Route("/api/review-order-validation", name="api_review_order_validation")
+     */
+    public function loadCartAction()
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
+            $cart = new Cart();
+            $cart->setUser($user);
+            $cart->setOffice($user->getOffice());
+            $cart->setDate(date_create(date("Y-m-d H:i:s")));
+            $em->persist($cart);
+            $em->flush();
+        }
+        return $this->sumCart($cart);
+    }
+
+    /**
      * @Route("/api/add-cart-item", name="api_add_item")
      */
     public function addCartItemAction(Request $request)
