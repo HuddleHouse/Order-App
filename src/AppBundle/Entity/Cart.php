@@ -98,8 +98,13 @@ class Cart
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $requester_last_name;
-    
-    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $order_number;
     
     public function __construct()
     {
@@ -341,6 +346,22 @@ class Cart
     public function setShippingMethod($shipping_method)
     {
         $this->shipping_method = $shipping_method;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderNumber()
+    {
+        return $this->order_number;
+    }
+
+    /**
+     * @param string $order_number
+     */
+    public function setOrderNumber($order_number)
+    {
+        $this->order_number = $order_number;
     }
     
     

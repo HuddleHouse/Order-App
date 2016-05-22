@@ -184,8 +184,8 @@
                                         </ul>
                                         <br>
                                         <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
-                                        <a href="{{ path('admin_order_approve', {'cart_id': cart_id}) }}"
-                                           class="btn btn-lg btn-success hidden-print">Approve Order</a>
+                                        <a ng-click="reviewOrder()" class="btn btn-lg btn-success hidden-print">Approve
+                                            Order</a>
                                     </div>
                                 </div>
                             </div>
@@ -308,6 +308,26 @@
             $scope.shipping = '0';
             $scope.stock_location = {};
             $scope.part_prefix = {};
+
+            $scope.reviewOrder = function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_admin_review_order_validation') }}",
+                    dataType: 'json',
+                    data: {cart_id: {{ cart_id }}},
+                    success: function (data) {
+                        console.log(data);
+                        if (data == false)
+                            location.reload();
+                        else
+                            location.href = '{{ path('admin_order_approve', {'cart_id': cart_id}) }}';
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
 
             $.ajax({
                 beforeSend: function () {

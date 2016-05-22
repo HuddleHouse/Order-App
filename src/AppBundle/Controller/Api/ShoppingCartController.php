@@ -59,6 +59,34 @@ class ShoppingCartController extends Controller
     }
 
     /**
+     * @Route("/api/admin-review-order-validation", name="api_admin_review_order_validation")
+     */
+    public function adminReviewOrderValidationAction(Request $request)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $cartId = $request->request->get('cart_id');
+
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("select sum(cp.quantity) as quantity, sum(cp.back_order_quantity) as bo, sum(cp.ship_quantity) as ship
+	from cart_products cp  
+	where cp.cart_id = :id");
+        $statement->bindValue('id', $cartId);
+        $statement->execute();
+        $total = $statement->fetch();
+
+        if(($total['bo'] + $total['ship']) != $total['quantity']) {
+            $this->addFlash('error', 'Shipping Quantity and Back Order Quantity must equal the total items requested.');
+
+            return JsonResponse::create(false);
+        }
+        else {
+            return JsonResponse::create(true);
+        }
+
+    }
+
+    /**
      * @Route("/api/review-order-validation", name="api_review_order_validation")
      */
     public function reviewOrderValidationAction()
