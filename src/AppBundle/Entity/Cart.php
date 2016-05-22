@@ -363,7 +363,5 @@ class Cart
     {
         $this->order_number = $order_number;
     }
-    
-    
 }
 
