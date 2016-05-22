@@ -61,11 +61,12 @@ class ShoppingCartController extends Controller
     /**
      * @Route("/api/review-order-validation", name="api_review_order_validation")
      */
-    public function loadCartAction()
+    public function reviewOrderValidationAction()
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-
+        $line_number_count = $shipping_method = 0;
+        
         if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
             $cart = new Cart();
             $cart->setUser($user);
@@ -74,7 +75,43 @@ class ShoppingCartController extends Controller
             $em->persist($cart);
             $em->flush();
         }
-        return $this->sumCart($cart);
+
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("select count(l.id)
+	from cart_product_line_numbers l
+		left join cart_products cp  
+			on l.cart_product_id = cp.id
+		left join cart c
+			on cp.cart_id = c.id
+	where l.line_number IS NULL
+	and c.id = :id");
+        $statement->bindValue('id', $cart->getId());
+        $statement->execute();
+        $line_numbers = $statement->fetchAll();
+
+        if(isset($line_numbers))
+            $line_number_count++;
+
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("select c.shipping_method_id
+	from cart c
+	where c.id = :id");
+        $statement->bindValue('id', $cart->getId());
+        $statement->execute();
+        $shipping = $statement->fetch();
+
+        if($shipping['shipping_method_id'] == NULL || $line_number_count != 0) {
+            if($shipping['shipping_method_id'] == NULL)
+                $this->addFlash('error', 'Please select a shipping method.');
+            if($line_number_count == 0)
+                $this->addFlash('error', 'Line number cannot be blank.');
+
+            return 0;
+        }
+        else {
+            return 1;
+        }
+
     }
 
     /**

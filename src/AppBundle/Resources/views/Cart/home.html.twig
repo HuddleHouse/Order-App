@@ -403,7 +403,7 @@
                 var filters = $(this).val();
                 $container.isotope({
                     filter: filters,
-                    animationEngine: 'css'
+                    animationEngine: 'css'4
                 });
             });
 
@@ -455,10 +455,7 @@
                     url: "{{ path('api_review_order_validation') }}",
                     dataType: 'json',
                     success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
-                        });
+                        console.log(data);
                     },
                     error: function (data) {
                         console.log(data);
