@@ -63,7 +63,7 @@ class ShoppingCartController extends Controller
      */
     public function adminReviewOrderValidationAction(Request $request)
     {
-        $user = $this->getUser();
+
         $em = $this->getDoctrine()->getManager();
         $cartId = $request->request->get('cart_id');
 
@@ -81,6 +81,21 @@ class ShoppingCartController extends Controller
             return JsonResponse::create(false);
         }
         else {
+            $cart = $em->getRepository('AppBundle:Cart')->find($cartId);
+            $user = $this->getUser();
+            $num = str_pad($cartId, 4, '0', STR_PAD_LEFT);
+            $officeId = '00';
+            $year = date('y');
+
+            if($user->getOffice()) {
+                $officeId = $user->getOffice()->getOfficeNumber();
+            }
+            $orderNum = $officeId . $year . $num;
+
+            $cart->setOrderNumber($orderNum);
+            $em->persist($cart);
+            $em->flush();
+
             return JsonResponse::create(true);
         }
 
