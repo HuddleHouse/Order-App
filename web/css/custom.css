@@ -18,6 +18,11 @@
     margin-top: 5px;
 }
 
+.alert.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
 .table {
     width: 100%;
     max-width: 100%;

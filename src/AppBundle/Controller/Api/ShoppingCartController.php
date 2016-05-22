@@ -65,8 +65,7 @@ class ShoppingCartController extends Controller
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $line_number_count = $shipping_method = 0;
-        
+
         if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
             $cart = new Cart();
             $cart->setUser($user);
@@ -77,20 +76,17 @@ class ShoppingCartController extends Controller
         }
 
         $connection = $em->getConnection();
-        $statement = $connection->prepare("select count(l.id)
+        $statement = $connection->prepare("select count(l.id) as total
 	from cart_product_line_numbers l
 		left join cart_products cp  
 			on l.cart_product_id = cp.id
 		left join cart c
 			on cp.cart_id = c.id
-	where l.line_number IS NULL
+	where (l.line_number IS NULL OR l.line_number LIKE '') 
 	and c.id = :id");
         $statement->bindValue('id', $cart->getId());
         $statement->execute();
-        $line_numbers = $statement->fetchAll();
-
-        if(isset($line_numbers))
-            $line_number_count++;
+        $line_numbers = $statement->fetch();
 
         $connection = $em->getConnection();
         $statement = $connection->prepare("select c.shipping_method_id
@@ -100,16 +96,16 @@ class ShoppingCartController extends Controller
         $statement->execute();
         $shipping = $statement->fetch();
 
-        if($shipping['shipping_method_id'] == NULL || $line_number_count != 0) {
+        if($shipping['shipping_method_id'] == NULL || $line_numbers['total'] != '0') {
             if($shipping['shipping_method_id'] == NULL)
                 $this->addFlash('error', 'Please select a shipping method.');
-            if($line_number_count == 0)
+            if($line_numbers['total'] != '0')
                 $this->addFlash('error', 'Line number cannot be blank.');
 
-            return 0;
+            return JsonResponse::create(false);
         }
         else {
-            return 1;
+            return JsonResponse::create(true);
         }
 
     }

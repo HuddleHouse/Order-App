@@ -403,7 +403,7 @@
                 var filters = $(this).val();
                 $container.isotope({
                     filter: filters,
-                    animationEngine: 'css'4
+                    animationEngine: 'css'
                 });
             });
 
@@ -456,6 +456,11 @@
                     dataType: 'json',
                     success: function (data) {
                         console.log(data);
+                        if (data == false)
+                            location.reload();
+                        else
+                            location.href = '{{ path('review_order') }}';
+
                     },
                     error: function (data) {
                         console.log(data);
