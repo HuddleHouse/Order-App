@@ -80,12 +80,8 @@
                                 </select>
                                 </td>
                                 {% verbatim %}
-                                        <td style="padding-top: 20px;">
-                                            <div class="row">
-                                                <center>
-                                                {{ item.quantity }}
-                                                </center>
-                                            </div>
+                                        <td >
+                                                <input ng-model="item.quantity" class="form-control line-number" ng-change="updateQuantity(item)" maxlength="2" style="width: 55px;">
                                         </td>
                                         <td>
                                             <input ng-model="item.ship_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
@@ -411,6 +407,25 @@
                     type: 'POST',
                     url: "{{ path('update_product') }}",
                     data: {data: item, order_id: {{ cart_id }}},
+                    dataType: 'json',
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.shipped = data.shipped;
+                            $scope.requested = data.requested;
+                            $scope.backOrders = data.backOrders;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+
+            $scope.updateQuantity = function (number) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('update_quantity') }}",
+                    data: {data: number, order_id: {{ cart_id }}},
                     dataType: 'json',
                     success: function (data) {
                         $scope.$apply(function () {

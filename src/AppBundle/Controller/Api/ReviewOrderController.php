@@ -229,6 +229,28 @@ class ReviewOrderController extends Controller
         return $this->sumCart($cart);
     }
 
+    /**
+     * @Route("/api/update-quantity", name="update_quantity")
+     */
+    public function updateQuantityAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->request->get('data');
+
+        $product = $em->getRepository('AppBundle:CartProduct')->find($data['product_id']);
+        if($data['quantity'] != '')
+            $product->setQuantity($data['quantity']);
+        else
+            $product->setQuantity(0);
+
+        $em->persist($product);
+        $em->flush();
+        $cartid = $request->request->get('order_id');
+
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        return $this->sumCart($cart);
+    }
+
     public function sumCart($cart)
     {
         $shipped = $requested = $backOrders = 0;
