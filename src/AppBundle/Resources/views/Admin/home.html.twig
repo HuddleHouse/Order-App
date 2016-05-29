@@ -200,6 +200,9 @@
                                             ITEMS SHIPPED
                                         </th>
                                         <th>
+                                            ORDER #
+                                        </th>
+                                        <th>
 
                                         </th>
                                     </tr>
@@ -223,6 +226,9 @@
                                                 <center>
                                                     {{ item.shipped }}
                                                 </center>
+                                            </td>
+                                            <td>
+                                                <center>{{ item.order_number }}</center>
                                             </td>
                                             <td style="width: 60px;">
                                                 <a href="{{ path('admin_order_approve', {'cart_id': item.id}) }}"

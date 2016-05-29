@@ -36,7 +36,7 @@ class AdminController extends Controller
         $stmt->execute();
         $submitted = $stmt->fetchAll();
 
-        $sql = "select c.id, c.submit_date, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
+        $sql = "select c.id, c.submit_date, c.order_number, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
 	from cart c
 		left join cart_products p
 			on p.cart_id = c.id
@@ -236,10 +236,11 @@ class AdminController extends Controller
         $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
         $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
-//        if($cart->getApproved()) {
-//            $this->addFlash('error', "Order has already been approved and can not be edited.");
-//            return $this->redirectToRoute('admin_order_approve', array('cart_id' => $cart->getId()));
-//        }
+        if($cart->getApproved()) {
+            $cart->setApproved(0);
+            $em->persist($cart);
+            $em->flush();
+        }
         $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
         return $this->render('AppBundle:Admin:review_order.html.twig', array(
             'products' => $products,
