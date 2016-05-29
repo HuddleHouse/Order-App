@@ -103,6 +103,8 @@
                                                 {% if shipping %}
                                                     Shipping: <strong>{{ shipping }}</strong><br>
                                                 {% endif %}
+                                                Requested By: <strong>{{ requested_by }}</strong><br>
+                                                Account Name:
                                                 <strong>{{ user.firstName }} {{ user.lastName }}</strong><br>
                                                 <a href="mailto:{{ user.email }}"
                                                    style="color: #e2001a;">{{ user.email }}</a>

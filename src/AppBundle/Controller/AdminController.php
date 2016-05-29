@@ -21,7 +21,7 @@ class AdminController extends Controller
     public function adminHomeAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $sql = "select c.id, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", u.first_name, u.last_name) as submitted_by
+        $sql = "select c.id, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by
 	from cart c
 		left join cart_products p
 			on p.cart_id = c.id
@@ -36,7 +36,7 @@ class AdminController extends Controller
         $stmt->execute();
         $submitted = $stmt->fetchAll();
 
-        $sql = "select c.id, c.submit_date, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", u.first_name, u.last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
+        $sql = "select c.id, c.submit_date, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
 	from cart c
 		left join cart_products p
 			on p.cart_id = c.id
@@ -250,7 +250,8 @@ class AdminController extends Controller
             'user_notes' => $cart->getNote(),
             'shipping' => $shipping,
             'stock_location' => $stock_location,
-            'part_prefix' => $part_prefix
+            'part_prefix' => $part_prefix,
+            'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName()
         ));
     }
 
@@ -287,7 +288,8 @@ class AdminController extends Controller
             'user' => $cart->getUser(),
             'user_notes' => $cart->getNote(),
             'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : "None"),
-            'cart' => $cart
+            'cart' => $cart,
+            'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName()
         ));
     }
 }
