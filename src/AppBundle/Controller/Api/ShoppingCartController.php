@@ -70,35 +70,35 @@ class ShoppingCartController extends Controller
         $connection = $em->getConnection();
         $statement = $connection->prepare("select sum(cp.quantity) as quantity, sum(cp.back_order_quantity) as bo, sum(cp.ship_quantity) as ship
 	from cart_products cp  
-	where cp.cart_id = :id");
+	where cp.cart_id = :id group by cp.id");
         $statement->bindValue('id', $cartId);
         $statement->execute();
-        $total = $statement->fetch();
+        $total = $statement->fetchAll();
 
-        if(($total['bo'] + $total['ship']) != $total['quantity']) {
-            $this->addFlash('error', 'Shipping Quantity and Back Order Quantity must equal the total items requested.');
+        foreach($total as $tot) {
+            if(($tot['bo'] + $tot['ship']) != $tot['quantity']) {
+                $this->addFlash('error', 'Shipping Quantity and Back Order Quantity must equal the total items requested.');
 
-            return JsonResponse::create(false);
-        }
-        else {
-            $cart = $em->getRepository('AppBundle:Cart')->find($cartId);
-            $user = $this->getUser();
-            $num = str_pad($cartId, 4, '0', STR_PAD_LEFT);
-            $officeId = '00';
-            $year = date('y');
-
-            if($user->getOffice()) {
-                $officeId = $user->getOffice()->getOfficeNumber();
+                return JsonResponse::create(false);
             }
-            $orderNum = $officeId . $year . $num;
-
-            $cart->setOrderNumber($orderNum);
-            $em->persist($cart);
-            $em->flush();
-
-            return JsonResponse::create(true);
         }
 
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartId);
+        $user = $this->getUser();
+        $num = str_pad($cartId, 4, '0', STR_PAD_LEFT);
+        $officeId = '00';
+        $year = date('y');
+
+        if($user->getOffice()) {
+            $officeId = $user->getOffice()->getOfficeNumber();
+        }
+        $orderNum = $officeId . $year . $num;
+
+        $cart->setOrderNumber($orderNum);
+        $em->persist($cart);
+        $em->flush();
+
+        return JsonResponse::create(true);
     }
 
     /**

@@ -183,6 +183,28 @@ class ReviewOrderController extends Controller
     }
 
     /**
+     * @Route("/api/admin-update-shipping", name="admin_update_shipping")
+     */
+    public function adminUpdateShipping(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $cart_id = $request->request->get('cart_id');
+        $ship_id = $request->request->get('ship_id');
+        $shippingMehtod = $em->getRepository('AppBundle:ShippingMethod')->find($ship_id);
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
+        $cart->setShippingMethod($shippingMehtod);
+
+        $em->persist($cart);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
+
+    /**
      * @Route("/api/remove-line-number-review-order", name="api_remove_line_number_review_order")
      */
     public function removeLineNumberAction(Request $request)
