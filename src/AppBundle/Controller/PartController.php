@@ -45,12 +45,20 @@ class PartController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($part);
-            $em->flush();
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($part);
+                $em->flush();
 
-            $this->addFlash('notice', 'Part added successfully.');
-            return $this->redirectToRoute('admin_part_index');
+                $this->addFlash('notice', 'Part added successfully.');
+                return $this->redirectToRoute('admin_part_index');
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Cannot create Part ' . $e->getMessage() . "\n");
+                return $this->render('@App/Part/new.html.twig', array(
+                    'part' => $part,
+                    'form' => $form->createView(),
+                ));
+            }
         }
 
         return $this->render('@App/Part/new.html.twig', array(
@@ -72,12 +80,21 @@ class PartController extends Controller
         $editForm->handleRequest($request);
 
         if($editForm->isSubmitted() && $editForm->isValid() && ($part->getStockNumber() != '999-999-99999' && $part->getDescription() != "UNKNOWN ITEM")) {
-            $em = $this->getDoctrine()->getManager();
-            $part->upload();
-            $em->persist($part);
-            $em->flush();
-            $this->addFlash('notice', 'Part updated successfully.');
-            return $this->redirectToRoute('admin_part_index', array('id' => $part->getId()));
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $part->upload();
+                $em->persist($part);
+                $em->flush();
+                $this->addFlash('notice', 'Part updated successfully.');
+                return $this->redirectToRoute('admin_part_index', array('id' => $part->getId()));
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Cannot update Part ' . $e->getMessage() . "\n");
+                return $this->render('@App/Part/edit.html.twig', array(
+                    'part' => $part,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+                ));
+            }
         }
 
         return $this->render('@App/Part/edit.html.twig', array(
@@ -106,8 +123,9 @@ class PartController extends Controller
             }
             $this->addFlash('notice', 'Part deleted successfully.');
             return $this->redirectToRoute('admin_part_index');
-        } catch(Exception $e) {
-            return 'Caught exception: ' . $e->getMessage() . "\n";
+        } catch(\Exception $e) {
+            $this->addFlash('error', 'Cannot delete Part ' . $e->getMessage() . "\n");
+            return $this->redirectToRoute('admin_part_index');
         }
 
 

@@ -45,16 +45,25 @@ class PartCategoryController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $canonical = new Canonicalizer();
-            $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
-            $name_canonical = $canonical->canonicalize($input);
-            $partCategory->setNameCononical($name_canonical);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($partCategory);
-            $em->flush();
+            try {
+                $canonical = new Canonicalizer();
+                $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
+                $name_canonical = $canonical->canonicalize($input);
+                $partCategory->setNameCononical($name_canonical);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($partCategory);
+                $em->flush();
 
-            $this->addFlash('notice', 'Category added successfully.');
-            return $this->redirectToRoute('admin_partcategory_index');
+                $this->addFlash('notice', 'Category added successfully.');
+                return $this->redirectToRoute('admin_partcategory_index');
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Error adding category: ' . $e->getMessage());
+
+                return $this->render('AppBundle:Partcategory:new.html.twig', array(
+                    'partCategory' => $partCategory,
+                    'form' => $form->createView(),
+                ));
+            }
         }
 
         return $this->render('AppBundle:Partcategory:new.html.twig', array(
@@ -76,16 +85,25 @@ class PartCategoryController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $canonical = new Canonicalizer();
-            $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
-            $name_canonical = $canonical->canonicalize($input);
-            $partCategory->setNameCononical($name_canonical);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($partCategory);
-            $em->flush();
+            try {
+                $canonical = new Canonicalizer();
+                $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
+                $name_canonical = $canonical->canonicalize($input);
+                $partCategory->setNameCononical($name_canonical);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($partCategory);
+                $em->flush();
 
-            $this->addFlash('notice', 'Category added successfully.');
-            return $this->redirectToRoute('admin_part_new');
+                $this->addFlash('notice', 'Category added successfully.');
+                return $this->redirectToRoute('admin_part_new');
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Error adding category: ' . $e->getMessage());
+
+
+                return $this->render('AppBundle:Partcategory:new-modal.html.twig', array(
+                    'form' => $form->createView(),
+                ));
+            }
         }
 
         return $this->render('AppBundle:Partcategory:new-modal.html.twig', array(
@@ -106,16 +124,26 @@ class PartCategoryController extends Controller
         $editForm->handleRequest($request);
 
         if($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $canonical = new Canonicalizer();
-            $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
-            $name_canonical = $canonical->canonicalize($input);
-            $partCategory->setNameCononical($name_canonical);
-            $em->persist($partCategory);
-            $em->flush();
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $canonical = new Canonicalizer();
+                $input = preg_replace("/[^a-zA-Z]+/", "", $partCategory->getName());
+                $name_canonical = $canonical->canonicalize($input);
+                $partCategory->setNameCononical($name_canonical);
+                $em->persist($partCategory);
+                $em->flush();
 
-            $this->addFlash('notice', 'Category updated successfully.');
-            return $this->redirectToRoute('admin_partcategory_index');
+                $this->addFlash('notice', 'Category updated successfully.');
+                return $this->redirectToRoute('admin_partcategory_index');
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Error updating category: ' . $e->getMessage());
+
+                return $this->render('AppBundle:Partcategory:edit.html.twig', array(
+                    'partCategory' => $partCategory,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+                ));
+            }
         }
 
         return $this->render('AppBundle:Partcategory:edit.html.twig', array(
@@ -137,9 +165,14 @@ class PartCategoryController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($partCategory);
-            $em->flush();
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($partCategory);
+                $em->flush();
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Error updating category: ' . $e->getMessage());
+                return $this->redirectToRoute('admin_partcategory_index');
+            }
         }
 
         $this->addFlash('notice', 'Category deleted successfully.');
