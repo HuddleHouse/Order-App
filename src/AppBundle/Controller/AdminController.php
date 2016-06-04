@@ -252,7 +252,8 @@ class AdminController extends Controller
             'shipping' => $shipping,
             'stock_location' => $stock_location,
             'part_prefix' => $part_prefix,
-            'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName()
+            'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
+            'cart' => $cart
         ));
     }
 

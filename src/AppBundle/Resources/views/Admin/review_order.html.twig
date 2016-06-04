@@ -38,11 +38,11 @@
                                     <th>DESCRIPTION</th>
                                     <th>RETURN</th>
                                     <th>LINE NUMBER (S)</th>
+                                    <th>Stock Location</th>
                                     <th>PREFIX</th>
                                     <th>QTY</th>
                                     <th>SHIP QTY</th>
                                     <th>B.O. QTY</th>
-                                    <th>Stock Location</th>
                                     <th>Uster Notes</th>
                                 </tr>
                                 </thead>
@@ -69,10 +69,25 @@
                                                 </button>
                                                 </div>
                                         </td>
-                                                                                <td>
-                                            <select id="part_prefix{{item.id}}" name="part_prefix{{item.id}}" class="form-control" required="required" ng-change="updatePartPrefix(item)" ng-model="part_prefix" style="
+
+                                        <td>
+                                            <select id="stock_location{{item.id}}" name="stock_location{{item.id}}" class="form-control" required="required" ng-change="updateStockLocation(item)" ng-model="item.stock_location" style="
     height: 40px;
 ">
+{% endverbatim %}
+                                <option disabled value="0"></option>
+                                {% for ship in stock_location %}
+                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
+                                {% endfor %}
+                                </select>
+                                </td>
+                                {% verbatim %}
+
+                                                                                <td>
+                                            <select id="part_prefix{{item.id}}" name="part_number_prefix" class="form-control" required="required" ng-change="updatePartPrefix(item)" ng-model="item.prefix" style="
+    height: 40px;
+">
+ <option disabled value="0"></option>
 {% endverbatim %}
                                 {% for ship in part_prefix %}
                                     <option value="{{ ship.id }}">{{ ship.name }}</option>
@@ -90,18 +105,7 @@
                                             <input ng-model="item.back_order_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
                                         </td>
 
-                                        <td>
-                                            <select id="stock_location{{item.id}}" name="stock_location{{item.id}}" class="form-control" required="required" ng-change="updateStockLocation(item)" ng-model="stock_location" style="
-    height: 40px;
-">
-{% endverbatim %}
-                                <option disabled value="0">Location</option>
-                                {% for ship in stock_location %}
-                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
-                                {% endfor %}
-                                </select>
-                                </td>
-                                {% verbatim %}
+
                                         <td>
                                             <center>
                                                 <textarea ng-model="item.note" type="text" class="form-control line-number" ng-change="updateProduct(item)"></textarea>

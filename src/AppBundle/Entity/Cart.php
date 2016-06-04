@@ -61,6 +61,13 @@ class Cart
     private $submitDate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="approve_date", type="datetime", nullable=true)
+     */
+    private $approveDate;
+    
+    /**
      * @var bool
      *
      * @ORM\Column(name="approved", type="boolean")
@@ -363,5 +370,23 @@ class Cart
     {
         $this->order_number = $order_number;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getApproveDate()
+    {
+        return $this->approveDate;
+    }
+
+    /**
+     * @param \DateTime $approveDate
+     */
+    public function setApproveDate($approveDate)
+    {
+        $this->approveDate = $approveDate;
+    }
+    
+    
 }
 

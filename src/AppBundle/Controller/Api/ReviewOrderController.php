@@ -289,6 +289,7 @@ class ReviewOrderController extends Controller
             $json_cart[] = array(
                 'stock_number' => $product->getPart()->getStockNumber(),
                 'description' => $product->getPart()->getDescription(),
+                'prefix' => ($product->getPartNumberPrefix() != null ? (string)$product->getPartNumberPrefix()->getId() : '0'),
                 'id' => $product->getPart()->getId(),
                 'require_return' => $product->getPart()->getRequireReturn(),
                 'category' => $product->getPart()->getPartCategory()->getName(),
