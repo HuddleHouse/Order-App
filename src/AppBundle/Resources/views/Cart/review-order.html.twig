@@ -91,10 +91,12 @@
                             <div style="display: inline-flex;">
                                 <input style="height: 45px; font-size: 18px !important; text-align: center;"
                                        ng-model="requester_first_name" class="form-control"
-                                       ng-change="updateRequesterName(requester_first_name)"></input>
+                                       ng-change="updateRequesterName(requester_first_name)"
+                                       placeholder="First name"></input>
                                 <input style="height: 45px; font-size: 18px !important; text-align: center;"
                                        ng-model="requester_last_name" class="form-control"
-                                       ng-change="updateRequesterLastName(requester_last_name)"></input>
+                                       ng-change="updateRequesterLastName(requester_last_name)"
+                                       placeholder="Last name"></input>
                             </div>
 
                         </div>
@@ -168,8 +170,6 @@
             $scope.numItems = 0;
             $scope.cart = [];
             $scope.products = [];
-            $scope.requester_first_name = "First Name";
-            $scope.requester_last_name = "Last Name";
 
 
             $.ajax({

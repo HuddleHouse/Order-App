@@ -88,6 +88,19 @@ class CartController extends Controller
         $em->persist($cart);
         $em->flush();
         $this->addFlash('notice', 'Order submitted successfully.');
+
+        $hour = date('H');
+
+        if($hour < 15) {
+            $shipDate = date_create(date("Y-m-d"));
+        }
+        else {
+            $shipDate = date_create(date("Y-m-d"));
+            $shipDate->modify('+1 day');
+        }
+
+        $this->addFlash('notice', 'Your order will ship on ' . $shipDate->format('m/d/Y'));
+
         /*
          * SEND EMAILS TO ALL ADMIN NOTIFYING THEM THAT AN ORDER WAS SUBMITTED.
          *

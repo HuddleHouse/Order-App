@@ -413,8 +413,8 @@ class ShoppingCartController extends Controller
                 'num_items' => $count,
                 'cart_notes' => $cart->getNote(),
                 'requester_name' => $cart->getRequesterFirstName() . " " . $cart->getRequesterLastName(),
-                'requester_first_name' => ($cart->getRequesterFirstName() != null ? $cart->getRequesterFirstName() : 'First Name'),
-                'requester_last_name' => ($cart->getRequesterLastName() != null ? $cart->getRequesterLastName() : 'Last Name'),
+                'requester_first_name' => ($cart->getRequesterFirstName() != null ? $cart->getRequesterFirstName() : ''),
+                'requester_last_name' => ($cart->getRequesterLastName() != null ? $cart->getRequesterLastName() : ''),
                 'shipping' => ($cart->getShippingMethod() != null ? (string)$cart->getShippingMethod()->getId() : '0'),
 
             ));
