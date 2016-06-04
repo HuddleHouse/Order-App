@@ -34,11 +34,11 @@
                                     <th>DESCRIPTION</th>
                                     <th>RETURN</th>
                                     <th>LINE NUMBER (S)</th>
+                                    <th>STOCK LOCATION</th>
                                     <th>PREFIX</th>
                                     <th>QTY</th>
                                     <th>SHIP QTY</th>
                                     <th>B.O. QTY</th>
-                                    <th>STOCK LOCATION</th>
                                     <th>USTER NOTES</th>
                                 </tr>
                                 </thead>
@@ -60,6 +60,13 @@
                                            </div>
                                             {% endfor %}
                                         </td>
+                                            <td>
+                                                <div class="row">
+                                                    <center>
+                                                        {{ item.stockLocation.Name }}
+                                                    </center>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <div class="row">
                                                     <center>
@@ -88,14 +95,8 @@
                                                 </center>
                                             </div>
                                         </td>
+
                                             <td>
-                                                <div class="row">
-                                                    <center>
-                                                        {{ item.stockLocation.Name }}
-                                                    </center>
-                                                </div>
-                                            </td>
-                                        <td>
                                                 <center>
                                                 {{ item.note }}
                                                 </center>

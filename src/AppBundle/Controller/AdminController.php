@@ -36,7 +36,7 @@ class AdminController extends Controller
         $stmt->execute();
         $submitted = $stmt->fetchAll();
 
-        $sql = "select c.id, c.submit_date, c.order_number, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
+        $sql = "select c.id, c.submit_date, c.approve_date, c.order_number, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
 	from cart c
 		left join cart_products p
 			on p.cart_id = c.id
@@ -275,6 +275,7 @@ class AdminController extends Controller
 
         $cart->setApproved(1);
         $cart->setApprovedBy($user);
+        $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
         $em->persist($cart);
         $em->flush();
 
