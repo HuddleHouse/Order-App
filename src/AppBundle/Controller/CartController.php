@@ -73,6 +73,18 @@ class CartController extends Controller
         $cart->setSubmitted(1);
         $cart->setSubmitDate(date_create(date("Y-m-d H:i:s")));
 
+        $user = $this->getUser();
+        $num = str_pad($cart_id, 4, '0', STR_PAD_LEFT);
+        $officeId = '00';
+        $year = date('y');
+
+        if($user->getOffice()) {
+            $officeId = $user->getOffice()->getOfficeNumber();
+        }
+        $orderNum = $officeId . $year . $num;
+
+        $cart->setOrderNumber($orderNum);
+
         $em->persist($cart);
         $em->flush();
         $this->addFlash('notice', 'Order submitted successfully.');

@@ -131,6 +131,9 @@
                                             NUMBER OF ITEMS
                                         </th>
                                         <th>
+                                            ORDER #
+                                        </th>
+                                        <th>
                                         </th>
                                     </tr>
                                     </thead>
@@ -150,6 +153,9 @@
                                                 <center>
                                                     {{ item.items }}
                                                 </center>
+                                            </td>
+                                            <td>
+                                                <center>{{ item.order_number }}</center>
                                             </td>
                                             <td style="width: 60px;">
                                                 <a href="{{ path('admin_order_edit', {'cart_id': item.id}) }}"

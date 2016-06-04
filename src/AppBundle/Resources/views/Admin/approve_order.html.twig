@@ -30,7 +30,6 @@
                                 </div>
                             </div>
                             <div ng-if="numItems != 0">
-                                {% verbatim %}
 <div class="table-responsive">
  <table id="cart-table" class="responsive nowrap table table-striped no-footer" cellspacing="0">
                                 <thead>
@@ -39,27 +38,39 @@
                                     <th>DESCRIPTION</th>
                                     <th>RETURN</th>
                                     <th>LINE NUMBER (S)</th>
+                                    <th>PREFIX</th>
                                     <th>QTY</th>
                                     <th>SHIP QTY</th>
                                     <th>B.O. QTY</th>
-                                    <th>Uster Notes</th>
+                                    <th>STOCK LOCATION</th>
+                                    <th>USTER NOTES</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in cart track by $index">
-                                    <div ng-if="angular.isobject(item)">
-                                        <td>{{ item.stock_number }}</td>
-                                        <td>{{ item.description }}</td>
+                                {% for item in cart.cartProducts %}
+                                    <tr>
+                                        <div>
+                                            <td>{{ item.part.stockNumber }}</td>
+                                            <td>{{ item.part.description }}</td>
                                         <td>
-                                            <div ng-if="item.require_return == 1">
+                                            {% if item.part.requireReturn == 1 %}
                                                 <center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a; padding-top: 7px;'></i></center>
-                                             </div>
+                                            {% endif %}
                                         </td>
                                         <td>
-                                           <div ng-repeat="num in item.line_numbers track by $index" style="display: block;">
-                                                {{ num.line_number }}
+                                            {% for num in item.cartProductLineNumbers %}
+                                                <div style="display: block;">
+                                                    {{ num.lineNumber }}
                                            </div>
+                                            {% endfor %}
                                         </td>
+                                            <td>
+                                                <div class="row">
+                                                    <center>
+                                                        {{ item.partNumberPrefix.name }}
+                                                    </center>
+                                                </div>
+                                            </td>
                                         <td>
                                             <div class="row">
                                                 <center>
@@ -70,17 +81,24 @@
                                         <td>
                                             <div class="row">
                                                 <center>
-                                                {{ item.ship_quantity }}
+                                                    {{ item.shipQuantity }}
                                                 </center>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="row">
                                                 <center>
-                                                {{ item.back_order_quantity }}
+                                                    {{ item.backOrderQuantity }}
                                                 </center>
                                             </div>
                                         </td>
+                                            <td>
+                                                <div class="row">
+                                                    <center>
+                                                        {{ item.stockLocation.Name }}
+                                                    </center>
+                                                </div>
+                                            </td>
                                         <td>
                                                 <center>
                                                 {{ item.note }}
@@ -88,10 +106,10 @@
                                         </td>
                                         </div>
                                     </tr>
+                                {% endfor %}
                             </tbody>
                             </table>
                             </div>
-                            {% endverbatim %}
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12">
                                         <div class="well">
@@ -133,6 +151,11 @@
                                     <div class="col-md-4 col-xs-12 invoice-block"
                                          style="text-align: right; margin-top: 30px;">
                                         <ul class="list-unstyled amounts">
+                                            <li>
+                                                <strong>Shipping:</strong><a style="border: none; width: 50px; margin-right: 8px; padding-bottom: 10px; text-align: right; font-size: 18px;color: #777;
+    margin-left: 15px;">{{ shipping }}</a>
+                                                <hr>
+                                            </li>
                                             <li>
                                                 <strong>Items Requested:</strong> <input ng-model="requested" disabled
                                                                                          style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
