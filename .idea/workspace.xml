@@ -71,8 +71,8 @@
       <file leaf-file-name="edit.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Part/edit.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
+            <state relative-caret-position="285">
+              <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -218,7 +218,7 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="x" value="10" />
-    <option name="y" value="23" />
+    <option name="y" value="27" />
     <option name="width" value="1864" />
     <option name="height" value="1413" />
   </component>
@@ -828,14 +828,7 @@
       <workItem from="1465299316945" duration="3385000" />
       <workItem from="1465397674743" duration="486000" />
       <workItem from="1465411528479" duration="7000" />
-      <workItem from="1465562099020" duration="75000" />
-    </task>
-    <task id="LOCAL-00087" summary="Started adding the add an unknown item option on the ordering page.">
-      <created>1463258337780</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1463258337780</updated>
+      <workItem from="1465562099020" duration="86000" />
     </task>
     <task id="LOCAL-00088" summary="Started adding the add an unknown item option on the ordering page.">
       <created>1463258386936</created>
@@ -1173,11 +1166,18 @@
       <option name="project" value="LOCAL" />
       <updated>1465562165829</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="Adding error handling">
+      <created>1465562175828</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1465562175828</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125976000" />
+    <option name="totallyTimeSpent" value="125987000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1189,7 +1189,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="23" width="1864" height="1413" extended-state="0" />
+    <frame x="10" y="27" width="1864" height="1413" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16630077" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1783,8 +1783,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Part/edit.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
+        <state relative-caret-position="285">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
           <folding />
         </state>
       </provider>
