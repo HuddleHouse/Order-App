@@ -114,7 +114,7 @@ class CartController extends Controller
          *
          */
         $from = 'utus-orders@gmail.com';
-        $to = 'mthuddleston@gmail.com';
+        $to = 'Knoxville_USDA@uster.com';
 
         try {
             $email_service = $this->get('email_service');
