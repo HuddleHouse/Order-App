@@ -99,12 +99,43 @@ class CartController extends Controller
             $shipDate->modify('+1 day');
         }
 
+        if($shipDate->format('D') == 'Sat') {
+            $shipDate->modify('+1 day');
+            $shipDate->modify('+1 day');
+        }
+        elseif($shipDate->format('D') == 'Sun') {
+            $shipDate->modify('+1 day');
+        }
+
         $this->addFlash('notice', 'Your order will ship on ' . $shipDate->format('m/d/Y'));
 
         /*
          * SEND EMAILS TO ALL ADMIN NOTIFYING THEM THAT AN ORDER WAS SUBMITTED.
          *
          */
+        $from = 'utus-orders@gmail.com';
+        $to = 'mthuddleston@gmail.com';
+
+        try {
+            $email_service = $this->get('email_service');
+            $email_service->sendEmail(array(
+                    'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber(),
+                    'from' => $from,
+                    'to' => $to,
+                    'body' => $this->renderView("AppBundle:Email:order_submit_notification.html.twig",
+                        array(
+                            'cart' => $cart
+                        )
+                    )
+                )
+            );
+        } catch(\Exception $e) {
+            $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
+            return $this->redirectToRoute('view_all_orders');
+        }
+
+
+
         return $this->redirectToRoute('view_all_orders');
     }
 

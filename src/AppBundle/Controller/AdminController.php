@@ -133,7 +133,7 @@ class AdminController extends Controller
             $email_service = $this->get('email_service');
             $email_service->sendEmail(array(
                     'subject' => 'Invitation to register for utus-orders.com',
-                    'from' => 'matt@245tech.com',
+                    'from' => 'utus-orders@gmail.com',
                     'to' => $invitation->getEmail(),
                     'body' => $this->renderView("AppBundle:Email:send_invitation_email.html.twig", array('code' => $invitation->getCode()))
                 )
