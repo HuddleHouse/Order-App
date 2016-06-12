@@ -290,7 +290,32 @@ class AdminController extends Controller
          * SEND EMAILS TO EVERYONE HERE
          *
          */
-        
+        try {
+            $emails = $cart->getOffice()->getEmails();
+
+
+            foreach($emails as $email) {
+                $from = 'utus-orders@gmail.com';
+                $to = $email->getEmail();
+
+                $email_service = $this->get('email_service');
+                $email_service->sendEmail(array(
+                        'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber(),
+                        'from' => $from,
+                        'to' => $to,
+                        'body' => $this->renderView("AppBundle:Email:order_submit_notification.html.twig",
+                            array(
+                                'cart' => $cart
+                            )
+                        )
+                    )
+                );
+            }
+
+        } catch(\Exception $e) {
+            $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
+            return $this->redirectToRoute('view_all_orders');
+        }
 
         return $this->render('AppBundle:Admin:approve_order.html.twig', array(
             'products' => $products,

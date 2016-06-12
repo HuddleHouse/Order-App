@@ -1,0 +1,13 @@
+<p>Hello!</p>
+<p>A new order has been submitted from the {{ cart.office.name }} office</p>
+<h2>Order #{{ cart.orderNumber }}</h2>
+{# example, assuming you have a route named "login" #}
+<br>
+<a class="btn btn-success" href="{{ url('admin_order_edit', { 'cart_id': cart.id }) }}">View/Approve Order</a>
+<br>
+
+<p>
+    Thanks!
+</p>
+
+<img src="{{ absolute_url(asset('images/logo.png')) }}">
