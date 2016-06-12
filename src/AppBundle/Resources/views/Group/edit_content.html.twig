@@ -17,45 +17,117 @@
 {% endif %}
 
 <div class="container">
-    <div class="portlet-body form">
-        <div class="form-body">
-            {{ form_start(form, { 'action': path('fos_user_group_edit', {'groupName': group_name} ), 'attr': { 'class': 'form-group' } }) }}
-            <h3 class="form-section">Office Info</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_label(form.name) }}
-                    {{ form_widget(form.name , { 'attr': {'class': 'form-control'} }) }}
-                    {{ form_label(form.phone) }}
-                    {{ form_widget(form.phone , { 'attr': {'class': 'form-control'} }) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_label(form.office_number) }}
-                    {{ form_widget(form.office_number , { 'attr': {'class': 'form-control'} }) }}
-                </div>
-            </div>
-            <h3 class="form-section">Office Address</h3>
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_label(form.address) }}
-                    {{ form_widget(form.address , { 'attr': {'class': 'form-control'} }) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_label(form.city) }}
-                    {{ form_widget(form.city , { 'attr': {'class': 'form-control'} }) }}
-                    {{ form_label(form.zip) }}
-                    {{ form_widget(form.zip , { 'attr': {'class': 'form-control'} }) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_label(form.state) }}
-                    {{ form_widget(form.state , { 'attr': {'class': 'form-control'} }) }}
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <div class="portlet-body form">
+            <div class="form-body">
+                <div id="display-attributes">
+                    <h3 class="form-section">Office Emails</h3>
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th style="width: 150px">Options</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% verbatim %}
+                    <tr ng-repeat="(i, spec) in emails track by $index">
+                        <td>{{spec.email}}</td>
+                        <td>
+                            <a class="btn btn-danger" ng-click="deleteEmailValue(spec.id)">Delete</a>
+                        </td>
+                    </tr>
+                {% endverbatim %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
 
                 </div>
             </div>
-            <div style="padding-top: 20px;">
-                <input class="btn btn-success" type="submit" value="{{ 'profile.edit.submit'|trans }}"/>
-            </div>
-
-            {{ form_end(form) }}
         </div>
+
+        <a href="#" class="btn btn-success btn-block" data-toggle="modal" data-target="#email-modal"
+           style="margin-bottom: 30px;">
+            <i class="fa fa-plus"></i>
+            Add Office Email
+        </a>
+        <hr>
+
+
+        <div class="portlet-body form">
+            <div class="form-body">
+                {{ form_start(form, { 'action': path('fos_user_group_edit', {'groupName': group_name} ), 'attr': { 'class': 'form-group' } }) }}
+                <h3 class="form-section">Office Info</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_label(form.name) }}
+                        {{ form_widget(form.name , { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_label(form.phone) }}
+                        {{ form_widget(form.phone , { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.office_number) }}
+                        {{ form_widget(form.office_number , { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <h3 class="form-section">Office Address</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_label(form.address) }}
+                        {{ form_widget(form.address , { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.city) }}
+                        {{ form_widget(form.city , { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_label(form.zip) }}
+                        {{ form_widget(form.zip , { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.state) }}
+                        {{ form_widget(form.state , { 'attr': {'class': 'form-control'} }) }}
+
+                    </div>
+                </div>
+                <div style="padding-top: 20px;">
+                    <input class="btn btn-success" type="submit" value="{{ 'profile.edit.submit'|trans }}"/>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="email-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                    class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add Office Email</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <label for="email_value" class="required">Email</label>
+                        <input type="text" id="email_value" name="" required="required" class="form-control"
+                               style="margin-bottom: 10px">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" ng-click="addEmailValue()" data-dismiss="modal">
+                            Save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>

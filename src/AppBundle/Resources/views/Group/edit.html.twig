@@ -14,3 +14,75 @@
         {% include "FOSUserBundle:Group:edit_content.html.twig" %}
     </div>
 {% endblock content %}
+
+{% block javascripts %}
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function ($scope) {
+            $scope.emails = [];
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('api_load_group_emails') }}",
+                dataType: 'json',
+                data: {office_id: {{ group.id }} },
+                success: function (data) {
+                    console.log(data);
+                    $scope.$apply(function () {
+                        $scope.emails = data;
+                    });
+                }
+            });
+
+            $scope.addEmailValue = function () {
+                var email_value = $('#email_value').val();
+                console.log(email_value);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_add_group_email') }}",
+                    dataType: 'json',
+                    data: {email_value: email_value, office_id: {{ group.id }} },
+                    success: function (data) {
+                        $scope.$apply(function () {
+                            $scope.emails = data;
+                            $('#email_value').val('');
+                        });
+                    }
+                });
+            };
+
+            $scope.getAllEmails = function () {
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_load_group_emails') }}",
+                    dataType: 'json',
+                    data: {office_id: {{ group.id }} },
+                    success: function (data) {
+                        console.log(data);
+                        $scope.$apply(function () {
+                            $scope.emails = data;
+                        });
+                    }
+                });
+            };
+
+            $scope.deleteEmailValue = function (id) {
+                var office_email_id = id;
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_remove_group_email_by_id') }}",
+                    dataType: 'json',
+                    data: {office_email_id: office_email_id},
+                    success: function (data) {
+                        console.log(data);
+                        $scope.getAllEmails();
+                    }
+                });
+            };
+
+        });
+    </script>
+{% endblock javascripts %}

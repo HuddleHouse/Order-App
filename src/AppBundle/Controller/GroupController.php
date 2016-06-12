@@ -101,7 +101,8 @@ class GroupController extends Controller
         return $this->render('FOSUserBundle:Group:edit.html.twig', array(
             'form' => $form->createview(),
             'group_name' => $group->getName(),
-            'form_path' => 'fos_user_group_edit'
+            'form_path' => 'fos_user_group_edit',
+            'group' => $group
         ));
     }
 
