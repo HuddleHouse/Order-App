@@ -29,14 +29,12 @@ class OfficeEmail
     private $email;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="office_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Office", inversedBy="emails")
+     * @ORM\JoinColumn(name="office_id", referencedColumnName="id")
      */
-    private $officeId;
+    private $office;
 
-
-    /**
+    /** 
      * Get id
      *
      * @return int
@@ -71,27 +69,21 @@ class OfficeEmail
     }
 
     /**
-     * Set officeId
-     *
-     * @param integer $officeId
-     *
-     * @return OfficeEmail
+     * @return mixed
      */
-    public function setOfficeId($officeId)
+    public function getOffice()
     {
-        $this->officeId = $officeId;
-
-        return $this;
+        return $this->office;
     }
 
     /**
-     * Get officeId
-     *
-     * @return int
+     * @param mixed $office
      */
-    public function getOfficeId()
+    public function setOffice($office)
     {
-        return $this->officeId;
+        $this->office = $office;
     }
+
+
 }
 

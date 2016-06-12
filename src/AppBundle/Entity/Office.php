@@ -73,10 +73,17 @@ class Office extends BaseGroup
     protected $users;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OfficeEmail", mappedBy="office_id")
+     */
+    private $emails;
+
+
+    /**
      * Constructor
      */
     public function __construct()
     {
+        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -233,4 +240,22 @@ class Office extends BaseGroup
     {
         return $this->users;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+
+    /**
+     * @param mixed $emails
+     */
+    public function setEmails($emails)
+    {
+        $this->emails = $emails;
+    }
+
+    
 }
