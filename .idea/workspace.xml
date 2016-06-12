@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="Adding error handling">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Email/order_approved_notification.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Email/order_approved_notification.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Email/order_approved_notification.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations." />
     <ignored path="uster-order-app.iws" />
@@ -30,19 +30,77 @@
       <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="536">
-              <caret line="292" column="13" selection-start-line="291" selection-start-column="11" selection-end-line="292" selection-end-column="13" />
+            <state relative-caret-position="371">
+              <caret line="286" column="21" selection-start-line="286" selection-start-column="21" selection-end-line="286" selection-end-column="21" />
               <folding>
-                <element signature="e#11477#11530#0#PHP" expanded="true" />
-                <marker date="1465759559000" expanded="true" signature="729:1110" ph="select c.id,... cart" />
-                <marker date="1465759559000" expanded="true" signature="1249:1806" ph="select c.id,... cart" />
-                <marker date="1465759559000" expanded="true" signature="1944:1977" ph="select count... users" />
-                <marker date="1465759559000" expanded="true" signature="2112:2145" ph="select count... parts" />
-                <marker date="1465759559000" expanded="true" signature="2280:2315" ph="select count... offices" />
-                <marker date="1465759559000" expanded="true" signature="2452:2503" ph="select count... cart" />
-                <marker date="1465759559000" expanded="true" signature="2641:2710" ph="select count... cart" />
-                <marker date="1465759559000" expanded="true" signature="6547:6571" ph="SELECT * FRO... invitation" />
+                <element signature="e#10139#10164#1#PHP" expanded="true" />
+                <element signature="e#10220#10248#1#PHP" expanded="true" />
+                <element signature="e#10301#10317#1#PHP" expanded="true" />
+                <element signature="e#10372#10396#1#PHP" expanded="true" />
+                <element signature="e#10445#10461#1#PHP" expanded="true" />
+                <element signature="e#10519#10545#1#PHP" expanded="true" />
+                <element signature="e#11739#11794#0#PHP" expanded="true" />
+                <element signature="e#12217#12258#0#PHP" expanded="true" />
+                <marker date="1465760178000" expanded="true" signature="729:1110" ph="select c.id,... cart" />
+                <marker date="1465760178000" expanded="true" signature="1249:1806" ph="select c.id,... cart" />
+                <marker date="1465760178000" expanded="true" signature="1944:1977" ph="select count... users" />
+                <marker date="1465760178000" expanded="true" signature="2112:2145" ph="select count... parts" />
+                <marker date="1465760178000" expanded="true" signature="2280:2315" ph="select count... offices" />
+                <marker date="1465760178000" expanded="true" signature="2452:2503" ph="select count... cart" />
+                <marker date="1465760178000" expanded="true" signature="2641:2710" ph="select count... cart" />
+                <marker date="1465760178000" expanded="true" signature="6547:6571" ph="SELECT * FRO... invitation" />
+                <marker date="1465760178000" expanded="true" signature="11034:11082" ph="select * fro... office_email" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReviewOrderController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ReviewOrderController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="534">
+              <caret line="277" column="0" selection-start-line="277" selection-start-column="0" selection-end-line="277" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShoppingCartController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="423">
+              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+              <folding>
+                <marker date="1465069978000" expanded="true" signature="2356:2521" ph="select sum(c... cart_products" />
+                <marker date="1465069978000" expanded="true" signature="3685:3925" ph="select count... cart_product_line_numbers" />
+                <marker date="1465069978000" expanded="true" signature="4146:4204" ph="select c.shi... cart" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/GroupController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="41" column="9" selection-start-line="29" selection-start-column="0" selection-end-line="41" selection-end-column="9" />
+              <folding>
+                <element signature="e#44#77#0#PHP" expanded="true" />
+                <element signature="e#800#818#1#PHP" expanded="true" />
+                <marker date="1465759447000" expanded="true" signature="958:1008" ph="select * fro... office_email" />
+                <marker date="1465759447000" expanded="true" signature="1736:1807" ph="insert into office_email... " />
+                <marker date="1465759447000" expanded="true" signature="2520:2559" ph="delete from " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HttpKernel.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/HttpKernel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="595">
+              <caret line="157" column="13" selection-start-line="157" selection-start-column="13" selection-end-line="157" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -50,8 +108,8 @@
       <file leaf-file-name="order_approved_notification.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Email/order_approved_notification.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="60">
+              <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -85,7 +143,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Group/show_content.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Partcategory/new-modal.html.twig" />
         <option value="$PROJECT_DIR$/app/config/parameters.yml" />
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
@@ -136,6 +193,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Group/edit.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/Api/GroupController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Email/order_approved_notification.html.twig" />
       </list>
     </option>
   </component>
@@ -541,6 +599,32 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AppBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Api" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uster-order-app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -805,14 +889,7 @@
       <workItem from="1465397674743" duration="486000" />
       <workItem from="1465411528479" duration="7000" />
       <workItem from="1465562099020" duration="1022000" />
-      <workItem from="1465753302646" duration="6394000" />
-    </task>
-    <task id="LOCAL-00092" summary="Started adding the add an unknown item option on the ordering page.">
-      <created>1463261455175</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1463261455175</updated>
+      <workItem from="1465753302646" duration="6866000" />
     </task>
     <task id="LOCAL-00093" summary="Started adding the add an unknown item option on the ordering page.">
       <created>1463264126024</created>
@@ -1150,11 +1227,18 @@
       <option name="project" value="LOCAL" />
       <updated>1465759447700</updated>
     </task>
-    <option name="localTasksCounter" value="141" />
+    <task id="LOCAL-00141" summary="Adding error handling">
+      <created>1465759739443</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1465759739443</updated>
+    </task>
+    <option name="localTasksCounter" value="142" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133317000" />
+    <option name="totallyTimeSpent" value="133789000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1167,9 +1251,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="657" y="23" width="1864" height="1413" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1679473" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1679473" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23921272" sideWeight="0.5067134" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1414,32 +1498,17 @@
           <line>75</line>
           <option name="timeStamp" value="79" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php</url>
+          <line>271</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="80" />
+      <option name="time" value="81" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="50" column="4" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="5" />
-          <folding>
-            <marker date="1465069978000" expanded="true" signature="2356:2521" ph="select sum(c... cart_products" />
-            <marker date="1465069978000" expanded="true" signature="3685:3925" ph="select count... cart_product_line_numbers" />
-            <marker date="1465069978000" expanded="true" signature="4146:4204" ph="select c.shi... cart" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Part.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/services.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1774,7 +1843,7 @@
         <state relative-caret-position="-906">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#12#38#0#Twig" expanded="true" />
+            <element signature="e#12#38#0#Twig" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1792,16 +1861,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#12#26#0#Twig" expanded="true" />
+            <element signature="e#12#26#0#Twig" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/HttpKernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1839,21 +1900,7 @@
         <state relative-caret-position="912">
           <caret line="71" column="32" selection-start-line="71" selection-start-column="32" selection-end-line="71" selection-end-column="32" />
           <folding>
-            <element signature="e#12#38#0#Twig" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/GroupController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-          <folding>
-            <element signature="e#44#77#0#PHP" expanded="true" />
-            <element signature="e#800#818#1#PHP" expanded="true" />
-            <marker date="1465759447000" expanded="true" signature="958:1008" ph="select * fro... office_email" />
-            <marker date="1465759447000" expanded="true" signature="1736:1807" ph="insert into office_email... " />
-            <marker date="1465759447000" expanded="true" signature="2520:2559" ph="delete from " />
+            <element signature="e#12#38#0#Twig" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1877,28 +1924,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/GroupController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="41" column="9" selection-start-line="29" selection-start-column="0" selection-end-line="41" selection-end-column="9" />
+          <folding>
+            <element signature="e#44#77#0#PHP" expanded="true" />
+            <element signature="e#800#818#1#PHP" expanded="true" />
+            <marker date="1465759447000" expanded="true" signature="958:1008" ph="select * fro... office_email" />
+            <marker date="1465759447000" expanded="true" signature="1736:1807" ph="insert into office_email... " />
+            <marker date="1465759447000" expanded="true" signature="2520:2559" ph="delete from " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ShoppingCartController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding>
+            <marker date="1465069978000" expanded="true" signature="2356:2521" ph="select sum(c... cart_products" />
+            <marker date="1465069978000" expanded="true" signature="3685:3925" ph="select count... cart_product_line_numbers" />
+            <marker date="1465069978000" expanded="true" signature="4146:4204" ph="select c.shi... cart" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/HttpKernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="157" column="13" selection-start-line="157" selection-start-column="13" selection-end-line="157" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Api/ReviewOrderController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="277" column="0" selection-start-line="277" selection-start-column="0" selection-end-line="277" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="292" column="13" selection-start-line="291" selection-start-column="11" selection-end-line="292" selection-end-column="13" />
+        <state relative-caret-position="371">
+          <caret line="286" column="21" selection-start-line="286" selection-start-column="21" selection-end-line="286" selection-end-column="21" />
           <folding>
-            <element signature="e#11477#11530#0#PHP" expanded="true" />
-            <marker date="1465759559000" expanded="true" signature="729:1110" ph="select c.id,... cart" />
-            <marker date="1465759559000" expanded="true" signature="1249:1806" ph="select c.id,... cart" />
-            <marker date="1465759559000" expanded="true" signature="1944:1977" ph="select count... users" />
-            <marker date="1465759559000" expanded="true" signature="2112:2145" ph="select count... parts" />
-            <marker date="1465759559000" expanded="true" signature="2280:2315" ph="select count... offices" />
-            <marker date="1465759559000" expanded="true" signature="2452:2503" ph="select count... cart" />
-            <marker date="1465759559000" expanded="true" signature="2641:2710" ph="select count... cart" />
-            <marker date="1465759559000" expanded="true" signature="6547:6571" ph="SELECT * FRO... invitation" />
+            <element signature="e#10139#10164#1#PHP" expanded="true" />
+            <element signature="e#10220#10248#1#PHP" expanded="true" />
+            <element signature="e#10301#10317#1#PHP" expanded="true" />
+            <element signature="e#10372#10396#1#PHP" expanded="true" />
+            <element signature="e#10445#10461#1#PHP" expanded="true" />
+            <element signature="e#10519#10545#1#PHP" expanded="true" />
+            <element signature="e#11739#11794#0#PHP" expanded="true" />
+            <element signature="e#12217#12258#0#PHP" expanded="true" />
+            <marker date="1465760178000" expanded="true" signature="729:1110" ph="select c.id,... cart" />
+            <marker date="1465760178000" expanded="true" signature="1249:1806" ph="select c.id,... cart" />
+            <marker date="1465760178000" expanded="true" signature="1944:1977" ph="select count... users" />
+            <marker date="1465760178000" expanded="true" signature="2112:2145" ph="select count... parts" />
+            <marker date="1465760178000" expanded="true" signature="2280:2315" ph="select count... offices" />
+            <marker date="1465760178000" expanded="true" signature="2452:2503" ph="select count... cart" />
+            <marker date="1465760178000" expanded="true" signature="2641:2710" ph="select count... cart" />
+            <marker date="1465760178000" expanded="true" signature="6547:6571" ph="SELECT * FRO... invitation" />
+            <marker date="1465760178000" expanded="true" signature="11034:11082" ph="select * fro... office_email" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Email/order_approved_notification.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
           <folding />
         </state>
       </provider>

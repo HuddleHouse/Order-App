@@ -291,19 +291,24 @@ class AdminController extends Controller
          *
          */
         try {
-            $emails = $cart->getOffice()->getEmails();
 
+            $connection = $em->getConnection();
+            $statement = $connection->prepare("select * from office_email where office_id = :id");
+            $statement->bindValue('id', $cart->getOffice()->getId());
 
-            foreach($emails as $email) {
+            $statement->execute();
+            $data = $statement->fetchAll();
+
+            foreach($data as $email) {
                 $from = 'utus-orders@gmail.com';
-                $to = $email->getEmail();
+                $to = $email['email'];
 
                 $email_service = $this->get('email_service');
                 $email_service->sendEmail(array(
-                        'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber(),
+                        'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber() . " has been fulfilled.",
                         'from' => $from,
                         'to' => $to,
-                        'body' => $this->renderView("AppBundle:Email:order_submit_notification.html.twig",
+                        'body' => $this->renderView("AppBundle:Email:order_approved_notification.html.twig",
                             array(
                                 'cart' => $cart
                             )
