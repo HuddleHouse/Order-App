@@ -277,50 +277,50 @@ class AdminController extends Controller
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
         $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
-        if(!$cart->getApproved())
+        if(!$cart->getApproved()) {
             $this->addFlash('notice', "Order Approved Successfully.");
+            /*
+             * SEND EMAILS TO EVERYONE HERE
+             *
+             */
+            try {
+                //only send the email
+                $connection = $em->getConnection();
+                $statement = $connection->prepare("select * from office_email where office_id = :id");
+                $statement->bindValue('id', $cart->getOffice()->getId());
 
-        $cart->setApproved(1);
-        $cart->setApprovedBy($user);
-        $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
-        $em->persist($cart);
-        $em->flush();
+                $statement->execute();
+                $data = $statement->fetchAll();
 
-        /*
-         * SEND EMAILS TO EVERYONE HERE
-         *
-         */
-        try {
+                foreach($data as $email) {
+                    $from = 'utus-orders@gmail.com';
+                    $to = $email['email'];
 
-            $connection = $em->getConnection();
-            $statement = $connection->prepare("select * from office_email where office_id = :id");
-            $statement->bindValue('id', $cart->getOffice()->getId());
-
-            $statement->execute();
-            $data = $statement->fetchAll();
-
-            foreach($data as $email) {
-                $from = 'utus-orders@gmail.com';
-                $to = $email['email'];
-
-                $email_service = $this->get('email_service');
-                $email_service->sendEmail(array(
-                        'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber() . " has been fulfilled.",
-                        'from' => $from,
-                        'to' => $to,
-                        'body' => $this->renderView("AppBundle:Email:order_approved_notification.html.twig",
-                            array(
-                                'cart' => $cart
+                    $email_service = $this->get('email_service');
+                    $email_service->sendEmail(array(
+                            'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber() . " has been fulfilled.",
+                            'from' => $from,
+                            'to' => $to,
+                            'body' => $this->renderView("AppBundle:Email:order_approved_notification.html.twig",
+                                array(
+                                    'cart' => $cart
+                                )
                             )
                         )
-                    )
-                );
+                    );
+                }
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
+                return $this->redirectToRoute('view_all_orders');
             }
 
-        } catch(\Exception $e) {
-            $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
-            return $this->redirectToRoute('view_all_orders');
+            $cart->setApproved(1);
+            $cart->setApprovedBy($user);
+            $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
         }
+
+        $em->persist($cart);
+        $em->flush();
 
         return $this->render('AppBundle:Admin:approve_order.html.twig', array(
             'products' => $products,
