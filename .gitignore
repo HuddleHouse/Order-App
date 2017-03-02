@@ -9,4 +9,7 @@
 /composer.phar
 /vendor/
 /web/bundles/
+/web/js/
+/web/css/
+/web/uploads/
 /.idea/workspace.xml
