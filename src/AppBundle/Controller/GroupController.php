@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use AppBundle\Entity\OfficeEmail;
 
 /**
  * RESTful controller managing group CRUD
@@ -158,7 +159,28 @@ class GroupController extends Controller
      */
     public function deleteAction(Request $request, $groupName)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $group = $this->findGroupBy('name', $groupName);
+        $groupEmails = $em->getRepository('AppBundle:OfficeEmail')->findBy(array('office' => $group));
+
+        foreach($groupEmails as $email)
+            $em->remove($email);
+
+        $groupUsers = $em->getRepository('AppBundle:User')->findBy(array('office' => $group));
+        foreach($groupUsers as $user) {
+            $user->setOffice(null);
+            $em->persist($user);
+        }
+
+        $carts = $em->getRepository('AppBundle:Cart')->findBy(array('office' => $group));
+        foreach($carts as $cart) {
+            $cart->setOffice(null);
+            $em->persist($cart);
+        }
+
+        $em->flush();
+
         $this->get('fos_user.group_manager')->deleteGroup($group);
 
         $response = new RedirectResponse($this->generateUrl('fos_user_group_list'));

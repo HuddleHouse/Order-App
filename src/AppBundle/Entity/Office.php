@@ -64,15 +64,6 @@ class Office extends BaseGroup
     protected $zip;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinTable(name="office_users",
-     *      joinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
-     */
-    protected $users;
-
-    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\OfficeEmail", mappedBy="office_id")
      */
     private $emails;
@@ -84,7 +75,6 @@ class Office extends BaseGroup
     public function __construct()
     {
         $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -212,33 +202,6 @@ class Office extends BaseGroup
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    }
-
-    public function addUser(\AppBundle\Entity\User $user)
-    {
-        $this->users[] = $user;
-
-        return $this;
-    }
-
-    /**
-     * Remove payTypes
-     *
-     * @param \AppBundle\Entity\User $user
-     */
-    public function removeUser(\AppBundle\Entity\User $user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Get payTypes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
     }
 
     /**

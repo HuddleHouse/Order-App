@@ -227,9 +227,12 @@ class AdminController extends Controller
             }
         }
 
+        $password = $user->getPlainPassword();
+
         return $this->render('@App/Admin/admin_edit_user.html.twig', array(
             'form' => $form->createView(),
-            'user_id' => $user_id
+            'user_id' => $user_id,
+            'password' => $password
         ));
     }
 

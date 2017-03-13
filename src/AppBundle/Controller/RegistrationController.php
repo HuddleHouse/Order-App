@@ -69,7 +69,6 @@ class RegistrationController extends Controller
                 else {
                     $invitation->setUsed(1);
                     $office = $this->get('fos_user.group_manager')->findGroupBy(array('id' => $invitation->getOffice()->getId()));
-                    $office->addUser($user);
                     $user->setOffice($office);
                     if($invitation->getAdmin())
                         $user->addRole('ROLE_ADMIN');
