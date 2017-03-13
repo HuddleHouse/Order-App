@@ -147,7 +147,7 @@
                                             Users</a>
                                     </li>
                                     <li {% if app.request.get('_route') == 'admin_stocklocation_index' %} class="active"{% endif %}>
-                                        <a href="{{ path('admin_stocklocation_index') }}"><i class="fa fa-archive"></i>
+                                        <a href="{{ path('admin_stocklocation_index') }}"><i class="fa fa-building"></i>
                                             View Stock Locations</a>
                                     </li>
                                     {#<li {% if app.request.get('_route') == 'send_invitation' %} class="active"{% endif %}>#}
@@ -163,6 +163,7 @@
                         'fos_user_group_new',
                         'admin_part_new',
                         'admin_partcategory_new',
+                        'admin_stocklocation_new',
                         ] %}active{% endif %}">
                             <a href="javascript:">
                                 <i class="icon-settings"></i>
@@ -185,6 +186,10 @@
                                         Add
                                         New
                                         Part Category</a>
+                                </li>
+                                <li {% if app.request.get('_route') == 'admin_stocklocation_new' %} class="active"{% endif %}>
+                                    <a href="{{ path('admin_stocklocation_new') }}"><i class="fa fa-plus-square-o"></i>
+                                        New Stock Location</a>
                                 </li>
                             </ul>
                         </li>

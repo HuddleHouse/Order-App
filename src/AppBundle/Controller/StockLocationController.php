@@ -25,10 +25,10 @@ class StockLocationController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $partCategories = $em->getRepository('AppBundle:StockLocation')->findAll();
+        $stockLocations = $em->getRepository('AppBundle:StockLocation')->findAll();
 
         return $this->render('AppBundle:StockLocation:index.html.twig', array(
-            'partCategories' => $partCategories,
+            'stockLocations' => $stockLocations,
         ));
     }
 
@@ -46,18 +46,14 @@ class StockLocationController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
             try {
-                $canonical = new Canonicalizer();
-                $input = preg_replace("/[^a-zA-Z]+/", "", $stockLocation->getName());
-                $name_canonical = $canonical->canonicalize($input);
-                $stockLocation->setNameCononical($name_canonical);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($stockLocation);
                 $em->flush();
 
-                $this->addFlash('notice', 'Category added successfully.');
+                $this->addFlash('notice', 'Stock Location added successfully.');
                 return $this->redirectToRoute('admin_stocklocation_index');
             } catch(\Exception $e) {
-                $this->addFlash('error', 'Error adding category: ' . $e->getMessage());
+                $this->addFlash('error', 'Error adding stock location: ' . $e->getMessage());
 
                 return $this->render('AppBundle:StockLocation:new.html.twig', array(
                     'stockLocation' => $stockLocation,
@@ -126,17 +122,13 @@ class StockLocationController extends Controller
         if($editForm->isSubmitted() && $editForm->isValid()) {
             try {
                 $em = $this->getDoctrine()->getManager();
-                $canonical = new Canonicalizer();
-                $input = preg_replace("/[^a-zA-Z]+/", "", $stockLocation->getName());
-                $name_canonical = $canonical->canonicalize($input);
-                $stockLocation->setNameCononical($name_canonical);
                 $em->persist($stockLocation);
                 $em->flush();
 
-                $this->addFlash('notice', 'Category updated successfully.');
+                $this->addFlash('notice', 'Stock location updated successfully.');
                 return $this->redirectToRoute('admin_stocklocation_index');
             } catch(\Exception $e) {
-                $this->addFlash('error', 'Error updating category: ' . $e->getMessage());
+                $this->addFlash('error', 'Error updating stock location: ' . $e->getMessage());
 
                 return $this->render('AppBundle:StockLocation:edit.html.twig', array(
                     'stockLocation' => $stockLocation,
