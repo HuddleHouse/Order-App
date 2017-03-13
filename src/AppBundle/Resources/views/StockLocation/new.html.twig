@@ -1,0 +1,26 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}New Stock Location{% endblock %}
+
+{% block page_title %}
+    New Stock Location
+{% endblock page_title %}
+
+{% block page_name %}
+    <a href="{{ path('admin_partcategory_index') }}"><i class="fa fa-angle-left"></i>Back to the list</a>
+{% endblock page_name %}
+
+{% block content %}
+    <style>
+        form {
+            display: inline;
+        }
+    </style>
+    <div class="col-md-6">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="btn btn-success" type="submit" value="Create"/>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock content %}
