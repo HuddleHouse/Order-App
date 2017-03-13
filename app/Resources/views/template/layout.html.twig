@@ -43,18 +43,18 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>
-                            </li>
+                            {#<li>#}
+                                {#<a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> Update Profile</a>#}
+                            {#</li>#}
                             {% if not is_granted('ROLE_ADMIN') %}
                                 <li>
                                     <a href="{{ path('view_all_orders') }}"><i class="fa fa-hdd-o"></i> View All Orders</a>
                                 </li>
                             {% endif %}
-                            <li>
-                                <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change
-                                    Password</a>
-                            </li>
+                            {#<li>#}
+                                {#<a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> Change#}
+                                    {#Password</a>#}
+                            {#</li>#}
                             {#{% if is_granted('ROLE_ADMIN') %}#}
                             {#<li>#}
                             {#<a href="{{ path('send_invitation') }}"><i class="icon-anchor"></i> Invite User</a>#}
