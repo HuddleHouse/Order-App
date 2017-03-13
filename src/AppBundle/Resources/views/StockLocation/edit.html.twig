@@ -1,0 +1,32 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}Edit Part Category{% endblock %}
+
+{% block page_title %}
+    Edit Part Category
+{% endblock page_title %}
+
+{% block page_name %}
+    <a href="{{ path('admin_partcategory_index') }}"><i class="fa fa-angle-left"></i>Back to the list</a>
+{% endblock page_name %}
+
+{% block content %}
+    <style>
+        form {
+            display: inline;
+        }
+    </style>
+    <div class="col-md-6">
+
+        {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input class="btn btn-success" type="submit" value="Update"/>
+        {{ form_end(edit_form) }}
+
+        {{ form_start(delete_form) }}
+        <input class="btn btn-danger" type="submit" value="Delete">
+        {{ form_end(delete_form) }}
+
+    </div>
+
+{% endblock content %}
