@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="#9">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/StockLocationController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/StockLocationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/StockLocationType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/StockLocationType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/StockLocation/edit.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/StockLocation/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/StockLocation/index.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/StockLocation/index.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/CartController.php" />
@@ -77,8 +73,8 @@
       <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="149" column="108" selection-start-line="149" selection-start-column="108" selection-end-line="149" selection-end-column="108" />
+            <state relative-caret-position="527">
+              <caret line="152" column="36" selection-start-line="152" selection-start-column="36" selection-end-line="152" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -666,14 +662,7 @@
       <workItem from="1489433577468" duration="5588000" />
       <workItem from="1489440559151" duration="6000" />
       <workItem from="1489440567163" duration="683000" />
-      <workItem from="1489441261093" duration="282000" />
-    </task>
-    <task id="LOCAL-00099" summary="Started adding the add an unknown item option on the ordering page.">
-      <created>1463266279823</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1463266279823</updated>
+      <workItem from="1489441261093" duration="324000" />
     </task>
     <task id="LOCAL-00100" summary="Started adding the add an unknown item option on the ordering page.">
       <created>1463266378437</created>
@@ -1011,11 +1000,18 @@
       <option name="project" value="LOCAL" />
       <updated>1489439344257</updated>
     </task>
-    <option name="localTasksCounter" value="148" />
+    <task id="LOCAL-00148" summary="#9">
+      <created>1489441545514</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1489441545514</updated>
+    </task>
+    <option name="localTasksCounter" value="149" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159124000" />
+    <option name="totallyTimeSpent" value="159166000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1724,8 +1720,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="149" column="108" selection-start-line="149" selection-start-column="108" selection-end-line="149" selection-end-column="108" />
+        <state relative-caret-position="527">
+          <caret line="152" column="36" selection-start-line="152" selection-start-column="36" selection-end-line="152" selection-end-column="36" />
           <folding />
         </state>
       </provider>
