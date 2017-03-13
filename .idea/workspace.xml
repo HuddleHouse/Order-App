@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="review #8">
+    <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="fixes #8">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/template/layout.html.twig" />
     </list>
@@ -73,8 +73,8 @@
       <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="151" column="41" selection-start-line="151" selection-start-column="41" selection-end-line="151" selection-end-column="41" />
+            <state relative-caret-position="595">
+              <caret line="156" column="36" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -662,14 +662,7 @@
       <workItem from="1489433577468" duration="5588000" />
       <workItem from="1489440559151" duration="6000" />
       <workItem from="1489440567163" duration="683000" />
-      <workItem from="1489441261093" duration="574000" />
-    </task>
-    <task id="LOCAL-00101" summary="Finishing up I hope.&#10;">
-      <created>1463330184240</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1463330184240</updated>
+      <workItem from="1489441261093" duration="618000" />
     </task>
     <task id="LOCAL-00102" summary="Finishing up I hope.&#10;">
       <created>1463330242193</created>
@@ -1007,11 +1000,18 @@
       <option name="project" value="LOCAL" />
       <updated>1489441607640</updated>
     </task>
-    <option name="localTasksCounter" value="150" />
+    <task id="LOCAL-00150" summary="fixes #8">
+      <created>1489441841783</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1489441841783</updated>
+    </task>
+    <option name="localTasksCounter" value="151" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159416000" />
+    <option name="totallyTimeSpent" value="159460000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1086,7 +1086,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Added checks on registration." />
     <MESSAGE value="Adding Datatables functionality" />
     <MESSAGE value="Adding Angular to the cart." />
     <MESSAGE value="Adding Entities" />
@@ -1111,7 +1110,8 @@
     <MESSAGE value="#10" />
     <MESSAGE value="#9" />
     <MESSAGE value="review #8" />
-    <option name="LAST_COMMIT_MESSAGE" value="review #8" />
+    <MESSAGE value="fixes #8" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes #8" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1720,8 +1720,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="151" column="41" selection-start-line="151" selection-start-column="41" selection-end-line="151" selection-end-column="41" />
+        <state relative-caret-position="595">
+          <caret line="156" column="36" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
           <folding />
         </state>
       </provider>
