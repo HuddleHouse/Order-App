@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Invitation;
+use AppBundle\Entity\User;
 use AppBundle\Repository\OfficeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,6 +13,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 
 class AdminController extends Controller
 {
@@ -228,6 +231,28 @@ class AdminController extends Controller
             'form' => $form->createView(),
             'user_id' => $user_id
         ));
+    }
+
+    /**
+     * Deletes a User entity.
+     *
+     * @Route("/admin/view-users/delete/{id}", name="admin_delete_user")
+     */
+    public function deleteUserAction(Request $request, User $user)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+
+        try {
+            $userManager->deleteUser($user);
+            $successMessage = "User removed succesfully.";
+            $this->addFlash('notice', $successMessage);
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Error removing user: ' . $e->getMessage());
+            return $this->redirectToRoute('view_users');
+        }
+
+        $this->addFlash('notice', 'User deleted successfully.');
+        return $this->redirectToRoute('view_users');
     }
 
     /**

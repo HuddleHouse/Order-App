@@ -57,6 +57,10 @@ All Registered Users
                             <a class="btn btn-default btn-xs purple"
                                href="{{ path('admin_edit_user', {'user_id': user.id}) }}"><i
                                         class="fa fa-edit"></i> edit</a>
+                            <button class="btn btn-default btn-xs purple"
+                                    onclick="removeUser({{ user.id }})"><i
+                                        class="fa fa-trash"></i> delete
+                            </button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -73,5 +77,13 @@ All Registered Users
                 "paging": false
             });
         });
+
+        function removeUser(id) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                var url = "{{ path('admin_delete_user', {'id': 'to_delete_id'}) }}";
+                url = url.replace("to_delete_id", id);
+                window.location = url;
+            }
+        }
     </script>
 {% endblock footer %}
