@@ -12,6 +12,39 @@ use AppBundle\Entity\Cart;
 class CartController extends Controller
 {
     /**
+     * @Route("/{option}", name="user_home_option")
+     */
+    public function userHomeOptionAction(Request $request, $option)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        if($option == 'order') {
+//            $products = $em->getRepository('AppBundle:Part')->findAll();
+            $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        }
+        else if($option == 'colorhead') {
+            $products = $qb->select('p')
+                ->from('AppBundle:Part', 'p')
+                ->leftJoin('AppBundle:PartCategory', 'c')
+                ->where('c.id = :type')
+                ->setParameter('type', 14)
+                ->getQuery()
+                ->getResult();
+            $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        }
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
+
+        $em->flush();
+
+        return $this->render('AppBundle:Cart:home.html.twig', array(
+            'products' => $products,
+            'categories' => $categories,
+            'shipping' => $shipping,
+        ));
+    }
+
+    /**
      * @Route("/", name="user_home")
      */
     public function userHomeAction()
@@ -29,7 +62,7 @@ class CartController extends Controller
 //        }
         $em->flush();
 
-        return $this->render('AppBundle:Cart:home.html.twig', array(
+        return $this->render('AppBundle:Cart:home-cart-selection.html.twig', array(
             'products' => $products,
             'categories' => $categories,
             'shipping' => $shipping,
