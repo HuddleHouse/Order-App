@@ -34,6 +34,7 @@ class CartController extends Controller
             'products' => $products,
             'categories' => $categories,
             'cart_id' => $cart->getid(),
+            'cart' => $cart,
             'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : 'none')
         ));
     }
@@ -115,7 +116,12 @@ class CartController extends Controller
         if($user->getOffice()) {
             $officeId = $user->getOffice()->getOfficeNumber();
         }
-        $orderNum = $officeId . $year . $num;
+
+        if($cart->getType() == 'colorhead')
+            $orderNum = $officeId . $year . $num . '-C';
+        else
+            $orderNum = $officeId . $year . $num;
+
 
         $cart->setOrderNumber($orderNum);
 

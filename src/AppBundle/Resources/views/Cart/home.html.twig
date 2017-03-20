@@ -419,9 +419,9 @@
                 beforeSend: function () {
                     console.log('json load cart');
                 },
-                type: 'GET',
+                type: 'POST',
                 url: "{{ path('api_load_cart') }}",
-                data: {option: "option"},
+                data: {option: "{{ option }}"},
                 success: function (data) {
                     $scope.$apply(function () {
                         $scope.cart = data.cart;

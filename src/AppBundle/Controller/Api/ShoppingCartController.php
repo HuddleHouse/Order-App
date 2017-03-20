@@ -54,9 +54,49 @@ class ShoppingCartController extends Controller
             $cart->setType($option);
             $cart->setOffice($user->getOffice());
             $cart->setDate(date_create(date("Y-m-d H:i:s")));
-            $em->persist($cart);
-            $em->flush();
         }
+        else {
+            $option = $request->request->get('option');
+            $cart->setType($option);
+            if($option == 'colorhead') {
+                foreach($cart->getCartProducts() as $key => $product)
+                    if($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead')
+                        $this->removeCartItem($product->getPart()->getId());
+            }
+            else if($option == 'order') {
+                foreach($cart->getCartProducts() as $key => $product)
+                    if($product->getPart()->getPartCategory()->getNameCononical() == 'colorhead')
+                        $this->removeCartItem($product->getPart()->getId());
+            }
+        }
+
+        $em->persist($cart);
+        $em->flush();
+
+        return $this->sumCart($cart);
+    }
+
+    public function removeCartItem($product_id)
+    {
+        $user = $this->getUser();
+        $id = $product_id;
+        $em = $this->getDoctrine()->getManager();
+
+        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
+        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+
+        if($product->getQuantity() == 1) {
+            foreach($product->getCartProductLineNumbers() as $lineNumber)
+                $em->remove($lineNumber);
+            $em->remove($product);
+        }
+        else {
+            $product->setQuantity($product->getQuantity() - 1);
+            $em->persist($product);
+        }
+        $em->flush();
+
         return $this->sumCart($cart);
     }
 
