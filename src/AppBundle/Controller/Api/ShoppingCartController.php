@@ -198,22 +198,30 @@ class ShoppingCartController extends Controller
             $em->flush();
         }
         $part = $em->getRepository('AppBundle:Part')->find($id);
-        if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
-            $product = new CartProduct();
-            $product->setCart($cart);
-            $product->setPart($part);
+        $count = 0;
 
-            $lineNumber = new CartProductLineNumber();
-            $lineNumber->setCartProduct($product);
-            $product->addCartProductLineNumber($lineNumber);
-            $em->persist($lineNumber);
+        foreach($cart->getCartProducts() as $product)
+            $count++;
+
+        if($count == 0 || $cart->getType() != 'colorhead') {
+
+            if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
+                $product = new CartProduct();
+                $product->setCart($cart);
+                $product->setPart($part);
+
+                $lineNumber = new CartProductLineNumber();
+                $lineNumber->setCartProduct($product);
+                $product->addCartProductLineNumber($lineNumber);
+                $em->persist($lineNumber);
+                $em->persist($product);
+                $em->flush();
+            }
+
+            $product->setQuantity($product->getQuantity() + 1);
             $em->persist($product);
             $em->flush();
         }
-
-        $product->setQuantity($product->getQuantity() + 1);
-        $em->persist($product);
-        $em->flush();
 
         return $this->sumCart($cart);
     }
