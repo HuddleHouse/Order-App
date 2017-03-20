@@ -12,6 +12,16 @@ use AppBundle\Entity\Cart;
 class CartController extends Controller
 {
     /**
+     * @Route("/cart/submit/colorhead", name="submit_colorhead_order")
+     */
+    public function submitColorheadOrderAction()
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('AppBundle:Cart:submit-colorhead.html.twig', array());
+    }
+
+    /**
      * @Route("/cart/review", name="review_order")
      */
     public function reviewOrderAction()
