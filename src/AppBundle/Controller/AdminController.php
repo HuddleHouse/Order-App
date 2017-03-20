@@ -39,6 +39,22 @@ class AdminController extends Controller
         $stmt->execute();
         $submitted = $stmt->fetchAll();
 
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+		left join users u
+			on c.user_id = u.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 0
+	AND c.submitted = 1
+	AND c.type = 'colorhead'
+	group by c.id";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $submittedColorhead = $stmt->fetchAll();
+
         $sql = "select c.id, c.submit_date, c.approve_date, c.order_number, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
 	from cart c
 		left join cart_products p
@@ -92,7 +108,8 @@ class AdminController extends Controller
             'num_parts' => $numParts['num'],
             'num_offices' => $numOffices['num'],
             'num_approved' => $numApproved['num'],
-            'num_pending' => $numPending['num']
+            'num_pending' => $numPending['num'],
+            'submitted_colorhead' => $submittedColorhead
         ));
     }
 
