@@ -413,6 +413,7 @@
             $scope.cart = [];
             $scope.products = [];
             $scope.shipping = '0';
+            var option = "{{ option }}";
 
             $.ajax({
                 beforeSend: function () {
@@ -420,6 +421,7 @@
                 },
                 type: 'GET',
                 url: "{{ path('api_load_cart') }}",
+                data: {option: "option"},
                 success: function (data) {
                     $scope.$apply(function () {
                         $scope.cart = data.cart;

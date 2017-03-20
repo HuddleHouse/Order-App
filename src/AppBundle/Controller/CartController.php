@@ -12,65 +12,7 @@ use AppBundle\Entity\Cart;
 class CartController extends Controller
 {
     /**
-     * @Route("/{option}", name="user_home_option")
-     */
-    public function userHomeOptionAction(Request $request, $option)
-    {
-
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
-        if($option == 'order') {
-//            $products = $em->getRepository('AppBundle:Part')->findAll();
-            $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-        }
-        else if($option == 'colorhead') {
-            $products = $qb->select('p')
-                ->from('AppBundle:Part', 'p')
-                ->leftJoin('AppBundle:PartCategory', 'c')
-                ->where('c.id = :type')
-                ->setParameter('type', 14)
-                ->getQuery()
-                ->getResult();
-            $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-        }
-        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
-
-        $em->flush();
-
-        return $this->render('AppBundle:Cart:home.html.twig', array(
-            'products' => $products,
-            'categories' => $categories,
-            'shipping' => $shipping,
-        ));
-    }
-
-    /**
-     * @Route("/", name="user_home")
-     */
-    public function userHomeAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('AppBundle:Part')->findAll();
-        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
-        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-
-//        foreach($products as $product) {
-//            $num = substr($product->getStockNumber(), 0, -4);
-//
-//            $product->setPictureUrl('/USDA_Parts/'. $num . '.jpg');
-//            $em->persist($product);
-//        }
-        $em->flush();
-
-        return $this->render('AppBundle:Cart:home-cart-selection.html.twig', array(
-            'products' => $products,
-            'categories' => $categories,
-            'shipping' => $shipping,
-        ));
-    }
-
-    /**
-     * @Route("/review-order", name="review_order")
+     * @Route("/cart/review", name="review_order")
      */
     public function reviewOrderAction()
     {
@@ -94,6 +36,65 @@ class CartController extends Controller
             'cart_id' => $cart->getid(),
             'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : 'none')
         ));
+    }
+
+    /**
+     * @Route("/cart/{option}", name="user_home_option")
+     */
+    public function userHomeOptionAction(Request $request, $option)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+//        $qb = $em->createQueryBuilder();
+        if($option == 'order') {
+            $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+            foreach($categories as $key => $category)
+                if($category->getNameCononical() == 'colorhead')
+                    unset($categories[$key]);
+
+            $products = $em->getRepository('AppBundle:Part')->findAll();
+            foreach($products as $key => $product)
+                if($product->getPartCategory()->getNameCononical() == 'colorhead')
+                    unset($products[$key]);
+        }
+        else if($option == 'colorhead') {
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
+            $categories = array($category);
+            $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
+        }
+        else if($option == 'filter') {
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
+            $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
+            $categories = array($category);
+        }
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
+
+        $em->flush();
+
+        return $this->render('AppBundle:Cart:home.html.twig', array(
+            'products' => $products,
+            'categories' => $categories,
+            'shipping' => $shipping,
+            'option' => $option
+        ));
+    }
+
+    /**
+     * @Route("/", name="user_home")
+     */
+    public function userHomeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+//        foreach($products as $product) {
+//            $num = substr($product->getStockNumber(), 0, -4);
+//
+//            $product->setPictureUrl('/USDA_Parts/'. $num . '.jpg');
+//            $em->persist($product);
+//        }
+        $em->flush();
+
+        return $this->render('AppBundle:Cart:home-cart-selection.html.twig');
     }
 
     /**

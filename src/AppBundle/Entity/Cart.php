@@ -30,6 +30,13 @@ class Cart
     private $office;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $type;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -40,7 +47,7 @@ class Cart
      * @ORM\JoinColumn(name="shipping_method_id", referencedColumnName="id")
      */
     private $shipping_method;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProduct", mappedBy="cart")
      */
@@ -386,7 +393,21 @@ class Cart
     {
         $this->approveDate = $approveDate;
     }
-    
-    
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $order_number
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 }
 

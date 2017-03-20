@@ -42,14 +42,16 @@ class ShoppingCartController extends Controller
     /**
      * @Route("/api/load-cart", name="api_load_cart")
      */
-    public function loadCartAction()
+    public function loadCartAction(Request $request)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
         if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
+            $option = $request->request->get('option');
             $cart = new Cart();
             $cart->setUser($user);
+            $cart->setType($option);
             $cart->setOffice($user->getOffice());
             $cart->setDate(date_create(date("Y-m-d H:i:s")));
             $em->persist($cart);
