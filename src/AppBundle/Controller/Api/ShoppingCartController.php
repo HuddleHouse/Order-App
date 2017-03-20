@@ -209,6 +209,7 @@ class ShoppingCartController extends Controller
                 $product = new CartProduct();
                 $product->setCart($cart);
                 $product->setPart($part);
+                $cart->addCartProduct($product);
 
                 $lineNumber = new CartProductLineNumber();
                 $lineNumber->setCartProduct($product);
@@ -249,6 +250,7 @@ class ShoppingCartController extends Controller
             $product = new CartProduct();
             $product->setCart($cart);
             $product->setPart($part);
+            $cart->addCartProduct($product);
             $product->setDescription($description);
 
             $lineNumber = new CartProductLineNumber();
@@ -261,6 +263,7 @@ class ShoppingCartController extends Controller
 
         $product->setQuantity($product->getQuantity() + 1);
         $em->persist($product);
+        $em->persist($cart);
         $em->flush();
 
         return $this->sumCart($cart);
