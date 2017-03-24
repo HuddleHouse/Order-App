@@ -7504,8 +7504,8 @@
 //# sourceMappingURL=angular.min.js.map
 
 /**
- Core script to handle the entire theme and core functions
- **/
+Core script to handle the entire theme and core functions
+**/
 var App = function () {
 
     // IE mode
@@ -7550,14 +7550,14 @@ var App = function () {
             isRTL = true;
         }
 
-        isIE8 = !!navigator.userAgent.match(/MSIE 8.0/);
-        isIE9 = !!navigator.userAgent.match(/MSIE 9.0/);
-        isIE10 = !!navigator.userAgent.match(/MSIE 10.0/);
+        isIE8 = !! navigator.userAgent.match(/MSIE 8.0/);
+        isIE9 = !! navigator.userAgent.match(/MSIE 9.0/);
+        isIE10 = !! navigator.userAgent.match(/MSIE 10.0/);
 
         if (isIE10) {
             jQuery('html').addClass('ie10'); // detect IE10 version
         }
-
+        
         if (isIE10 || isIE9 || isIE8) {
             jQuery('html').addClass('ie'); // detect IE10 version
         }
@@ -7714,7 +7714,7 @@ var App = function () {
             e.preventDefault();
         });
 
-        // handle ajax links
+       // handle ajax links
         jQuery('.page-sidebar').on('click', ' li > a.ajaxify', function (e) {
             e.preventDefault();
             App.scrollTop();
@@ -7859,7 +7859,7 @@ var App = function () {
     // Handles sidebar toggler to close/hide the sidebar.
     var handleSidebarToggler = function () {
         var viewport = _getViewPort();
-
+        
         // handle sidebar show/hide
         $('.page-sidebar').on('click', '.sidebar-toggler', function (e) {
             var body = $('body');
@@ -7887,7 +7887,7 @@ var App = function () {
         });
     };
 
-    var handleQuickSearch = function () {
+    var handleQuickSearch = function() {
 
         // handle search for header search input on enter press
         $('.search-form-header').on('keypress', 'input.form-control', function (e) {
@@ -8004,10 +8004,10 @@ var App = function () {
         //activate tab if tab id provided in the URL
         if (location.hash) {
             var tabid = location.hash.substr(1);
-            $('a[href="#' + tabid + '"]').parents('.tab-pane:hidden').each(function () {
+            $('a[href="#' + tabid + '"]').parents('.tab-pane:hidden').each(function(){
                 var tabid = $(this).attr("id");
-                $('a[href="#' + tabid + '"]').click();
-            });
+                $('a[href="#' + tabid + '"]').click();    
+            });            
             $('a[href="#' + tabid + '"]').click();
         }
     };
@@ -8016,17 +8016,17 @@ var App = function () {
     var handleModals = function () {
         // fix stackable modal issue: when 2 or more modals opened, closing one of modal will remove .modal-open class. 
         $('body').on('hide.bs.modal', function () {
-            if ($('.modal:visible').size() > 1 && $('html').hasClass('modal-open') == false) {
-                $('html').addClass('modal-open');
-            } else if ($('.modal:visible').size() <= 1) {
-                $('html').removeClass('modal-open');
-            }
+           if ($('.modal:visible').size() > 1 && $('html').hasClass('modal-open') == false) {
+              $('html').addClass('modal-open');
+           } else if ($('.modal:visible').size() <= 1) {
+              $('html').removeClass('modal-open');
+           }
         });
-
+            
         $('body').on('show.bs.modal', '.modal', function () {
             if ($(this).hasClass("modal-scroll")) {
                 $('body').addClass("modal-open-noscroll");
-            }
+            } 
         });
 
         $('body').on('hide.bs.modal', '.modal', function () {
@@ -8036,24 +8036,24 @@ var App = function () {
 
     // Handles Bootstrap Tooltips.
     var handleTooltips = function () {
-        jQuery('.tooltips').tooltip();
+       jQuery('.tooltips').tooltip();
     };
 
     // Handles Bootstrap Dropdowns
     var handleDropdowns = function () {
         /*
-         For touch supported devices disable the 
-         hoverable dropdowns - data-hover="dropdown"  
-         */
+          For touch supported devices disable the 
+          hoverable dropdowns - data-hover="dropdown"  
+        */
         if (App.isTouchDevice()) {
-            $('[data-hover="dropdown"]').each(function () {
+            $('[data-hover="dropdown"]').each(function(){
                 $(this).parent().off("hover");
                 $(this).off("hover");
             });
         }
         /*
-         Hold dropdown on click  
-         */
+          Hold dropdown on click  
+        */
         $('body').on('click', '.dropdown-menu.hold-on-click', function (e) {
             e.stopPropagation();
         })
@@ -8066,7 +8066,7 @@ var App = function () {
 
     // Handle Closable Alerts
     var handleAlerts = function () {
-        $('body').on('click', '[data-close="alert"]', function (e) {
+        $('body').on('click', '[data-close="alert"]', function(e){
             $(this).parent('.alert').hide();
             e.preventDefault();
         });
@@ -8100,8 +8100,8 @@ var App = function () {
             }
             $(this).slimScroll({
                 size: '7px',
-                color: ($(this).attr("data-handle-color") ? $(this).attr("data-handle-color") : '#a1b2bd'),
-                railColor: ($(this).attr("data-rail-color") ? $(this).attr("data-rail-color") : '#333'),
+                color: ($(this).attr("data-handle-color")  ? $(this).attr("data-handle-color") : '#a1b2bd'),
+                railColor: ($(this).attr("data-rail-color")  ? $(this).attr("data-rail-color") : '#333'),
                 position: isRTL ? 'left' : 'right',
                 height: height,
                 alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
@@ -8161,7 +8161,7 @@ var App = function () {
     };
 
     // Handle Select2 Dropdowns
-    var handleSelect2 = function () {
+    var handleSelect2 = function() {
         if (jQuery().select2) {
             $('.select2me').select2({
                 placeholder: "Select",
@@ -8182,13 +8182,18 @@ var App = function () {
         $('.sidebar-option', panel).val("default");
         $('.header-option', panel).val("fixed");
         $('.footer-option', panel).val("default");
-        if ($('.sidebar-pos-option').attr("disabled") === false) {
+        if ( $('.sidebar-pos-option').attr("disabled") === false) {
             $('.sidebar-pos-option', panel).val(App.isRTL() ? 'right' : 'left');
         }
-
+        
         //handle theme layout
         var resetLayout = function () {
-            $("body").removeClass("page-boxed").removeClass("page-footer-fixed").removeClass("page-sidebar-fixed").removeClass("page-header-fixed").removeClass("page-sidebar-reversed");
+            $("body").
+            removeClass("page-boxed").
+            removeClass("page-footer-fixed").
+            removeClass("page-sidebar-fixed").
+            removeClass("page-header-fixed").
+            removeClass("page-sidebar-reversed");
 
             $('.header > .header-inner').removeClass("container");
 
@@ -8301,7 +8306,7 @@ var App = function () {
 
         $('.toggler', panel).click(function () {
             $(this).toggleClass("open");
-            $('.theme-panel > .theme-options').toggle();
+            $('.theme-panel > .theme-options').toggle();            
         });
 
         $('.theme-colors > ul > li', panel).click(function () {
@@ -8411,18 +8416,18 @@ var App = function () {
             var options = $.extend(true, {}, options);
             var html = '';
             if (options.iconOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="assets/img/loading-spinner-grey.gif" align=""></div>';
+                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '')+'"><img src="assets/img/loading-spinner-grey.gif" align=""></div>';
             } else if (options.textOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
-            } else {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="assets/img/loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '')+'"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+            } else {    
+                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '')+'"><img src="assets/img/loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
             }
 
             if (options.target) { // element blocking
                 var el = $(options.target);
                 if (el.height() <= ($(window).height())) {
                     options.cenrerY = true;
-                }
+                }            
                 el.block({
                     message: html,
                     baseZ: options.zIndex ? options.zIndex : 1000,
@@ -8435,7 +8440,7 @@ var App = function () {
                     },
                     overlayCSS: {
                         backgroundColor: options.overlayColor ? options.overlayColor : '#000',
-                        opacity: options.boxed ? 0.05 : 0.1,
+                        opacity: options.boxed ? 0.05 : 0.1, 
                         cursor: 'wait'
                     }
                 });
@@ -8454,7 +8459,7 @@ var App = function () {
                         cursor: 'wait'
                     }
                 });
-            }
+            }            
         },
 
         // wrapper function to  un-block element(finish loading)
@@ -8471,16 +8476,16 @@ var App = function () {
             }
         },
 
-        startPageLoading: function (message) {
+        startPageLoading: function(message) {
             $('.page-loading').remove();
             $('body').append('<div class="page-loading"><img src="assets/img/loading-spinner-grey.gif"/>&nbsp;&nbsp;<span>' + (message ? message : 'Loading...') + '</span></div>');
         },
 
-        stopPageLoading: function () {
+        stopPageLoading: function() {
             $('.page-loading').remove();
         },
 
-        alert: function (options) {
+        alert: function(options) {
 
             options = $.extend(true, {
                 container: "", // alerts parent container(by default placed after the page breadcrumbs)
@@ -8518,7 +8523,7 @@ var App = function () {
             }
 
             if (options.closeInSeconds > 0) {
-                setTimeout(function () {
+                setTimeout(function(){
                     $('#' + id).remove();
                 }, options.closeInSeconds * 1000);
             }
@@ -8560,7 +8565,7 @@ var App = function () {
             return el.val();
         },
 
-        getUniqueID: function (prefix) {
+        getUniqueID: function(prefix) {
             return 'prefix_' + Math.floor(Math.random() * (new Date()).getTime());
         },
 
@@ -8640,348 +8645,288 @@ var App = function () {
  * License: MIT
  *
  * http://cameronspear.com/blog/bootstrap-dropdown-on-hover-plugin/
- */(function (b, a, c) {
-    var d = b();
-    b.fn.dropdownHover = function (e) {
-        if ("ontouchstart" in document) {
-            return this
-        }
-        d = d.add(this.parent());
-        return this.each(function () {
-            var m = b(this), l = m.parent(), k = {
-                delay: 500,
-                instantlyCloseOthers: true
-            }, i = {
-                delay: b(this).data("delay"),
-                instantlyCloseOthers: b(this).data("close-others")
-            }, f = "show.bs.dropdown", j = "hide.bs.dropdown", g = b.extend(true, {}, k, e, i), h;
-            l.hover(function (n) {
-                if (!l.hasClass("open") && !m.is(n.target)) {
-                    return true
-                }
-                d.find(":focus").blur();
-                if (g.instantlyCloseOthers === true) {
-                    d.removeClass("open")
-                }
-                a.clearTimeout(h);
-                l.addClass("open");
-                m.trigger(f)
-            }, function () {
-                h = a.setTimeout(function () {
-                    l.removeClass("open");
-                    m.trigger(j)
-                }, g.delay)
-            });
-            m.hover(function () {
-                d.find(":focus").blur();
-                if (g.instantlyCloseOthers === true) {
-                    d.removeClass("open")
-                }
-                a.clearTimeout(h);
-                l.addClass("open");
-                m.trigger(f)
-            });
-            l.find(".dropdown-submenu").each(function () {
-                var o = b(this);
-                var n;
-                o.hover(function () {
-                    a.clearTimeout(n);
-                    o.children(".dropdown-menu").show();
-                    o.siblings().children(".dropdown-menu").hide()
-                }, function () {
-                    var p = o.children(".dropdown-menu");
-                    n = a.setTimeout(function () {
-                        p.hide()
-                    }, g.delay)
-                })
-            })
-        })
-    };
-    b(document).ready(function () {
-        b('[data-hover="dropdown"]').dropdownHover()
-    })
-})(jQuery, this);
+ */(function(b,a,c){var d=b();b.fn.dropdownHover=function(e){if("ontouchstart" in document){return this}d=d.add(this.parent());return this.each(function(){var m=b(this),l=m.parent(),k={delay:500,instantlyCloseOthers:true},i={delay:b(this).data("delay"),instantlyCloseOthers:b(this).data("close-others")},f="show.bs.dropdown",j="hide.bs.dropdown",g=b.extend(true,{},k,e,i),h;l.hover(function(n){if(!l.hasClass("open")&&!m.is(n.target)){return true}d.find(":focus").blur();if(g.instantlyCloseOthers===true){d.removeClass("open")}a.clearTimeout(h);l.addClass("open");m.trigger(f)},function(){h=a.setTimeout(function(){l.removeClass("open");m.trigger(j)},g.delay)});m.hover(function(){d.find(":focus").blur();if(g.instantlyCloseOthers===true){d.removeClass("open")}a.clearTimeout(h);l.addClass("open");m.trigger(f)});l.find(".dropdown-submenu").each(function(){var o=b(this);var n;o.hover(function(){a.clearTimeout(n);o.children(".dropdown-menu").show();o.siblings().children(".dropdown-menu").hide()},function(){var p=o.children(".dropdown-menu");n=a.setTimeout(function(){p.hide()},g.delay)})})})};b(document).ready(function(){b('[data-hover="dropdown"]').dropdownHover()})})(jQuery,this);
 var FormValidation = function () {
 
-    var handleValidation1 = function () {
+    var handleValidation1 = function() {
         // for more info visit the official plugin documentation: 
-        // http://docs.jquery.com/Plugins/Validation
+            // http://docs.jquery.com/Plugins/Validation
 
-        var form1 = $('#form_sample_1');
-        var error1 = $('.alert-danger', form1);
-        var success1 = $('.alert-success', form1);
+            var form1 = $('#form_sample_1');
+            var error1 = $('.alert-danger', form1);
+            var success1 = $('.alert-success', form1);
 
-        form1.validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block', // default input error message class
-            focusInvalid: false, // do not focus the last invalid input
-            ignore: "",
-            rules: {
-                name: {
-                    minlength: 2,
-                    required: true
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
+                rules: {
+                    name: {
+                        minlength: 2,
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    url: {
+                        required: true,
+                        url: true
+                    },
+                    number: {
+                        required: true,
+                        number: true
+                    },
+                    digits: {
+                        required: true,
+                        digits: true
+                    },
+                    creditcard: {
+                        required: true,
+                        creditcard: true
+                    },
+                    occupation: {
+                        minlength: 5,
+                    },
+                    category: {
+                        required: true
+                    }
                 },
-                email: {
-                    required: true,
-                    email: true
+
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    success1.hide();
+                    error1.show();
+                    App.scrollTo(error1, -200);
                 },
-                url: {
-                    required: true,
-                    url: true
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
                 },
-                number: {
-                    required: true,
-                    number: true
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
                 },
-                digits: {
-                    required: true,
-                    digits: true
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
                 },
-                creditcard: {
-                    required: true,
-                    creditcard: true
-                },
-                occupation: {
-                    minlength: 5,
-                },
-                category: {
-                    required: true
+
+                submitHandler: function (form) {
+                    success1.show();
+                    error1.hide();
                 }
-            },
-
-            invalidHandler: function (event, validator) { //display error alert on form submit              
-                success1.hide();
-                error1.show();
-                App.scrollTo(error1, -200);
-            },
-
-            highlight: function (element) { // hightlight error inputs
-                $(element)
-                    .closest('.form-group').addClass('has-error'); // set error class to the control group
-            },
-
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element)
-                    .closest('.form-group').removeClass('has-error'); // set error class to the control group
-            },
-
-            success: function (label) {
-                label
-                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
-            },
-
-            submitHandler: function (form) {
-                success1.show();
-                error1.hide();
-            }
-        });
+            });
 
     };
 
-    var handleValidation2 = function () {
+    var handleValidation2 = function() {
         // for more info visit the official plugin documentation: 
-        // http://docs.jquery.com/Plugins/Validation
+            // http://docs.jquery.com/Plugins/Validation
 
-        var form2 = $('#form_sample_2');
-        var error2 = $('.alert-danger', form2);
-        var success2 = $('.alert-success', form2);
+            var form2 = $('#form_sample_2');
+            var error2 = $('.alert-danger', form2);
+            var success2 = $('.alert-success', form2);
 
-        form2.validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block', // default input error message class
-            focusInvalid: false, // do not focus the last invalid input
-            ignore: "",
-            rules: {
-                name: {
-                    minlength: 2,
-                    required: true
+            form2.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
+                rules: {
+                    name: {
+                        minlength: 2,
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    url: {
+                        required: true,
+                        url: true
+                    },
+                    number: {
+                        required: true,
+                        number: true
+                    },
+                    digits: {
+                        required: true,
+                        digits: true
+                    },
+                    creditcard: {
+                        required: true,
+                        creditcard: true
+                    },
                 },
-                email: {
-                    required: true,
-                    email: true
+
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    success2.hide();
+                    error2.show();
+                    App.scrollTo(error2, -200);
                 },
-                email: {
-                    required: true,
-                    email: true
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
                 },
-                url: {
-                    required: true,
-                    url: true
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group   
                 },
-                number: {
-                    required: true,
-                    number: true
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    
                 },
-                digits: {
-                    required: true,
-                    digits: true
+
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
                 },
-                creditcard: {
-                    required: true,
-                    creditcard: true
-                },
-            },
 
-            invalidHandler: function (event, validator) { //display error alert on form submit              
-                success2.hide();
-                error2.show();
-                App.scrollTo(error2, -200);
-            },
-
-            errorPlacement: function (error, element) { // render error placement for each input type
-                var icon = $(element).parent('.input-icon').children('i');
-                icon.removeClass('fa-check').addClass("fa-warning");
-                icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-            },
-
-            highlight: function (element) { // hightlight error inputs
-                $(element)
-                    .closest('.form-group').addClass('has-error'); // set error class to the control group   
-            },
-
-            unhighlight: function (element) { // revert the change done by hightlight
-
-            },
-
-            success: function (label, element) {
-                var icon = $(element).parent('.input-icon').children('i');
-                $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                icon.removeClass("fa-warning").addClass("fa-check");
-            },
-
-            submitHandler: function (form) {
-                success2.show();
-                error2.hide();
-            }
-        });
+                submitHandler: function (form) {
+                    success2.show();
+                    error2.hide();
+                }
+            });
 
 
     };
 
-    var handleValidation3 = function () {
+    var handleValidation3 = function() {
         // for more info visit the official plugin documentation: 
         // http://docs.jquery.com/Plugins/Validation
 
-        var form3 = $('#form_sample_3');
-        var error3 = $('.alert-danger', form3);
-        var success3 = $('.alert-success', form3);
+            var form3 = $('#form_sample_3');
+            var error3 = $('.alert-danger', form3);
+            var success3 = $('.alert-success', form3);
 
-        //IMPORTANT: update CKEDITOR textarea with actual content before submit
-        form3.on('submit', function () {
-            for (var instanceName in CKEDITOR.instances) {
-                CKEDITOR.instances[instanceName].updateElement();
-            }
-        });
-
-        form3.validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block', // default input error message class
-            focusInvalid: false, // do not focus the last invalid input
-            ignore: "",
-            rules: {
-                name: {
-                    minlength: 2,
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                category: {
-                    required: true
-                },
-                options1: {
-                    required: true
-                },
-                options2: {
-                    required: true
-                },
-                occupation: {
-                    minlength: 5,
-                },
-                membership: {
-                    required: true
-                },
-                service: {
-                    required: true,
-                    minlength: 2
-                },
-                markdown: {
-                    required: true
-                },
-                editor1: {
-                    required: true
-                },
-                editor2: {
-                    required: true
+            //IMPORTANT: update CKEDITOR textarea with actual content before submit
+            form3.on('submit', function() {
+                for(var instanceName in CKEDITOR.instances) {
+                    CKEDITOR.instances[instanceName].updateElement();
                 }
-            },
+            });
 
-            messages: { // custom messages for radio buttons and checkboxes
-                membership: {
-                    required: "Please select a Membership type"
+            form3.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
+                rules: {
+                    name: {
+                        minlength: 2,
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    category: {
+                        required: true
+                    },
+                    options1: {
+                        required: true
+                    },
+                    options2: {
+                        required: true
+                    },
+                    occupation: {
+                        minlength: 5,
+                    },
+                    membership: {
+                        required: true
+                    },
+                    service: {
+                        required: true,
+                        minlength: 2
+                    },
+                    markdown: {
+                        required: true
+                    },
+                    editor1: {
+                        required: true
+                    },
+                    editor2: {
+                        required: true
+                    }
                 },
-                service: {
-                    required: "Please select  at least 2 types of Service",
-                    minlength: $.validator.format("Please select  at least {0} types of Service")
+
+                messages: { // custom messages for radio buttons and checkboxes
+                    membership: {
+                        required: "Please select a Membership type"
+                    },
+                    service: {
+                        required: "Please select  at least 2 types of Service",
+                        minlength: $.validator.format("Please select  at least {0} types of Service")
+                    }
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
+                    } else if (element.attr("data-error-container")) { 
+                        error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+                        error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    success3.hide();
+                    error3.show();
+                    App.scrollTo(error3, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    success3.show();
+                    error3.hide();
                 }
-            },
 
-            errorPlacement: function (error, element) { // render error placement for each input type
-                if (element.parent(".input-group").size() > 0) {
-                    error.insertAfter(element.parent(".input-group"));
-                } else if (element.attr("data-error-container")) {
-                    error.appendTo(element.attr("data-error-container"));
-                } else if (element.parents('.radio-list').size() > 0) {
-                    error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                } else if (element.parents('.radio-inline').size() > 0) {
-                    error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                } else if (element.parents('.checkbox-list').size() > 0) {
-                    error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                } else if (element.parents('.checkbox-inline').size() > 0) {
-                    error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
-                } else {
-                    error.insertAfter(element); // for other inputs, just perform default behavior
-                }
-            },
+            });
 
-            invalidHandler: function (event, validator) { //display error alert on form submit   
-                success3.hide();
-                error3.show();
-                App.scrollTo(error3, -200);
-            },
-
-            highlight: function (element) { // hightlight error inputs
-                $(element)
-                    .closest('.form-group').addClass('has-error'); // set error class to the control group
-            },
-
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element)
-                    .closest('.form-group').removeClass('has-error'); // set error class to the control group
-            },
-
-            success: function (label) {
-                label
-                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
-            },
-
-            submitHandler: function (form) {
-                success3.show();
-                error3.hide();
-            }
-
-        });
-
-        //apply validation on select2 dropdown value change, this only needed for chosen dropdown integration.
-        $('.select2me', form3).change(function () {
-            form3.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
-        });
+             //apply validation on select2 dropdown value change, this only needed for chosen dropdown integration.
+            $('.select2me', form3).change(function () {
+                form3.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
+            });
     };
 
-    var handleWysihtml5 = function () {
+    var handleWysihtml5 = function() {
         if (!jQuery().wysihtml5) {
-
+            
             return;
         }
 
@@ -10228,210 +10173,7 @@ var FormValidation = function () {
  * Thanks to Amir-Hossein Sobhi for some excellent contributions!
  */
 
-!function () {
-    "use strict";
-    function e(e) {
-        function t(t, n) {
-            var s, h, k = t == window, y = n && void 0 !== n.message ? n.message : void 0;
-            if (n = e.extend({}, e.blockUI.defaults, n || {}), !n.ignoreIfBlocked || !e(t).data("blockUI.isBlocked")) {
-                if (n.overlayCSS = e.extend({}, e.blockUI.defaults.overlayCSS, n.overlayCSS || {}), s = e.extend({}, e.blockUI.defaults.css, n.css || {}), n.onOverlayClick && (n.overlayCSS.cursor = "pointer"), h = e.extend({}, e.blockUI.defaults.themedCSS, n.themedCSS || {}), y = void 0 === y ? n.message : y, k && p && o(window, {fadeOut: 0}), y && "string" != typeof y && (y.parentNode || y.jquery)) {
-                    var m = y.jquery ? y[0] : y, v = {};
-                    e(t).data("blockUI.history", v), v.el = m, v.parent = m.parentNode, v.display = m.style.display, v.position = m.style.position, v.parent && v.parent.removeChild(m)
-                }
-                e(t).data("blockUI.onUnblock", n.onUnblock);
-                var g, I, w, U, x = n.baseZ;
-                g = r || n.forceIframe ? e('<iframe class="blockUI" style="z-index:' + x++ + ';display:none;border:none;margin:0;padding:0;position:absolute;width:100%;height:100%;top:0;left:0" src="' + n.iframeSrc + '"></iframe>') : e('<div class="blockUI" style="display:none"></div>'), I = n.theme ? e('<div class="blockUI blockOverlay ui-widget-overlay" style="z-index:' + x++ + ';display:none"></div>') : e('<div class="blockUI blockOverlay" style="z-index:' + x++ + ';display:none;border:none;margin:0;padding:0;width:100%;height:100%;top:0;left:0"></div>'), n.theme && k ? (U = '<div class="blockUI ' + n.blockMsgClass + ' blockPage ui-dialog ui-widget ui-corner-all" style="z-index:' + (x + 10) + ';display:none;position:fixed">', n.title && (U += '<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">' + (n.title || "&nbsp;") + "</div>"), U += '<div class="ui-widget-content ui-dialog-content"></div>', U += "</div>") : n.theme ? (U = '<div class="blockUI ' + n.blockMsgClass + ' blockElement ui-dialog ui-widget ui-corner-all" style="z-index:' + (x + 10) + ';display:none;position:absolute">', n.title && (U += '<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">' + (n.title || "&nbsp;") + "</div>"), U += '<div class="ui-widget-content ui-dialog-content"></div>', U += "</div>") : U = k ? '<div class="blockUI ' + n.blockMsgClass + ' blockPage" style="z-index:' + (x + 10) + ';display:none;position:fixed"></div>' : '<div class="blockUI ' + n.blockMsgClass + ' blockElement" style="z-index:' + (x + 10) + ';display:none;position:absolute"></div>', w = e(U), y && (n.theme ? (w.css(h), w.addClass("ui-widget-content")) : w.css(s)), n.theme || I.css(n.overlayCSS), I.css("position", k ? "fixed" : "absolute"), (r || n.forceIframe) && g.css("opacity", 0);
-                var C = [g, I, w], S = k ? e("body") : e(t);
-                e.each(C, function () {
-                    this.appendTo(S)
-                }), n.theme && n.draggable && e.fn.draggable && w.draggable({
-                    handle: ".ui-dialog-titlebar",
-                    cancel: "li"
-                });
-                var O = f && (!e.support.boxModel || e("object,embed", k ? null : t).length > 0);
-                if (u || O) {
-                    if (k && n.allowBodyStretch && e.support.boxModel && e("html,body").css("height", "100%"), (u || !e.support.boxModel) && !k)var E = d(t, "borderTopWidth"), T = d(t, "borderLeftWidth"), M = E ? "(0 - " + E + ")" : 0, B = T ? "(0 - " + T + ")" : 0;
-                    e.each(C, function (e, t) {
-                        var o = t[0].style;
-                        if (o.position = "absolute", 2 > e)k ? o.setExpression("height", "Math.max(document.body.scrollHeight, document.body.offsetHeight) - (jQuery.support.boxModel?0:" + n.quirksmodeOffsetHack + ') + "px"') : o.setExpression("height", 'this.parentNode.offsetHeight + "px"'), k ? o.setExpression("width", 'jQuery.support.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"') : o.setExpression("width", 'this.parentNode.offsetWidth + "px"'), B && o.setExpression("left", B), M && o.setExpression("top", M); else if (n.centerY)k && o.setExpression("top", '(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (blah = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"'), o.marginTop = 0; else if (!n.centerY && k) {
-                            var i = n.css && n.css.top ? parseInt(n.css.top, 10) : 0, s = "((document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + " + i + ') + "px"';
-                            o.setExpression("top", s)
-                        }
-                    })
-                }
-                if (y && (n.theme ? w.find(".ui-widget-content").append(y) : w.append(y), (y.jquery || y.nodeType) && e(y).show()), (r || n.forceIframe) && n.showOverlay && g.show(), n.fadeIn) {
-                    var j = n.onBlock ? n.onBlock : c, H = n.showOverlay && !y ? j : c, z = y ? j : c;
-                    n.showOverlay && I._fadeIn(n.fadeIn, H), y && w._fadeIn(n.fadeIn, z)
-                } else n.showOverlay && I.show(), y && w.show(), n.onBlock && n.onBlock();
-                if (i(1, t, n), k ? (p = w[0], b = e(n.focusableElements, p), n.focusInput && setTimeout(l, 20)) : a(w[0], n.centerX, n.centerY), n.timeout) {
-                    var W = setTimeout(function () {
-                        k ? e.unblockUI(n) : e(t).unblock(n)
-                    }, n.timeout);
-                    e(t).data("blockUI.timeout", W)
-                }
-            }
-        }
-
-        function o(t, o) {
-            var s, l = t == window, a = e(t), d = a.data("blockUI.history"), c = a.data("blockUI.timeout");
-            c && (clearTimeout(c), a.removeData("blockUI.timeout")), o = e.extend({}, e.blockUI.defaults, o || {}), i(0, t, o), null === o.onUnblock && (o.onUnblock = a.data("blockUI.onUnblock"), a.removeData("blockUI.onUnblock"));
-            var r;
-            r = l ? e("body").children().filter(".blockUI").add("body > .blockUI") : a.find(">.blockUI"), o.cursorReset && (r.length > 1 && (r[1].style.cursor = o.cursorReset), r.length > 2 && (r[2].style.cursor = o.cursorReset)), l && (p = b = null), o.fadeOut ? (s = r.length, r.stop().fadeOut(o.fadeOut, function () {
-                0 === --s && n(r, d, o, t)
-            })) : n(r, d, o, t)
-        }
-
-        function n(t, o, n, i) {
-            var s = e(i);
-            if (!s.data("blockUI.isBlocked")) {
-                t.each(function () {
-                    this.parentNode && this.parentNode.removeChild(this)
-                }), o && o.el && (o.el.style.display = o.display, o.el.style.position = o.position, o.parent && o.parent.appendChild(o.el), s.removeData("blockUI.history")), s.data("blockUI.static") && s.css("position", "static"), "function" == typeof n.onUnblock && n.onUnblock(i, n);
-                var l = e(document.body), a = l.width(), d = l[0].style.width;
-                l.width(a - 1).width(a), l[0].style.width = d
-            }
-        }
-
-        function i(t, o, n) {
-            var i = o == window, l = e(o);
-            if ((t || (!i || p) && (i || l.data("blockUI.isBlocked"))) && (l.data("blockUI.isBlocked", t), i && n.bindEvents && (!t || n.showOverlay))) {
-                var a = "mousedown mouseup keydown keypress keyup touchstart touchend touchmove";
-                t ? e(document).bind(a, n, s) : e(document).unbind(a, s)
-            }
-        }
-
-        function s(t) {
-            if ("keydown" === t.type && t.keyCode && 9 == t.keyCode && p && t.data.constrainTabKey) {
-                var o = b, n = !t.shiftKey && t.target === o[o.length - 1], i = t.shiftKey && t.target === o[0];
-                if (n || i)return setTimeout(function () {
-                    l(i)
-                }, 10), !1
-            }
-            var s = t.data, a = e(t.target);
-            return a.hasClass("blockOverlay") && s.onOverlayClick && s.onOverlayClick(t), a.parents("div." + s.blockMsgClass).length > 0 ? !0 : 0 === a.parents().children().filter("div.blockUI").length
-        }
-
-        function l(e) {
-            if (b) {
-                var t = b[e === !0 ? b.length - 1 : 0];
-                t && t.focus()
-            }
-        }
-
-        function a(e, t, o) {
-            var n = e.parentNode, i = e.style, s = (n.offsetWidth - e.offsetWidth) / 2 - d(n, "borderLeftWidth"), l = (n.offsetHeight - e.offsetHeight) / 2 - d(n, "borderTopWidth");
-            t && (i.left = s > 0 ? s + "px" : "0"), o && (i.top = l > 0 ? l + "px" : "0")
-        }
-
-        function d(t, o) {
-            return parseInt(e.css(t, o), 10) || 0
-        }
-
-        e.fn._fadeIn = e.fn.fadeIn;
-        var c = e.noop || function () {
-            }, r = /MSIE/.test(navigator.userAgent), u = /MSIE 6.0/.test(navigator.userAgent) && !/MSIE 8.0/.test(navigator.userAgent), f = (document.documentMode || 0, e.isFunction(document.createElement("div").style.setExpression));
-        e.blockUI = function (e) {
-            t(window, e)
-        }, e.unblockUI = function (e) {
-            o(window, e)
-        }, e.growlUI = function (t, o, n, i) {
-            var s = e('<div class="growlUI"></div>');
-            t && s.append("<h1>" + t + "</h1>"), o && s.append("<h2>" + o + "</h2>"), void 0 === n && (n = 3e3);
-            var l = function (t) {
-                t = t || {}, e.blockUI({
-                    message: s,
-                    fadeIn: "undefined" != typeof t.fadeIn ? t.fadeIn : 700,
-                    fadeOut: "undefined" != typeof t.fadeOut ? t.fadeOut : 1e3,
-                    timeout: "undefined" != typeof t.timeout ? t.timeout : n,
-                    centerY: !1,
-                    showOverlay: !1,
-                    onUnblock: i,
-                    css: e.blockUI.defaults.growlCSS
-                })
-            };
-            l();
-            s.css("opacity");
-            s.mouseover(function () {
-                l({fadeIn: 0, timeout: 3e4});
-                var t = e(".blockMsg");
-                t.stop(), t.fadeTo(300, 1)
-            }).mouseout(function () {
-                e(".blockMsg").fadeOut(1e3)
-            })
-        }, e.fn.block = function (o) {
-            if (this[0] === window)return e.blockUI(o), this;
-            var n = e.extend({}, e.blockUI.defaults, o || {});
-            return this.each(function () {
-                var t = e(this);
-                n.ignoreIfBlocked && t.data("blockUI.isBlocked") || t.unblock({fadeOut: 0})
-            }), this.each(function () {
-                "static" == e.css(this, "position") && (this.style.position = "relative", e(this).data("blockUI.static", !0)), this.style.zoom = 1, t(this, o)
-            })
-        }, e.fn.unblock = function (t) {
-            return this[0] === window ? (e.unblockUI(t), this) : this.each(function () {
-                o(this, t)
-            })
-        }, e.blockUI.version = 2.66, e.blockUI.defaults = {
-            message: "<h1>Please wait...</h1>",
-            title: null,
-            draggable: !0,
-            theme: !1,
-            css: {
-                padding: 0,
-                margin: 0,
-                width: "30%",
-                top: "40%",
-                left: "35%",
-                textAlign: "center",
-                color: "#000",
-                border: "3px solid #aaa",
-                backgroundColor: "#fff",
-                cursor: "wait"
-            },
-            themedCSS: {width: "30%", top: "40%", left: "35%"},
-            overlayCSS: {backgroundColor: "#000", opacity: .6, cursor: "wait"},
-            cursorReset: "default",
-            growlCSS: {
-                width: "350px",
-                top: "10px",
-                left: "",
-                right: "10px",
-                border: "none",
-                padding: "5px",
-                opacity: .6,
-                cursor: "default",
-                color: "#fff",
-                backgroundColor: "#000",
-                "-webkit-border-radius": "10px",
-                "-moz-border-radius": "10px",
-                "border-radius": "10px"
-            },
-            iframeSrc: /^https/i.test(window.location.href || "") ? "javascript:false" : "about:blank",
-            forceIframe: !1,
-            baseZ: 1e3,
-            centerX: !0,
-            centerY: !0,
-            allowBodyStretch: !0,
-            bindEvents: !0,
-            constrainTabKey: !0,
-            fadeIn: 200,
-            fadeOut: 400,
-            timeout: 0,
-            showOverlay: !0,
-            focusInput: !0,
-            focusableElements: ":input:enabled:visible",
-            onBlock: null,
-            onUnblock: null,
-            onOverlayClick: null,
-            quirksmodeOffsetHack: 4,
-            blockMsgClass: "blockMsg",
-            ignoreIfBlocked: !1
-        };
-        var p = null, b = []
-    }
-
-    "function" == typeof define && define.amd && define.amd.jQuery ? define(["jquery"], e) : e(jQuery)
-}();
+!function(){"use strict";function e(e){function t(t,n){var s,h,k=t==window,y=n&&void 0!==n.message?n.message:void 0;if(n=e.extend({},e.blockUI.defaults,n||{}),!n.ignoreIfBlocked||!e(t).data("blockUI.isBlocked")){if(n.overlayCSS=e.extend({},e.blockUI.defaults.overlayCSS,n.overlayCSS||{}),s=e.extend({},e.blockUI.defaults.css,n.css||{}),n.onOverlayClick&&(n.overlayCSS.cursor="pointer"),h=e.extend({},e.blockUI.defaults.themedCSS,n.themedCSS||{}),y=void 0===y?n.message:y,k&&p&&o(window,{fadeOut:0}),y&&"string"!=typeof y&&(y.parentNode||y.jquery)){var m=y.jquery?y[0]:y,v={};e(t).data("blockUI.history",v),v.el=m,v.parent=m.parentNode,v.display=m.style.display,v.position=m.style.position,v.parent&&v.parent.removeChild(m)}e(t).data("blockUI.onUnblock",n.onUnblock);var g,I,w,U,x=n.baseZ;g=r||n.forceIframe?e('<iframe class="blockUI" style="z-index:'+x++ +';display:none;border:none;margin:0;padding:0;position:absolute;width:100%;height:100%;top:0;left:0" src="'+n.iframeSrc+'"></iframe>'):e('<div class="blockUI" style="display:none"></div>'),I=n.theme?e('<div class="blockUI blockOverlay ui-widget-overlay" style="z-index:'+x++ +';display:none"></div>'):e('<div class="blockUI blockOverlay" style="z-index:'+x++ +';display:none;border:none;margin:0;padding:0;width:100%;height:100%;top:0;left:0"></div>'),n.theme&&k?(U='<div class="blockUI '+n.blockMsgClass+' blockPage ui-dialog ui-widget ui-corner-all" style="z-index:'+(x+10)+';display:none;position:fixed">',n.title&&(U+='<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">'+(n.title||"&nbsp;")+"</div>"),U+='<div class="ui-widget-content ui-dialog-content"></div>',U+="</div>"):n.theme?(U='<div class="blockUI '+n.blockMsgClass+' blockElement ui-dialog ui-widget ui-corner-all" style="z-index:'+(x+10)+';display:none;position:absolute">',n.title&&(U+='<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">'+(n.title||"&nbsp;")+"</div>"),U+='<div class="ui-widget-content ui-dialog-content"></div>',U+="</div>"):U=k?'<div class="blockUI '+n.blockMsgClass+' blockPage" style="z-index:'+(x+10)+';display:none;position:fixed"></div>':'<div class="blockUI '+n.blockMsgClass+' blockElement" style="z-index:'+(x+10)+';display:none;position:absolute"></div>',w=e(U),y&&(n.theme?(w.css(h),w.addClass("ui-widget-content")):w.css(s)),n.theme||I.css(n.overlayCSS),I.css("position",k?"fixed":"absolute"),(r||n.forceIframe)&&g.css("opacity",0);var C=[g,I,w],S=k?e("body"):e(t);e.each(C,function(){this.appendTo(S)}),n.theme&&n.draggable&&e.fn.draggable&&w.draggable({handle:".ui-dialog-titlebar",cancel:"li"});var O=f&&(!e.support.boxModel||e("object,embed",k?null:t).length>0);if(u||O){if(k&&n.allowBodyStretch&&e.support.boxModel&&e("html,body").css("height","100%"),(u||!e.support.boxModel)&&!k)var E=d(t,"borderTopWidth"),T=d(t,"borderLeftWidth"),M=E?"(0 - "+E+")":0,B=T?"(0 - "+T+")":0;e.each(C,function(e,t){var o=t[0].style;if(o.position="absolute",2>e)k?o.setExpression("height","Math.max(document.body.scrollHeight, document.body.offsetHeight) - (jQuery.support.boxModel?0:"+n.quirksmodeOffsetHack+') + "px"'):o.setExpression("height",'this.parentNode.offsetHeight + "px"'),k?o.setExpression("width",'jQuery.support.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"'):o.setExpression("width",'this.parentNode.offsetWidth + "px"'),B&&o.setExpression("left",B),M&&o.setExpression("top",M);else if(n.centerY)k&&o.setExpression("top",'(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (blah = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"'),o.marginTop=0;else if(!n.centerY&&k){var i=n.css&&n.css.top?parseInt(n.css.top,10):0,s="((document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "+i+') + "px"';o.setExpression("top",s)}})}if(y&&(n.theme?w.find(".ui-widget-content").append(y):w.append(y),(y.jquery||y.nodeType)&&e(y).show()),(r||n.forceIframe)&&n.showOverlay&&g.show(),n.fadeIn){var j=n.onBlock?n.onBlock:c,H=n.showOverlay&&!y?j:c,z=y?j:c;n.showOverlay&&I._fadeIn(n.fadeIn,H),y&&w._fadeIn(n.fadeIn,z)}else n.showOverlay&&I.show(),y&&w.show(),n.onBlock&&n.onBlock();if(i(1,t,n),k?(p=w[0],b=e(n.focusableElements,p),n.focusInput&&setTimeout(l,20)):a(w[0],n.centerX,n.centerY),n.timeout){var W=setTimeout(function(){k?e.unblockUI(n):e(t).unblock(n)},n.timeout);e(t).data("blockUI.timeout",W)}}}function o(t,o){var s,l=t==window,a=e(t),d=a.data("blockUI.history"),c=a.data("blockUI.timeout");c&&(clearTimeout(c),a.removeData("blockUI.timeout")),o=e.extend({},e.blockUI.defaults,o||{}),i(0,t,o),null===o.onUnblock&&(o.onUnblock=a.data("blockUI.onUnblock"),a.removeData("blockUI.onUnblock"));var r;r=l?e("body").children().filter(".blockUI").add("body > .blockUI"):a.find(">.blockUI"),o.cursorReset&&(r.length>1&&(r[1].style.cursor=o.cursorReset),r.length>2&&(r[2].style.cursor=o.cursorReset)),l&&(p=b=null),o.fadeOut?(s=r.length,r.stop().fadeOut(o.fadeOut,function(){0===--s&&n(r,d,o,t)})):n(r,d,o,t)}function n(t,o,n,i){var s=e(i);if(!s.data("blockUI.isBlocked")){t.each(function(){this.parentNode&&this.parentNode.removeChild(this)}),o&&o.el&&(o.el.style.display=o.display,o.el.style.position=o.position,o.parent&&o.parent.appendChild(o.el),s.removeData("blockUI.history")),s.data("blockUI.static")&&s.css("position","static"),"function"==typeof n.onUnblock&&n.onUnblock(i,n);var l=e(document.body),a=l.width(),d=l[0].style.width;l.width(a-1).width(a),l[0].style.width=d}}function i(t,o,n){var i=o==window,l=e(o);if((t||(!i||p)&&(i||l.data("blockUI.isBlocked")))&&(l.data("blockUI.isBlocked",t),i&&n.bindEvents&&(!t||n.showOverlay))){var a="mousedown mouseup keydown keypress keyup touchstart touchend touchmove";t?e(document).bind(a,n,s):e(document).unbind(a,s)}}function s(t){if("keydown"===t.type&&t.keyCode&&9==t.keyCode&&p&&t.data.constrainTabKey){var o=b,n=!t.shiftKey&&t.target===o[o.length-1],i=t.shiftKey&&t.target===o[0];if(n||i)return setTimeout(function(){l(i)},10),!1}var s=t.data,a=e(t.target);return a.hasClass("blockOverlay")&&s.onOverlayClick&&s.onOverlayClick(t),a.parents("div."+s.blockMsgClass).length>0?!0:0===a.parents().children().filter("div.blockUI").length}function l(e){if(b){var t=b[e===!0?b.length-1:0];t&&t.focus()}}function a(e,t,o){var n=e.parentNode,i=e.style,s=(n.offsetWidth-e.offsetWidth)/2-d(n,"borderLeftWidth"),l=(n.offsetHeight-e.offsetHeight)/2-d(n,"borderTopWidth");t&&(i.left=s>0?s+"px":"0"),o&&(i.top=l>0?l+"px":"0")}function d(t,o){return parseInt(e.css(t,o),10)||0}e.fn._fadeIn=e.fn.fadeIn;var c=e.noop||function(){},r=/MSIE/.test(navigator.userAgent),u=/MSIE 6.0/.test(navigator.userAgent)&&!/MSIE 8.0/.test(navigator.userAgent),f=(document.documentMode||0,e.isFunction(document.createElement("div").style.setExpression));e.blockUI=function(e){t(window,e)},e.unblockUI=function(e){o(window,e)},e.growlUI=function(t,o,n,i){var s=e('<div class="growlUI"></div>');t&&s.append("<h1>"+t+"</h1>"),o&&s.append("<h2>"+o+"</h2>"),void 0===n&&(n=3e3);var l=function(t){t=t||{},e.blockUI({message:s,fadeIn:"undefined"!=typeof t.fadeIn?t.fadeIn:700,fadeOut:"undefined"!=typeof t.fadeOut?t.fadeOut:1e3,timeout:"undefined"!=typeof t.timeout?t.timeout:n,centerY:!1,showOverlay:!1,onUnblock:i,css:e.blockUI.defaults.growlCSS})};l();s.css("opacity");s.mouseover(function(){l({fadeIn:0,timeout:3e4});var t=e(".blockMsg");t.stop(),t.fadeTo(300,1)}).mouseout(function(){e(".blockMsg").fadeOut(1e3)})},e.fn.block=function(o){if(this[0]===window)return e.blockUI(o),this;var n=e.extend({},e.blockUI.defaults,o||{});return this.each(function(){var t=e(this);n.ignoreIfBlocked&&t.data("blockUI.isBlocked")||t.unblock({fadeOut:0})}),this.each(function(){"static"==e.css(this,"position")&&(this.style.position="relative",e(this).data("blockUI.static",!0)),this.style.zoom=1,t(this,o)})},e.fn.unblock=function(t){return this[0]===window?(e.unblockUI(t),this):this.each(function(){o(this,t)})},e.blockUI.version=2.66,e.blockUI.defaults={message:"<h1>Please wait...</h1>",title:null,draggable:!0,theme:!1,css:{padding:0,margin:0,width:"30%",top:"40%",left:"35%",textAlign:"center",color:"#000",border:"3px solid #aaa",backgroundColor:"#fff",cursor:"wait"},themedCSS:{width:"30%",top:"40%",left:"35%"},overlayCSS:{backgroundColor:"#000",opacity:.6,cursor:"wait"},cursorReset:"default",growlCSS:{width:"350px",top:"10px",left:"",right:"10px",border:"none",padding:"5px",opacity:.6,cursor:"default",color:"#fff",backgroundColor:"#000","-webkit-border-radius":"10px","-moz-border-radius":"10px","border-radius":"10px"},iframeSrc:/^https/i.test(window.location.href||"")?"javascript:false":"about:blank",forceIframe:!1,baseZ:1e3,centerX:!0,centerY:!0,allowBodyStretch:!0,bindEvents:!0,constrainTabKey:!0,fadeIn:200,fadeOut:400,timeout:0,showOverlay:!0,focusInput:!0,focusableElements:":input:enabled:visible",onBlock:null,onUnblock:null,onOverlayClick:null,quirksmodeOffsetHack:4,blockMsgClass:"blockMsg",ignoreIfBlocked:!1};var p=null,b=[]}"function"==typeof define&&define.amd&&define.amd.jQuery?define(["jquery"],e):e(jQuery)}();
 /*! Copyright (c) 2011 Piotr Rochala (http://rocha.la)
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
@@ -10440,165 +10182,7 @@ var FormValidation = function () {
  * Version: 1.3.2
  *
  */
-!function (e) {
-    jQuery.fn.extend({
-        slimScroll: function (i) {
-            var o = {
-                width: "auto",
-                height: "250px",
-                size: "7px",
-                color: "#000",
-                position: "right",
-                distance: "1px",
-                start: "top",
-                opacity: .4,
-                alwaysVisible: !1,
-                disableFadeOut: !1,
-                railVisible: !1,
-                railColor: "#333",
-                railOpacity: .2,
-                railDraggable: !0,
-                railClass: "slimScrollRail",
-                barClass: "slimScrollBar",
-                wrapperClass: "slimScrollDiv",
-                allowPageScroll: !1,
-                wheelStep: 20,
-                touchScrollStep: 200,
-                borderRadius: "7px",
-                railBorderRadius: "7px",
-                animate: !0
-            }, a = e.extend(o, i);
-            return this.each(function () {
-                function o(t) {
-                    if (u) {
-                        var t = t || window.event, i = 0;
-                        t.wheelDelta && (i = -t.wheelDelta / 120), t.detail && (i = t.detail / 3);
-                        var o = t.target || t.srcTarget || t.srcElement;
-                        e(o).closest("." + a.wrapperClass).is(S.parent()) && r(i, !0), t.preventDefault && !y && t.preventDefault(), y || (t.returnValue = !1)
-                    }
-                }
-
-                function r(e, t, i) {
-                    y = !1;
-                    var o = e, r = S.outerHeight() - M.outerHeight();
-                    if (t && (o = parseInt(M.css("top")) + e * parseInt(a.wheelStep) / 100 * M.outerHeight(), o = Math.min(Math.max(o, 0), r), o = e > 0 ? Math.ceil(o) : Math.floor(o), M.css({top: o + "px"})), v = parseInt(M.css("top")) / (S.outerHeight() - M.outerHeight()), o = v * (S[0].scrollHeight - S.outerHeight()), i) {
-                        o = e;
-                        var s = o / S[0].scrollHeight * S.outerHeight();
-                        s = Math.min(Math.max(s, 0), r), M.css({top: s + "px"})
-                    }
-                    "scrollTo" in a && a.animate ? S.animate({scrollTop: o}) : S.scrollTop(o), S.trigger("slimscrolling", ~~o), l(), c()
-                }
-
-                function s() {
-                    window.addEventListener ? (this.addEventListener("DOMMouseScroll", o, !1), this.addEventListener("mousewheel", o, !1)) : document.attachEvent("onmousewheel", o)
-                }
-
-                function n() {
-                    f = Math.max(S.outerHeight() / S[0].scrollHeight * S.outerHeight(), m), M.css({height: f + "px"});
-                    var e = f == S.outerHeight() ? "none" : "block";
-                    M.css({display: e})
-                }
-
-                function l() {
-                    if (n(), clearTimeout(p), v == ~~v) {
-                        if (y = a.allowPageScroll, b != v) {
-                            var e = 0 == ~~v ? "top" : "bottom";
-                            S.trigger("slimscroll", e)
-                        }
-                    } else y = !1;
-                    return b = v, f >= S.outerHeight() ? void(y = !0) : (M.stop(!0, !0).fadeIn("fast"), void(a.railVisible && H.stop(!0, !0).fadeIn("fast")))
-                }
-
-                function c() {
-                    a.alwaysVisible || (p = setTimeout(function () {
-                        a.disableFadeOut && u || h || d || (M.fadeOut("slow"), H.fadeOut("slow"))
-                    }, 1e3))
-                }
-
-                var u, h, d, p, g, f, v, b, w = "<div></div>", m = 30, y = !1, S = e(this);
-                if ("ontouchstart" in window && window.navigator.msPointerEnabled && S.css("-ms-touch-action", "none"), S.parent().hasClass(a.wrapperClass)) {
-                    var E = S.scrollTop();
-                    if (M = S.parent().find("." + a.barClass), H = S.parent().find("." + a.railClass), n(), e.isPlainObject(i)) {
-                        if ("height" in i && "auto" == i.height) {
-                            S.parent().css("height", "auto"), S.css("height", "auto");
-                            var x = S.parent().parent().height();
-                            S.parent().css("height", x), S.css("height", x)
-                        }
-                        if ("scrollTo" in i)E = parseInt(a.scrollTo); else if ("scrollBy" in i)E += parseInt(a.scrollBy); else if ("destroy" in i)return M.remove(), H.remove(), void S.unwrap();
-                        r(E, !1, !0)
-                    }
-                } else {
-                    a.height = "auto" == i.height ? S.parent().height() : i.height;
-                    var C = e(w).addClass(a.wrapperClass).css({
-                        position: "relative",
-                        overflow: "hidden",
-                        width: a.width,
-                        height: a.height
-                    });
-                    S.css({overflow: "hidden", width: a.width, height: a.height});
-                    var H = e(w).addClass(a.railClass).css({
-                        width: a.size,
-                        height: "100%",
-                        position: "absolute",
-                        top: 0,
-                        display: a.alwaysVisible && a.railVisible ? "block" : "none",
-                        "border-radius": a.railBorderRadius,
-                        background: a.railColor,
-                        opacity: a.railOpacity,
-                        zIndex: 90
-                    }), M = e(w).addClass(a.barClass).css({
-                        background: a.color,
-                        width: a.size,
-                        position: "absolute",
-                        top: 0,
-                        opacity: a.opacity,
-                        display: a.alwaysVisible ? "block" : "none",
-                        "border-radius": a.borderRadius,
-                        BorderRadius: a.borderRadius,
-                        MozBorderRadius: a.borderRadius,
-                        WebkitBorderRadius: a.borderRadius,
-                        zIndex: 99
-                    }), D = "right" == a.position ? {right: a.distance} : {left: a.distance};
-                    H.css(D), M.css(D), S.wrap(C), S.parent().append(M), S.parent().append(H), a.railDraggable && M.bind("mousedown", function (i) {
-                        var o = e(document);
-                        return d = !0, t = parseFloat(M.css("top")), pageY = i.pageY, o.bind("mousemove.slimscroll", function (e) {
-                            currTop = t + e.pageY - pageY, M.css("top", currTop), r(0, M.position().top, !1)
-                        }), o.bind("mouseup.slimscroll", function () {
-                            d = !1, c(), o.unbind(".slimscroll")
-                        }), !1
-                    }).bind("selectstart.slimscroll", function (e) {
-                        return e.stopPropagation(), e.preventDefault(), !1
-                    }), "ontouchstart" in window && window.navigator.msPointerEnabled && (S.bind("MSPointerDown", function (e) {
-                        g = e.originalEvent.pageY
-                    }), S.bind("MSPointerMove", function (e) {
-                        e.originalEvent.preventDefault();
-                        var t = (g - e.originalEvent.pageY) / a.touchScrollStep;
-                        r(t, !0), g = e.originalEvent.pageY
-                    })), H.hover(function () {
-                        l()
-                    }, function () {
-                        c()
-                    }), M.hover(function () {
-                        h = !0
-                    }, function () {
-                        h = !1
-                    }), S.hover(function () {
-                        u = !0, l(), c()
-                    }, function () {
-                        u = !1, c()
-                    }), S.bind("touchstart", function (e) {
-                        e.originalEvent.touches.length && (g = e.originalEvent.touches[0].pageY)
-                    }), S.bind("touchmove", function (e) {
-                        if (y || e.originalEvent.preventDefault(), e.originalEvent.touches.length) {
-                            var t = (g - e.originalEvent.touches[0].pageY) / a.touchScrollStep;
-                            r(t, !0), g = e.originalEvent.touches[0].pageY
-                        }
-                    }), n(), "bottom" === a.start ? (M.css({top: S.outerHeight() - M.outerHeight()}), r(0, !0)) : "top" !== a.start && (r(e(a.start).position().top, null, !0), a.alwaysVisible || M.hide()), s()
-                }
-            }), this
-        }
-    }), jQuery.fn.extend({slimscroll: jQuery.fn.slimScroll})
-}(jQuery);
+!function(e){jQuery.fn.extend({slimScroll:function(i){var o={width:"auto",height:"250px",size:"7px",color:"#000",position:"right",distance:"1px",start:"top",opacity:.4,alwaysVisible:!1,disableFadeOut:!1,railVisible:!1,railColor:"#333",railOpacity:.2,railDraggable:!0,railClass:"slimScrollRail",barClass:"slimScrollBar",wrapperClass:"slimScrollDiv",allowPageScroll:!1,wheelStep:20,touchScrollStep:200,borderRadius:"7px",railBorderRadius:"7px",animate:!0},a=e.extend(o,i);return this.each(function(){function o(t){if(u){var t=t||window.event,i=0;t.wheelDelta&&(i=-t.wheelDelta/120),t.detail&&(i=t.detail/3);var o=t.target||t.srcTarget||t.srcElement;e(o).closest("."+a.wrapperClass).is(S.parent())&&r(i,!0),t.preventDefault&&!y&&t.preventDefault(),y||(t.returnValue=!1)}}function r(e,t,i){y=!1;var o=e,r=S.outerHeight()-M.outerHeight();if(t&&(o=parseInt(M.css("top"))+e*parseInt(a.wheelStep)/100*M.outerHeight(),o=Math.min(Math.max(o,0),r),o=e>0?Math.ceil(o):Math.floor(o),M.css({top:o+"px"})),v=parseInt(M.css("top"))/(S.outerHeight()-M.outerHeight()),o=v*(S[0].scrollHeight-S.outerHeight()),i){o=e;var s=o/S[0].scrollHeight*S.outerHeight();s=Math.min(Math.max(s,0),r),M.css({top:s+"px"})}"scrollTo"in a&&a.animate?S.animate({scrollTop:o}):S.scrollTop(o),S.trigger("slimscrolling",~~o),l(),c()}function s(){window.addEventListener?(this.addEventListener("DOMMouseScroll",o,!1),this.addEventListener("mousewheel",o,!1)):document.attachEvent("onmousewheel",o)}function n(){f=Math.max(S.outerHeight()/S[0].scrollHeight*S.outerHeight(),m),M.css({height:f+"px"});var e=f==S.outerHeight()?"none":"block";M.css({display:e})}function l(){if(n(),clearTimeout(p),v==~~v){if(y=a.allowPageScroll,b!=v){var e=0==~~v?"top":"bottom";S.trigger("slimscroll",e)}}else y=!1;return b=v,f>=S.outerHeight()?void(y=!0):(M.stop(!0,!0).fadeIn("fast"),void(a.railVisible&&H.stop(!0,!0).fadeIn("fast")))}function c(){a.alwaysVisible||(p=setTimeout(function(){a.disableFadeOut&&u||h||d||(M.fadeOut("slow"),H.fadeOut("slow"))},1e3))}var u,h,d,p,g,f,v,b,w="<div></div>",m=30,y=!1,S=e(this);if("ontouchstart"in window&&window.navigator.msPointerEnabled&&S.css("-ms-touch-action","none"),S.parent().hasClass(a.wrapperClass)){var E=S.scrollTop();if(M=S.parent().find("."+a.barClass),H=S.parent().find("."+a.railClass),n(),e.isPlainObject(i)){if("height"in i&&"auto"==i.height){S.parent().css("height","auto"),S.css("height","auto");var x=S.parent().parent().height();S.parent().css("height",x),S.css("height",x)}if("scrollTo"in i)E=parseInt(a.scrollTo);else if("scrollBy"in i)E+=parseInt(a.scrollBy);else if("destroy"in i)return M.remove(),H.remove(),void S.unwrap();r(E,!1,!0)}}else{a.height="auto"==i.height?S.parent().height():i.height;var C=e(w).addClass(a.wrapperClass).css({position:"relative",overflow:"hidden",width:a.width,height:a.height});S.css({overflow:"hidden",width:a.width,height:a.height});var H=e(w).addClass(a.railClass).css({width:a.size,height:"100%",position:"absolute",top:0,display:a.alwaysVisible&&a.railVisible?"block":"none","border-radius":a.railBorderRadius,background:a.railColor,opacity:a.railOpacity,zIndex:90}),M=e(w).addClass(a.barClass).css({background:a.color,width:a.size,position:"absolute",top:0,opacity:a.opacity,display:a.alwaysVisible?"block":"none","border-radius":a.borderRadius,BorderRadius:a.borderRadius,MozBorderRadius:a.borderRadius,WebkitBorderRadius:a.borderRadius,zIndex:99}),D="right"==a.position?{right:a.distance}:{left:a.distance};H.css(D),M.css(D),S.wrap(C),S.parent().append(M),S.parent().append(H),a.railDraggable&&M.bind("mousedown",function(i){var o=e(document);return d=!0,t=parseFloat(M.css("top")),pageY=i.pageY,o.bind("mousemove.slimscroll",function(e){currTop=t+e.pageY-pageY,M.css("top",currTop),r(0,M.position().top,!1)}),o.bind("mouseup.slimscroll",function(){d=!1,c(),o.unbind(".slimscroll")}),!1}).bind("selectstart.slimscroll",function(e){return e.stopPropagation(),e.preventDefault(),!1}),"ontouchstart"in window&&window.navigator.msPointerEnabled&&(S.bind("MSPointerDown",function(e){g=e.originalEvent.pageY}),S.bind("MSPointerMove",function(e){e.originalEvent.preventDefault();var t=(g-e.originalEvent.pageY)/a.touchScrollStep;r(t,!0),g=e.originalEvent.pageY})),H.hover(function(){l()},function(){c()}),M.hover(function(){h=!0},function(){h=!1}),S.hover(function(){u=!0,l(),c()},function(){u=!1,c()}),S.bind("touchstart",function(e){e.originalEvent.touches.length&&(g=e.originalEvent.touches[0].pageY)}),S.bind("touchmove",function(e){if(y||e.originalEvent.preventDefault(),e.originalEvent.touches.length){var t=(g-e.originalEvent.touches[0].pageY)/a.touchScrollStep;r(t,!0),g=e.originalEvent.touches[0].pageY}}),n(),"bottom"===a.start?(M.css({top:S.outerHeight()-M.outerHeight()}),r(0,!0)):"top"!==a.start&&(r(e(a.start).position().top,null,!0),a.alwaysVisible||M.hide()),s()}}),this}}),jQuery.fn.extend({slimscroll:jQuery.fn.slimScroll})}(jQuery);
 var Portfolio = function () {
 
 
@@ -10635,7 +10219,7 @@ var TableAdvanced = function () {
             "order": [
                 [0, 'asc']
             ],
-
+            
             "lengthMenu": [
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here
@@ -10819,7 +10403,7 @@ var TableAdvanced = function () {
          */
         var nCloneTh = document.createElement('th');
         nCloneTh.className = "table-checkbox";
-
+        
         var nCloneTd = document.createElement('td');
         nCloneTd.innerHTML = '<span class="row-details row-details-close"></span>';
 
@@ -10928,10 +10512,10 @@ var TableAdvanced = function () {
             }],
             "order": [
                 [1, "asc"]
-            ]
+            ]           
         });
 
-        var oTableColReorder = new $.fn.dataTable.ColReorder(oTable);
+        var oTableColReorder = new $.fn.dataTable.ColReorder( oTable );
 
         var tableWrapper = $('#sample_6_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
@@ -11131,7 +10715,7 @@ var TableEditable = function () {
                     oTable.fnDeleteRow(nEditing); // cancel
                     nEditing = null;
                     nNew = false;
-
+                    
                     return;
                 }
             }
@@ -11227,12 +10811,12 @@ var TableManaged = function () {
                 [5, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 5,
+            "pageLength": 5,            
             "pagingType": "bootstrap_full_number",
             "language": {
                 "lengthMenu": "  _MENU_ records",
                 "paginate": {
-                    "previous": "Prev",
+                    "previous":"Prev",
                     "next": "Next",
                     "last": "Last",
                     "first": "First"

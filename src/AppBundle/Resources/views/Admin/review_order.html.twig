@@ -8,6 +8,43 @@
     Review Order
 {% endblock page_name %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #orderNumberIn {
+            font-size: 110%;
+            padding: 3px;
+            border-bottom: 1px dotted gray;
+        }
+
+        #cart-table > tbody td {
+            line-height: 32px;
+            vertical-align: middle;
+        }
+
+        #cart-table label.label-return-required {
+            cursor: not-allowed;
+        }
+
+        #cart-table label.label-return-required > input {
+            display: none;
+        }
+
+        #cart-table label.label-return-required.editable {
+            cursor: pointer;
+        }
+
+        #cart-table label.label-return-required > i {
+            font-size: 25px;
+            color: #efefef;
+        }
+
+        #cart-table label.label-return-required > i.return-required {
+            color: #e2001a;
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <style>
         /* Style the Image Used to Trigger the Modal */
@@ -121,13 +158,23 @@
                             REVIEW ORDER
                         </div>
                         <hr>
+
+                        <div class="well well-lg">
+                            <strong>ORDER NUMBER: </strong><span id="orderNumberIn">{{ cart.orderNumber }}</span>
+                            <button id="btnChangeOrderNumber" class="btn btn-sm btn-info"><i class="fa fa-edit"></i>
+                                Change
+                            </button>
+                            <button type="button" class="btn btn-primary" ng-click="addUnknownItem()" style="float: right;">ADD AN UNKNOWN ITEM</button>
+                            <br>
+                        </div>
+
                         <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
-                            <div ng-if="numItems == 0">
+                            <div ng-if="cart.length == 0">
                                 <div style="padding-bottom: 10px; padding-top: 20px;">
                                     No products currently in cart.
                                 </div>
                             </div>
-                            <div ng-if="numItems != 0">
+                            <div ng-if="cart.length != 0">
                                 {% verbatim %}
 <div class="table-responsive">
  <table id="cart-table" class="display responsive nowrap table table-striped table-bordered" cellspacing="0" width="100%">
@@ -143,17 +190,18 @@
                                     <th>SHIP QTY</th>
                                     <th>B.O. QTY</th>
                                     <th>USTER NOTES</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in cart track by $index">
-                                    <div ng-if="angular.isobject(item)">
-                                        <td style="padding-top: 20px;">{{ item.stock_number }}</td>
-                                        <td style="padding-top: 20px;">{{ item.description }}</td>
-                                        <td  style="padding-top: 20px;">
-                                            <div ng-if="item.require_return == 1">
-                                                <center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>
-                                             </div>
+                                        <td><span ng-hide="item.isAddedByAdmin">{{ item.stock_number }}</span><input class="form-control" ng-blur="updateNote(item)" ng-model="item.stock_number" ng-show="item.isAddedByAdmin"></td>
+                                        <td><span ng-hide="item.isAddedByAdmin">{{ item.description }}</span><textarea class="form-control" ng-blur="updateNote(item)" ng-model="item.description" ng-show="item.isAddedByAdmin"></textarea></td>
+                                        <td align="center">
+                                            <label class="label-return-required" ng-class="{'editable': item.isAddedByAdmin}">
+                                                <i class='fa fa-check-circle-o' ng-class="{'return-required': item.require_return}"></i>
+                                                <input type="checkbox" ng-model="item.require_return" ng-disabled="!item.isAddedByAdmin" ng-change="updateNote(item)">
+                                            </label>
                                         </td>
                                         <td>
                                            <div ng-repeat="num in item.line_numbers track by $index" style="display: inline-block;">
@@ -207,10 +255,12 @@
 
                                         <td>
                                             <center>
-                                                <textarea ng-model="item.note" type="text" class="form-control line-number" ng-change="updateProduct(item)"></textarea>
+                                                <textarea ng-model="item.note" type="text" class="form-control line-number" ng-blur="updateNote(item)"></textarea>
                                             </center>
                                         </td>
-                                        </div>
+                                        <td style="vertical-align: middle">
+                                            <a title="Delete this item" style="cursor:pointer;" ng-click="deleteProduct(item)"><i style="font-size: 22px;color: #e2001a;" class="fa fa-times-circle-o"></i></a>
+                                        </td>
                                     </tr>
                             </tbody>
                             </table>
@@ -231,12 +281,12 @@
                                                    style="color: #e2001a;">{{ user.email }}</a>
                                             </address>
                                             {% if office %}
-                                            <address style="margin-bottom: 5px;">
-                                                <strong># {{ office.name }}</strong><br>
-                                                {{ office.address }}<br>
-                                                {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
-                                                <abbr title="Phone">P:</abbr> {{ office.phone }}
-                                            </address>
+                                                <address style="margin-bottom: 5px;">
+                                                    <strong># {{ office.name }}</strong><br>
+                                                    {{ office.address }}<br>
+                                                    {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
+                                                    <abbr title="Phone">P:</abbr> {{ office.phone }}
+                                                </address>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -284,7 +334,12 @@
                                             </li>
                                         </ul>
                                         <br>
-                                        <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
+                                        {% if app.request.server.has('HTTP_REFERER') %}
+                                            <a class="btn btn-lg btn-default"
+                                               href="{{ app.request.server.get('HTTP_REFERER') }}">Back</a>
+                                        {% endif %}
+                                        <a class="btn btn-lg btn-info hidden-print" target="_blank"
+                                           href="{{ path('admin_order_print', {'id': cart_id}) }}">Print</a>
                                         <a ng-click="reviewOrder()" class="btn btn-lg btn-success hidden-print">Approve
                                             Order</a>
                                     </div>
@@ -299,9 +354,6 @@
 
             <div class="col-md-12" style="margin-top: 30px;">
                 <div class="stats-overview stat-block">
-                    <div class="display stat ok huge">
-
-                    </div>
                     <div class="details">
                         <div class="row">
                             <div class="col-md-3">
@@ -311,9 +363,9 @@
                             </div>
                             <div id='filters' class="col-md-5">
                                 <select class="form-control">
-                                    <option value="*">-- All Categories --</option>
+                                    <option value="">-- All Categories --</option>
                                     {% for category in categories %}
-                                        <option value=".{{ category.nameCononical }}">{{ category.name }}</option>
+                                        <option value="{{ category.nameCononical }}">{{ category.name }}</option>
                                     {% endfor %}
                                 </select>
 
@@ -330,6 +382,7 @@
                                    width="100%">
                                 <thead>
                                 <tr>
+                                    <th>CATEGORY</th>
                                     <th>PRODUCT #</th>
                                     <th width="40px">PHOTO</th>
                                     <th>DESCRIPTION</th>
@@ -339,7 +392,8 @@
                                 </thead>
                                 <tbody id="container">
                                 {% for product in products %}
-                                    <tr class="grid-item {{ product.partCategory.nameCononical }}">
+                                    <tr class="grid-item">
+                                        <td>{{ product.partCategory.nameCononical }}</td>
                                         <td>{{ product.stockNumber }}</td>
                                         <td>
                                             <center>
@@ -397,27 +451,50 @@
                 "paging": false,
                 "sDom": '<"top">rt<"bottom"lp><"clear">'
             });
-            $('#myInputTextField').keyup(function () {
-                oTable.search($(this).val()).draw();
-            })
-        });
-        $(function () {
 
-            var $container = $('#container'),
-                    $select = $('#filters select');
+            oTable.column(0).visible(false);
 
-            $container.isotope({
-                itemSelector: '.grid-item'
+            var searchTableQueryField = $('#myInputTextField');
+
+            searchTableQueryField.on('keyup', function (e) {
+                oTable.search(this.value).draw();
+            }).on('blur', function (e) {
+                searchTableQueryField.trigger('keyup');
+            }).trigger('blur');
+
+            $('#filters select').change(function () {
+                var category = this.value;
+                var search = '';
+
+                if ('' === category) {
+                    search = '^.*$';
+                } else {
+                    search = '^' + this.value + '$';
+                }
+
+
+                oTable.columns(0).search(search, true).draw();
             });
 
-            $select.change(function () {
-                var filters = $(this).val();
-                $container.isotope({
-                    filter: filters,
-                    animationEngine: 'css'
+            $('#btnChangeOrderNumber').on('click', function () {
+                var orderNumber = $('#orderNumberIn').text();
+                var last4 = orderNumber.substr(4);
+
+                var newOrderNumber = window.prompt("Enter the last 4 digits of the new order number.", last4);
+
+                if (null === newOrderNumber) {  // The user cancels the action.
+                    return;
+                }
+
+                $.post("{{ path('api_admin_change_order_number') }}", {
+                    'cart': {{ cart_id }},
+                    'newNumber': newOrderNumber
+                }).done(function (data) {
+                    $('#orderNumberIn').text(data);
+                }).fail(function (xhr, status, error) {
+                    alert('ERROR! - ' + xhr.responseText);
                 });
             });
-
         });
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -445,7 +522,8 @@
         }
 
         var app = angular.module("myShoppingList", []);
-        app.controller("myCtrl", function ($scope) {
+
+        app.controller("myCtrl", function ($scope, $http) {
             $scope.shipped = 0;
             $scope.requested = 0;
             $scope.backOrders = 0;
@@ -455,235 +533,97 @@
             $scope.stock_location = {};
             $scope.part_prefix = {};
 
-            $scope.reviewOrder = function () {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_admin_review_order_validation') }}",
-                    dataType: 'json',
-                    data: {cart_id: {{ cart_id }}},
-                    success: function (data) {
-                        console.log(data);
-                        if (data == false)
-                            location.reload();
-                        else
-                            location.href = '{{ path('admin_order_approve', {'cart_id': cart_id}) }}';
+            function updateCart(data) {
+                $scope.$apply(function () {
+                    $scope.cart = data.cart;
+                    $scope.shipped = data.shipped;
+                    $scope.requested = data.requested;
+                    $scope.backOrders = data.backOrders;
+                    $scope.numItems = data.num_items;
+                    $scope.shipping = data.shipping;
 
-                    },
-                    error: function (data) {
-                        console.log(data);
+                    /*
+                     angular.forEach($scope.cart, function (product) {
+                     $scope[product.id] = product.product_id;
+                     console.log($scope.stock_location);
+                     });
+                     */
+                });
+            }
+
+            $scope.reviewOrder = function () {
+                $.get('{{ path('api_admin_cart_review', {'cart': cart_id}) }}').done(function (success) {
+                    if (success) {
+                        location.href = '{{ path('admin_order_approve', {'cart_id': cart_id}) }}';
+                    } else {
+                        location.reload();
                     }
                 });
             };
 
-            $.ajax({
-                beforeSend: function () {
-                    console.log('json load cart');
-                },
-                type: 'POST',
-                data: {order_id: {{ cart_id }} },
-                url: "{{ path('api_load_cart_by_id') }}",
-                success: function (data) {
-                    $scope.$apply(function () {
-                        $scope.cart = data.cart;
-                        $scope.shipped = data.shipped;
-                        $scope.requested = data.requested;
-                        $scope.backOrders = data.backOrders;
-                        $scope.numItems = data.num_items;
-                        $scope.shipping = data.shipping;
+            $.post("{{ path('api_load_cart_by_id') }}", {order_id: {{ cart_id }}}).done(updateCart);
 
-                        angular.forEach($scope.cart, function (product) {
-                            $scope[product.id] = product.product_id;
-                            console.log($scope.stock_location);
-                        });
-                    });
-                }
+            // Load Products
+            $.get("{{ path('api_get_products') }}").done(function (data) {
+                $scope.products = data;
             });
-
-            $.ajax({
-                beforeSend: function () {
-                    console.log('json start');
-                },
-                type: 'GET',
-                url: "{{ path('api_get_products') }}",
-                success: function (data) {
-                    $scope.$apply(function () {
-                        $scope.products = data;
-
-                    });
-                }
-            });
-
-            $scope.inArray = function (item, array) {
-                return array.indexOf(item);
-            };
 
             $scope.addItem = function (item) {
-                console.log(item);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_add_item_by_id') }}",
-                    data: {product_id: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.shipped = data.shipped;
-                            $scope.requested = data.requested;
-                            $scope.backOrders = data.backOrders;
-                            $scope.numItems = data.num_items;
-                        });
-                    }
-                });
-            };
-
-            $scope.removeItem = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_remove_item_by_id') }}",
-                    data: {product_id: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    }
-                });
+                $.post("{{ path('api_cart_add_part') }}", {cart: {{ cart_id }}, part: item}).done(updateCart);
             };
 
             $scope.updateShipping = function () {
-                var id = $("#shipping").val();
-                console.log('id: ' + id);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('admin_update_shipping') }}",
-                    data: {cart_id: {{ cart_id }}, ship_id: id},
-                    dataType: 'json',
-                    success: function () {
+                $.post("{{ path('admin_update_shipping') }}", {cart_id: {{ cart_id }}, ship_id: $scope.shipping});
+            };
 
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+            $scope.deleteProduct = function (item) {
+                if (!confirm('Are you sure you want to delete this line?')) return;
+
+                $.post("{{ path('delete_cart_item') }}", {item: item.id}).done(updateCart);
             };
 
             $scope.updateProduct = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_product') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.shipped = data.shipped;
-                            $scope.requested = data.requested;
-                            $scope.backOrders = data.backOrders;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('update_product') }}", {data: item, order_id: {{ cart_id }}}).done(updateCart);
+            };
+
+            $scope.updateNote = function (item) {
+                $.post("{{ path('update_product') }}", {data: item, order_id: {{ cart_id }}});
             };
 
             $scope.updateQuantity = function (number) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_quantity') }}",
-                    data: {data: number, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.shipped = data.shipped;
-                            $scope.requested = data.requested;
-                            $scope.backOrders = data.backOrders;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('update_quantity') }}", {data: number, order_id: {{ cart_id }}}).done(updateCart);
             };
 
             $scope.updateStockLocation = function (product_id) {
-                var id = $("#stock_location" + product_id.id).val();
-                console.log("#stock_location" + product_id.id);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_stock_location') }}",
-                    data: {stock_location_id: id, cart_product_id: product_id},
-                    dataType: 'json',
-                    success: function () {
-
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
+                $.post("{{ path('update_stock_location') }}", {
+                    stock_location_id: $("#stock_location" + product_id.id).val(),
+                    cart_product_id: product_id
                 });
             };
 
-            $scope.updatePartPrefix = function (product_id) {
-                var id = $("#part_prefix" + product_id.id).val();
-                console.log("#part_prefix" + product_id.id);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_part_prefix') }}",
-                    data: {stock_location_id: id, cart_product_id: product_id},
-                    dataType: 'json',
-                    success: function () {
-
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
+            $scope.updatePartPrefix = function (item) {
+                $.post("{{ path('update_part_prefix') }}", {
+                    prefix: $("#part_prefix" + item.id).val(),
+                    item: item.id
                 });
             };
 
             $scope.addLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_add_line_number_review_order') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('api_add_line_number_review_order') }}", {item: item.id}).done(updateCart);
             };
-            $scope.updateLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_line_number_review_order') }}",
-                    data: {line_number: item},
-                    dataType: 'json',
-                    success: function () {
 
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
+            $scope.updateLineNumber = function (item) {
+                $.post("{{ path('update_line_number_review_order') }}", {
+                    line_number: item
                 });
             };
+
             $scope.removeLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_remove_line_number_review_order') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('api_remove_line_number_review_order') }}", {item: item.id}).done(updateCart);
+            };
+
+            $scope.addUnknownItem = function () {
+                $.post("{{ path('api_cart_add_unknown') }}", {cart: {{ cart_id }}}).done(updateCart);
             };
 
 

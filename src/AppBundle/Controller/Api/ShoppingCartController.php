@@ -5,12 +5,15 @@ namespace AppBundle\Controller\Api;
 use AppBundle\Entity\CartProduct;
 use AppBundle\Entity\CartProductLineNumber;
 use AppBundle\Entity\Cart;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 
 class ShoppingCartController extends Controller
@@ -25,7 +28,8 @@ class ShoppingCartController extends Controller
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $line_numbers = array();
         $line_numbers[] = '';
-        foreach($products as $item) {
+
+        foreach ($products as $item) {
             $json_products[$item->getId()] = array(
                 'stock_number' => $item->getStockNumber(),
                 'description' => $item->getDescription(),
@@ -36,6 +40,7 @@ class ShoppingCartController extends Controller
                 'line_numbers' => $line_numbers
             );
         }
+
         return JsonResponse::create($json_products);
     }
 
@@ -44,70 +49,56 @@ class ShoppingCartController extends Controller
      */
     public function loadCartAction(Request $request)
     {
-        $user = $this->getUser();
+        return $this->sumCart();
+    }
+
+    /**
+     * @Route("/api/admin-change-order-number", name="api_admin_change_order_number")
+     */
+    public function adminChangeOrderNumberAction(Request $request)
+    {
+        $cartId = $request->request->get('cart');
+        $newLast4Digits = $request->request->get('newNumber');
+
+        if ($newLast4Digits < 1 || $newLast4Digits > 9999) {
+            return new Response('Order number should be between 1 and 9999', 400);
+        }
+
+        $newLast4Digits = sprintf('%04d', $newLast4Digits);
+
         $em = $this->getDoctrine()->getManager();
 
-        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
-            $option = $request->request->get('option');
-            $cart = new Cart();
-            $cart->setUser($user);
-            $cart->setType($option);
-            $cart->setOffice($user->getOffice());
-            $cart->setDate(date_create(date("Y-m-d H:i:s")));
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartId);
+
+        $first4Digits = substr($cart->getOrderNumber(), 0, 4);
+
+        $newOrderNumber = $first4Digits . $newLast4Digits;
+
+        $duplicate = $em->getRepository('AppBundle:Cart')->findOneBy([
+            'order_number' => $newOrderNumber
+        ]);
+
+        if ($duplicate) {
+            return new Response('Duplicate order number', 400);
         }
-        else {
-            $option = $request->request->get('option');
-            $cart->setType($option);
-            if($option == 'colorhead') {
-                foreach($cart->getCartProducts() as $key => $product)
-                    if($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead')
-                        $this->removeCartItem($product->getPart()->getId());
-            }
-            else if($option == 'order') {
-                foreach($cart->getCartProducts() as $key => $product)
-                    if($product->getPart()->getPartCategory()->getNameCononical() == 'colorhead')
-                        $this->removeCartItem($product->getPart()->getId());
-            }
-        }
+
+        $cart->setOrderNumber($newOrderNumber);
 
         $em->persist($cart);
         $em->flush();
 
-        return $this->sumCart($cart);
-    }
-
-    public function removeCartItem($product_id)
-    {
-        $user = $this->getUser();
-        $id = $product_id;
-        $em = $this->getDoctrine()->getManager();
-
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
-        $part = $em->getRepository('AppBundle:Part')->find($id);
-        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
-
-        if($product->getQuantity() == 1) {
-            foreach($product->getCartProductLineNumbers() as $lineNumber)
-                $em->remove($lineNumber);
-            $em->remove($product);
-        }
-        else {
-            $product->setQuantity($product->getQuantity() - 1);
-            $em->persist($product);
-        }
-        $em->flush();
-
-        return $this->sumCart($cart);
+        return new Response($newOrderNumber);
     }
 
     /**
-     * @Route("/api/admin-review-order-validation", name="api_admin_review_order_validation")
+     * @Route("/api/admin/cart/{cart}/review", name="api_admin_cart_review")
      */
-    public function adminReviewOrderValidationAction(Request $request)
+    public function adminCartReviewAction(Cart $cart)
     {
 
+        $cartId = $cart->getId();
+
         $em = $this->getDoctrine()->getManager();
-        $cartId = $request->request->get('cart_id');
 
         $connection = $em->getConnection();
         $statement = $connection->prepare("select sum(cp.quantity) as quantity, sum(cp.back_order_quantity) as bo, sum(cp.ship_quantity) as ship
@@ -117,15 +108,57 @@ class ShoppingCartController extends Controller
         $statement->execute();
         $total = $statement->fetchAll();
 
-        foreach($total as $tot) {
-            if(($tot['bo'] + $tot['ship']) != $tot['quantity']) {
+        foreach ($total as $tot) {
+            if (($tot['bo'] + $tot['ship']) != $tot['quantity']) {
                 $this->addFlash('error', 'Shipping Quantity and Back Order Quantity must equal the total items requested.');
 
                 return JsonResponse::create(false);
             }
         }
 
-        return JsonResponse::create(true);
+        if (!$cart->getApproved()) {
+            try {
+                //only send the email
+                $connection = $em->getConnection();
+                $statement = $connection->prepare("select * from office_email where office_id = :id");
+                $statement->bindValue('id', $cart->getOffice()->getId());
+
+                $statement->execute();
+                $data = $statement->fetchAll();
+
+                foreach ($data as $email) {
+                    $from = 'utus-orders@gmail.com';
+                    $to = $email['email'];
+
+                    $email_service = $this->get('email_service');
+                    $email_service->sendEmail(array(
+                            'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber() . " has been fulfilled.",
+                            'from' => $from,
+                            'to' => $to,
+                            'body' => $this->renderView("AppBundle:Email:order_approved_notification.html.twig",
+                                array(
+                                    'cart' => $cart
+                                )
+                            )
+                        )
+                    );
+                }
+
+
+                $cart->setApproved(true);
+                $cart->setApprovedBy($this->getUser());
+                $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
+
+                $em->persist($cart);
+                $em->flush();
+
+                $this->addFlash('notice', "Order Approved Successfully.");
+                return JsonResponse::create(true);
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
+                return JsonResponse::create(false);
+            }
+        }
     }
 
     /**
@@ -133,17 +166,9 @@ class ShoppingCartController extends Controller
      */
     public function reviewOrderValidationAction()
     {
-        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
-            $cart = new Cart();
-            $cart->setUser($user);
-            $cart->setOffice($user->getOffice());
-            $cart->setDate(date_create(date("Y-m-d H:i:s")));
-            $em->persist($cart);
-            $em->flush();
-        }
+        $cart = $this->getCurrentCart();
 
         $connection = $em->getConnection();
         $statement = $connection->prepare("select count(l.id) as total
@@ -166,15 +191,14 @@ class ShoppingCartController extends Controller
         $statement->execute();
         $shipping = $statement->fetch();
 
-        if($shipping['shipping_method_id'] == NULL || $line_numbers['total'] != '0') {
-            if($shipping['shipping_method_id'] == NULL)
+        if ($shipping['shipping_method_id'] == NULL || $line_numbers['total'] != '0') {
+            if ($shipping['shipping_method_id'] == NULL)
                 $this->addFlash('error', 'Please select a shipping method.');
-            if($line_numbers['total'] != '0')
+            if ($line_numbers['total'] != '0')
                 $this->addFlash('error', 'Line number cannot be blank.');
 
             return JsonResponse::create(false);
-        }
-        else {
+        } else {
             return JsonResponse::create(true);
         }
 
@@ -185,31 +209,16 @@ class ShoppingCartController extends Controller
      */
     public function addCartItemAction(Request $request)
     {
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
+        $cart = $this->getCurrentCart();
 
-        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
-            $cart = new Cart();
-            $cart->setUser($user);
-            $cart->setOffice($user->getOffice());
-            $cart->setDate(date_create(date("Y-m-d H:i:s")));
-            $em->persist($cart);
-            $em->flush();
-        }
-        $part = $em->getRepository('AppBundle:Part')->find($id);
-        $count = 0;
+        $part = $em->getRepository('AppBundle:Part')->find($request->request->get('part'));
 
-        foreach($cart->getCartProducts() as $product)
-            $count++;
+        if (!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
+            $product = new CartProduct();
 
-        if($count == 0 || $cart->getType() != 'colorhead') {
-
-            if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
-                $product = new CartProduct();
-                $product->setCart($cart);
-                $product->setPart($part);
-                $cart->addCartProduct($product);
+            $product->setCart($cart);
+            $product->setPart($part);
 
                 $lineNumber = new CartProductLineNumber();
                 $lineNumber->setCartProduct($product);
@@ -219,12 +228,12 @@ class ShoppingCartController extends Controller
                 $em->flush();
             }
 
-            $product->setQuantity($product->getQuantity() + 1);
-            $em->persist($product);
-            $em->flush();
-        }
+        $product->setQuantity($product->getQuantity() + 1);
 
-        return $this->sumCart($cart);
+        $em->persist($product);
+        $em->flush();
+
+        return $this->sumCart();
     }
 
     /**
@@ -232,41 +241,29 @@ class ShoppingCartController extends Controller
      */
     public function addCartUnknownItemAction(Request $request)
     {
-        $user = $this->getUser();
         $description = $request->request->get('description');
         $em = $this->getDoctrine()->getManager();
 
-        if(!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0))) {
-            $cart = new Cart();
-            $cart->setUser($user);
-            $cart->setOffice($user->getOffice());
-            $cart->setDate(date_create(date("Y-m-d H:i:s")));
-            $em->persist($cart);
-            $em->flush();
-        }
+        $cart = $this->getCurrentCart();
 
-        $part = $em->getRepository('AppBundle:Part')->findOneBy(array('stockNumber' => '999-999-99999'));
-        if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
-            $product = new CartProduct();
-            $product->setCart($cart);
-            $product->setPart($part);
-            $cart->addCartProduct($product);
-            $product->setDescription($description);
+        $product = new CartProduct();
+        $product->setCart($cart);
+        $product->setPart(null);
+        $product->setDescription($description);
+        $product->setQuantity(1);
 
-            $lineNumber = new CartProductLineNumber();
-            $lineNumber->setCartProduct($product);
-            $product->addCartProductLineNumber($lineNumber);
-            $em->persist($lineNumber);
-            $em->persist($product);
-            $em->flush();
-        }
+        $lineNumber = new CartProductLineNumber();
+        $lineNumber->setCartProduct($product);
+        $product->addCartProductLineNumber($lineNumber);
+        $em->persist($lineNumber);
+        $em->persist($product);
+        $em->flush();
 
-        $product->setQuantity($product->getQuantity() + 1);
         $em->persist($product);
         $em->persist($cart);
         $em->flush();
 
-        return $this->sumCart($cart);
+        return $this->sumCart();
     }
 
     /**
@@ -274,26 +271,22 @@ class ShoppingCartController extends Controller
      */
     public function removeCartItemAction(Request $request)
     {
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
-        $part = $em->getRepository('AppBundle:Part')->find($id);
-        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+        $product = $em->getRepository('AppBundle:CartProduct')->find($request->request->get('product_id'));
 
-        if($product->getQuantity() == 1) {
-            foreach($product->getCartProductLineNumbers() as $lineNumber)
+        if ($product->getQuantity() == 1) {
+            foreach ($product->getCartProductLineNumbers() as $lineNumber)
                 $em->remove($lineNumber);
             $em->remove($product);
-        }
-        else {
+        } else {
             $product->setQuantity($product->getQuantity() - 1);
             $em->persist($product);
         }
+
         $em->flush();
 
-        return $this->sumCart($cart);
+        return $this->sumCart();
     }
 
     /**
@@ -321,10 +314,9 @@ class ShoppingCartController extends Controller
 
         $data = $request->request->get('line_number');
         $shippingMehtod = $em->getRepository('AppBundle:ShippingMethod')->find($data);
-        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
+        $cart = $this->getCurrentCart();
         $cart->setShippingMethod($shippingMehtod);
 
         $em->persist($cart);
@@ -334,68 +326,13 @@ class ShoppingCartController extends Controller
     }
 
     /**
-     * @Route("/api/update-notes", name="api_update_notes")
-     */
-    public function updateNotesAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data = $request->request->get('note');
-        $id = $request->request->get('cart_id');
-
-        $cart = $em->getRepository('AppBundle:Cart')->find($id);
-        $cart->setNote($data);
-        $em->persist($cart);
-        $em->flush();
-
-        return JsonResponse::create(true);
-    }
-
-    /**
-     * @Route("/api/update-requester-name", name="api_update_requester_name")
-     */
-    public function updateRequesterName(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data = $request->request->get('note');
-        $id = $request->request->get('cart_id');
-
-        $cart = $em->getRepository('AppBundle:Cart')->find($id);
-        $cart->setRequesterFirstName($data);
-        $em->persist($cart);
-        $em->flush();
-
-        return JsonResponse::create(true);
-    }
-
-    /**
-     * @Route("/api/update-requester-last-name", name="api_update_requester_last_name")
-     */
-    public function updateRequesterLastName(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data = $request->request->get('note');
-        $id = $request->request->get('cart_id');
-
-        $cart = $em->getRepository('AppBundle:Cart')->find($id);
-        $cart->setRequesterLastName($data);
-        $em->persist($cart);
-        $em->flush();
-
-        return JsonResponse::create(true);
-    }
-    
-    /**
      * @Route("/api/add-line-number", name="api_add_line_number")
      */
     public function addLineNumberAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
-        $part = $em->getRepository('AppBundle:Part')->find($id);
-        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+        $product = $em->getRepository('AppBundle:CartProduct')->find($request->request->get('product_id'));
 
         $lineNumber = new CartProductLineNumber();
         $lineNumber->setCartProduct($product);
@@ -406,7 +343,7 @@ class ShoppingCartController extends Controller
         $em->persist($product);
         $em->flush();
 
-        return $this->sumCart($cart);
+        return $this->sumCart();
     }
 
     /**
@@ -415,51 +352,90 @@ class ShoppingCartController extends Controller
     public function removeLineNumberAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
-        $part = $em->getRepository('AppBundle:Part')->find($id);
-        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+        $product = $em->getRepository('AppBundle:CartProduct')->find($request->request->get('product_id'));
+
         $lineNumber = $em->getRepository('AppBundle:CartProductLineNumber')
             ->findOneBy(
                 array('cartProduct' => $product),
                 array('id' => 'DESC')
             );
 
-        if($lineNumber) {
+        if ($lineNumber) {
             $em->remove($lineNumber);
             $em->flush();
         }
 
-        return $this->sumCart($cart);
+        return $this->sumCart();
     }
 
-    public function sumCart($cart)
+    /**
+     * @Route("/api/q-up/{id}", name="api_up_quantity")
+     * @ParamConverter("product", class="AppBundle:CartProduct")
+     */
+    public function upQuantityAction(CartProduct $product)
     {
+        $product->setQuantity($product->getQuantity() + 1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+
+        return $this->sumCart();
+    }
+
+    /**
+     * @Route("/api/q-down/{id}", name="api_down_quantity")
+     */
+    public function downQuantityAction(CartProduct $product)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($product->getQuantity() <= 1) {
+            foreach ($product->getCartProductLineNumbers() as $lineNumber)
+                $em->remove($lineNumber);
+            $em->remove($product);
+        } else {
+            $product->setQuantity($product->getQuantity() - 1);
+            $em->persist($product);
+        }
+
+        $em->flush();
+
+        return $this->sumCart();
+    }
+
+    private function sumCart(Cart $cart = null)
+    {
+        $cart = $cart ?: $this->getCurrentCart();
+
         $count = 0;
         $json_cart = array();
-        foreach($cart->getCartProducts() as $product) {
+
+        foreach ($cart->getCartProducts() as $product) {
+            /** @var CartProduct $product */
+
             $line_numbers = array();
-            foreach($product->getCartProductLineNumbers() as $lineNumber) {
+
+            foreach ($product->getCartProductLineNumbers() as $lineNumber) {
                 $line_numbers[] = array(
                     'id' => $lineNumber->getId(),
                     'cart_product' => $lineNumber->getCartProduct()->getId(),
                     'line_number' => $lineNumber->getLineNumber()
                 );
             }
+
             $json_cart[] = array(
-                'stock_number' => $product->getPart()->getStockNumber(),
-                'description' => ($product->getPart()->getStockNumber() == '999-999-99999' ? $product->getDescription() : $product->getPart()->getDescription()),
-                'id' => $product->getPart()->getId(),
-                'require_return' => $product->getPart()->getRequireReturn(),
-                'category' => $product->getPart()->getPartCategory()->getName(),
-                'part_name_cononical' => $product->getPart()->getPartCategory()->getNameCononical(),
+                'stock_number' => $product->getStockNumber(),
+                'description' => $product->getDescription(),
+                'id' => $product->getId(),
+                'require_return' => $product->isReturnRequired(),
                 'quantity' => $product->getQuantity(),
                 'line_numbers' => $line_numbers
             );
+
             $count += $product->getQuantity();
         }
+
         return JsonResponse::create(
             array(
                 'cart' => $json_cart,
@@ -469,7 +445,26 @@ class ShoppingCartController extends Controller
                 'requester_first_name' => ($cart->getRequesterFirstName() != null ? $cart->getRequesterFirstName() : ''),
                 'requester_last_name' => ($cart->getRequesterLastName() != null ? $cart->getRequesterLastName() : ''),
                 'shipping' => ($cart->getShippingMethod() != null ? (string)$cart->getShippingMethod()->getId() : '0'),
-
             ));
+    }
+
+    /**
+     * @return Cart
+     */
+    private function getCurrentCart()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        if (!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(['user' => $user, 'submitted' => 0])) {
+            $cart = new Cart();
+            $cart->setUser($user);
+            $cart->setOffice($user->getOffice());
+            $cart->setDate(date_create(date("Y-m-d H:i:s")));
+            $em->persist($cart);
+            $em->flush();
+        }
+
+        return $cart;
     }
 }

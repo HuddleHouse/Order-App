@@ -5,12 +5,11 @@ namespace AppBundle\Controller\Api;
 use AppBundle\Entity\CartProduct;
 use AppBundle\Entity\CartProductLineNumber;
 use AppBundle\Entity\Cart;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class ReviewOrderController extends Controller
 {
@@ -35,24 +34,15 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/add-cart-item-by-id", name="api_add_item_by_id")
+     * @Route("/api/add-part", name="api_cart_add_part")
      */
-    public function addCartItemByIdAction(Request $request)
+    public function addPartToCart(Request $request)
     {
-        $user = $this->getUser();
-        $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
-        $cartid = $request->request->get('order_id');
 
-        if(!$cart = $em->getRepository('AppBundle:Cart')->find($cartid)) {
-            $cart = new Cart();
-            $cart->setUser($user);
-            $cart->setOffice($user->getOffice());
-            $cart->setDate(date_create(date("Y-m-d H:i:s")));
-            $em->persist($cart);
-            $em->flush();
-        }
-        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $cart = $em->getRepository('AppBundle:Cart')->find($request->request->get('cart'));
+        $part = $em->getRepository('AppBundle:Part')->find($request->request->get('part'));
+
         if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
             $product = new CartProduct();
             $product->setCart($cart);
@@ -74,27 +64,31 @@ class ReviewOrderController extends Controller
     }
 
     /**
-     * @Route("/api/remove-cart-item-by-id", name="api_remove_item_by_id")
+     * @Route("/api/add-unknown", name="api_cart_add_unknown")
      */
-    public function removeCartItemByIdAction(Request $request)
+    public function addUnknownToCart(Request $request)
     {
-        $id = $request->request->get('product_id');
         $em = $this->getDoctrine()->getManager();
-        $cartid = $request->request->get('order_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
-        $part = $em->getRepository('AppBundle:Part')->find($id);
-        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+        $cart = $em->getRepository('AppBundle:Cart')->find($request->request->get('cart'));
 
-        if($product->getQuantity() == 1) {
-            foreach($product->getCartProductLineNumbers() as $lineNumber)
-                $em->remove($lineNumber);
-            $em->remove($product);
-        }
-        else {
-            $product->setQuantity($product->getQuantity() - 1);
-            $em->persist($product);
-        }
+        $product = new CartProduct();
+
+        $product->setCart($cart);
+        $product->setPart(null);
+        $product->setDescription('');
+        $product->setQuantity(1);
+        $product->setStockNumber('');
+        $product->setCreatedByAdmin(true);
+
+        $lineNumber = new CartProductLineNumber();
+        $lineNumber->setCartProduct($product);
+        $product->addCartProductLineNumber($lineNumber);
+        $em->persist($lineNumber);
+        $em->persist($product);
+        $em->flush();
+
+        $em->persist($product);
         $em->flush();
 
         return $this->sumCart($cart);
@@ -127,15 +121,10 @@ class ReviewOrderController extends Controller
     public function updatePartPrefix(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $product = $request->request->get('cart_product_id');
-        $stock_locaton_id = $request->request->get('stock_location_id');
-        $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->find($stock_locaton_id);
-
-
-        $cart_product = $em->getRepository('AppBundle:CartProduct')->find($product['product_id']);
-        $cart_product->setPartNumberPrefix($part_prefix);
-        $em->persist($cart_product);
+        $prefix = $em->getRepository('AppBundle:PartNumberPrefix')->find($request->request->get('prefix'));
+        $item = $em->getRepository('AppBundle:CartProduct')->find($request->request->get('item'));
+        $item->setPartNumberPrefix($prefix);
+        $em->persist($item);
         $em->flush();
 
         return JsonResponse::create(true);
@@ -163,12 +152,8 @@ class ReviewOrderController extends Controller
     public function addLineNumberAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $data = $request->request->get('data');
-        $cartid = $request->request->get('order_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
-        $part = $em->getRepository('AppBundle:Part')->find($data['id']);
-        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+        $product = $em->getRepository('AppBundle:CartProduct')->find($request->request->get('item'));
 
         $lineNumber = new CartProductLineNumber();
         $lineNumber->setCartProduct($product);
@@ -179,7 +164,7 @@ class ReviewOrderController extends Controller
         $em->persist($product);
         $em->flush();
 
-        return $this->sumCart($cart);
+        return $this->sumCart($product->getCart());
     }
 
     /**
@@ -191,8 +176,9 @@ class ReviewOrderController extends Controller
 
         $cart_id = $request->request->get('cart_id');
         $ship_id = $request->request->get('ship_id');
+
         $shippingMehtod = $em->getRepository('AppBundle:ShippingMethod')->find($ship_id);
-        $user = $this->getUser();
+
         $em = $this->getDoctrine()->getManager();
 
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
@@ -210,28 +196,25 @@ class ReviewOrderController extends Controller
     public function removeLineNumberAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $data = $request->request->get('data');
-        $cartid = $request->request->get('order_id');
 
-        $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
-        $part = $em->getRepository('AppBundle:Part')->find($data['id']);
-        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+        $product = $em->getRepository('AppBundle:CartProduct')->find($request->request->get('item'));
+
         $lineNumber = $em->getRepository('AppBundle:CartProductLineNumber')
             ->findOneBy(
                 array('cartProduct' => $product),
                 array('id' => 'DESC')
             );
 
-        if($lineNumber) {
+        if ($lineNumber) {
             $em->remove($lineNumber);
             $em->flush();
         }
 
-        return $this->sumCart($cart);
+        return $this->sumCart($product->getCart());
     }
 
     /**
-     * @Route("/api/update-ship-quantity", name="update_product")
+     * @Route("/api/update-cart-product", name="update_product")
      */
     public function updateProductAction(Request $request)
     {
@@ -241,6 +224,13 @@ class ReviewOrderController extends Controller
         $product = $em->getRepository('AppBundle:CartProduct')->find($data['product_id']);
         $product->setBackOrderQuantity($data['back_order_quantity']);
         $product->setShipQuantity($data['ship_quantity']);
+
+        if ($product->isCreatedByAdmin()) {
+            $product->setDescription($data['description']);
+            $product->setStockNumber($data['stock_number']);
+            $product->setReturnRequired('true' == $data['require_return'] ? true : false);
+        }
+
         $product->setNote($data['note']);
 
         $em->persist($product);
@@ -248,6 +238,20 @@ class ReviewOrderController extends Controller
         $cartid = $request->request->get('order_id');
 
         $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+        return $this->sumCart($cart);
+    }
+
+    /**
+     * @Route("/api/delete-cart-item", name="delete_cart_item")
+     */
+    public function deleteCartItemAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cartItem = $em->getRepository('AppBundle:CartProduct')->find($request->request->get('item'));
+        $cart = $cartItem->getCart();
+        $em->remove($cartItem);
+        $em->flush();
+
         return $this->sumCart($cart);
     }
 
@@ -277,36 +281,41 @@ class ReviewOrderController extends Controller
     {
         $shipped = $requested = $backOrders = 0;
         $json_cart = array();
-        foreach($cart->getCartProducts() as $product) {
+
+        foreach ($cart->getCartProducts() as $product) {
+            /** @var CartProduct $product */
             $line_numbers = array();
-            foreach($product->getCartProductLineNumbers() as $lineNumber) {
+
+            foreach ($product->getCartProductLineNumbers() as $lineNumber) {
                 $line_numbers[] = array(
                     'id' => $lineNumber->getId(),
                     'cart_product' => $lineNumber->getCartProduct()->getId(),
                     'line_number' => $lineNumber->getLineNumber()
                 );
             }
+
             $json_cart[] = array(
-                'stock_number' => $product->getPart()->getStockNumber(),
-                'description' => $product->getPart()->getDescription(),
+                'stock_number' => $product->getStockNumber(),
+                'description' => $product->getDescription(),
+                'id' => $product->getId(),
                 'prefix' => ($product->getPartNumberPrefix() != null ? (string)$product->getPartNumberPrefix()->getId() : '0'),
-                'id' => $product->getPart()->getId(),
-                'require_return' => $product->getPart()->getRequireReturn(),
-                'category' => $product->getPart()->getPartCategory()->getName(),
-                'part_name_cononical' => $product->getPart()->getPartCategory()->getNameCononical(),
+                'require_return' => $product->isReturnRequired(),
                 'quantity' => $product->getQuantity(),
                 'ship_quantity' => $product->getShipQuantity(),
                 'back_order_quantity' => $product->getBackOrderQuantity(),
                 'line_numbers' => $line_numbers,
                 'product_id' => $product->getId(),
                 'note' => $product->getNote(),
+                'isAddedByAdmin' => $product->isCreatedByAdmin(),
                 'stock_location' => ($product->getStockLocation() != null ? (string)$product->getStockLocation()->getId() : '0'),
 
             );
+
             $shipped += $product->getShipQuantity();
             $requested += $product->getQuantity();
             $backOrders += $product->getBackOrderQuantity();
         }
+
         return JsonResponse::create(array(
             'cart' => $json_cart,
             'shipped' => $shipped,

@@ -45,7 +45,6 @@ class CartProduct
      */
     private $partNumberPrefix;
 
-
     /**
      * @var int
      *
@@ -82,13 +81,36 @@ class CartProduct
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", mappedBy="cartProduct")
+     * @var string
+     *
+     * @ORM\Column(name="stock_number", type="string", nullable=true)
+     */
+    private $stockNumber;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="created_by_admin", type="boolean", nullable=true)
+     */
+    private $createdByAdmin;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="return_required", type="boolean", nullable=true)
+     */
+    private $returnRequired;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", cascade={"remove"}, mappedBy="cartProduct")
      */
     private $cartProductLineNumbers;
+
 
     public function __construct()
     {
         $this->cartProductLineNumbers = new ArrayCollection();
+        $this->createdByAdmin = false;
     }
 
     /**
@@ -118,7 +140,7 @@ class CartProduct
     }
 
     /**
-     * @return mixed
+     * @return Part
      */
     public function getPart()
     {
@@ -245,7 +267,11 @@ class CartProduct
      */
     public function getDescription()
     {
-        return $this->description;
+        if ($this->isUnknown() || $this->createdByAdmin) {
+            return $this->description;
+        } else {
+            return $this->getPart()->getDescription();
+        }
     }
 
     /**
@@ -272,5 +298,44 @@ class CartProduct
         $this->partNumberPrefix = $partNumberPrefix;
     }
 
+    public function isUnknown()
+    {
+        return null == $this->getPart() || '999-999-99999' === $this->getPart()->getStockNumber();
+    }
 
+    public function isCreatedByAdmin()
+    {
+        return $this->createdByAdmin;
+    }
+
+    public function setCreatedByAdmin($createdByAdmin)
+    {
+        $this->createdByAdmin = $createdByAdmin;
+    }
+
+    public function setReturnRequired($returnRequired)
+    {
+        $this->returnRequired = $returnRequired;
+    }
+
+    public function isReturnRequired()
+    {
+        if ($this->createdByAdmin) {
+            return $this->returnRequired;
+        } else if ($this->isUnknown()) {
+            return false;
+        } else {
+            return $this->getPart()->getRequireReturn();
+        }
+    }
+
+    public function getStockNumber()
+    {
+        return $this->isUnknown() ? $this->stockNumber : $this->getPart()->getStockNumber();
+    }
+
+    public function setStockNumber($stockNumber)
+    {
+        $this->stockNumber = $stockNumber;
+    }
 }

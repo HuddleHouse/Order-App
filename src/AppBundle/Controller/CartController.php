@@ -43,7 +43,7 @@ class CartController extends Controller
         return $this->render('AppBundle:Cart:review-order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
-            'cart_id' => $cart->getid(),
+            'cart_id' => $cart->getId(),
             'cart' => $cart,
             'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : 'none')
         ));
@@ -115,6 +115,11 @@ class CartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
+
+        $cart->setRequesterFirstName($request->get('firstName'));
+        $cart->setRequesterLastName($request->get('lastName'));
+        $cart->setNote($request->get('notes'));
+
         $cart->setSubmitted(1);
         $cart->setSubmitDate(date_create(date("Y-m-d H:i:s")));
 
@@ -169,7 +174,7 @@ class CartController extends Controller
         try {
             $email_service = $this->get('email_service');
             $email_service->sendEmail(array(
-                    'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber(),
+                    'subject' => $cart->getOffice()->getName() ? $cart->getOffice()->getName() : '' . " Order # " . $cart->getOrderNumber(),
                     'from' => $from,
                     'to' => $to,
                     'body' => $this->renderView("AppBundle:Email:order_submit_notification.html.twig",
@@ -198,7 +203,7 @@ class CartController extends Controller
         $user = $this->getUser();
         $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1, 'approved' => 0));
 
-        $sql = "select c.id, c.submit_date, sum(p.ship_quantity) shipped
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.ship_quantity) shipped
 	from cart c
 		left join cart_products p
 			on p.cart_id = c.id
