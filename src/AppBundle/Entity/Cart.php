@@ -42,7 +42,7 @@ class Cart
     private $shipping_method;
     
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProduct", mappedBy="cart")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProduct", mappedBy="cart", cascade={"remove"})
      */
     private $cart_products;
 

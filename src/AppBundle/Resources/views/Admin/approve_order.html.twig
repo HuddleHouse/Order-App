@@ -9,9 +9,26 @@
     Order
 {% endblock page_name %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .total-value {
+            display: inline-block;
+            width: 150px;
+            margin-right: 8px;
+            vertical-align: middle;
+            line-height: 36px;
+            text-align: right;
+            font-size: 18px;
+            color: #777;
+            margin-left: 15px;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="row">
-        <div ng-app="myShoppingList" ng-controller="myCtrl" ng-init="init()" class="ng-cloak" ng-cloak>
+        <div>
             <div id="shopping-cart" class="col-xs-12">
                 <div class="stats-overview stat-block">
                     <div class="details">
@@ -20,93 +37,95 @@
                         </div>
                         <hr>
                         <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
-                            <div ng-if="numItems == 0">
-                                <div style="padding-bottom: 10px; padding-top: 20px;">
-                                    No products currently in cart.
-                                </div>
-                            </div>
-                            <div ng-if="numItems != 0">
-<div class="table-responsive">
- <table id="cart-table" class="responsive nowrap table table-striped no-footer" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>PRODUCT #</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>RETURN</th>
-                                    <th>LINE NUMBER (S)</th>
-                                    <th>STOCK LOCATION</th>
-                                    <th>PREFIX</th>
-                                    <th>QTY</th>
-                                    <th>SHIP QTY</th>
-                                    <th>B.O. QTY</th>
-                                    <th>USTER NOTES</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for item in cart.cartProducts %}
-                                    <tr>
-                                        <div>
-                                            <td>{{ item.part.stockNumber }}</td>
-                                            <td>{{ item.part.description }}</td>
-                                        <td>
-                                            {% if item.part.requireReturn == 1 %}
-                                                <center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a; padding-top: 7px;'></i></center>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% for num in item.cartProductLineNumbers %}
-                                                <div style="display: block;">
-                                                    {{ num.lineNumber }}
-                                           </div>
-                                            {% endfor %}
-                                        </td>
-                                            <td>
-                                                <div class="row">
-                                                    <center>
-                                                        {{ item.stockLocation.Name }}
-                                                    </center>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="row">
-                                                    <center>
-                                                        {{ item.partNumberPrefix.name }}
-                                                    </center>
-                                                </div>
-                                            </td>
-                                        <td>
-                                            <div class="row">
-                                                <center>
-                                                {{ item.quantity }}
-                                                </center>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <center>
-                                                    {{ item.shipQuantity }}
-                                                </center>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <center>
-                                                    {{ item.backOrderQuantity }}
-                                                </center>
-                                            </div>
-                                        </td>
+                            <div>
+                                <div class="table-responsive">
+                                    <table id="cart-table" class="responsive nowrap table table-striped no-footer"
+                                           cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>PRODUCT #</th>
+                                            <th>DESCRIPTION</th>
+                                            <th>RETURN</th>
+                                            <th>LINE NUMBER (S)</th>
+                                            <th>STOCK LOCATION</th>
+                                            <th>PREFIX</th>
+                                            <th>QTY</th>
+                                            <th>SHIP QTY</th>
+                                            <th>B.O. QTY</th>
+                                            <th>USTER NOTES</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% set totalRequested = 0 %}
+                                        {% set totalBackOrdered = 0 %}
+                                        {% set totalShipped = 0 %}
+                                        {% for item in cart.cartProducts %}
+                                            {% set totalRequested = totalRequested + item.quantity %}
+                                            {% set totalBackOrdered = totalBackOrdered + item.backOrderQuantity %}
+                                            {% set totalShipped = totalShipped + item.shipQuantity %}
+                                            <tr>
+                                                <td>{{ item.stockNumber }}</td>
+                                                <td>{{ item.description }}</td>
+                                                <td>
+                                                    {% if item.returnRequired %}
+                                                        <center><i class='fa fa-check-circle-o'
+                                                                   style='font-size: 25px;color: #e2001a; padding-top: 7px;'></i>
+                                                        </center>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% for num in item.cartProductLineNumbers %}
+                                                        <div style="display: block;">
+                                                            {{ num.lineNumber }}
+                                                        </div>
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <center>
+                                                            {{ item.stockLocation.name }}
+                                                        </center>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <center>
+                                                            {{ item.partNumberPrefix.name }}
+                                                        </center>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <center>
+                                                            {{ item.quantity }}
+                                                        </center>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <center>
+                                                            {{ item.shipQuantity }}
+                                                        </center>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <center>
+                                                            {{ item.backOrderQuantity }}
+                                                        </center>
+                                                    </div>
+                                                </td>
 
-                                            <td>
-                                                <center>
-                                                {{ item.note }}
-                                                </center>
-                                        </td>
-                                        </div>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                            </table>
-                            </div>
+                                                <td>
+                                                    <center>
+                                                        {{ item.note }}
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12">
                                         <div class="well">
@@ -125,12 +144,12 @@
                                                    style="color: #e2001a;">{{ user.email }}</a>
                                             </address>
                                             {% if office %}
-                                            <address style="margin-bottom: 5px;">
-                                                <strong>#{{ office.officeNumber }} {{ office.name }}</strong><br>
-                                                {{ office.address }}<br>
-                                                {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
-                                                <abbr title="Phone">P:</abbr> {{ office.phone }}
-                                            </address>
+                                                <address style="margin-bottom: 5px;">
+                                                    <strong>#{{ office.officeNumber }} {{ office.name }}</strong><br>
+                                                    {{ office.address }}<br>
+                                                    {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
+                                                    <abbr title="Phone">P:</abbr> {{ office.phone }}
+                                                </address>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -148,25 +167,10 @@
                                     <div class="col-md-4 col-xs-12 invoice-block"
                                          style="text-align: right; margin-top: 30px;">
                                         <ul class="list-unstyled amounts">
-                                            <li>
-                                                <strong>Shipping:</strong><a style="border: none; width: 50px; margin-right: 8px; padding-bottom: 10px; text-align: right; font-size: 18px;color: #777;
-    margin-left: 15px;">{{ shipping }}</a>
-                                                <hr>
-                                            </li>
-                                            <li>
-                                                <strong>Items Requested:</strong> <input ng-model="requested" disabled
-                                                                                         style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
-                                            </li>
-                                            <li>
-                                                <strong>Items Back Ordered:</strong> <input ng-model="backOrders"
-                                                                                            disabled
-                                                                                            style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
-                                            </li>
-                                            <li>
-                                                <hr>
-                                                <strong>Items Shipped:</strong> <input ng-model="shipped" disabled
-                                                                                       style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
-                                            </li>
+                                            <li><strong>Shipping:</strong><span class="total-value">{{ shipping }}</span><hr></li>
+                                            <li><strong>Items Requested:</strong><span class="total-value">{{ totalRequested }}</span></li>
+                                            <li><strong>Items Back Ordered:</strong><span class="total-value">{{ totalBackOrdered }}</span></li>
+                                            <li><hr><strong>Items Shipped:</strong><span class="total-value">{{ totalShipped }}</span></li>
                                         </ul>
                                         <br>
                                         <a class="btn btn-lg btn-default"
@@ -174,7 +178,8 @@
                                                     class="fa fa-arrow-left"></i>
                                             Re-open & Edit Order
                                         </a>
-                                        <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
+                                        <a class="btn btn-lg btn-info hidden-print" target="_blank"
+                                           href="{{ path('admin_order_print', {'id': cart.id}) }}">Print</a>
                                     </div>
                                 </div>
                             </div>
@@ -187,182 +192,3 @@
         </div>
     </div>
 {% endblock content %}
-
-{% block footer %}
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-        $(document).ready(function () {
-            oTable = $('#part-table').DataTable({
-                "paging": false,
-                "sDom": '<"top">rt<"bottom"lp><"clear">'
-            });
-            $('#myInputTextField').keyup(function () {
-                oTable.search($(this).val()).draw();
-            })
-        });
-        $(function () {
-
-            var $container = $('#container'),
-                    $select = $('#filters select');
-
-            $container.isotope({
-                itemSelector: '.grid-item'
-            });
-
-            $select.change(function () {
-                var filters = $(this).val();
-                $container.isotope({
-                    filter: filters,
-                    animationEngine: 'css'
-                });
-            });
-
-        });
-
-        var app = angular.module("myShoppingList", []);
-        app.controller("myCtrl", function ($scope) {
-            $scope.shipped = 0;
-            $scope.requested = 0;
-            $scope.backOrders = 0;
-            $scope.cart = [];
-            $scope.products = [];
-
-
-            $.ajax({
-                beforeSend: function () {
-                    console.log('json load cart');
-                },
-                type: 'POST',
-                data: {order_id: {{ cart_id }} },
-                url: "{{ path('api_load_cart_by_id') }}",
-                success: function (data) {
-                    $scope.$apply(function () {
-                        $scope.cart = data.cart;
-                        $scope.shipped = data.shipped;
-                        $scope.requested = data.requested;
-                        $scope.backOrders = data.backOrders;
-                        $scope.numItems = data.num_items;
-                    });
-                }
-            });
-
-            $.ajax({
-                beforeSend: function () {
-                    console.log('json start');
-                },
-                type: 'GET',
-                url: "{{ path('api_get_products') }}",
-                success: function (data) {
-                    $scope.$apply(function () {
-                        $scope.products = data;
-                    });
-                }
-            });
-
-            $scope.inArray = function (item, array) {
-                return array.indexOf(item);
-            };
-
-            $scope.addItem = function (item) {
-                console.log(item);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_add_item_by_id') }}",
-                    data: {product_id: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.shipped = data.shipped;
-                            $scope.requested = data.requested;
-                            $scope.backOrders = data.backOrders;
-                            $scope.numItems = data.num_items;
-                        });
-                    }
-                });
-            };
-
-            $scope.removeItem = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_remove_item_by_id') }}",
-                    data: {product_id: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    }
-                });
-            };
-
-            $scope.updateProduct = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_product') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.shipped = data.shipped;
-                            $scope.requested = data.requested;
-                            $scope.backOrders = data.backOrders;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
-
-            $scope.addLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_add_line_number_review_order') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
-            $scope.updateLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_line_number_review_order') }}",
-                    data: {line_number: item},
-                    dataType: 'json',
-                    success: function () {
-
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
-            $scope.removeLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_remove_line_number_review_order') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
-        });
-    </script>
-{% endblock footer %}

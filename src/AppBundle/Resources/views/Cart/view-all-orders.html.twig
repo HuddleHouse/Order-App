@@ -19,7 +19,7 @@
     <div class="row" style="margin-bottom: 30px;">
         <div class="col-md-12">
             <center>
-                <a class="btn btn-lg btn-primary" href="/">
+                <a class="btn btn-lg btn-primary" href="{{ path("user_home") }}">
                     Submit Another Order
                 </a>
             </center>
@@ -53,7 +53,7 @@
 
                                 {% for item in submitted %}
                                     <tr>
-                                        <td style="padding-top: 20px;">{{ item.id }}</td>
+                                        <td style="padding-top: 20px;">{{ item.orderNumber }}</td>
                                         <td style="padding-top: 20px;">{{ item.submitDate | date('m/d/Y') }}</td>
                                         <td style="padding-top: 20px;">
                                             <span class="label label-sm label-info">Review Pending</span>
@@ -108,7 +108,7 @@
 
                                 {% for item in approved %}
                                     <tr>
-                                        <td style="padding-top: 20px;">{{ item.id }}</td>
+                                        <td style="padding-top: 20px;">{{ item.order_number }}</td>
                                         <td style="padding-top: 20px;">{{ item.submit_date | date('m/d/Y') }}</td>
                                         <td style="padding-top: 20px;">
                                             <center>{{ item.shipped }}</center>

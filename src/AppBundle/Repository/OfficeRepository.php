@@ -2,7 +2,10 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Office;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\ORMException;
 
 /**
  * OfficeRepository
@@ -12,4 +15,92 @@ use Doctrine\ORM\EntityRepository;
  */
 class OfficeRepository extends EntityRepository
 {
+    public function resetOrderNumberPerOffice()
+    {
+        $offices = $this->_em->getRepository('AppBundle:Office')->findAll();
+
+        $currentYear = $this->getBusinessYear(new \DateTime());
+
+        $dql = <<<DQL
+SELECT MAX(SUBSTRING(c.order_number, 5))
+FROM AppBundle\Entity\Cart c
+WHERE SUBSTRING(c.order_number, 1, 2) = :officeNumber
+AND SUBSTRING(c.order_number, 3, 2) = :year
+DQL;
+        foreach ($offices as $office) {
+            if ($office->getStartingOrderNumber()) continue;
+
+            try {
+                $out = $this->_em->createQuery($dql)
+                    ->setParameter('officeNumber', $office->getOfficeNumber())
+                    ->setParameter('year', $currentYear)
+                    ->getSingleScalarResult();
+
+                $newOrderNumber = (int)$out + 1;
+            } catch (ORMException $e) {
+                $newOrderNumber = 1;
+            }
+
+            if ($newOrderNumber > 9999) {
+                $newOrderNumber = 1;
+            }
+
+            $office->setStartingOrderNumber($newOrderNumber);
+        }
+
+        $this->_em->flush();
+    }
+
+    public function getBusinessYear(\DateTime $date)
+    {
+        $year = (int) $date->format('y');
+        $month = (int) $date->format('n');
+
+        if ($month > 3) {
+            return $year;
+        } else {
+            return $year - 1;
+        }
+    }
+
+    public function getNextOrderNumber(User $user, $andFormat = true)
+    {
+        $currentYear = $this->getBusinessYear(new \DateTime());
+
+        if ($office = $user->getOffice()) {
+            $officeNumber = $office->getOfficeNumber();
+        } else {
+            $officeNumber = 0;
+        }
+
+        if ($office) {
+            $cartRepository = $this->_em->getRepository('AppBundle:Cart');
+
+            for (
+                $serialNumber = $office->getStartingOrderNumber();
+                $cartRepository->findByOrderNumber($this->formatAsOrderNumber($officeNumber, $currentYear, $serialNumber));
+                $serialNumber = $this->getNextNumberInCyclicSequence($serialNumber)
+            );
+
+            $office->setStartingOrderNumber($this->getNextNumberInCyclicSequence($serialNumber));
+            $this->_em->persist($office);
+            $this->_em->flush();
+        }
+
+        if ($andFormat) {
+            $serialNumber = $this->formatAsOrderNumber($officeNumber, $currentYear, $serialNumber);
+        }
+
+        return $serialNumber;
+    }
+
+    public function formatAsOrderNumber($officeNumber, $year, $serialNumber)
+    {
+        return sprintf("%02d%02d%04d", $officeNumber, $year, $serialNumber);
+    }
+
+    public function getNextNumberInCyclicSequence($number, $limit = 10000)
+    {
+        return ++$number % $limit + floor($number / $limit);
+    }
 }

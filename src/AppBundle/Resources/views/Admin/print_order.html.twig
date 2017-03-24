@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @media all {
+            body {
+                font-size: small;
+            }
+            h3 {
+                text-transform: uppercase;
+            }
+
+            table.layout > tbody > tr > td,
+            table.layout > tr > td {
+                vertical-align: top;
+            }
+        }
+    </style>
+</head>
+<body>
+<table class="layout" width="100%">
+    <tr>
+        <td colspan="3">
+            <h3>Order ITEMS</h3>
+            <table cellspacing="0" cellpadding="3" border="1" style="border-collapse: collapse" width="100%">
+                <thead>
+                <tr>
+                    <th>PRODUCT #</th>
+                    <th>DESCRIPTION</th>
+                    <th>RETURN</th>
+                    <th>LINE NO. (S)</th>
+                    <th>STOCK LOCATION</th>
+                    <th>PREFIX</th>
+                    <th>QTY</th>
+                    <th>SHIP QTY</th>
+                    <th>B.O. QTY</th>
+                    <th>USTER NOTES</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set totalRequested = 0 %}
+                {% set totalBackOrdered = 0 %}
+                {% set totalShipped = 0 %}
+
+                {% for product in cart.cartProducts %}
+                    {% set totalRequested = totalRequested + product.quantity %}
+                    {% set totalBackOrdered = totalBackOrdered + product.backOrderQuantity %}
+                    {% set totalShipped = totalShipped + product.shipQuantity %}
+
+                    <tr>
+                        <td>{{ product.stockNumber }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.returnRequired ? 'YES' : '' }}</td>
+                        <td>
+                            {% set lineNumbers = [] %}
+                            {% for lineNumber in product.cartProductLineNumbers %}
+                                {% set lineNumbers = lineNumbers|merge([lineNumber.lineNumber]) %}
+                            {% endfor %}
+                            {{ lineNumbers|join(glue=', ') }}
+                        </td>
+                        <td>{{ product.stockLocation ? product.stockLocation.name : '' }}</td>
+                        <td>{{ product.partNumberPrefix ? product.partNumberPrefix.name : '' }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.shipQuantity }}</td>
+                        <td>{{ product.backOrderQuantity }}</td>
+                        <td>{{ product.note }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3>Order Info</h3>
+            <p>
+                Order No.: <strong>{{ cart.orderNumber }}</strong>
+            </p>
+            <p>
+                Date Placed: <strong>{{ cart.submitDate|date('Y-m-d') }}</strong>
+            </p>
+            <p>
+                Date Processed: <strong>{{ cart.submitDate|date('Y-m-d') }}</strong>
+            </p>
+            <p>
+                Requested By: <strong>{{ cart.requesterFirstName ~ ' ' ~ cart.requesterLastName }}</strong>
+            </p>
+            <p>
+                Account Name: <strong>{{ cart.user.firstName ~ ' ' ~ cart.user.lastName }}</strong>
+            </p>
+            <p>
+               <strong>{{ cart.user.email }}</strong>
+            </p>
+            {% if cart.office %}
+                <address>
+                    <strong># {{ cart.office.name }}</strong><br>
+                    {{ cart.office.address }}<br>
+                    {{ cart.office.city }}, {{ cart.office.state }} {{ cart.office.zip }}<br>
+                    <abbr title="Phone">P:</abbr> {{ cart.office.phone }}<br>
+                    {% if cart.office.shipToAccountNumber %}
+                        Ship To Account No.: {{ cart.office.shipToAccountNumber }}
+                    {% endif %}
+                </address>
+            {% endif %}
+        </td>
+        <td>
+            <h3>USDA Notes</h3>
+            <p>
+                {{ cart.note }}
+            </p>
+        </td>
+        <td>
+            <p>
+                Shipping: <strong>{{ cart.shippingMethod.name }}</strong>
+            </p>
+            <p>
+                Items Requested: <strong>{{ totalRequested }}</strong>
+            </p>
+            <p>
+                Items Back Ordered: <strong>{{ totalBackOrdered }}</strong>
+            </p>
+            <p>
+                Items Shipped: <strong>{{ totalShipped }}</strong>
+            </p>
+        </td>
+    </tr>
+</table>
+<script>
+    print();
+</script>
+</body>
+</html>

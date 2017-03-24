@@ -22,14 +22,23 @@ class UserType extends AbstractType
         $builder
             ->add('first_name', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
             ->add('last_name', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
+            ->add('username', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
             ->add('email', EmailType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
-            ->add('password', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
+            ->add('plain_password', PasswordType::class, array('label' => 'Password', 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px')))
             ->add('office', EntityType::class, array(
                 'class' => 'AppBundle:Office',
                 'label' => 'Office',
                 'choice_label' => 'name',
                 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px'),
                 'required' => false
+            ))
+            ->add('role', ChoiceType::class, array(
+                'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px'),
+                'label' => 'Account Type',
+                'choices' => array(
+                    'User' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN',
+                ),
             ))
             ->add('enabled', ChoiceType::class, array(
                 'attr' => array('class' => 'form-control', 'style' => 'margin-bottom: 10px'),

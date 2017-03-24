@@ -11,6 +11,8 @@
                 {{ form_errors(form.state) }}
                 {{ form_errors(form.zip) }}
                 {{ form_errors(form.phone) }}
+                {{ form_errors(form.starting_order_number) }}
+                {{ form_errors(form.shipToAccountNumber) }}
             </div>
         </div>
     </div>
@@ -31,10 +33,14 @@
                     {{ form_widget(form.name) }}
                     {{ form_label(form.phone) }}
                     {{ form_widget(form.phone) }}
+                    {{ form_label(form.shipToAccountNumber) }}
+                    {{ form_widget(form.shipToAccountNumber) }}
                 </div>
                 <div class="col-md-6">
                     {{ form_label(form.office_number) }}
                     {{ form_widget(form.office_number) }}
+                    {{ form_label(form.starting_order_number) }}
+                    {{ form_widget(form.starting_order_number) }}
                 </div>
             </div>
             <h3 class="form-section">Office Address</h3>
@@ -52,7 +58,6 @@
                 <div class="col-md-6">
                     {{ form_label(form.state) }}
                     {{ form_widget(form.state) }}
-
                 </div>
             </div>
             <div style="padding-top: 20px;">

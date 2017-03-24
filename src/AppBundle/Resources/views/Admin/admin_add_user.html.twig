@@ -1,8 +1,8 @@
 {% extends ":template:layout.html.twig" %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Add User{% endblock %}
 {% block page_title %}
-    Edit User
+    Add User
 {% endblock page_title %}
 
 {% block page_name %}
@@ -10,6 +10,9 @@
 {% endblock page_name %}
 
 {% block actions %}
+    <a class="btn btn-primary btn-m purple"
+       href="{{ path('view_users') }}"><i
+                class="fa fa-list"></i> Back</a>
 {% endblock actions %}
 
 {% block content %}
@@ -26,8 +29,8 @@
     <div class="container">
         <div class="portlet-body form">
             <div class="form-body">
-                {{ form_start(form, { 'action': path('admin_edit_user', { 'user_id': user_id }), 'attr': { 'autocomplete': 'nope', 'class': 'form-group' } }) }}
-                <h3 class="form-section">Edit Employee Info</h3>
+                {{ form_start(form, { 'action': path('admin_add_user'), 'attr': { 'autocomplete': 'nope', 'class': 'form-group' } }) }}
+                <h3 class="form-section">Add an Employee</h3>
                 <div class="row">
                     <div class="col-md-4">
                         {{ form_label(form.first_name) }}
@@ -41,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         {{ form_label(form.username) }}
-                        {{ form_widget(form.username, {'attr': {'readonly': 'readonly'}}) }}
+                        {{ form_widget(form.username) }}
                     </div>
                     <div class="col-md-4">
                         {{ form_label(form.email) }}
@@ -50,8 +53,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8">
-                        {{ form_label(form.plain_password, "Password (*Keep it blank not to change)") }}
-                        {{ form_widget(form.plain_password, {'attr': {'required': '3'}}) }}
+                        {{ form_label(form.plain_password) }}
+                        {{ form_widget(form.plain_password) }}
                     </div>
                 </div>
                 <div class="row">
@@ -71,7 +74,7 @@
                     </div>
                 </div>
                 <div style="padding-top: 20px;">
-                    <input class="btn btn-success" type="submit" value="Update"/>
+                    <input class="btn btn-success" type="submit" value="Add"/>
                 </div>
             </div>
 
@@ -80,11 +83,3 @@
     </div>
     {{ form_end(form) }}
 {% endblock content %}
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $(function () {
-            document.getElementById('user_plain_password').removeAttribute('required');
-        });
-    </script>
-{% endblock %}

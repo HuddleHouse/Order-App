@@ -2,8 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
+use AppBundle\Entity\Cart;
 use AppBundle\Entity\Invitation;
+use AppBundle\Entity\User;
 use AppBundle\Repository\OfficeRepository;
+use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -210,7 +216,6 @@ class AdminController extends Controller
 
         if($form->isValid()) {
             try {
-                $event = new FormEvent($form, $request);
                 $userManager->updateUser($user);
                 $successMessage = "User information updated succesfully.";
                 $this->addFlash('notice', $successMessage);
@@ -229,6 +234,58 @@ class AdminController extends Controller
             'form' => $form->createView(),
             'user_id' => $user_id
         ));
+    }
+
+    /**
+     * @Route("/admin/view-users/add", name="admin_add_user")
+     */
+    public function viewAdminAddUserAction(Request $request)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+
+        $form = $this->createForm(UserType::class);
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            try {
+                /** @var \AppBundle\Entity\User $user */
+                $user = $form->getData();
+
+                $userManager->updateUser($user);
+
+                $this->addFlash('notice', sprintf('Successfully added a user %s', $user->getUsername()));
+
+                return $this->redirectToRoute('view_users');
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Error adding an employee: ' . $e->getMessage() . "\n");
+                return $this->render('@App/Admin/admin_add_user.html.twig', array(
+                    'form' => $form->createView(),
+                ));
+            }
+        }
+
+        return $this->render('@App/Admin/admin_add_user.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/admin/view-users/delete/{id}", name="admin_delete_user")
+     * @ParamConverter(name="user", class="AppBundle\Entity\User")
+     */
+    public function deleteUserAction(User $user)
+    {
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($user);
+            $em->flush();
+
+            $this->addFlash('notice', 'Deleted user ' . $user->getUsername());
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Error deleting a user: ' . $e->getMessage() . "\n");
+        }
+
+        return $this->redirectToRoute('view_users');
     }
 
     /**
@@ -265,62 +322,42 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/order/{id}/delete", name="admin_order_delete")
+     */
+    public function deleteAdminOrderAction(Request $request, Cart $cart)
+    {
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($cart);
+            $em->flush();
+            $this->addFlash('notice', sprintf('Cart #%s removed.', $cart->getOrderNumber()));
+        } catch (\Exception $e) {
+            $this->addFlash('notice', $e->getMessage());
+        }
+
+        return $this->redirectToRoute('admin_home');
+    }
+
+    /**
+     * @Route("/admin/order/{id}/print", name="admin_order_print")
+     * @ParamConverter(name="cart", class="AppBundle:Cart")
+     */
+    public function printOrderAction(Request $request, Cart $cart)
+    {
+        return $this->render('@App/Admin/print_order.html.twig', array('cart' => $cart));
+    }
+
+    /**
      * @Route("/admin/order/{cart_id}", name="admin_order_approve")
      */
     public function approveOrderAction(Request $request, $cart_id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
         $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
         $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
-        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
-        if(!$cart->getApproved()) {
-            $this->addFlash('notice', "Order Approved Successfully.");
-            /*
-             * SEND EMAILS TO EVERYONE HERE
-             *
-             */
-            try {
-                //only send the email
-                $connection = $em->getConnection();
-                $statement = $connection->prepare("select * from office_email where office_id = :id");
-                $statement->bindValue('id', $cart->getOffice()->getId());
-
-                $statement->execute();
-                $data = $statement->fetchAll();
-
-                foreach($data as $email) {
-                    $from = 'utus-orders@gmail.com';
-                    $to = $email['email'];
-
-                    $email_service = $this->get('email_service');
-                    $email_service->sendEmail(array(
-                            'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber() . " has been fulfilled.",
-                            'from' => $from,
-                            'to' => $to,
-                            'body' => $this->renderView("AppBundle:Email:order_approved_notification.html.twig",
-                                array(
-                                    'cart' => $cart
-                                )
-                            )
-                        )
-                    );
-                }
-            } catch(\Exception $e) {
-                $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
-                return $this->redirectToRoute('view_all_orders');
-            }
-
-            $cart->setApproved(1);
-            $cart->setApprovedBy($user);
-            $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
-        }
-
-        $em->persist($cart);
-        $em->flush();
 
         return $this->render('AppBundle:Admin:approve_order.html.twig', array(
             'products' => $products,

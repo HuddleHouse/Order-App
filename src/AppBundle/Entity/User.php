@@ -55,7 +55,7 @@ class User extends BaseUser
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Office")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
     protected $office;
 
@@ -129,6 +129,16 @@ class User extends BaseUser
     public function setOffice($office)
     {
         $this->office = $office;
+    }
+
+    public function getRole()
+    {
+        return current($this->getRoles());
+    }
+
+    public function setRole($role)
+    {
+        $this->setRoles(array($role));
     }
 
 }

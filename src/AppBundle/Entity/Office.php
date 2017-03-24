@@ -5,12 +5,15 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Office
  *
  * @ORM\Table(name="offices")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OfficeRepository")
+ * @UniqueEntity(fields={"shipToAccountNumber"}, message="The Ship To Account Number should be a unique value.")
  */
 class Office extends BaseGroup
 {
@@ -50,18 +53,34 @@ class Office extends BaseGroup
      * @ORM\Column(name="state", type="string", length=255)
      */
     protected $state;
+
     /**
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=255)
      */
     protected $phone;
+
+    /**
+     * @var int
+     *
+     * @Assert\Range(min=1, max=9999, invalidMessage="The order number should be between 1 and 9999.")
+     * @ORM\Column(name="starting_order_number", type="integer")
+     */
+    protected $startingOrderNumber;
     /**
      * @var string
      *
      * @ORM\Column(name="zip", type="integer")
      */
     protected $zip;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_to_account_no", type="string", nullable=true, unique=true)
+     */
+    protected $shipToAccountNumber;
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
@@ -73,7 +92,7 @@ class Office extends BaseGroup
     protected $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OfficeEmail", mappedBy="office_id")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OfficeEmail", mappedBy="office")
      */
     private $emails;
 
@@ -85,6 +104,7 @@ class Office extends BaseGroup
     {
         $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->startingOrderNumber = 1;
     }
 
     /**
@@ -257,5 +277,29 @@ class Office extends BaseGroup
         $this->emails = $emails;
     }
 
-    
+    /**
+     * @return int
+     */
+    public function getStartingOrderNumber()
+    {
+        return $this->startingOrderNumber;
+    }
+
+    /**
+     * @param int $startingOrderNumber
+     */
+    public function setStartingOrderNumber($startingOrderNumber)
+    {
+        $this->startingOrderNumber = $startingOrderNumber;
+    }
+
+    public function getShipToAccountNumber()
+    {
+        return $this->shipToAccountNumber;
+    }
+
+    public function setShipToAccountNumber($number)
+    {
+        $this->shipToAccountNumber = $number;
+    }
 }
