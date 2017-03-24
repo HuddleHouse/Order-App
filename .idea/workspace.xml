@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="#27 #24 #25 #26 #28">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/submit-filter.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/review-order.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/submit-colorhead.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/submit-colorhead.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations." />
@@ -93,7 +91,7 @@
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/submit-filter.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="544">
-              <caret line="32" column="39" lean-forward="false" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
+              <caret line="33" column="25" lean-forward="false" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -103,7 +101,7 @@
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/submit-colorhead.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="493">
-              <caret line="29" column="33" lean-forward="false" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+              <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
               <folding>
                 <element signature="e#12#38#0#Twig" expanded="true" />
               </folding>
@@ -881,14 +879,7 @@
       <workItem from="1489778264293" duration="1191000" />
       <workItem from="1490297354467" duration="1638000" />
       <workItem from="1490302960318" duration="6784000" />
-      <workItem from="1490341059594" duration="3496000" />
-    </task>
-    <task id="LOCAL-00109" summary="In the admin menu, please remove the “Send User Invite” section entirely. &#10;">
-      <created>1463334556161</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1463334556161</updated>
+      <workItem from="1490341059594" duration="3507000" />
     </task>
     <task id="LOCAL-00110" summary="In the admin menu, please remove the “Send User Invite” section entirely. &#10;">
       <created>1463337358521</created>
@@ -1226,11 +1217,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490344366582</updated>
     </task>
-    <option name="localTasksCounter" value="158" />
+    <task id="LOCAL-00158" summary="#27 #24 #25 #26 #28">
+      <created>1490344779360</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1490344779360</updated>
+    </task>
+    <option name="localTasksCounter" value="159" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176057000" />
+    <option name="totallyTimeSpent" value="176068000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2114,7 +2112,7 @@
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/submit-filter.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
-          <caret line="32" column="39" lean-forward="false" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
+          <caret line="33" column="25" lean-forward="false" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -2122,7 +2120,7 @@
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Cart/submit-colorhead.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
-          <caret line="29" column="33" lean-forward="false" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+          <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
           <folding>
             <element signature="e#12#38#0#Twig" expanded="true" />
           </folding>
