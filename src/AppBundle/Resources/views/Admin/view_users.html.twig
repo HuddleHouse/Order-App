@@ -84,8 +84,7 @@ All Registered Users
             $('#part-table').DataTable({
                 "paging": false
             });
-        });
-
+        })
         function removeUser(id) {
             if (confirm("Are you sure you want to delete this user?")) {
                 var url = "{{ path('admin_delete_user', {'id': 'to_delete_id'}) }}";

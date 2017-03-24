@@ -258,28 +258,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Deletes a User entity.
-     *
-     * @Route("/admin/view-users/delete/{id}", name="admin_delete_user")
-     */
-    public function deleteUserAction(Request $request, User $user)
-    {
-        $userManager = $this->get('fos_user.user_manager');
-
-        try {
-            $userManager->deleteUser($user);
-            $successMessage = "User removed succesfully.";
-            $this->addFlash('notice', $successMessage);
-        } catch (\Exception $e) {
-            $this->addFlash('error', 'Error removing user: ' . $e->getMessage());
-            return $this->redirectToRoute('view_users');
-        }
-
-        $this->addFlash('notice', 'User deleted successfully.');
-        return $this->redirectToRoute('view_users');
-    }
-
-    /**
      * @Route("/admin/view-users/add", name="admin_add_user")
      */
     public function viewAdminAddUserAction(Request $request)
