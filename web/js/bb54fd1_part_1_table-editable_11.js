@@ -93,7 +93,7 @@ var TableEditable = function () {
                     oTable.fnDeleteRow(nEditing); // cancel
                     nEditing = null;
                     nNew = false;
-
+                    
                     return;
                 }
             }
