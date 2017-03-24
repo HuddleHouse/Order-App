@@ -60,9 +60,10 @@ All Registered Users
                             <a class="btn btn-info btn-xs"
                                href="{{ path('admin_edit_user', {'user_id': user.id}) }}"><i
                                         class="fa fa-edit"></i> Edit</a>
-                            <!-- <a class="btn btn-danger btn-xs" data-role="delete-user"
-                               href="{{ path('admin_delete_user', {'id': user.id}) }}"><i
-                                        class="fa fa-remove"></i> Delete</a> -->
+                            <button class="btn btn-default btn-xs purple"
+                                    onclick="removeUser({{ user.id }})"><i
+                                        class="fa fa-trash"></i> delete
+                            </button>
                         </td>
                     </tr>
                 {% endfor %}

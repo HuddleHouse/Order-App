@@ -296,16 +296,18 @@ class AdminController extends Controller
      */
     public function deleteUserAction(User $user)
     {
-        try {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush();
+        $userManager = $this->get('fos_user.user_manager');
 
-            $this->addFlash('notice', 'Deleted user ' . $user->getUsername());
+        try {
+            $userManager->deleteUser($user);
+            $successMessage = "User removed succesfully.";
+            $this->addFlash('notice', $successMessage);
         } catch (\Exception $e) {
-            $this->addFlash('error', 'Error deleting a user: ' . $e->getMessage() . "\n");
+            $this->addFlash('error', 'Error removing user: ' . $e->getMessage());
+            return $this->redirectToRoute('view_users');
         }
 
+        $this->addFlash('notice', 'User deleted successfully.');
         return $this->redirectToRoute('view_users');
     }
 
