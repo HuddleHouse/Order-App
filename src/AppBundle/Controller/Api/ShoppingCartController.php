@@ -53,6 +53,31 @@ class ShoppingCartController extends Controller
     }
 
     /**
+     * @Route("/api/set-cart-type", name="api_set_cart_type")
+     */
+    public function setCartTypeAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cart = $this->getCurrentCart();
+        $option = $request->request->get('option');
+        $cart->setType($option);
+        if($option == 'colorhead') {
+            foreach($cart->getCartProducts() as $key => $product)
+                if($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead')
+                    $this->removeCartItem($product->getPart()->getId());
+        }
+        else if($option == 'order') {
+            foreach($cart->getCartProducts() as $key => $product)
+                if($product->getPart()->getPartCategory()->getNameCononical() == 'colorhead')
+                    $this->removeCartItem($product->getPart()->getId());
+        }
+        $em->persist($cart);
+        $em->flush();
+
+        return 1;
+    }
+
+    /**
      * @Route("/api/admin-change-order-number", name="api_admin_change_order_number")
      */
     public function adminChangeOrderNumberAction(Request $request)

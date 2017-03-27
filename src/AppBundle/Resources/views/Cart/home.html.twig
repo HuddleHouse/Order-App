@@ -221,7 +221,8 @@
                         <a ng-if="cart.length > 0" class="btn btn-primary" id="review_order"
                            style="float: right;margin-right: 20px; margin-bottom: 20px;" ng-click="reviewOrder()">REVIEW ORDER</a>
 
-                        <button type="button" class="btn btn-primary" id="btnAddUnknownItem" data-toggle="modal" data-target="#myModal"
+                        <button ng-if="option != 'colorhead'" type="button" class="btn btn-primary"
+                                id="btnAddUnknownItem" data-toggle="modal" data-target="#myModal"
                                 style="float: right;margin-right: 20px; margin-bottom: 20px;">ADD AN UNKNOWN ITEM
                         </button>
 
@@ -433,6 +434,18 @@
             // Load Cart
             $.get("{{ path('api_load_cart') }}").done(updateCart);
 
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('api_set_cart_type') }}",
+                data: {option: $scope.option},
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
             // Load Products
             $.get("{{ path('api_get_products') }}").done(function (data) {
                 $scope.products = data;
@@ -474,7 +487,6 @@
             $scope.addItem = function (item) {
                 $.post("{{ path('api_add_item') }}", {part: item}).done(function (data) {
                     updateCart(data);
-                    console.log(data)
                 });
             };
 

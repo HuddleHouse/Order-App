@@ -40,7 +40,7 @@
                                             </td>
                                             <td>
                                                 <div ng-repeat="num in item.line_numbers track by $index" style="display: inline-block;">
-                                                    <input ng-model="num.line_number" type="text" class="form-control line-number" disabled ng-change="updateLineNumber(num)" maxlength="4" style="width: 60px;">
+                                                    <input ng-model="num.line_number" type="text" class="form-control line-number" disabled maxlength="4" style="width: 60px;">
                                                 </div>
                                             </td>
                                             <td style="padding-top: 20px;">{{ item.quantity }}</td>
@@ -109,50 +109,50 @@
                 });
             });
 
-            $scope.updateNotes = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_update_notes') }}",
-                    data: {note: item, cart_id: {{ cart_id }} },
-                    dataType: 'json',
-                    success: function () {
+            {#$scope.updateNotes = function (item) {#}
+            {#$.ajax({#}
+            {#type: 'POST',#}
+            {#url: "{{ path('api_update_notes') }}",#}
+            {#data: {note: item, cart_id: {{ cart_id }} },#}
+            {#dataType: 'json',#}
+            {#success: function () {#}
 
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
+            {#},#}
+            {#error: function (data) {#}
+            {#console.log(data);#}
+            {#}#}
+            {#});#}
+            {#};#}
 
-            $scope.updateRequesterName = function (name) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_update_requester_name') }}",
-                    data: {note: name, cart_id: {{ cart_id }} },
-                    dataType: 'json',
-                    success: function () {
+            {#$scope.updateRequesterName = function (name) {#}
+            {#$.ajax({#}
+            {#type: 'POST',#}
+            {#url: "{{ path('api_update_requester_name') }}",#}
+            {#data: {note: name, cart_id: {{ cart_id }} },#}
+            {#dataType: 'json',#}
+            {#success: function () {#}
 
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
+            {#},#}
+            {#error: function (data) {#}
+            {#console.log(data);#}
+            {#}#}
+            {#});#}
+            {#};#}
 
-            $scope.updateRequesterLastName = function (name) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_update_requester_last_name') }}",
-                    data: {note: name, cart_id: {{ cart_id }} },
-                    dataType: 'json',
-                    success: function () {
+            {#$scope.updateRequesterLastName = function (name) {#}
+            {#$.ajax({#}
+            {#type: 'POST',#}
+            {#url: "{{ path('api_update_requester_last_name') }}",#}
+            {#data: {note: name, cart_id: {{ cart_id }} },#}
+            {#dataType: 'json',#}
+            {#success: function () {#}
 
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
+            {#},#}
+            {#error: function (data) {#}
+            {#console.log(data);#}
+            {#}#}
+            {#});#}
+            {#};#}
         });
     </script>
 {% endblock footer %}

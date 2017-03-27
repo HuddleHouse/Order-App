@@ -16,9 +16,27 @@ class CartController extends Controller
      */
     public function submitColorheadOrderAction()
     {
-        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        return $this->render('AppBundle:Cart:submit-colorhead.html.twig', array());
+        $user = $this->getUser();
+        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1, 'approved' => 0));
+
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.ship_quantity) shipped
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+	where c.approved = 1
+	AND c.submitted = 1
+	and c.user_id = :user_id
+	group by c.id;";
+        $stmt = $em->getConnection()->prepare($sql);
+        $params['user_id'] = $user->getId();
+        $stmt->execute($params);
+        $numShipped = $stmt->fetchAll();
+
+        return $this->render('AppBundle:Cart:submit-colorhead.html.twig', array(
+            'submitted' => $submitted,
+            'approved' => $numShipped
+        ));
     }
 
     /**
@@ -186,12 +204,13 @@ class CartController extends Controller
             );
         } catch(\Exception $e) {
             $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
-            return $this->redirectToRoute('view_all_orders');
         }
 
 
-
-        return $this->redirectToRoute('view_all_orders');
+        if($cart->getType() == 'colorhead')
+            return $this->redirectToRoute('submit_colorhead_order');
+        else
+            return $this->redirectToRoute('view_all_orders');
     }
 
     /**
