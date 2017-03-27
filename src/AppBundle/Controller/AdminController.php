@@ -318,11 +318,34 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $products = $em->getRepository('AppBundle:Part')->findAll();
-        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
         $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
+
+        if($cart->getType() == 'order') {
+            $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+            foreach($categories as $key => $category)
+                if($category->getNameCononical() == 'colorhead')
+                    unset($categories[$key]);
+
+            $products = $em->getRepository('AppBundle:Part')->findAll();
+            foreach($products as $key => $product)
+                if($product->getPartCategory()->getNameCononical() == 'colorhead')
+                    unset($products[$key]);
+        }
+        else if($cart->getType() == 'colorhead') {
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
+            $categories = array($category);
+            $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
+        }
+        else if($cart->getType() == 'filter') {
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
+            $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
+            $categories = array($category);
+        }
+        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        $products = $em->getRepository('AppBundle:Part')->findAll();
+
         if($cart->getApproved()) {
             $cart->setApproved(0);
             $em->persist($cart);

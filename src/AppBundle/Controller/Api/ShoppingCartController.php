@@ -77,6 +77,26 @@ class ShoppingCartController extends Controller
         return 1;
     }
 
+    public function removeCartItem($product_id)
+    {
+        $user = $this->getUser();
+        $id = $product_id;
+        $em = $this->getDoctrine()->getManager();
+        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(array('user' => $user, 'submitted' => 0));
+        $part = $em->getRepository('AppBundle:Part')->find($id);
+        $product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part));
+        if($product->getQuantity() == 1) {
+            foreach($product->getCartProductLineNumbers() as $lineNumber)
+                $em->remove($lineNumber);
+            $em->remove($product);
+        }
+        else {
+            $product->setQuantity($product->getQuantity() - 1);
+            $em->persist($product);
+        }
+        $em->flush();
+    }
+
     /**
      * @Route("/api/admin-change-order-number", name="api_admin_change_order_number")
      */
