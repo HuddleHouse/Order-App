@@ -1,3 +1,16 @@
+.header.navbar-fixed-top {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.stats-overview.stat-block {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.portlet {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+
 /*
 Template Name: Conquer - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.0.2
 Version: 1.5.1
