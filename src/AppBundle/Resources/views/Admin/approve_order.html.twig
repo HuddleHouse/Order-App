@@ -52,6 +52,7 @@
                                             <th>QTY</th>
                                             <th>SHIP QTY</th>
                                             <th>B.O. QTY</th>
+                                            <th>B.O. SHIP QTY</th>
                                             <th>USTER NOTES</th>
                                         </tr>
                                         </thead>
@@ -115,7 +116,13 @@
                                                         </center>
                                                     </div>
                                                 </td>
-
+                                                <td>
+                                                    <div class="row">
+                                                        <center>
+                                                            {{ item.backOrderShipQuantity }}
+                                                        </center>
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <center>
                                                         {{ item.note }}

@@ -62,6 +62,22 @@ class AdminController extends Controller
         $stmt->execute();
         $submittedColorhead = $stmt->fetchAll();
 
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, sum(p.back_order_quantity) as bo_quan, sum(p.back_order_ship_quantity) as bo_ship
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+		left join users u
+			on c.user_id = u.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 1
+	AND c.submitted = 1
+	AND p.back_order_quantity > p.back_order_ship_quantity
+	group by c.id";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $submittedBackOrders = $stmt->fetchAll();
+
         $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by
 	from cart c
 		left join cart_products p
@@ -91,7 +107,7 @@ class AdminController extends Controller
 	where c.approved = 1
 	AND c.submitted = 1
 	group by c.id
-	order by c.submit_date DESC";
+	order by c.approve_date DESC";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
         $approved = $stmt->fetchAll();
@@ -134,6 +150,7 @@ class AdminController extends Controller
             'num_pending' => $numPending['num'],
             'submitted_colorhead' => $submittedColorhead,
             'submitted_filters' => $submittedFilters,
+            'submitted_backorders' => $submittedBackOrders
         ));
     }
 
@@ -357,13 +374,11 @@ class AdminController extends Controller
             $categories = array($category);
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
         }
-        else if($cart->getType() == 'filter') {
+        else if($cart->getType() == 'filters') {
             $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
             $categories = array($category);
         }
-        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-        $products = $em->getRepository('AppBundle:Part')->findAll();
 
         if($cart->getApproved()) {
             $cart->setApproved(0);
@@ -423,7 +438,7 @@ class AdminController extends Controller
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
-        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
+
         if(!$cart->getApproved()) {
             $this->addFlash('notice', "Order Approved Successfully.");
             /*
@@ -458,9 +473,9 @@ class AdminController extends Controller
                 }
             } catch(\Exception $e) {
                 $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
-                return $this->redirectToRoute('view_all_orders');
             }
 
+            $user = $this->getUser();
             $cart->setApproved(1);
             $cart->setApprovedBy($user);
             $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
@@ -481,6 +496,33 @@ class AdminController extends Controller
             'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
             'stock_location' => $stock_location,
             'part_prefix' => $part_prefix,
+        ));
+    }
+
+    /**
+     * @Route("/admin/order/{cart_id}/backorders", name="admin_backorder_edit")
+     */
+    public function viewAdminEditBackOrderAction(Request $request, $cart_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('AppBundle:Part')->findAll();
+        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
+        $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
+        $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
+        return $this->render('AppBundle:Admin:review_backorders.html.twig', array(
+            'products' => $products,
+            'categories' => $categories,
+            'cart_id' => $cart_id,
+            'office' => $cart->getOffice(),
+            'user' => $cart->getUser(),
+            'user_notes' => $cart->getNote(),
+            'shipping' => $shipping,
+            'stock_location' => $stock_location,
+            'part_prefix' => $part_prefix,
+            'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
+            'cart' => $cart
         ));
     }
 }

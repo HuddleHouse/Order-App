@@ -209,7 +209,7 @@ class ShoppingCartController extends Controller
                 return JsonResponse::create(true);
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
-                return JsonResponse::create(false);
+                return JsonResponse::create(true);
             }
         }
     }

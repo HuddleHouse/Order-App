@@ -67,6 +67,13 @@ class CartProduct
     private $backOrderQuantity = 0;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="back_order_ship_quantity", type="integer")
+     */
+    private $backOrderShipQuantity = 0;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="note", type="text", nullable=true)
@@ -81,25 +88,11 @@ class CartProduct
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="stock_number", type="string", nullable=true)
-     */
-    private $stockNumber;
-
-    /**
      * @var bool
      *
      * @ORM\Column(name="created_by_admin", type="boolean", nullable=true)
      */
     private $createdByAdmin;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="return_required", type="boolean", nullable=true)
-     */
-    private $returnRequired;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", cascade={"remove"}, mappedBy="cartProduct")
@@ -313,11 +306,6 @@ class CartProduct
         $this->createdByAdmin = $createdByAdmin;
     }
 
-    public function setReturnRequired($returnRequired)
-    {
-        $this->returnRequired = $returnRequired;
-    }
-
     public function isReturnRequired()
     {
         if ($this->createdByAdmin) {
@@ -334,8 +322,21 @@ class CartProduct
         return $this->isUnknown() ? $this->stockNumber : $this->getPart()->getStockNumber();
     }
 
-    public function setStockNumber($stockNumber)
+
+    /**
+     * @return int
+     */
+    public function getBackOrderShipQuantity()
     {
-        $this->stockNumber = $stockNumber;
+        return $this->backOrderShipQuantity;
     }
+
+    /**
+     * @param int $backOrderShipQuantity
+     */
+    public function setBackOrderShipQuantity($backOrderShipQuantity)
+    {
+        $this->backOrderShipQuantity = $backOrderShipQuantity;
+    }
+
 }
