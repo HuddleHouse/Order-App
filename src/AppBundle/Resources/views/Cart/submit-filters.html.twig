@@ -1,0 +1,54 @@
+{% extends ":template:layout.html.twig" %}
+{% block title %}Thank you for your colorhead order{% endblock title %}
+
+{% block page_title %}
+
+
+    <style>
+        .page-bar {
+            display: none;
+        }
+
+        .btn-primary {
+            padding: 2em;
+            font-size: 2em;
+        }
+    </style>
+{% endblock page_title %}
+
+{% block page_name %}
+
+{% endblock page_name %}
+
+{% block content %}
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="stats-overview stat-block">
+                <div class="details">
+
+                    <div class="numbers">
+                        ORDER SUBMITTED SUCCESSFULLY
+                    </div>
+                    <hr>
+                    <div class="title"
+                         style="text-align: center; padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+                        <br><h4>Thank you for submitting a filter order.<br><br></h4><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-md-12">
+            <center>
+                <a class="btn btn-lg btn-default" href="{{ path('view_all_orders') }}">
+                    View All Orders
+                </a>
+                <a class="btn btn-lg btn-primary" style="padding: 10px 16px; font-size: 18px;"
+                   href="{{ path('user_home') }}">
+                    Submit Another Order
+                </a>
+            </center>
+        </div>
+    </div>
+{% endblock content %}

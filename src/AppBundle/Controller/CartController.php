@@ -16,27 +16,15 @@ class CartController extends Controller
      */
     public function submitColorheadOrderAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1, 'approved' => 0));
+        return $this->render('AppBundle:Cart:submit-colorhead.html.twig');
+    }
 
-        $sql = "select c.id, c.order_number, c.submit_date, sum(p.ship_quantity) shipped
-	from cart c
-		left join cart_products p
-			on p.cart_id = c.id
-	where c.approved = 1
-	AND c.submitted = 1
-	and c.user_id = :user_id
-	group by c.id;";
-        $stmt = $em->getConnection()->prepare($sql);
-        $params['user_id'] = $user->getId();
-        $stmt->execute($params);
-        $numShipped = $stmt->fetchAll();
-
-        return $this->render('AppBundle:Cart:submit-colorhead.html.twig', array(
-            'submitted' => $submitted,
-            'approved' => $numShipped
-        ));
+    /**
+     * @Route("/cart/submit/filter", name="submit_filters_order")
+     */
+    public function submitFilterOrderAction()
+    {
+        return $this->render('AppBundle:Cart:submit-filters.html.twig');
     }
 
     /**
@@ -91,8 +79,8 @@ class CartController extends Controller
             $categories = array($category);
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
         }
-        else if($option == 'filter') {
-            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
+        else if($option == 'filters') {
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'filters'));
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
             $categories = array($category);
         }
@@ -152,6 +140,8 @@ class CartController extends Controller
 
         if($cart->getType() == 'colorhead')
             $orderNum = $officeId . $year . $num . '-C';
+        else if($cart->getType() == 'filters')
+            $orderNum = $officeId . $year . $num . '-F';
         else
             $orderNum = $officeId . $year . $num;
 
@@ -209,6 +199,8 @@ class CartController extends Controller
 
         if($cart->getType() == 'colorhead')
             return $this->redirectToRoute('submit_colorhead_order');
+        else if($cart->getType() == 'filters')
+            return $this->redirectToRoute('submit_filters_order');
         else
             return $this->redirectToRoute('view_all_orders');
     }

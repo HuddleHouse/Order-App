@@ -66,15 +66,23 @@ class ShoppingCartController extends Controller
                 if($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead')
                     $this->removeCartItem($product->getPart()->getId());
         }
-        else if($option == 'order') {
+        else if($option == 'filters') {
             foreach($cart->getCartProducts() as $key => $product)
+                if($product->getPart()->getPartCategory()->getNameCononical() != 'filters')
+                    $this->removeCartItem($product->getPart()->getId());
+        }
+        else if($option == 'order') {
+            foreach($cart->getCartProducts() as $key => $product) {
                 if($product->getPart()->getPartCategory()->getNameCononical() == 'colorhead')
                     $this->removeCartItem($product->getPart()->getId());
+                if($product->getPart()->getPartCategory()->getNameCononical() == 'filters')
+                    $this->removeCartItem($product->getPart()->getId());
+            }
         }
         $em->persist($cart);
         $em->flush();
 
-        return 1;
+        return JsonResponse::create(true);
     }
 
     public function removeCartItem($product_id)
@@ -276,7 +284,11 @@ class ShoppingCartController extends Controller
                 $em->persist($lineNumber);
 
                 //always increment a new item
-                $product->setQuantity($product->getQuantity() + 1);
+                if($cart->getType() == 'filters')
+                    $product->setQuantity($product->getQuantity() + 12);
+                else
+                    $product->setQuantity($product->getQuantity() + 1);
+
                 $em->persist($product);
                 $cart->addCartProduct($product);
                 $em->persist($cart);
@@ -284,12 +296,15 @@ class ShoppingCartController extends Controller
         }
         else {
             // Can only have one Colorhead in an order
-            if($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead') {
+            if($cart->getType() != 'colorhead' && $cart->getType() != 'filters') {
                 $product->setQuantity($product->getQuantity() + 1);
                 $em->persist($product);
             }
+            else if($cart->getType() == 'filters') {
+                if($product->getQuantity() != 48)
+                    $product->setQuantity($product->getQuantity() + 12);
+            }
         }
-
 
         $em->flush();
 
@@ -435,7 +450,13 @@ class ShoppingCartController extends Controller
      */
     public function upQuantityAction(CartProduct $product)
     {
-        $product->setQuantity($product->getQuantity() + 1);
+        if($product->getPart()->getPartCategory()->getNameCononical() == 'filters') {
+            if($product->getQuantity() != 48)
+                $product->setQuantity($product->getQuantity() + 12);
+        }
+        else
+            $product->setQuantity($product->getQuantity() + 1);
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
         $em->flush();
@@ -450,13 +471,27 @@ class ShoppingCartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if ($product->getQuantity() <= 1) {
-            foreach ($product->getCartProductLineNumbers() as $lineNumber)
-                $em->remove($lineNumber);
-            $em->remove($product);
-        } else {
-            $product->setQuantity($product->getQuantity() - 1);
-            $em->persist($product);
+        if($product->getPart()->getPartCategory()->getNameCononical() == 'filters') {
+            if($product->getQuantity() != 12) {
+                $product->setQuantity($product->getQuantity() - 12);
+                $em->persist($product);
+            }
+            else {
+                foreach($product->getCartProductLineNumbers() as $lineNumber)
+                    $em->remove($lineNumber);
+                $em->remove($product);
+            }
+        }
+        else {
+            if($product->getQuantity() <= 1) {
+                foreach($product->getCartProductLineNumbers() as $lineNumber)
+                    $em->remove($lineNumber);
+                $em->remove($product);
+            }
+            else {
+                $product->setQuantity($product->getQuantity() - 1);
+                $em->persist($product);
+            }
         }
 
         $em->flush();
