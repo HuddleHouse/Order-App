@@ -41,6 +41,7 @@ class AdminController extends Controller
 	AND c.submitted = 1
 	AND c.type != 'colorhead'
 	AND c.type != 'filters'
+    and c.order_number not like '%-B'
 	group by c.id";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
@@ -70,7 +71,7 @@ class AdminController extends Controller
 			on c.user_id = u.id
 		left join offices o
 			on c.office_id = o.id
-	where c.approved = 1
+	where c.approved = 0
 	AND c.submitted = 1
 	AND p.back_order_quantity > p.back_order_ship_quantity
 	group by c.id";

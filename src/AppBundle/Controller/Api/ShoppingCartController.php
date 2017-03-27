@@ -201,6 +201,56 @@ class ShoppingCartController extends Controller
                 $cart->setApprovedBy($this->getUser());
                 $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
 
+                // Check to see if there are backorders and move them into their own order if there are
+                $connection = $em->getConnection();
+                $statement = $connection->prepare("select sum(p.back_order_quantity) bo_quantity
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+		left join users u
+			on c.user_id = u.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 1
+	AND c.submitted = 1
+	AND p.back_order_quantity > p.back_order_ship_quantity
+	and c.id = 92
+	group by c.id");
+                $statement->bindValue('id', $cart->getId());
+
+                $statement->execute();
+                $bo_quan = $statement->fetch();
+
+                if($bo_quan['bo_quantity'] > 0) {
+                    $bo_cart = new Cart();
+                    $bo_cart->setUser($this->getUser());
+                    $bo_cart->setOffice($this->getUser()->getOffice());
+                    $bo_cart->setDate($cart->getDate());
+                    $bo_cart->setSubmitDate($cart->getSubmitDate());
+                    $bo_cart->setOrderNumber($cart->getOrderNumber() . "-B");
+                    $bo_cart->setSubmitted(true);
+                    $bo_cart->setOffice($cart->getOffice());
+                    $bo_cart->setUser($cart->getUser());
+                    $bo_cart->setRequesterFirstName($cart->getRequesterFirstName());
+                    $bo_cart->setRequesterLastName($cart->getRequesterLastName());
+                    $bo_cart->setType($cart->getType());
+                    $bo_cart->setShippingMethod($cart->getShippingMethod());
+                    $em->persist($bo_cart);
+
+                    foreach($cart->getCartProducts() as $product) {
+                        if($product->getBackOrderQuantity() > 0) {
+                            $product->setStockNumber($product->getPart()->getStockNumber() . '-B');
+                            $cart->removeCartProduct($product);
+                            $product->setCart($bo_cart);
+                            $bo_cart->addCartProduct($product);
+                            $em->persist($product);
+                            $em->persist($bo_cart);
+                        }
+                    }
+
+                    $em->flush();
+                }
+
                 $em->persist($cart);
                 $em->flush();
 

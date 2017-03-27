@@ -84,14 +84,18 @@
                                                 <td>
                                                     <div class="row">
                                                         <center>
-                                                            {{ item.stockLocation.name }}
+                                                            {% if item.stockLocation.name is defined %}
+                                                                {{ item.stockLocation.name ? item.stockLocation.name : ' ' }}
+                                                            {% endif %}
                                                         </center>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="row">
                                                         <center>
-                                                            {{ item.partNumberPrefix.name }}
+                                                            {% if item.partNumberPrefix.name is defined %}
+                                                                {{ item.partNumberPrefix.name ? item.partNumberPrefix.name : ' ' }}
+                                                            {% endif %}
                                                         </center>
                                                     </div>
                                                 </td>

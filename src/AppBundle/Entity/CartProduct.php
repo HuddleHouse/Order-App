@@ -338,7 +338,7 @@ class CartProduct
 
     public function getStockNumber()
     {
-        return $this->isUnknown() ? $this->stockNumber : $this->getPart()->getStockNumber();
+        return $this->stockNumber ? $this->stockNumber : $this->getPart()->getStockNumber();
     }
 
     public function setStockNumber($stockNumber)
