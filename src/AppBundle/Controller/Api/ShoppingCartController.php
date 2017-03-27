@@ -214,23 +214,38 @@ class ShoppingCartController extends Controller
 
         $part = $em->getRepository('AppBundle:Part')->find($request->request->get('part'));
 
-        if (!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
-            $product = new CartProduct();
+        if(!$product = $em->getRepository('AppBundle:CartProduct')->findOneBy(array('cart' => $cart, 'part' => $part))) {
+            $count = 0;
+            foreach($cart->getCartProducts() as $product)
+                $count++;
 
-            $product->setCart($cart);
-            $product->setPart($part);
+            if($count == 0 || $cart->getType() != 'colorhead') {
+                $product = new CartProduct();
+
+                $product->setCart($cart);
+                $product->setPart($part);
 
                 $lineNumber = new CartProductLineNumber();
                 $lineNumber->setCartProduct($product);
                 $product->addCartProductLineNumber($lineNumber);
                 $em->persist($lineNumber);
+
+                //always increment a new item
+                $product->setQuantity($product->getQuantity() + 1);
                 $em->persist($product);
-                $em->flush();
+                $cart->addCartProduct($product);
+                $em->persist($cart);
             }
+        }
+        else {
+            // Can only have one Colorhead in an order
+            if($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead') {
+                $product->setQuantity($product->getQuantity() + 1);
+                $em->persist($product);
+            }
+        }
 
-        $product->setQuantity($product->getQuantity() + 1);
 
-        $em->persist($product);
         $em->flush();
 
         return $this->sumCart();
