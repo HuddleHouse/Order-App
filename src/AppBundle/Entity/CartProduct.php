@@ -88,11 +88,25 @@ class CartProduct
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="stock_number", type="string", nullable=true)
+     */
+    private $stockNumber;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="created_by_admin", type="boolean", nullable=true)
      */
     private $createdByAdmin;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="return_required", type="boolean", nullable=true)
+     */
+    private $returnRequired;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", cascade={"remove"}, mappedBy="cartProduct")
@@ -306,6 +320,11 @@ class CartProduct
         $this->createdByAdmin = $createdByAdmin;
     }
 
+    public function setReturnRequired($returnRequired)
+    {
+        $this->returnRequired = $returnRequired;
+    }
+
     public function isReturnRequired()
     {
         if ($this->createdByAdmin) {
@@ -322,6 +341,10 @@ class CartProduct
         return $this->isUnknown() ? $this->stockNumber : $this->getPart()->getStockNumber();
     }
 
+    public function setStockNumber($stockNumber)
+    {
+        $this->stockNumber = $stockNumber;
+    }
 
     /**
      * @return int

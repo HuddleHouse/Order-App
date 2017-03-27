@@ -224,6 +224,7 @@ class ReviewOrderController extends Controller
         $product = $em->getRepository('AppBundle:CartProduct')->find($data['product_id']);
         $product->setBackOrderQuantity($data['back_order_quantity']);
         $product->setShipQuantity($data['ship_quantity']);
+        $product->setBackOrderShipQuantity($data['back_order_ship_quantity']);
 
         if ($product->isCreatedByAdmin()) {
             $product->setDescription($data['description']);
@@ -303,6 +304,7 @@ class ReviewOrderController extends Controller
                 'quantity' => $product->getQuantity(),
                 'ship_quantity' => $product->getShipQuantity(),
                 'back_order_quantity' => $product->getBackOrderQuantity(),
+                'back_order_ship_quantity' => $product->getBackOrderShipQuantity(),
                 'line_numbers' => $line_numbers,
                 'product_id' => $product->getId(),
                 'note' => $product->getNote(),

@@ -379,12 +379,30 @@
             $scope.shipping = '0';
             $scope.stock_location = {};
             $scope.part_prefix = {};
+
+            function updateCart(data) {
+                $scope.$apply(function () {
+                    $scope.cart = data.cart;
+                    $scope.shipped = data.shipped;
+                    $scope.requested = data.requested;
+                    $scope.backOrders = data.backOrders;
+                    $scope.numItems = data.num_items;
+                    $scope.shipping = data.shipping;
+
+                    /*
+                     angular.forEach($scope.cart, function (product) {
+                     $scope[product.id] = product.product_id;
+                     console.log($scope.stock_location);
+                     });
+                     */
+                });
+            }
+
             $scope.reviewOrder = function () {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('api_admin_review_order_validation') }}",
+                    url: "{{ path('api_admin_cart_review', {'cart': cart_id }) }}",
                     dataType: 'json',
-                    data: {cart_id: {{ cart_id }}},
                     success: function (data) {
                         console.log(data);
                         location.reload();
@@ -394,6 +412,7 @@
                     }
                 });
             };
+
             $.ajax({
                 beforeSend: function () {
                     console.log('json load cart');
@@ -431,162 +450,64 @@
             $scope.inArray = function (item, array) {
                 return array.indexOf(item);
             };
+
+
             $scope.addItem = function (item) {
-                console.log(item);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_add_item_by_id') }}",
-                    data: {product_id: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.shipped = data.shipped;
-                            $scope.requested = data.requested;
-                            $scope.backOrders = data.backOrders;
-                            $scope.numItems = data.num_items;
-                        });
-                    }
-                });
+                $.post("{{ path('api_cart_add_part') }}", {cart: {{ cart_id }}, part: item}).done(updateCart);
             };
-            $scope.removeItem = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_remove_item_by_id') }}",
-                    data: {product_id: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    }
-                });
-            };
+
             $scope.updateShipping = function () {
-                var id = $("#shipping").val();
-                console.log('id: ' + id);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('admin_update_shipping') }}",
-                    data: {cart_id: {{ cart_id }}, ship_id: id},
-                    dataType: 'json',
-                    success: function () {
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('admin_update_shipping') }}", {cart_id: {{ cart_id }}, ship_id: $scope.shipping});
             };
+
+            $scope.deleteProduct = function (item) {
+                if (!confirm('Are you sure you want to delete this line?')) return;
+
+                $.post("{{ path('delete_cart_item') }}", {item: item.id}).done(updateCart);
+            };
+
             $scope.updateProduct = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_product') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.shipped = data.shipped;
-                            $scope.requested = data.requested;
-                            $scope.backOrders = data.backOrders;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('update_product') }}", {data: item, order_id: {{ cart_id }}}).done(updateCart);
             };
+
+            $scope.updateNote = function (item) {
+                $.post("{{ path('update_product') }}", {data: item, order_id: {{ cart_id }}});
+            };
+
             $scope.updateQuantity = function (number) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_quantity') }}",
-                    data: {data: number, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.shipped = data.shipped;
-                            $scope.requested = data.requested;
-                            $scope.backOrders = data.backOrders;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('update_quantity') }}", {data: number, order_id: {{ cart_id }}}).done(updateCart);
             };
+
             $scope.updateStockLocation = function (product_id) {
-                var id = $("#stock_location" + product_id.id).val();
-                console.log("#stock_location" + product_id.id);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_stock_location') }}",
-                    data: {stock_location_id: id, cart_product_id: product_id},
-                    dataType: 'json',
-                    success: function () {
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
+                $.post("{{ path('update_stock_location') }}", {
+                    stock_location_id: $("#stock_location" + product_id.id).val(),
+                    cart_product_id: product_id
                 });
             };
-            $scope.updatePartPrefix = function (product_id) {
-                var id = $("#part_prefix" + product_id.id).val();
-                console.log("#part_prefix" + product_id.id);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_part_prefix') }}",
-                    data: {stock_location_id: id, cart_product_id: product_id},
-                    dataType: 'json',
-                    success: function () {
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
+
+            $scope.updatePartPrefix = function (item) {
+                $.post("{{ path('update_part_prefix') }}", {
+                    prefix: $("#part_prefix" + item.id).val(),
+                    item: item.id
                 });
             };
+
             $scope.addLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_add_line_number_review_order') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('api_add_line_number_review_order') }}", {item: item.id}).done(updateCart);
             };
+
             $scope.updateLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_line_number_review_order') }}",
-                    data: {line_number: item},
-                    dataType: 'json',
-                    success: function () {
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
+                $.post("{{ path('update_line_number_review_order') }}", {
+                    line_number: item
                 });
             };
+
             $scope.removeLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_remove_line_number_review_order') }}",
-                    data: {data: item, order_id: {{ cart_id }}},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $.post("{{ path('api_remove_line_number_review_order') }}", {item: item.id}).done(updateCart);
+            };
+
+            $scope.addUnknownItem = function () {
+                $.post("{{ path('api_cart_add_unknown') }}", {cart: {{ cart_id }}}).done(updateCart);
             };
         });
     </script>

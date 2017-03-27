@@ -248,8 +248,8 @@
                                                 <center>{{ item.order_number }}</center>
                                             </td>
                                             <td style="width: 60px;">
-                                                <a href="{{ path('admin_order_edit', {'cart_id': item.id}) }}"
-                                                   class="btn btn-info btn-xs">Approve</a>
+                                                <a href="{{ path('admin_backorder_edit', {'cart_id': item.id}) }}"
+                                                   class="btn btn-info btn-xs">Update</a>
                                                 <a href="{{ path('admin_order_delete', {'id': item.id}) }}"
                                                    class="btn-remove-cart btn btn-danger btn-xs">Remove</a>
                                             </td>

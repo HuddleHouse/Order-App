@@ -197,7 +197,6 @@ class ShoppingCartController extends Controller
                     );
                 }
 
-
                 $cart->setApproved(true);
                 $cart->setApprovedBy($this->getUser());
                 $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));

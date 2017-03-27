@@ -439,51 +439,6 @@ class AdminController extends Controller
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
 
-        if(!$cart->getApproved()) {
-            $this->addFlash('notice', "Order Approved Successfully.");
-            /*
-             * SEND EMAILS TO EVERYONE HERE
-             *
-             */
-            try {
-                //only send the email
-                $connection = $em->getConnection();
-                $statement = $connection->prepare("select * from office_email where office_id = :id");
-                $statement->bindValue('id', $cart->getOffice()->getId());
-
-                $statement->execute();
-                $data = $statement->fetchAll();
-
-                foreach($data as $email) {
-                    $from = 'utus-orders@gmail.com';
-                    $to = $email['email'];
-
-                    $email_service = $this->get('email_service');
-                    $email_service->sendEmail(array(
-                            'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber() . " has been fulfilled.",
-                            'from' => $from,
-                            'to' => $to,
-                            'body' => $this->renderView("AppBundle:Email:order_approved_notification.html.twig",
-                                array(
-                                    'cart' => $cart
-                                )
-                            )
-                        )
-                    );
-                }
-            } catch(\Exception $e) {
-                $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
-            }
-
-            $user = $this->getUser();
-            $cart->setApproved(1);
-            $cart->setApprovedBy($user);
-            $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
-        }
-
-        $em->persist($cart);
-        $em->flush();
-
         return $this->render('AppBundle:Admin:approve_order.html.twig', array(
             'products' => $products,
             'categories' => $categories,
@@ -511,6 +466,7 @@ class AdminController extends Controller
         $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
         $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
+
         return $this->render('AppBundle:Admin:review_backorders.html.twig', array(
             'products' => $products,
             'categories' => $categories,
