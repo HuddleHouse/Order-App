@@ -148,7 +148,6 @@ class ShoppingCartController extends Controller
      */
     public function adminCartReviewAction(Cart $cart)
     {
-
         $cartId = $cart->getId();
 
         $em = $this->getDoctrine()->getManager();
@@ -200,6 +199,8 @@ class ShoppingCartController extends Controller
                 $cart->setApproved(true);
                 $cart->setApprovedBy($this->getUser());
                 $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
+                $em->persist($cart);
+                $em->flush();
 
                 // Check to see if there are backorders and move them into their own order if there are
                 $connection = $em->getConnection();
@@ -214,7 +215,7 @@ class ShoppingCartController extends Controller
 	where c.approved = 1
 	AND c.submitted = 1
 	AND p.back_order_quantity > p.back_order_ship_quantity
-	and c.id = 92
+	and c.id = :id
 	group by c.id");
                 $statement->bindValue('id', $cart->getId());
 
@@ -247,8 +248,8 @@ class ShoppingCartController extends Controller
                             $em->persist($bo_cart);
                         }
                     }
-
                     $em->flush();
+                    $this->addFlash('notice', "Order # " . $bo_cart->getOrderNumber() . " containing items on backorder was created.");
                 }
 
                 $em->persist($cart);

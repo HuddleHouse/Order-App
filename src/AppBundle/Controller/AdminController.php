@@ -123,10 +123,14 @@ class AdminController extends Controller
         $stmt->execute();
         $numParts = $stmt->fetch();
 
-        $sql = "select count(*) as num from offices";
+        $sql = "select sum(p.back_order_quantity) as bo_quan, sum(p.back_order_ship_quantity) as bo_ship_quan, sum(p.back_order_quantity) - sum(p.back_order_ship_quantity) as num
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+	where c.order_number like '%-B'";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
-        $numOffices = $stmt->fetch();
+        $numItemsOnBackorder = $stmt->fetch();
 
         $sql = "select count(*) as num from cart where approved = 1";
         $stmt = $em->getConnection()->prepare($sql);
@@ -146,7 +150,7 @@ class AdminController extends Controller
             'approved' => $approved,
             'num_users' => $numUsers['num'],
             'num_parts' => $numParts['num'],
-            'num_offices' => $numOffices['num'],
+            'num_items_on_backorder' => $numItemsOnBackorder['num'],
             'num_approved' => $numApproved['num'],
             'num_pending' => $numPending['num'],
             'submitted_colorhead' => $submittedColorhead,
@@ -440,19 +444,33 @@ class AdminController extends Controller
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
 
-        return $this->render('AppBundle:Admin:approve_order.html.twig', array(
-            'products' => $products,
-            'categories' => $categories,
-            'cart_id' => $cart_id,
-            'office' => $cart->getOffice(),
-            'user' => $cart->getUser(),
-            'user_notes' => $cart->getNote(),
-            'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : "None"),
-            'cart' => $cart,
-            'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
-            'stock_location' => $stock_location,
-            'part_prefix' => $part_prefix,
-        ));
+        // Delete the cart if there are no products left on it
+        $count = 0;
+        foreach($cart->getCartProducts() as $product)
+            $count++;
+
+        if($count == 0) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($cart);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_home');
+        }
+        else {
+            return $this->render('AppBundle:Admin:approve_order.html.twig', array(
+                'products' => $products,
+                'categories' => $categories,
+                'cart_id' => $cart_id,
+                'office' => $cart->getOffice(),
+                'user' => $cart->getUser(),
+                'user_notes' => $cart->getNote(),
+                'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : "None"),
+                'cart' => $cart,
+                'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
+                'stock_location' => $stock_location,
+                'part_prefix' => $part_prefix,
+            ));
+        }
     }
 
     /**
