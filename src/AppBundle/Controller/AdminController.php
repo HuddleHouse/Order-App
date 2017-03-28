@@ -127,7 +127,8 @@ class AdminController extends Controller
 	from cart c
 		left join cart_products p
 			on p.cart_id = c.id
-	where c.order_number like '%-B'";
+	where c.approved = 0
+	AND c.submitted = 1";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
         $numItemsOnBackorder = $stmt->fetch();
