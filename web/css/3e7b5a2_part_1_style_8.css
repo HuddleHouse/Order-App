@@ -1,3 +1,30 @@
+.header.navbar-fixed-top {
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.stats-overview.stat-block {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.portlet {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.text-orange {
+    color: #ffb347;
+}
+
+select {
+    min-width: 55px;
+}
+
+@import url(//fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+@import url(//fonts.googleapis.com/icon?family=Material+Icons);
+
+.table thead tr th {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
 /*
 Template Name: Conquer - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.0.2
 Version: 1.5.1
@@ -12,8 +39,8 @@ Reset and overrides
 
 /* general body settings */
 body { 
-  color: #000; 
-  font-family: 'Open Sans', sans-serif;
+  color: #000;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   padding: 0px !important;
   margin: 0px !important;
   font-size:13px; 

@@ -108,7 +108,7 @@ class AdminController extends Controller
 	where c.approved = 1
 	AND c.submitted = 1
 	group by c.id
-	order by c.approve_date DESC";
+	order by c.approve_date ASC";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
         $approved = $stmt->fetchAll();

@@ -144,6 +144,25 @@ class ShoppingCartController extends Controller
     }
 
     /**
+     * @Route("/api/admin/approve/order/{cart}", name="api_admin_cart_approve_order")
+     */
+    public function adminApproveOrderAction(Cart $cart)
+    {
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $cart->setApproved(true);
+            $cart->setApprovedBy($this->getUser());
+            $em->persist($cart);
+            $em->flush();
+            $this->addFlash('notice', 'Order successfully approved.');
+            return JsonResponse::create(true);
+        } catch(\Exception $e) {
+            $this->addFlash('error', 'Failed to approve the order.' . $e->getMessage());
+            return JsonResponse::create(false);
+        }
+    }
+
+    /**
      * @Route("/api/admin/cart/{cart}/review", name="api_admin_cart_review")
      */
     public function adminCartReviewAction(Cart $cart)

@@ -121,7 +121,7 @@
 
         <br>
 
-
+        {% if submitted %}
         <div class="row ">
             <div class="col-md-12">
                 <div class="portlet">
@@ -133,7 +133,6 @@
                     <div class="portlet-body">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover">
-                                {% if submitted %}
                                     <thead>
                                     <tr>
                                         <th>
@@ -184,20 +183,16 @@
                                         </tr>
                                     {% endfor %}
                                     </tbody>
-                                {% else %}
-                                    <div style="padding: 10px;">
-                                        <center><h4>There are no submitted orders that need to be reviewed.</h4>
-                                        </center>
-                                    </div>
-                                {% endif %}
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endif %}
 
 
+        {% if submitted %}
         <div class="row ">
             <div class="col-md-12">
                 <div class="portlet">
@@ -209,7 +204,6 @@
                     <div class="portlet-body">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover">
-                                {% if submitted %}
                                     <thead>
                                     <tr>
                                         <th>
@@ -260,19 +254,16 @@
                                         </tr>
                                     {% endfor %}
                                     </tbody>
-                                {% else %}
-                                    <div style="padding: 10px;">
-                                        <center><h4>There are no colorhead orders that need to be reviewed.</h4>
-                                        </center>
-                                    </div>
-                                {% endif %}
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endif %}
 
+
+        {% if submitted_filters %}
         <div class="row ">
             <div class="col-md-12">
                 <div class="portlet">
@@ -284,7 +275,6 @@
                     <div class="portlet-body">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover">
-                                {% if submitted_filters %}
                                     <thead>
                                     <tr>
                                         <th>
@@ -335,19 +325,17 @@
                                         </tr>
                                     {% endfor %}
                                     </tbody>
-                                {% else %}
-                                    <div style="padding: 10px;">
-                                        <center><h4>There are no colorhead orders that need to be reviewed.</h4>
-                                        </center>
-                                    </div>
-                                {% endif %}
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endif %}
 
+
+
+        {% if submitted_backorders %}
         <div class="row ">
             <div class="col-md-12">
                 <div class="portlet">
@@ -359,7 +347,6 @@
                     <div class="portlet-body">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover">
-                                {% if submitted_backorders %}
                                     <thead>
                                     <tr>
                                         <th>
@@ -410,19 +397,15 @@
                                         </tr>
                                     {% endfor %}
                                     </tbody>
-                                {% else %}
-                                    <div style="padding: 10px;">
-                                        <center><h4>There are no orders that have backordered items that need to be
-                                                reviewed.</h4>
-                                        </center>
-                                    </div>
-                                {% endif %}
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endif %}
+
+
 
         <div class="row ">
             <div class="col-md-12">

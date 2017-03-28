@@ -448,10 +448,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child, table.dataTa
     padding-bottom: 9px;
 }
 
-.table thead tr th {
-    font-size: 12px !important;
-    font-weight: 700 !important;
-}
 
 #navbar-toggle {
     display: inherit !important;

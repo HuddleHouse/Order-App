@@ -14,6 +14,24 @@
   color: #ffb347;
 }
 
+select {
+  min-width: 55px;
+}
+
+@import url(//fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+@import url(//fonts.googleapis.com/icon?family=Material+Icons);
+
+.table thead tr th {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.portlet > .portlet-title > .caption {
+  color: #333;
+  font-weight: 300;
+}
+
+
 /*
 Template Name: Conquer - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.0.2
 Version: 1.5.1
@@ -28,8 +46,8 @@ Reset and overrides
 
 /* general body settings */
 body { 
-  color: #000; 
-  font-family: 'Open Sans', sans-serif;
+  color: #000;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   padding: 0px !important;
   margin: 0px !important;
   font-size:13px; 

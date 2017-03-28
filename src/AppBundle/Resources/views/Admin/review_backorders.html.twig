@@ -149,7 +149,7 @@
                                 <tbody>
                                     <tr ng-repeat="item in cart track by $index" ng-if="item.back_order_quantity > 0">
                                     <div ng-if="angular.isobject(item)">
-                                        <td style="padding-top: 20px;">{{ item.stock_number }}</td>
+                                        <td style="padding: 20px 5px 5px 5px;">{{ item.stock_number }}</td>
                                         <td style="padding-top: 20px;">{{ item.description }}</td>
                                         <td  style="padding-top: 20px;">
                                             <div ng-if="item.require_return == 1">
@@ -202,7 +202,8 @@
                                             <input disabled ng-model="item.ship_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
                                         </td>
                                         <td>
-                                            <input disabled ng-model="item.back_order_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
+                                            <input disabled ng-if="item.back_order_ship_quantity == item.back_order_quantity" ng-model="item.back_order_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;background-color: #dff0d8;">
+                                            <input disabled ng-if="item.back_order_ship_quantity != item.back_order_quantity" ng-model="item.back_order_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;background-color: #f2dede;">
                                         </td>
                                         <td>
                                             <input ng-if="item.back_order_ship_quantity == item.back_order_quantity" ng-model="item.back_order_ship_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
@@ -289,7 +290,7 @@
                                         </ul>
                                         <br>
                                         <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
-                                        <a ng-click="reviewOrder()" class="btn btn-lg btn-success hidden-print">Update
+                                        <a ng-click="reviewOrder()" class="btn btn-lg btn-success hidden-print">Approve
                                             Order</a>
                                     </div>
                                 </div>
@@ -401,11 +402,11 @@
             $scope.reviewOrder = function () {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('api_admin_cart_review', {'cart': cart_id }) }}",
+                    url: "{{ path('api_admin_cart_approve_order', {'cart': cart_id }) }}",
                     dataType: 'json',
                     success: function (data) {
                         console.log(data);
-                        location.reload();
+                        location.href = '{{ path('admin_home') }}';
                     },
                     error: function (data) {
                         console.log(data);
