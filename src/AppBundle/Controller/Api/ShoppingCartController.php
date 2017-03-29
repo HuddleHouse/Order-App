@@ -75,7 +75,7 @@ class ShoppingCartController extends Controller
         $em->persist($cart);
         $em->flush();
 
-        return 1;
+        return JsonResponse::create(true);
     }
 
     public function removeCartItem($product_id)
