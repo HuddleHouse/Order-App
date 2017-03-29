@@ -152,6 +152,8 @@ class ShoppingCartController extends Controller
             $em = $this->getDoctrine()->getManager();
             $cart->setApproved(true);
             $cart->setApprovedBy($this->getUser());
+            $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
+
             $em->persist($cart);
             $em->flush();
             $this->addFlash('notice', 'Order successfully approved.');
