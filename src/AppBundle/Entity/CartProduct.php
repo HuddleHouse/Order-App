@@ -78,7 +78,14 @@ class CartProduct
      *
      * @ORM\Column(name="returned_items_quantity", type="integer")
      */
-    private $returnedItemsQuantity = false;
+    private $returnedItemsQuantity = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="returned_items_expected_quantity", type="integer")
+     */
+    private $returnedItemsExpectedQuantity = 0;
 
     /**
      * @var string
@@ -384,5 +391,23 @@ class CartProduct
     {
         $this->returnedItemsQuantity = $returnedItemsQuantity;
     }
+
+    /**
+     * @return int
+     */
+    public function getReturnedItemsExpectedQuantity()
+    {
+        return $this->returnedItemsExpectedQuantity;
+    }
+
+    /**
+     * @param int $returnedItemsExpectedQuantity
+     */
+    public function setReturnedItemsExpectedQuantity($returnedItemsExpectedQuantity)
+    {
+        $this->returnedItemsExpectedQuantity = $returnedItemsExpectedQuantity;
+    }
+
+
 
 }

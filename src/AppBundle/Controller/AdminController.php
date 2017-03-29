@@ -304,6 +304,38 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/view-outstanding-orders", name="view_oustanding_orders")
+     */
+    public function viewAllOutstandingOrdersAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $sql = "select p.id, c.id as cart_id, p.quantity, p.ship_quantity, p.returned_items_quantity, p.returned_items_expected_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 1
+	AND c.submitted = 1
+	and parts.require_return = 1
+	AND p.quantity > p.returned_items_quantity";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $partsNeedReturned = $stmt->fetchAll();
+
+        return $this->render('@App/Admin/view_outstanding_orders.html.twig', array(
+            'parts_needing_return' => $partsNeedReturned
+        ));
+    }
+
+    /**
      * @Route("/admin/view-users/edit/{user_id}", name="admin_edit_user")
      */
     public function viewAdminEditUserAction(Request $request, $user_id)

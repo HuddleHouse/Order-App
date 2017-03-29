@@ -1,0 +1,138 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}All Users{% endblock %}
+{% block page_title %}
+    All Outstanding Orders
+{% endblock page_title %}
+
+{% block page_name %}
+    <i class="fa fa-home"></i> Orders
+{% endblock page_name %}
+
+{% block actions %}
+
+{% endblock actions %}
+
+{% block content %}
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="portlet">
+                <div class="portlet-title" style="background-color: #dff0d8 !important;">
+                    <div class="caption">
+                        <i class="fa fa-bell"></i>PARTS THAT NEED TO BE RETURNED TO USTER
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable">
+                        <table class="table table-striped table-bordered table-hover">
+                            {% if parts_needing_return %}
+                                <thead>
+                                <tr>
+                                    <th>
+                                        DATE SUBMITTED
+                                    </th>
+                                    <th>PART NAME</th>
+                                    <th>STOCK NUMBER</th>
+                                    <th>
+                                        QUANTITY
+                                    </th>
+                                    <th>
+                                        ITEMS SHIPPED
+                                    </th>
+                                    <th>
+                                        ITEMS RECEIVED
+                                    </th>
+                                    <th>
+                                        OFFICE
+                                    </th>
+                                    <th>
+                                        ORDER #
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in parts_needing_return %}
+                                    <tr>
+                                        <td>
+                                            {{ item.submit_date | date('m/d/y') }}
+                                        </td>
+                                        <td>
+                                            {{ item.description }}
+                                        </td>
+                                        <td>
+                                            {{ item.stock_number }}
+                                        </td>
+                                        <td>
+                                            <center>
+                                                {{ item.quantity }}
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <div id="{{ item.id }}-shipped">
+                                                    {{ item.returned_items_expected_quantity }}
+                                                </div>
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>{{ item.returned_items_quantity }}</center>
+                                        </td>
+                                        <td>
+                                            {{ item.office_name ? item.office_name : ' ' }}
+                                        </td>
+                                        <td>
+                                            <center>{{ item.order_number }}</center>
+                                        </td>
+                                        <td style="width: 60px;">
+                                            <a href="{{ path('admin_order_approve', {'cart_id': item.cart_id}) }}"
+                                               class="btn btn-info btn-xs">View Order</a>
+                                            <button class="btn btn-default btn-xs purple"
+                                                    onclick="approveReturn({{ item.id }})"><i
+                                                        class="fa fa-check"></i> Confirm return
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            {% else %}
+                                <div style="padding: 10px;">
+                                    <center><h4>There are no recently approved orders.</h4></center>
+                                </div>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block footer %}
+    <script>
+        $(document).ready(function () {
+            $('#part-table').DataTable();
+
+            $('a.btn[data-role="delete-user"]').on('click', function (e) {
+                return confirm("Are you sure you want to delete this user?");
+            });
+        });
+        $('#part-table').DataTable({
+
+            "paging": false
+        });
+        function approveReturn(id) {
+//            confirm("Are you sure you want to count these items as returned?")
+            var numItemsReceived = parseInt($('#' + id + '-shipped').text());
+            console.log(numItemsReceived);;;;;;;;;;;;;;;
+
+            var newNumItemsReceived = window.prompt("How many items did you receive?", numItemsReceived);
+            console.log(newNumItemsReceived);
+            {#var url = "{{ path('admin_delete_user', {'id': 'to_delete_id'}) }}";#}
+            {#url = url.replace("to_delete_id", id);#}
+            {#window.location = url;#}
+        }
+    </script>
+{% endblock footer %}
