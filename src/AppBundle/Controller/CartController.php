@@ -205,6 +205,38 @@ class CartController extends Controller
             return $this->redirectToRoute('view_all_orders');
     }
 
+
+    /**
+     * @Route("/view-all-outstanding-retursn", name="view_all_outstanding_returns")
+     */
+    public function viewAllOrdersAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1, 'approved' => 0));
+
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.ship_quantity) shipped
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+	where c.approved = 1
+	AND c.submitted = 1
+	and c.user_id = :user_id
+	group by c.id;";
+        $stmt = $em->getConnection()->prepare($sql);
+        $params['user_id'] = $user->getId();
+        $stmt->execute($params);
+        $numShipped = $stmt->fetchAll();
+
+        return $this->render('AppBundle:Cart:view-all-orders.html.twig',
+            array(
+                'submitted' => $submitted,
+                'approved' => $numShipped
+            )
+        );
+    }
+
+
     /**
      * @Route("/view-all-orders", name="view_all_orders")
      */

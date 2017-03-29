@@ -74,6 +74,13 @@ class CartProduct
     private $backOrderShipQuantity = 0;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="returned_items_quantity", type="integer")
+     */
+    private $returnedItemsQuantity = false;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="note", type="text", nullable=true)
@@ -360,6 +367,22 @@ class CartProduct
     public function setBackOrderShipQuantity($backOrderShipQuantity)
     {
         $this->backOrderShipQuantity = $backOrderShipQuantity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReturnedItemsQuantity()
+    {
+        return $this->returnedItemsQuantity;
+    }
+
+    /**
+     * @param int $returnedItemsQuantity
+     */
+    public function setReturnedItemsQuantity($returnedItemsQuantity)
+    {
+        $this->returnedItemsQuantity = $returnedItemsQuantity;
     }
 
 }
