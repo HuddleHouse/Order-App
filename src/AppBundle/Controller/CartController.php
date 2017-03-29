@@ -228,7 +228,7 @@ class CartController extends Controller
         $stmt->execute($params);
         $numShipped = $stmt->fetchAll();
 
-        return $this->render('AppBundle:Cart:view-all-orders.html.twig',
+        return $this->render('AppBundle:Cart:view-all-open-returns.html.twig',
             array(
                 'submitted' => $submitted,
                 'approved' => $numShipped

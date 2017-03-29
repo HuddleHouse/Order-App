@@ -184,11 +184,13 @@
                                             <li><hr><strong>Items Shipped:</strong><span class="total-value">{{ totalShipped }}</span></li>
                                         </ul>
                                         <br>
-                                        <a class="btn btn-lg btn-default"
+                                        <a class="btn btn-lg btn-default hidden-print"
                                            href="{{ path('admin_order_edit', {'cart_id': cart.id}) }}"><i
                                                     class="fa fa-arrow-left"></i>
                                             Re-open & Edit Order
                                         </a>
+                                        <a class="btn btn-lg btn-info hidden-print"
+                                           href="{{ path('admin_home') }}">Home</a>
                                         <a class="btn btn-lg btn-info hidden-print" target="_blank"
                                            href="{{ path('admin_order_print', {'id': cart.id}) }}">Print</a>
                                     </div>

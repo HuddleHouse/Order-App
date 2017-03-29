@@ -133,6 +133,45 @@ class AdminController extends Controller
         $stmt->execute();
         $numItemsOnBackorder = $stmt->fetch();
 
+        if ($numItemsOnBackorder['num'] == null)
+            $numItemsOnBackorder['num'] = 0;
+
+        $sql = "select p.id, p.quantity, p.ship_quantity, p.returned_items_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 1
+	AND c.submitted = 1
+	and parts.require_return = 1
+	AND p.quantity > p.returned_items_quantity";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $partsNeedReturned = $stmt->fetchAll();
+
+        $sql = "select sum(p.quantity) as num
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+	where c.approved = 1
+	AND c.submitted = 1
+	and parts.require_return = 1";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $numPartsNeedReturn = $stmt->fetch();
+
+        if ($numPartsNeedReturn['num'] == null)
+            $numPartsNeedReturn['num'] = 0;
+
         $sql = "select count(*) as num from cart where approved = 1";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
@@ -156,7 +195,9 @@ class AdminController extends Controller
             'num_pending' => $numPending['num'],
             'submitted_colorhead' => $submittedColorhead,
             'submitted_filters' => $submittedFilters,
-            'submitted_backorders' => $submittedBackOrders
+            'submitted_backorders' => $submittedBackOrders,
+            'parts_requiring_return' => $partsNeedReturned,
+            'num_parts_requiring_return' => $numPartsNeedReturn['num']
         ));
     }
 
