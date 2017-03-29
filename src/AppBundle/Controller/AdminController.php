@@ -39,6 +39,8 @@ class AdminController extends Controller
 			on c.office_id = o.id
 	where c.approved = 0
 	AND c.submitted = 1
+	AND c.type != 'colorhead'
+	AND c.type != 'filters'
 	group by c.id";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
