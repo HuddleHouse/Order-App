@@ -278,6 +278,26 @@ class ReviewOrderController extends Controller
         return $this->sumCart($cart);
     }
 
+
+    /**
+     * @Route("/api/admin/update-return-items-quantity", name="api_admin_update_return_item_quantity")
+     */
+    public function updateAdminReturnItemsQuantityAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $request->request->get('cart_product_id');
+        $returned_items_quantity = $request->request->get('returned_items_quantity');
+
+        $product = $em->getRepository('AppBundle:CartProduct')->find($id);
+        $product->setReturnedItemsQuantity($product->getReturnedItemsQuantity() + $returned_items_quantity);
+
+        $em->persist($product);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
+
+
     public function sumCart($cart)
     {
         $shipped = $requested = $backOrders = 0;

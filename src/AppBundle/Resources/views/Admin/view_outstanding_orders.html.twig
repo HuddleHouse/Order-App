@@ -130,9 +130,19 @@
 
             var newNumItemsReceived = window.prompt("How many items did you receive?", numItemsReceived);
             console.log(newNumItemsReceived);
-            {#var url = "{{ path('admin_delete_user', {'id': 'to_delete_id'}) }}";#}
-            {#url = url.replace("to_delete_id", id);#}
-            {#window.location = url;#}
+
+            if (null === newNumItemsReceived) {  // The user cancels the action.
+                return;
+            }
+
+            $.post("{{ path('api_admin_update_return_item_quantity') }}", {
+                'cart_product_id': id,
+                'returned_items_quantity': newNumItemsReceived
+            }).done(function (data) {
+                location.reload();
+            }).fail(function (xhr, status, error) {
+                alert('ERROR! - ' + xhr.responseText);
+            });
         }
     </script>
 {% endblock footer %}
