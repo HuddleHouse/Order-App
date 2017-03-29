@@ -88,6 +88,13 @@ class CartProduct
     private $returnedItemsExpectedQuantity = 0;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="return_date", type="datetime", nullable=true)
+     */
+    private $returnDate;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="note", type="text", nullable=true)
@@ -406,6 +413,22 @@ class CartProduct
     public function setReturnedItemsExpectedQuantity($returnedItemsExpectedQuantity)
     {
         $this->returnedItemsExpectedQuantity = $returnedItemsExpectedQuantity;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReturnDate()
+    {
+        return $this->returnDate;
+    }
+
+    /**
+     * @param \DateTime $returnDate
+     */
+    public function setReturnDate($returnDate)
+    {
+        $this->returnDate = $returnDate;
     }
 
 

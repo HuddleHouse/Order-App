@@ -290,6 +290,7 @@ class ReviewOrderController extends Controller
 
         $product = $em->getRepository('AppBundle:CartProduct')->find($id);
         $product->setReturnedItemsQuantity($product->getReturnedItemsQuantity() + $returned_items_quantity);
+        $product->setReturnDate(date_create(date("Y-m-d H:i:s")));
 
         $em->persist($product);
         $em->flush();
