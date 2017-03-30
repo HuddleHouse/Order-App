@@ -290,7 +290,7 @@ class ReviewOrderController extends Controller
 
         $product = $em->getRepository('AppBundle:CartProduct')->find($id);
         $product->setReturnedItemsQuantity($product->getReturnedItemsQuantity() + $returned_items_quantity);
-        $product->setReturnDate(date_create(date("Y-m-d H:i:s")));
+        $product->setReturnReceivedDate(date_create(date("Y-m-d H:i:s")));
 
         $em->persist($product);
         $em->flush();
@@ -298,6 +298,26 @@ class ReviewOrderController extends Controller
         return JsonResponse::create(true);
     }
 
+
+    /**
+     * @Route("/api/update-return-items-ship-quantity", name="api_update_return_item_ship_quantity")
+     */
+    public function updateReturnItemsShipQuantityAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $request->request->get('cart_product_id');
+        $returned_items_ship_quantity = $request->request->get('returned_items_quantity');
+
+        $product = $em->getRepository('AppBundle:CartProduct')->find($id);
+        $product->setReturnedItemsShippedQuantity($product->getReturnedItemsShippedQuantity() + $returned_items_ship_quantity);
+        $product->setReturnShipDate(date_create(date("Y-m-d H:i:s")));
+        $this->addFlash('notice', 'Shipment Received.');
+
+        $em->persist($product);
+        $em->flush();
+
+        return JsonResponse::create(true);
+    }
 
     public function sumCart($cart)
     {

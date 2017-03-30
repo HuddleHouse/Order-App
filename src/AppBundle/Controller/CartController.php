@@ -207,7 +207,7 @@ class CartController extends Controller
 
 
     /**
-     * @Route("/view-all-outstanding-returns", name="view_all_outstanding_returns")
+     * @Route("/view-all-returns", name="view_all_outstanding_returns")
      */
     public function viewAllOutstandingOrdersAction()
     {
@@ -225,8 +225,7 @@ class CartController extends Controller
 			on c.approved_by_id = u2.id
 		left join offices o
 			on c.office_id = o.id
-	where c.approved = 1
-	AND c.submitted = 1
+	where c.submitted = 1
 	and parts.require_return = 1
 	AND p.quantity = p.returned_items_quantity
 	and c.user_id = :user_id";
@@ -256,7 +255,7 @@ class CartController extends Controller
         $stmt->execute($params);
         $itemsToBeReturned = $stmt->fetchAll();
 
-        return $this->render('AppBundle:Cart:view-all-open-returns.html.twig',
+        return $this->render('AppBundle:Cart:view-all-open-returns.htmld.twig',
             array(
                 'have_been_returned' => $itemsThatHaveBeenReturned,
                 'to_be_returned' => $itemsToBeReturned
@@ -287,7 +286,7 @@ class CartController extends Controller
 			on c.office_id = o.id
 	where c.submitted = 1
 	and parts.require_return = 1
-	AND p.quantity > p.returned_items_quantity
+	AND p.quantity > p.returned_items_shipped_quantity
 	and c.user_id = :user_id";
         $stmt = $em->getConnection()->prepare($sql);
         $params['user_id'] = $user->getId();

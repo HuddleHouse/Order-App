@@ -109,7 +109,7 @@
                                 </tbody>
                             {% else %}
                                 <div style="padding: 10px;">
-                                    <center><h4>There are no recently approved orders.</h4></center>
+                                    <center><h4>There are no parts that need to be sent to Uster.</h4></center>
                                 </div>
                             {% endif %}
                         </table>
@@ -152,7 +152,7 @@
                                         <td>
                                             {{ item.submit_date | date('m/d/y') }}
                                         </td>
-                                        <td>{{ item.return_date | date('m/d/y') }}</td>
+                                        <td>{{ item.return_ship_date | date('m/d/y') }}</td>
                                         <td>
                                             {{ item.description }}
                                         </td>

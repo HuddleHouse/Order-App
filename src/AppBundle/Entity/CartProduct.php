@@ -90,9 +90,16 @@ class CartProduct
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="return_date", type="datetime", nullable=true)
+     * @ORM\Column(name="return_received_date", type="datetime", nullable=true)
      */
-    private $returnDate;
+    private $returnReceivedDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="return_ship_date", type="datetime", nullable=true)
+     */
+    private $returnShipDate;
 
     /**
      * @var string
@@ -399,21 +406,36 @@ class CartProduct
         $this->returnedItemsQuantity = $returnedItemsQuantity;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getReturnReceivedDate()
+    {
+        return $this->returnReceivedDate;
+    }
+
+    /**
+     * @param \DateTime $returnReceivedDate
+     */
+    public function setReturnReceivedDate($returnReceivedDate)
+    {
+        $this->returnReceivedDate = $returnReceivedDate;
+    }
 
     /**
      * @return \DateTime
      */
-    public function getReturnDate()
+    public function getReturnShipDate()
     {
-        return $this->returnDate;
+        return $this->returnShipDate;
     }
 
     /**
-     * @param \DateTime $returnDate
+     * @param \DateTime $returnShipDate
      */
-    public function setReturnDate($returnDate)
+    public function setReturnShipDate($returnShipDate)
     {
-        $this->returnDate = $returnDate;
+        $this->returnShipDate = $returnShipDate;
     }
 
     /**

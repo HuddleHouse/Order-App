@@ -88,7 +88,7 @@
                         </div>
                     {% else %}
                         <div class="title" style="padding-bottom: 20px; padding-top: 20px;">
-                            No submitted orders at this time.
+                            There are no parts that need to be sent to Uster.
                         </div>
                     {% endif %}
 
@@ -110,17 +110,17 @@
             console.log(newNumItemsReceived);
 
             if (null === newNumItemsReceived) {  // The user cancels the action.
-
+                return;
             }
 
-            {#$.post("{{ path('api_admin_update_return_item_quantity') }}", {#}
-            {#'cart_product_id': id,#}
-            {#'returned_items_quantity': newNumItemsReceived#}
-            {#}).done(function (data) {#}
-            {#location.reload();#}
-            {#}).fail(function (xhr, status, error) {#}
-            {#alert('ERROR! - ' + xhr.responseText);#}
-            {#});#}
+            $.post("{{ path('api_update_return_item_ship_quantity') }}", {
+                'cart_product_id': id,
+                'returned_items_quantity': newNumItemsReceived
+            }).done(function (data) {
+                location.reload();
+            }).fail(function (xhr, status, error) {
+                alert('ERROR! - ' + xhr.responseText);
+            });
         }
     </script>
 {% endblock footer %}
