@@ -7,6 +7,7 @@ use AppBundle\Entity\CartProductLineNumber;
 use AppBundle\Entity\Cart;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -74,7 +75,7 @@ class ShoppingCartController extends Controller
         $em->persist($cart);
         $em->flush();
 
-        return 1;
+        return JsonResponse::create(true);
     }
 
     public function removeCartItem($product_id)
@@ -311,6 +312,16 @@ class ShoppingCartController extends Controller
         $product->setPart(null);
         $product->setDescription($description);
         $product->setQuantity(1);
+
+        /** @var UploadedFile $file */
+        if ($file = $request->files->get('file')) {
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('uploads_directory'),
+                $fileName
+            );
+            $product->setImagePath($fileName);
+        }
 
         $lineNumber = new CartProductLineNumber();
         $lineNumber->setCartProduct($product);

@@ -259,6 +259,7 @@
                                             </center>
                                         </td>
                                         <td style="vertical-align: middle">
+                                            <a ng-if="item.imagePath != '0'" target="_blank" title="View Image" style="cursor:pointer;" href="/uploads/documents/{{item.imagePath}}"><i style="font-size: 22px;color: #e2001a;" class="fa fa-eye"></i></a>
                                             <a title="Delete this item" style="cursor:pointer;" ng-click="deleteProduct(item)"><i style="font-size: 22px;color: #e2001a;" class="fa fa-times-circle-o"></i></a>
                                         </td>
                                     </tr>
