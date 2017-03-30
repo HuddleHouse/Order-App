@@ -213,29 +213,93 @@ class CartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $submitted = $em->getRepository('AppBundle:Cart')->findBy(array('user' => $user, 'submitted' => 1, 'approved' => 0));
-
-        $sql = "select c.id, c.order_number, c.submit_date, sum(p.ship_quantity) shipped
-	from cart c
-		left join cart_products p
+        $sql = "select p.id, c.id as cart_id, p.quantity, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
+	from cart_products p
+		left join cart c
 			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
 	where c.approved = 1
 	AND c.submitted = 1
-	and c.user_id = :user_id
-	group by c.id;";
+	and parts.require_return = 1
+	AND p.quantity = p.returned_items_quantity
+	and c.user_id = :user_id";
         $stmt = $em->getConnection()->prepare($sql);
         $params['user_id'] = $user->getId();
         $stmt->execute($params);
-        $numShipped = $stmt->fetchAll();
+        $itemsThatHaveBeenReturned = $stmt->fetchAll();
+
+        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
+	where c.submitted = 1
+	and parts.require_return = 1
+	AND p.quantity > p.returned_items_quantity
+	and c.user_id = :user_id";
+        $stmt = $em->getConnection()->prepare($sql);
+        $params['user_id'] = $user->getId();
+        $stmt->execute($params);
+        $itemsToBeReturned = $stmt->fetchAll();
 
         return $this->render('AppBundle:Cart:view-all-open-returns.html.twig',
             array(
-                'submitted' => $submitted,
-                'approved' => $numShipped
+                'have_been_returned' => $itemsThatHaveBeenReturned,
+                'to_be_returned' => $itemsToBeReturned
             )
         );
     }
 
+
+    /**
+     * @Route("/prepare-a-return", name="prepare_a_return")
+     */
+    public function prepareAReturnAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
+	where c.submitted = 1
+	and parts.require_return = 1
+	AND p.quantity > p.returned_items_quantity
+	and c.user_id = :user_id";
+        $stmt = $em->getConnection()->prepare($sql);
+        $params['user_id'] = $user->getId();
+        $stmt->execute($params);
+        $itemsToBeReturned = $stmt->fetchAll();
+
+        return $this->render('AppBundle:Cart:prepare-a-return.html.twig',
+            array(
+                'to_be_returned' => $itemsToBeReturned
+            )
+        );
+    }
 
     /**
      * @Route("/view-all-orders", name="view_all_orders")

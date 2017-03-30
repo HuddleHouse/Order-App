@@ -83,9 +83,9 @@ class CartProduct
     /**
      * @var int
      *
-     * @ORM\Column(name="returned_items_expected_quantity", type="integer")
+     * @ORM\Column(name="returned_items_shipped_quantity", type="integer")
      */
-    private $returnedItemsExpectedQuantity = 0;
+    private $returnedItemsShippedQuantity = 0;
 
     /**
      * @var \DateTime
@@ -399,21 +399,6 @@ class CartProduct
         $this->returnedItemsQuantity = $returnedItemsQuantity;
     }
 
-    /**
-     * @return int
-     */
-    public function getReturnedItemsExpectedQuantity()
-    {
-        return $this->returnedItemsExpectedQuantity;
-    }
-
-    /**
-     * @param int $returnedItemsExpectedQuantity
-     */
-    public function setReturnedItemsExpectedQuantity($returnedItemsExpectedQuantity)
-    {
-        $this->returnedItemsExpectedQuantity = $returnedItemsExpectedQuantity;
-    }
 
     /**
      * @return \DateTime
@@ -429,6 +414,22 @@ class CartProduct
     public function setReturnDate($returnDate)
     {
         $this->returnDate = $returnDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReturnedItemsShippedQuantity()
+    {
+        return $this->returnedItemsShippedQuantity;
+    }
+
+    /**
+     * @param int $returnedItemsShippedQuantity
+     */
+    public function setReturnedItemsShippedQuantity($returnedItemsShippedQuantity)
+    {
+        $this->returnedItemsShippedQuantity = $returnedItemsShippedQuantity;
     }
 
 

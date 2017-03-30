@@ -310,7 +310,7 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $sql = "select p.id, c.id as cart_id, p.quantity, p.ship_quantity, p.returned_items_quantity, p.returned_items_expected_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
+        $sql = "select p.id, c.id as cart_id, p.quantity, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
 	from cart_products p
 		left join cart c
 			on p.cart_id = c.id
@@ -330,7 +330,7 @@ class AdminController extends Controller
         $stmt->execute();
         $partsNeedReturned = $stmt->fetchAll();
 
-        $sql = "select p.id, c.id as cart_id, p.return_date, p.quantity, p.ship_quantity, p.returned_items_quantity, p.returned_items_expected_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
+        $sql = "select p.id, c.id as cart_id, p.return_date, p.quantity, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
 	from cart_products p
 		left join cart c
 			on p.cart_id = c.id
