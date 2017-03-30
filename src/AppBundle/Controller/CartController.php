@@ -207,7 +207,7 @@ class CartController extends Controller
 
 
     /**
-     * @Route("/view-all-outstanding-retursn", name="view_all_outstanding_returns")
+     * @Route("/view-all-outstanding-returns", name="view_all_outstanding_returns")
      */
     public function viewAllOutstandingOrdersAction()
     {
