@@ -31,6 +31,12 @@
                                     <th>
                                         DATE SUBMITTED
                                     </th>
+                                    <th>
+                                        OFFICE
+                                    </th>
+                                    <th>
+                                        APPROVED
+                                    </th>
                                     <th>PART NAME</th>
                                     <th>STOCK NUMBER</th>
                                     <th>
@@ -42,9 +48,7 @@
                                     <th>
                                         ITEMS RECEIVED
                                     </th>
-                                    <th>
-                                        OFFICE
-                                    </th>
+
                                     <th>
                                         ORDER #
                                     </th>
@@ -57,6 +61,16 @@
                                     <tr>
                                         <td>
                                             {{ item.submit_date | date('m/d/y') }}
+                                        </td>
+                                        <td>
+                                            {{ item.office_name ? item.office_name : ' ' }}
+                                        </td>
+                                        <td>
+                                            {% if item.approved %}
+                                                <span class="label label-sm label-success">Approved</span>
+                                            {% else %}
+                                                <span class="label label-sm label-info">Review Pending</span>
+                                            {% endif %}
                                         </td>
                                         <td>
                                             {{ item.description }}
@@ -78,9 +92,6 @@
                                         </td>
                                         <td>
                                             <center>{{ item.returned_items_quantity }}</center>
-                                        </td>
-                                        <td>
-                                            {{ item.office_name ? item.office_name : ' ' }}
                                         </td>
                                         <td>
                                             <center>{{ item.order_number }}</center>

@@ -57,7 +57,9 @@
                                         <td style="padding-top: 20px;">{{ item.stock_number }}</td>
                                         <td style="padding-top: 20px;">{{ item.description }}</td>
                                         <td style="padding-top: 20px;">
-                                            <center>{{ item.quantity }}</center>
+                                            <center>
+                                                <div id="{{ item.id }}-shipped">{{ item.quantity }}</div>
+                                            </center>
                                         </td>
                                         <td style="padding-top: 20px;">
                                             <center>{{ item.returned_items_shipped_quantity }}</center>
@@ -70,10 +72,14 @@
                                             {% endif %}
                                         </td>
                                         <td style="padding-top: 20px;">
-                                            <a class="btn btn-default btn-sm purple"
+                                            <a class="btn btn-default btn-xs purple"
                                                href="{{ path('view_past_order', {'order_id': item.cart_id}) }}">
                                                 <i class="fa fa-book"></i> view order
                                             </a>
+                                            <button class="btn btn-default btn-xs purple"
+                                                    onclick="confirmShipment({{ item.id }})"><i
+                                                        class="fa fa-check"></i> Confirm Shipment
+                                            </button>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -91,3 +97,30 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block footer %}
+    <script>
+
+        function confirmShipment(id) {
+//            confirm("Are you sure you want to count these items as returned?")
+            var numItemsShipped = parseInt($('#' + id + '-shipped').text());
+            console.log(numItemsShipped);
+
+            var newNumItemsReceived = window.prompt("How many items did you ship to Uster?", numItemsShipped);
+            console.log(newNumItemsReceived);
+
+            if (null === newNumItemsReceived) {  // The user cancels the action.
+
+            }
+
+            {#$.post("{{ path('api_admin_update_return_item_quantity') }}", {#}
+            {#'cart_product_id': id,#}
+            {#'returned_items_quantity': newNumItemsReceived#}
+            {#}).done(function (data) {#}
+            {#location.reload();#}
+            {#}).fail(function (xhr, status, error) {#}
+            {#alert('ERROR! - ' + xhr.responseText);#}
+            {#});#}
+        }
+    </script>
+{% endblock footer %}
