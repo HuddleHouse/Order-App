@@ -302,13 +302,12 @@ class AdminController extends Controller
 
         try {
             $userManager->deleteUser($user);
-            $successMessage = "User removed succesfully.";
-            $this->addFlash('notice', $successMessage);
+            $this->addFlash('notice', "User removed succesfully.");
+            return $this->redirectToRoute('view_users');
         } catch (\Exception $e) {
             $this->addFlash('error', 'Error removing user: ' . $e->getMessage());
             return $this->redirectToRoute('view_users');
         }
-        return $this->redirectToRoute('view_users');
     }
 
     /**
