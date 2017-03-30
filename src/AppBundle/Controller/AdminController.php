@@ -308,8 +308,6 @@ class AdminController extends Controller
             $this->addFlash('error', 'Error removing user: ' . $e->getMessage());
             return $this->redirectToRoute('view_users');
         }
-
-        $this->addFlash('notice', 'User deleted successfully.');
         return $this->redirectToRoute('view_users');
     }
 
