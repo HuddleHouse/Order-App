@@ -60,6 +60,8 @@ class ReviewOrderController extends Controller
         $em->persist($product);
         $em->flush();
 
+        $this->addFlash('notice', 'Shipping updated successfully.');
+
         return $this->sumCart($cart);
     }
 
@@ -186,6 +188,8 @@ class ReviewOrderController extends Controller
 
         $em->persist($cart);
         $em->flush();
+
+        $this->addFlash('notice', 'Shipment updated successfully.');
 
         return JsonResponse::create(true);
     }
