@@ -120,6 +120,16 @@
                             </a>
                         </li>
 
+                        <li class="{% if app.request.get('_route') == 'view_oustanding_orders' %}active{% endif %}">
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('view_oustanding_orders') }}">
+                                {% endif %}
+                                <i class="icon-folder-alt"></i>
+                                <span class="title">Ordered Parts Dcik</span>
+                            </a>
+                        </li>
+
+
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="z {% if app.request.attributes.get('_route') in [
                             'fos_user_group_list',
