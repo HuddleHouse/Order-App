@@ -1,8 +1,22 @@
-{% extends "AppBundle:Cart:cart-header.html.twig" %}
-{% block title %}Home{% endblock %}
+{% extends ":template:layout.html.twig" %}
+{% block title %}Ordered Parts Database{% endblock %}
 
-{% block cart %}
+{% block content %}
     <style>
+        #overlay {
+            /* Height & width depends on how you want to reveal the overlay (see JS below) */
+            height: 100%;
+            width: 100%;
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            background-color: rgb(0, 0, 0); /* Black fallback color */
+            background-color: rgba(0, 0, 0, 0.66); /* Black w/opacity */
+            overflow-x: hidden; /* Disable horizontal scroll */
+            transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+        }
+
         /*.grid-item {
         transform: translate(0, 0) scale(1);
         }
@@ -104,159 +118,39 @@
             }
         }
     </style>
-    <div class="row">
-        <div id="shopping-cart" class="col-md-12">
-            <div class="stats-overview stat-block"
-                 style="border-color: #e2001a; border-width: 5px; border-style: solid;">
-                <div class="details">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="numbers">
-                                PRODUCT SHOPPING CART
-                            </div>
-                        </div>
-
-                        <div class="numbers" class="col-md-4">
-                            <select id="shipping" style="float: right; margin-right: 25px;" required="required"
-                                    ng-change="updateShipping()" ng-model="shipping">
-                                <option disabled selected value="0">-- Choose Your Shipping Method --</option>
-                                {% for ship in shipping %}
-                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <hr>
-                    <div ng-if="cart.length == 0">
-                        <div style="padding-bottom: 35px; padding-top: 20px;">
-                            No products currently in cart.
-                        </div>
-                    </div>
-                    <div ng-if="cart.length != 0">
-                        {% verbatim %}
-                            <table id="cart-table" class="table table-striped table-bordered" cellspacing="0" style="margin-top: -7px;">
-                                <thead style="background: #fff;">
-                                <tr>
-                                    <th>PRODUCT #</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>RETURN REQUIRED</th>
-                                    <th>LINE NUMBER (S)</th>
-                                    <th style="max-width:95%">QUANTITY</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in cart track by $index">
-                                    <div ng-if="angular.isobject(item)">
-                                        <td style="padding-top: 20px;">{{ item.stock_number }}</td>
-                                        <td style="padding-top: 20px;">{{ item.description }}</td>
-                                        <td  style="padding-top: 20px;">
-                                            <div ng-if="item.require_return == 1">
-                                                <center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>
-                                             </div>
-                                        </td>
-                                        <td>
-                                           <div ng-repeat="num in item.line_numbers track by $index" style="display: inline-block;">
-                                                <input ng-model="num.line_number" type="text" class="form-control line-number" ng-change="updateLineNumber(num)" maxlength="4" style="width: 60px;">
-                                           </div>
-                                           <div style="display: inline-flex;">
-                                            <button ng-click="removeLineNumber(item.id)" style="background: transparent; border: none;">
-                                                    <i class="fa fa-minus" style="font-size: 20px;color: #e2001a;"></i>
-                                                </button>
-                                           <button ng-click="addLineNumber(item.id)" style="background: transparent; border: none;">
-                                                    <i class="fa fa-plus" style="font-size: 20px;color: #e2001a;"></i>
-                                                </button>
-                                                </div>
-                                        </td>
-                           <td style="padding-top: 20px;">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <button ng-click="downQuantity(item.id)" style="background: transparent; border: none;">
-                                                    <i class="fa fa-minus" style="font-size: 20px;color: #e2001a;"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-2">
-                                            <center>
-                                                {{ item.quantity }}
-                                             </center>
-                                             </div>
-                                             <div class="col-md-4">
-                                                <button ng-if="option != 'colorhead'" ng-click="upQuantity(item.id)" style="background: transparent; border: none;">
-                                                    <i class="fa fa-plus" style="font-size: 20px;color: #e2001a;"></i>
-                                                </button>
-                                              </div>
-                                           </div>
-                                        </td>
-
-                                        </div>
-                                    </tr>
-                            </tbody>
-                            </table>
-                        {% endverbatim %}
-                    </div>
-                    <div class="row">
-                        <a ng-if="cart.length > 0" class="btn btn-primary" id="review_order"
-                           style="float: right;margin-right: 20px; margin-bottom: 20px;" ng-click="reviewOrder()">REVIEW
-                            ORDER</a>
-
-                        <button ng-if="option != 'colorhead' && option != 'filters'" type="button"
-                                class="btn btn-primary"
-                                id="btnAddUnknownItem" data-toggle="modal" data-target="#myModal"
-                                style="float: right;margin-right: 20px; margin-bottom: 20px;">ADD AN UNKNOWN ITEM
-                        </button>
-
-                        <!-- Modal -->
-
-                        <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">ADD AN UNKNOWN ITEM</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                            <textarea class="form-control" rows="5"
-                                                      id="unknown_item_description"></textarea>
-
-                                        <p style="margin: 22px 0 0px 8px;">Please describe the item in as much
-                                            detail as you can.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE
-                                        </button>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                                ng-click="addUnknownItem()">ADD TO
-                                            ORDER
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+    <div id="overlay"></div>
+    <div class="col-md-6 col-md-offset-3">
+        <form class="form-inline" id="dates">
+            <div class="form-group">
+                <label class="sr-only" for="beginDate">Name</label>
+                <input type="date" class="form-control" id="beginDate" name="beginDate" placeholder="Begin Date">
             </div>
-        </div>
+            <div class="form-group">
+                <label class="sr-only" for="endDate">Email</label>
+                <input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     </div>
     <div class="row">
         <div class="col-md-12" style="margin-top: 30px;">
             <div class="stats-overview stat-block">
                 <div class="details">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="numbers">
                                 PRODUCT SEARCH
                             </div>
                         </div>
-                        <div id='filters' class="col-md-5">
+                        <div id='filters' class="col-md-3">
                             <select class="form-control">
                                 <option value="">-- All Categories --</option>
                                 {% for category in categories %}
                                     <option value="{{ category.nameCononical }}">{{ category.name }}</option>
                                 {% endfor %}
                             </select>
-
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <input type="text" class="form-control" id="myInputTextField"
                                    placeholder="Search by product Description or Number">
                         </div>
@@ -269,41 +163,48 @@
                             <tr>
                                 <th>CATEGORY</th>
                                 <th>PRODUCT #</th>
+                                <th>ORDER #</th>
+                                <th>DATE SUBMITTED</th>
+                                <th>DATE APPROVED</th>
                                 <th width="40px">PHOTO</th>
                                 <th>DESCRIPTION</th>
                                 <th width="30px">RETURN REQUIRED</th>
-                                <th width="50px">ADD TO CART</th>
+                                <th>QUANTITY ORDERED</th>
+                                <th>QUANTITY RETURNED</th>
+                                <th>QUANTITY BACKORDERED</th>
+                                <th>SUBMITTED BY</th>
+                                <th>APPROVED BY</th>
+                                <th>OFFICE</th>
                             </tr>
                             </thead>
-                            <tbody id="container">
-                            {% for product in products %}
-                                <tr class="grid-item">
-                                    <td style="display: none">{{ product.partCategory.nameCononical|upper }}</td>
-                                    <td>{{ product.stockNumber }}</td>
-                                    <td>
-                                        <center>
-                                            <a onclick="popup({{ product.id }})" style="    cursor: pointer;">
-                                                <i class="fa fa-camera" style="font-size: 22px;color: #e2001a;"></i>
-                                                <img id="{{ product.id }}-img" src="/{{ product.webPath }}" width="0"
-                                                     height="0" style="display: none;">
-                                            </a>
-                                        </center>
-                                    </td>
-                                    <td>{{ product.description }}</td>
-                                    <td>{{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}</td>
-                                    <td>
-                                        <center>
-                                            <button ng-click="addItem({{ product.id }})"
-                                                    style="background: transparent; border: none;">
-                                                <i class="fa fa-shopping-cart"
-                                                   style="font-size: 25px;color: #e2001a;"></i>
-                                            </button>
-                                        </center>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
                         </table>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+                        <script>
+                            var opts = {
+                                lines: 17 // The number of lines to draw
+                                , length: 56 // The length of each line
+                                , width: 2 // The line thickness
+                                , radius: 0 // The radius of the inner circle
+                                , scale: 1 // Scales overall size of the spinner
+                                , corners: 1 // Corner roundness (0..1)
+                                , color: '#000' // #rgb or #rrggbb or array of colors
+                                , opacity: 0.05 // Opacity of the lines
+                                , rotate: 0 // The rotation offset
+                                , direction: 1 // 1: clockwise, -1: counterclockwise
+                                , speed: 2 // Rounds per second
+                                , trail: 65 // Afterglow percentage
+                                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                                , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                                , className: 'spinner' // The CSS class to assign to the spinner
+                                , top: '50%' // Top position relative to parent
+                                , left: '50%' // Left position relative to parent
+                                , shadow: false // Whether to render a shadow
+                                , hwaccel: false // Whether to use hardware acceleration
+                                , position: 'absolute' // Element positioning
+                            };
+                            var target = document.getElementById('overlay');
+                            var spinner = new Spinner(opts).spin(target);
+                        </script>
                     </div>
                 </div>
             </div>
@@ -325,10 +226,12 @@
         <!-- Modal Caption (Image Text) -->
         <div id="caption"></div>
     </div>
-{% endblock cart %}
+{% endblock content %}
 
 {% block footer %}
     <script>
+        var oTable = null;
+        var tableData = [["", "", "", "", "", "", "", "", "", "", "", "", "", ""]];
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
@@ -356,17 +259,45 @@
             captionText.innerHTML = img.alt;
         }
 
+        function datesAjax() {
+            $('#overlay').show();
+            $.ajax({
+                // Your server script to process the upload
+                url: '{{ path("api_ordered-parts_db-date-range") }}',  //Server script to process data
+                type: 'POST',
+                // Form data
+                data: new FormData($('#dates')[0]),
+                // Tell jQuery not to process data or worry about content-type
+                // You *must* include these options!
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    tableData = data;
+                    oTable.draw();
+                },
+                error: function (err) {
+                    console.log('error: ' + JSON.stringify(err, null, 4));
+                },
+                complete: function () {
+                    $('#overlay').hide()
+                }
+            });
+        }
+
+        $('#dates').on('submit', function (event) {
+            event.preventDefault();
+            datesAjax();
+        });
 
         $(document).ready(function () {
-            $('#btnAddUnknownItem').on('click', function () {
-                $('#unknown_item_description').val('');
-            });
-            var oTable = $('#part-table').DataTable({
+            oTable = $('#part-table').DataTable({
                 "paging": false,
-                "sDom": '<"top">rt<"bottom"lp><"clear">'
+                "sDom": '<"top">rt<"bottom"lp><"clear">',
+                "data": tableData
             });
 
-            oTable.column(0).visible(false);
+//            oTable.column(0).visible(false);
 
             var searchTableQueryField = $('#myInputTextField');
 
@@ -390,96 +321,8 @@
 
                 oTable.columns(0).search(search, true).draw();
             });
-        });
-
-        var app = angular.module("myShoppingList", []);
-
-        app.controller("myCtrl", function ($scope) {
-            $scope.cart = [];
-            $scope.products = [];
-            $scope.shipping = '0';
-            $scope.numItems = 0;
-            $scope.option = "{{ option }}";
-
-            function updateCart(data) {
-                $scope.$apply(function () {
-                    $scope.cart = data.cart;
-                    $scope.shipping = data.shipping;
-                    $scope.numItems = data.num_items;
-                });
-            }
-
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ path('api_set_cart_type') }}",
-                data: {option: $scope.option},
-                dataType: 'json',
-                success: function (data) {
-
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-            // Load Cart
-            $.get("{{ path('api_load_cart') }}").done(updateCart);
-
-            // Load Products
-            $.get("{{ path('api_get_products') }}").done(function (data) {
-                $scope.products = data;
-            });
-
-            $scope.reviewOrder = function () {
-                $.get("{{ path('api_review_order_validation') }}").done(function (data) {
-                    if (!data)
-                        location.reload();
-                    else
-                        location.href = '{{ path('review_order') }}';
-                });
-            };
-
-            $scope.updateShipping = function () {
-                $.post("{{ path('update_shipping') }}", {line_number: $scope.shipping});
-            };
-
-            $scope.addUnknownItem = function () {
-                var description = $("#unknown_item_description").val();
-
-                if (description.length <= 0)
-                    alert('Description cannot be left blank.');
-                else {
-                    $.post("{{ path('api_add_unknown_item') }}", {description: description}).done(updateCart);
-                    $('#myModal').modal('hide');
-                    $('#myModal2').modal('hide');
-                }
-            };
-
-            $scope.upQuantity = function (cartProduct) {
-                $.get("{{ path('api_up_quantity', {"id": "@"}) }}".replace('@', cartProduct)).done(updateCart);
-            };
-
-            $scope.downQuantity = function (cartProduct) {
-                $.get("{{ path('api_down_quantity', {"id": "@"}) }}".replace('@', cartProduct)).done(updateCart);
-            };
-
-            $scope.addItem = function (item) {
-                $.post("{{ path('api_add_item') }}", {part: item}).done(function (data) {
-                    updateCart(data);
-                });
-            };
-
-            $scope.addLineNumber = function (item) {
-                $.post("{{ path('api_add_line_number') }}", {product_id: item}).done(updateCart);
-            };
-
-            $scope.updateLineNumber = function (item) {
-                $.post("{{ path('update_line_number') }}", {line_number: item});
-            };
-
-            $scope.removeLineNumber = function (item) {
-                $.post("{{ path('api_remove_line_number') }}", {product_id: item}).done(updateCart);
-            };
+            datesAjax();
+            $('#overlay').hide();
         });
     </script>
 {% endblock footer %}

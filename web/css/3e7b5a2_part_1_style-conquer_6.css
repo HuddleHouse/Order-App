@@ -2,16 +2,6 @@
 Buttons & Dropdown Buttons
 ***/
 
-.btn {
-  -webkit-box-shadow: none !important;
-     -moz-box-shadow: none !important;
-          box-shadow: none !important;
-  -webkit-text-shadow: none;
-     -moz-text-shadow: none;
-          text-shadow: none;
-  outline: none !important;
-}
-
 .btn-default {
   border-color: #e5e5e5;
 }

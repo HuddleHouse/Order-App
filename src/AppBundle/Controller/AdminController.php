@@ -9,6 +9,7 @@ use AppBundle\Entity\User;
 use AppBundle\Repository\OfficeRepository;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -591,6 +592,57 @@ class AdminController extends Controller
             'part_prefix' => $part_prefix,
             'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
             'cart' => $cart
+        ));
+    }
+
+    /**
+     * @Route("/admin/ordered-parts-db", name="ordered_parts_db")
+     */
+    public function viewOrderedPartsAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+//        $qb = $em->createQueryBuilder();
+        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        $offices = $em->getRepository('AppBundle:Office')->findAll();
+//        $products = $em->getRepository('AppBundle:Part')->findAll();
+
+        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity as shipQuantity, p.returned_items_quantity as returnedItemsQuantity, p.returned_items_shipped_quantity as returnedItemsShippedQuantity, parts.require_return as requireReturn, p.back_order_quantity as backOrderQuantity, c.order_number as orderNumber, c.submit_date as submitDate, c.approve_date as approveDate, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submittedBy, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approvedBy, o.name as officeName, parts.stock_number as stockNumber, parts.description, parts.path as webPath, category.name_cononical as nameCononical
+    from cart_products p
+        left join cart c
+            on p.cart_id = c.id
+        left join parts
+            on p.part_id = parts.id
+        left join users u
+            on c.user_id = u.id
+        left join users u2
+            on c.approved_by_id = u2.id
+        left join offices o
+            on c.office_id = o.id
+        left join part_categories category
+            on parts.part_category_id = category.id
+    where c.submitted = 1
+    and c.approved = 1";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+
+
+//        foreach($categories as $key => $category)
+//            if($category->getNameCononical() == 'colorhead')
+//                unset($categories[$key]);
+//
+//        foreach($products as $key => $product)
+//            if($product->getPartCategory()->getNameCononical() == 'colorhead')
+//                unset($products[$key]);
+
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
+
+        return $this->render('@App/Admin/ordered-parts_db.html.twig', array(
+            'products' => $products,
+            'categories' => $categories,
+            'shipping' => $shipping,
+            'option' => 'order',
         ));
     }
 }
