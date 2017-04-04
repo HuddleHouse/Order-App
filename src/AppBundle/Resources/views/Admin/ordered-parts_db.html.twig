@@ -119,21 +119,29 @@
         }
     </style>
     <div id="overlay"></div>
-    <div class="col-md-6 col-md-offset-3">
-        <form class="form-inline" id="dates">
-            <div class="form-group">
-                <label class="sr-only" for="beginDate">Name</label>
-                <input type="date" class="form-control" id="beginDate" name="beginDate" placeholder="Begin Date">
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="endDate">Email</label>
-                <input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-inline" id="dates">
+                <strong>Date Range: </strong>
+                <div class="form-group">
+                    <label class="sr-only" for="beginDate">Begin Date</label>
+                    <input type="date" class="form-control" id="beginDate" name="beginDate"
+                           placeholder="Begin Date"{% if beginDate is defined %} value="{{ beginDate | date('Y-m-d') }}"{% endif %}>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="endDate">End Date</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate"
+                           placeholder="End Date"{% if endDate is defined %} value="{{ endDate | date('Y-m-d') }}"{% endif %}>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
     </div>
     <div class="row">
-        <div class="col-md-12" style="margin-top: 30px;">
+        <div class="col-md-3" style="margin-top: 30px;">
+            Filters
+        </div>
+        <div class="col-md-9" style="margin-top: 30px;">
             <div class="stats-overview stat-block">
                 <div class="details">
                     <div class="row">
@@ -150,7 +158,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <input type="text" class="form-control" id="myInputTextField"
                                    placeholder="Search by product Description or Number">
                         </div>
@@ -170,6 +178,7 @@
                                 <th>DESCRIPTION</th>
                                 <th width="30px">RETURN REQUIRED</th>
                                 <th>QUANTITY ORDERED</th>
+                                <th>QUANTITY SHIPPED</th>
                                 <th>QUANTITY RETURNED</th>
                                 <th>QUANTITY BACKORDERED</th>
                                 <th>SUBMITTED BY</th>
@@ -177,6 +186,64 @@
                                 <th>OFFICE</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td>
+                                        {{ product.nameCononical }}
+                                    </td>
+                                    <td>
+                                        {{ product.stockNumber }}
+                                    </td>
+                                    <td>
+                                        {{ product.orderNumber }}
+                                    </td>
+                                    <td>
+                                        {{ product.submitDate }}
+                                    </td>
+                                    <td>
+                                        {{ product.approveDate }}
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <a onclick="popup('{{ product.webPath }}')" style="cursor: pointer">
+                                                <i class="fa fa-camera" style="font-size: 22px; color: #e2001a;"></i>
+                                                <img id="{{ product.webPath }}-img"
+                                                     src="/uploads/documents/{{ product.webPath }}" width="0" height="0"
+                                                     style="display: none;">
+                                            </a>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        {{ product.description }}
+                                    </td>
+                                    <td>
+                                        {{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}
+                                    </td>
+                                    <td>
+                                        {{ product.quantity }}
+                                    </td>
+                                    <td>
+                                        {{ product.shipQuantity }}
+                                    </td>
+                                    <td>
+                                        {{ product.returnedItemsQuantity }}
+                                    </td>
+                                    <td>
+                                        {{ product.backOrderQuantity }}
+                                    </td>
+                                    <td>
+                                        {{ product.submittedBy }}
+                                    </td>
+                                    <td>
+                                        {{ product.approvedBy }}
+                                    </td>
+                                    <td>
+                                        {{ product.officeName }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
                         </table>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
                         <script>
@@ -230,8 +297,7 @@
 
 {% block footer %}
     <script>
-        var oTable = null;
-        var tableData = [["", "", "", "", "", "", "", "", "", "", "", "", "", ""]];
+        $('#overlay').show();
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
@@ -259,45 +325,42 @@
             captionText.innerHTML = img.alt;
         }
 
-        function datesAjax() {
-            $('#overlay').show();
-            $.ajax({
-                // Your server script to process the upload
-                url: '{{ path("api_ordered-parts_db-date-range") }}',  //Server script to process data
-                type: 'POST',
-                // Form data
-                data: new FormData($('#dates')[0]),
-                // Tell jQuery not to process data or worry about content-type
-                // You *must* include these options!
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    tableData = data;
-                    oTable.draw();
-                },
-                error: function (err) {
-                    console.log('error: ' + JSON.stringify(err, null, 4));
-                },
-                complete: function () {
-                    $('#overlay').hide()
-                }
-            });
-        }
+        {#function datesAjax() {#}
+        {#$('#overlay').show();#}
+        {#$.ajax({#}
+        {#// Your server script to process the upload#}
+        {#url: '{{ path("api_ordered-parts_db-date-range") }}',  //Server script to process data#}
+        {#type: 'POST',#}
+        {#// Form data#}
+        {#data: new FormData($('#dates')[0]),#}
+        {#// Tell jQuery not to process data or worry about content-type#}
+        {#// You *must* include these options!#}
+        {#cache: false,#}
+        {#contentType: false,#}
+        {#processData: false,#}
+        {#success: function (data) {#}
+        {#tableData = data;#}
+        {#oTable.draw();#}
+        {#},#}
+        {#error: function (err) {#}
+        {#console.log('error: ' + JSON.stringify(err, null, 4));#}
+        {#},#}
+        {#complete: function () {#}
+        {#$('#overlay').hide()#}
+        {#}#}
+        {#});#}
+        {#}#}
 
         $('#dates').on('submit', function (event) {
             event.preventDefault();
-            datesAjax();
+//            datesAjax();
         });
 
         $(document).ready(function () {
-            oTable = $('#part-table').DataTable({
+            var oTable = $('#part-table').DataTable({
                 "paging": false,
-                "sDom": '<"top">rt<"bottom"lp><"clear">',
-                "data": tableData
+                "sDom": '<"top">rt<"bottom"lp><"clear">'
             });
-
-//            oTable.column(0).visible(false);
 
             var searchTableQueryField = $('#myInputTextField');
 
@@ -321,7 +384,6 @@
 
                 oTable.columns(0).search(search, true).draw();
             });
-            datesAjax();
             $('#overlay').hide();
         });
     </script>
