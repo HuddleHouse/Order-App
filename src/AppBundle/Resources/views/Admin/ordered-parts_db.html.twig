@@ -126,7 +126,8 @@
                 <div class="form-group">
                     <label class="sr-only" for="beginDate">Begin Date</label>
                     <input type="date" class="form-control" id="beginDate" name="beginDate"
-                           placeholder="Begin Date"{% if beginDate is defined %} value="{{ beginDate | date('Y-m-d') }}"{% endif %}>
+                           placeholder="Begin Date"
+                           required{% if beginDate is defined %} value="{{ beginDate | date('Y-m-d') }}"{% endif %}>
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="endDate">End Date</label>
@@ -139,33 +140,24 @@
     </div>
     <div class="row">
         <div class="col-md-3" style="margin-top: 30px;">
-            Filters
+            <div class="stats-overview stat-block">
+                <div class="details">
+                    <div class="numbers">
+                        PRODUCT SEARCH
+                    </div>
+                    <hr>
+                </div>
+                <div>
+
+                </div>
+            </div>
         </div>
         <div class="col-md-9" style="margin-top: 30px;">
             <div class="stats-overview stat-block">
                 <div class="details">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="numbers">
-                                PRODUCT SEARCH
-                            </div>
-                        </div>
-                        <div id='filters' class="col-md-3">
-                            <select class="form-control">
-                                <option value="">-- All Categories --</option>
-                                {% for category in categories %}
-                                    <option value="{{ category.nameCononical }}">{{ category.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" id="myInputTextField"
-                                   placeholder="Search by product Description or Number">
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="title" style="padding-bottom: 10px; padding-top: 10px;">
-                        <table id="part-table" class="responsive nowrap table table-striped no-footer" cellspacing="0"
+                    <div class="title" style="padding-bottom: 10px">
+                        <table id="part-table" class="responsive nowrap table table-striped no-footer isotope-table"
+                               cellspacing="0"
                                width="100%">
                             <thead>
                             <tr>
@@ -189,7 +181,7 @@
                             <tbody>
                             {% for product in products %}
                                 <tr>
-                                    <td>
+                                    <td class="category">
                                         {{ product.nameCononical }}
                                     </td>
                                     <td>
@@ -217,28 +209,28 @@
                                     <td>
                                         {{ product.description }}
                                     </td>
-                                    <td>
+                                    <td class="requireReturn">
                                         {{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}
                                     </td>
-                                    <td>
+                                    <td class="quantity">
                                         {{ product.quantity }}
                                     </td>
-                                    <td>
+                                    <td class="shipQuantity">
                                         {{ product.shipQuantity }}
                                     </td>
-                                    <td>
+                                    <td class="returnedItemsQuantity">
                                         {{ product.returnedItemsQuantity }}
                                     </td>
-                                    <td>
+                                    <td class="backOrderQuantity">
                                         {{ product.backOrderQuantity }}
                                     </td>
-                                    <td>
+                                    <td class="submittedBy">
                                         {{ product.submittedBy }}
                                     </td>
-                                    <td>
+                                    <td class="approvedBy">
                                         {{ product.approvedBy }}
                                     </td>
-                                    <td>
+                                    <td class="officeName">
                                         {{ product.officeName }}
                                     </td>
                                 </tr>
@@ -325,35 +317,30 @@
             captionText.innerHTML = img.alt;
         }
 
-        {#function datesAjax() {#}
-        {#$('#overlay').show();#}
-        {#$.ajax({#}
-        {#// Your server script to process the upload#}
-        {#url: '{{ path("api_ordered-parts_db-date-range") }}',  //Server script to process data#}
-        {#type: 'POST',#}
-        {#// Form data#}
-        {#data: new FormData($('#dates')[0]),#}
-        {#// Tell jQuery not to process data or worry about content-type#}
-        {#// You *must* include these options!#}
-        {#cache: false,#}
-        {#contentType: false,#}
-        {#processData: false,#}
-        {#success: function (data) {#}
-        {#tableData = data;#}
-        {#oTable.draw();#}
-        {#},#}
-        {#error: function (err) {#}
-        {#console.log('error: ' + JSON.stringify(err, null, 4));#}
-        {#},#}
-        {#complete: function () {#}
-        {#$('#overlay').hide()#}
-        {#}#}
-        {#});#}
-        {#}#}
+        function datesAjax() {
+            $.ajax({
+                // Your server script to process the upload
+                url: '{{ path("api_ordered-parts_db-date-range") }}',  //Server script to process data
+                type: 'POST',
+                // Form data
+                data: new FormData($('#dates')[0]),
+                // Tell jQuery not to process data or worry about content-type
+                // You *must* include these options!
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    window.location = data;
+                },
+                error: function (err) {
+                    console.log('error: ' + JSON.stringify(err, null, 4));
+                }
+            });
+        }
 
         $('#dates').on('submit', function (event) {
             event.preventDefault();
-//            datesAjax();
+            datesAjax();
         });
 
         $(document).ready(function () {
@@ -362,28 +349,26 @@
                 "sDom": '<"top">rt<"bottom"lp><"clear">'
             });
 
-            var searchTableQueryField = $('#myInputTextField');
-
-            searchTableQueryField.on('keyup', function (e) {
-                oTable.search(this.value).draw();
-            }).on('blur', function (e) {
-                searchTableQueryField.trigger('keyup');
-            }).trigger('blur');
-
-            $select = $('#filters select');
-
-            $select.change(function () {
-                var category = this.value;
-                var search = '';
-
-                if ('' === category) {
-                    search = '^.*$';
-                } else {
-                    search = '^' + this.value + '$';
+            // init Isotope
+            var $table = $('.isotope-table').isotope({
+                layoutMode: 'vertical',
+                getSortData: {
+                    category: '.category',
+                    quantity: '.quantity parseInt',
+                    shipQuantity: '.shipQuantity parseInt',
+                    returnedItemsQuantity: '.returnedItemsQuantity parseInt',
+                    backOrderQuantity: '.backOrderQuantity parseInt',
+                    submittedBy: '.submittedBy',
+                    approvedBy: '.approvedBy',
+                    officeName: '.officeName',
+                    requireReturn: function (itemElem) {
+                        var required = $(itemElem).html();
+                        if (required == '') return false;
+                        return true;
+                    }
                 }
-
-                oTable.columns(0).search(search, true).draw();
             });
+
             $('#overlay').hide();
         });
     </script>
