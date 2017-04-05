@@ -139,6 +139,10 @@
                 width: 100%;
             }
         }
+
+        select[multiple] {
+            height: 200px;
+        }
     </style>
     <div id="overlay"></div>
     <div class="date-row">
@@ -164,8 +168,8 @@
                 <label for="category">
                     Category
                 </label>
-                <select id="category" class="form-control">
-                    <option value="">All</option>
+                <select id="category" class="form-control" multiple>
+                    <option value="" selected>All</option>
                     {% for c in categories %}
                         <option value="{{ c.name }}">{{ c.name }}</option>
                     {% endfor %}
@@ -190,8 +194,8 @@
                 <label for="office">
                     Office
                 </label>
-                <select id="office" class="form-control">
-                    <option value="">All</option>
+                <select id="office" class="form-control" multiple>
+                    <option value="" selected>All</option>
                     {% for o in offices %}
                         <option value="{{ o.name }}">{{ o.name }}</option>
                     {% endfor %}
@@ -390,7 +394,7 @@
             });
 
             $('#category').on('change', function () {
-                oTable.columns(0).search(this.value).draw();
+                oTable.columns(0).search($(this).val().join('|'), true, false).draw();
             });
 
             $('#product-number').on('keyup', function () {
@@ -402,8 +406,9 @@
             });
 
             $('#office').on('change', function () {
-                oTable.columns(14).search(this.value).draw();
+                oTable.columns(14).search($(this).val().join('|'), true, false).draw();
             });
+
             $('#overlay').hide();
         });
     </script>
