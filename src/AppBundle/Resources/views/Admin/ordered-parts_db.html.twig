@@ -161,19 +161,7 @@
     <div class="row">
         <div class="details col-md-2">
             <div class="numbers">
-                FILTERS
-            </div>
-            <hr>
-            <div class="form-group">
-                <label for="office">
-                    Office
-                </label>
-                <select id="office" class="form-control">
-                    <option value="">All</option>
-                    {% for o in offices %}
-                        <option value="{{ o.name }}">{{ o.name }}</option>
-                    {% endfor %}
-                </select>
+                FILTER
             </div>
             <hr>
             <div class="form-group">
@@ -188,6 +176,31 @@
                 </select>
             </div>
             <hr>
+            <div class="form-group">
+                <label for="product-number">
+                    Product #
+                </label>
+                <input id="product-number" class="form-control" value="">
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="order-number">
+                    Order #
+                </label>
+                <input id="order-number" class="form-control" value="">
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="office">
+                    Office
+                </label>
+                <select id="office" class="form-control">
+                    <option value="">All</option>
+                    {% for o in offices %}
+                        <option value="{{ o.name }}">{{ o.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
         <div class="col-md-10">
             <div class="stats-overview stat-block">
@@ -386,12 +399,20 @@
                 "sDom": '<"top">rt<"bottom"lp><"clear">'
             });
 
-            $('#office').on('change', function () {
-                oTable.columns(14).search(this.value).draw();
-            });
-
             $('#category').on('change', function () {
                 oTable.columns(0).search(this.value).draw();
+            });
+
+            $('#product-number').on('keyup', function () {
+                oTable.columns(1).search(this.value).draw();
+            });
+
+            $('#order-number').on('keyup', function () {
+                oTable.columns(2).search(this.value).draw();
+            });
+
+            $('#office').on('change', function () {
+                oTable.columns(14).search(this.value).draw();
             });
 
 //            // init Isotope
