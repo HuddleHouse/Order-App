@@ -611,6 +611,7 @@ class AdminController extends Controller
         return $this->render('@App/Admin/ordered-parts_db.html.twig', array(
             'products' => $products,
             'categories' => $categories,
+            'offices' => $offices,
             'shipping' => $shipping,
             'option' => 'order',
         ));
@@ -663,6 +664,7 @@ class AdminController extends Controller
         return $this->render('@App/Admin/ordered-parts_db.html.twig', array(
             'products' => $products,
             'categories' => $categories,
+            'offices' => $offices,
             'shipping' => $shipping,
             'option' => 'order',
             'beginDate' => $beginDate,

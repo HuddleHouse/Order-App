@@ -17,6 +17,28 @@
             transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
         }
 
+        .page-bar {
+            display: none;
+        }
+
+        .date-row {
+            border: 0;
+            background-color: #DaDaDa;
+            margin-bottom: 25px;
+            margin-left: -20px;
+            margin-right: -20px;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .numbers {
+            text-align: center;
+        }
+
+        #dates {
+            width: 500px;
+            margin: 0 auto;
+        }
+
         /*.grid-item {
         transform: translate(0, 0) scale(1);
         }
@@ -119,40 +141,55 @@
         }
     </style>
     <div id="overlay"></div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <form class="form-inline" id="dates">
-                <strong>Date Range: </strong>
-                <div class="form-group">
-                    <label class="sr-only" for="beginDate">Begin Date</label>
-                    <input type="date" class="form-control" id="beginDate" name="beginDate"
-                           placeholder="Begin Date"
-                           required{% if beginDate is defined %} value="{{ beginDate | date('Y-m-d') }}"{% endif %}>
-                </div>
-                <div class="form-group">
-                    <label class="sr-only" for="endDate">End Date</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate"
-                           placeholder="End Date"{% if endDate is defined %} value="{{ endDate | date('Y-m-d') }}"{% endif %}>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-        </div>
+    <div class="date-row">
+        <form class="form-inline" id="dates">
+            <strong>Date Range: </strong>
+            <div class="form-group">
+                <label class="sr-only" for="beginDate">Begin Date</label>
+                <input type="date" class="form-control" id="beginDate" name="beginDate"
+                       placeholder="Begin Date"
+                       required{% if beginDate is defined %} value="{{ beginDate | date('Y-m-d') }}"{% endif %}>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="endDate">End Date</label>
+                <input type="date" class="form-control" id="endDate" name="endDate"
+                       placeholder="End Date"{% if endDate is defined %} value="{{ endDate | date('Y-m-d') }}"{% endif %}>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     </div>
     <div class="row">
-        <div class="col-md-3" style="margin-top: 30px;">
-            <div class="stats-overview stat-block">
-                <div class="details">
-                    <div class="numbers">
-                        PRODUCT SEARCH
-                    </div>
-                    <hr>
-                </div>
-                <div>
-
-                </div>
+        <div class="details col-md-2">
+            <div class="numbers">
+                FILTERS
             </div>
+            <hr>
+            <div class="form-group">
+                <label for="office">
+                    Office
+                </label>
+                <select id="office" class="form-control">
+                    <option value="">All</option>
+                    {% for o in offices %}
+                        <option value="{{ o.name }}">{{ o.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="category">
+                    Category
+                </label>
+                <select id="category" class="form-control">
+                    <option value="">All</option>
+                    {% for c in categories %}
+                        <option value="{{ c.name }}">{{ c.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <hr>
         </div>
-        <div class="col-md-9" style="margin-top: 30px;">
+        <div class="col-md-10">
             <div class="stats-overview stat-block">
                 <div class="details">
                     <div class="title" style="padding-bottom: 10px">
@@ -181,7 +218,7 @@
                             <tbody>
                             {% for product in products %}
                                 <tr>
-                                    <td class="category">
+                                    <td>
                                         {{ product.nameCononical }}
                                     </td>
                                     <td>
@@ -209,28 +246,28 @@
                                     <td>
                                         {{ product.description }}
                                     </td>
-                                    <td class="requireReturn">
+                                    <td>
                                         {{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}
                                     </td>
-                                    <td class="quantity">
+                                    <td>
                                         {{ product.quantity }}
                                     </td>
-                                    <td class="shipQuantity">
+                                    <td>
                                         {{ product.shipQuantity }}
                                     </td>
-                                    <td class="returnedItemsQuantity">
+                                    <td>
                                         {{ product.returnedItemsQuantity }}
                                     </td>
-                                    <td class="backOrderQuantity">
+                                    <td>
                                         {{ product.backOrderQuantity }}
                                     </td>
-                                    <td class="submittedBy">
+                                    <td>
                                         {{ product.submittedBy }}
                                     </td>
-                                    <td class="approvedBy">
+                                    <td>
                                         {{ product.approvedBy }}
                                     </td>
-                                    <td class="officeName">
+                                    <td>
                                         {{ product.officeName }}
                                     </td>
                                 </tr>
@@ -349,25 +386,39 @@
                 "sDom": '<"top">rt<"bottom"lp><"clear">'
             });
 
-            // init Isotope
-            var $table = $('.isotope-table').isotope({
-                layoutMode: 'vertical',
-                getSortData: {
-                    category: '.category',
-                    quantity: '.quantity parseInt',
-                    shipQuantity: '.shipQuantity parseInt',
-                    returnedItemsQuantity: '.returnedItemsQuantity parseInt',
-                    backOrderQuantity: '.backOrderQuantity parseInt',
-                    submittedBy: '.submittedBy',
-                    approvedBy: '.approvedBy',
-                    officeName: '.officeName',
-                    requireReturn: function (itemElem) {
-                        var required = $(itemElem).html();
-                        if (required == '') return false;
-                        return true;
-                    }
-                }
+            $('#office').on('change', function () {
+                oTable.columns(14).search(this.value).draw();
             });
+
+            $('#category').on('change', function () {
+                oTable.columns(0).search(this.value).draw();
+            });
+
+//            // init Isotope
+//            var $table = $('.isotope-table').isotope({
+//                layoutMode: 'fitRows',
+//                itemSelector: '.item'
+//            });
+//
+//            // filter with selects and checkboxes
+//            var $selects = $('.details select');
+//
+//            $selects.change( function() {
+//                // map input values to an array
+//                var inclusives = [];
+//                // inclusive filters from checkboxes
+//                $selects.each( function( i, elem ) {
+//                    // if checkbox, use value if checked
+//                    if ( elem.checked ) {
+//                        inclusives.push( elem.value );
+//                    }
+//                });
+//
+//                // combine inclusive filters
+//                var filterValue = inclusives.length ? inclusives.join(', ') : '*';
+//
+//                $table.isotope({ filter: filterValue })
+//            });
 
             $('#overlay').hide();
         });
