@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="62ce5c1f-6133-4638-8630-b0b5df615436" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/ordered-parts_db.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/ordered-parts_db.html.twig" />
     </list>
     <list id="062f7dd3-04ab-4055-8562-ee0177a9a78a" name="Failed commit: Default" comment="Added First/Last name to user and registrations." />
@@ -31,25 +32,25 @@
       <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="24" column="6" lean-forward="false" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+            <state relative-caret-position="38">
+              <caret line="617" column="5" lean-forward="false" selection-start-line="617" selection-start-column="5" selection-end-line="617" selection-end-column="5" />
               <folding>
-                <marker date="1491363435000" expanded="true" signature="1072:1543" ph="select c.id,... cart" />
-                <marker date="1491363435000" expanded="true" signature="1682:2089" ph="select c.id,... cart" />
-                <marker date="1491363435000" expanded="true" signature="2237:2757" ph="select c.id,... cart" />
-                <marker date="1491363435000" expanded="true" signature="2906:3311" ph="select c.id,... cart" />
-                <marker date="1491363435000" expanded="true" signature="3457:4005" ph="select c.id,... cart" />
-                <marker date="1491363435000" expanded="true" signature="4143:4176" ph="select count... users" />
-                <marker date="1491363435000" expanded="true" signature="4311:4344" ph="select count... parts" />
-                <marker date="1491363435000" expanded="true" signature="4479:4748" ph="select sum(p... cart" />
-                <marker date="1491363435000" expanded="true" signature="4989:5660" ph="select p.id,... cart_products" />
-                <marker date="1491363435000" expanded="true" signature="5807:6019" ph="select sum(p... cart_products" />
-                <marker date="1491363435000" expanded="true" signature="6257:6308" ph="select count... cart" />
-                <marker date="1491363435000" expanded="true" signature="6446:6515" ph="select count... cart" />
-                <marker date="1491363435000" expanded="true" signature="10676:10700" ph="SELECT * FRO... invitation" />
-                <marker date="1491363435000" expanded="true" signature="11453:12207" ph="select p.id,... cart_products" />
-                <marker date="1491363435000" expanded="true" signature="12354:13123" ph="select p.id,... cart_products" />
-                <marker date="1491363435000" expanded="true" signature="26184:27317" ph="select p.id,... cart_products" />
+                <marker date="1491377064000" expanded="true" signature="1072:1543" ph="select c.id,... cart" />
+                <marker date="1491377064000" expanded="true" signature="1682:2089" ph="select c.id,... cart" />
+                <marker date="1491377064000" expanded="true" signature="2237:2757" ph="select c.id,... cart" />
+                <marker date="1491377064000" expanded="true" signature="2906:3311" ph="select c.id,... cart" />
+                <marker date="1491377064000" expanded="true" signature="3457:4005" ph="select c.id,... cart" />
+                <marker date="1491377064000" expanded="true" signature="4143:4176" ph="select count... users" />
+                <marker date="1491377064000" expanded="true" signature="4311:4344" ph="select count... parts" />
+                <marker date="1491377064000" expanded="true" signature="4479:4748" ph="select sum(p... cart" />
+                <marker date="1491377064000" expanded="true" signature="4989:5660" ph="select p.id,... cart_products" />
+                <marker date="1491377064000" expanded="true" signature="5807:6019" ph="select sum(p... cart_products" />
+                <marker date="1491377064000" expanded="true" signature="6257:6308" ph="select count... cart" />
+                <marker date="1491377064000" expanded="true" signature="6446:6515" ph="select count... cart" />
+                <marker date="1491377064000" expanded="true" signature="10676:10700" ph="SELECT * FRO... invitation" />
+                <marker date="1491377064000" expanded="true" signature="11453:12207" ph="select p.id,... cart_products" />
+                <marker date="1491377064000" expanded="true" signature="12354:13123" ph="select p.id,... cart_products" />
+                <marker date="1491377064000" expanded="true" signature="24103:25236" ph="select p.id,... cart_products" />
               </folding>
             </state>
           </provider>
@@ -58,8 +59,8 @@
       <file leaf-file-name="ordered-parts_db.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/ordered-parts_db.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2822">
-              <caret line="189" column="69" lean-forward="false" selection-start-line="189" selection-start-column="69" selection-end-line="189" selection-end-column="69" />
+            <state relative-caret-position="115">
+              <caret line="13" column="70" lean-forward="true" selection-start-line="13" selection-start-column="70" selection-end-line="13" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -787,14 +788,7 @@
       <workItem from="1490814047233" duration="6102000" />
       <workItem from="1491253255236" duration="792000" />
       <workItem from="1491262171775" duration="7927000" />
-      <workItem from="1491318523911" duration="4077000" />
-    </task>
-    <task id="LOCAL-00115" summary="Adding validator.js">
-      <created>1463759484528</created>
-      <option name="number" value="00115" />
-      <option name="presentableId" value="LOCAL-00115" />
-      <option name="project" value="LOCAL" />
-      <updated>1463759484528</updated>
+      <workItem from="1491318523911" duration="5409000" />
     </task>
     <task id="LOCAL-00116" summary="Adding some custom Validation.">
       <created>1463947260133</created>
@@ -1132,11 +1126,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491366476579</updated>
     </task>
-    <option name="localTasksCounter" value="164" />
+    <task id="LOCAL-00164" summary="datatable filtering, done">
+      <created>1491375385037</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1491375385037</updated>
+    </task>
+    <option name="localTasksCounter" value="165" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="202661000" />
+    <option name="totallyTimeSpent" value="203993000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1214,7 +1215,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Started adding the add an unknown item option on the ordering page." />
     <MESSAGE value="Finishing up I hope.&#10;" />
     <MESSAGE value="After the user has submitted the completed order, they should have a button or a link to return to the home page so that they can immediately place another order.  (or this can just be a redirect). &#10;" />
     <MESSAGE value="Remove the “show 10 / 100” boxes and set the system to default to “show all” on all pages&#10;" />
@@ -1239,7 +1239,8 @@
     <MESSAGE value="added routes for date inputs, ready for filters" />
     <MESSAGE value="I think I did this wrong..." />
     <MESSAGE value="datatable filtering" />
-    <option name="LAST_COMMIT_MESSAGE" value="datatable filtering" />
+    <MESSAGE value="datatable filtering, done" />
+    <option name="LAST_COMMIT_MESSAGE" value="datatable filtering, done" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1804,31 +1805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="24" column="6" lean-forward="false" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-          <folding>
-            <marker date="1491363435000" expanded="true" signature="1072:1543" ph="select c.id,... cart" />
-            <marker date="1491363435000" expanded="true" signature="1682:2089" ph="select c.id,... cart" />
-            <marker date="1491363435000" expanded="true" signature="2237:2757" ph="select c.id,... cart" />
-            <marker date="1491363435000" expanded="true" signature="2906:3311" ph="select c.id,... cart" />
-            <marker date="1491363435000" expanded="true" signature="3457:4005" ph="select c.id,... cart" />
-            <marker date="1491363435000" expanded="true" signature="4143:4176" ph="select count... users" />
-            <marker date="1491363435000" expanded="true" signature="4311:4344" ph="select count... parts" />
-            <marker date="1491363435000" expanded="true" signature="4479:4748" ph="select sum(p... cart" />
-            <marker date="1491363435000" expanded="true" signature="4989:5660" ph="select p.id,... cart_products" />
-            <marker date="1491363435000" expanded="true" signature="5807:6019" ph="select sum(p... cart_products" />
-            <marker date="1491363435000" expanded="true" signature="6257:6308" ph="select count... cart" />
-            <marker date="1491363435000" expanded="true" signature="6446:6515" ph="select count... cart" />
-            <marker date="1491363435000" expanded="true" signature="10676:10700" ph="SELECT * FRO... invitation" />
-            <marker date="1491363435000" expanded="true" signature="11453:12207" ph="select p.id,... cart_products" />
-            <marker date="1491363435000" expanded="true" signature="12354:13123" ph="select p.id,... cart_products" />
-            <marker date="1491363435000" expanded="true" signature="26184:27317" ph="select p.id,... cart_products" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/template/layout.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
@@ -1837,10 +1813,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="617" column="5" lean-forward="false" selection-start-line="617" selection-start-column="5" selection-end-line="617" selection-end-column="5" />
+          <folding>
+            <marker date="1491377064000" expanded="true" signature="1072:1543" ph="select c.id,... cart" />
+            <marker date="1491377064000" expanded="true" signature="1682:2089" ph="select c.id,... cart" />
+            <marker date="1491377064000" expanded="true" signature="2237:2757" ph="select c.id,... cart" />
+            <marker date="1491377064000" expanded="true" signature="2906:3311" ph="select c.id,... cart" />
+            <marker date="1491377064000" expanded="true" signature="3457:4005" ph="select c.id,... cart" />
+            <marker date="1491377064000" expanded="true" signature="4143:4176" ph="select count... users" />
+            <marker date="1491377064000" expanded="true" signature="4311:4344" ph="select count... parts" />
+            <marker date="1491377064000" expanded="true" signature="4479:4748" ph="select sum(p... cart" />
+            <marker date="1491377064000" expanded="true" signature="4989:5660" ph="select p.id,... cart_products" />
+            <marker date="1491377064000" expanded="true" signature="5807:6019" ph="select sum(p... cart_products" />
+            <marker date="1491377064000" expanded="true" signature="6257:6308" ph="select count... cart" />
+            <marker date="1491377064000" expanded="true" signature="6446:6515" ph="select count... cart" />
+            <marker date="1491377064000" expanded="true" signature="10676:10700" ph="SELECT * FRO... invitation" />
+            <marker date="1491377064000" expanded="true" signature="11453:12207" ph="select p.id,... cart_products" />
+            <marker date="1491377064000" expanded="true" signature="12354:13123" ph="select p.id,... cart_products" />
+            <marker date="1491377064000" expanded="true" signature="24103:25236" ph="select p.id,... cart_products" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Admin/ordered-parts_db.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2822">
-          <caret line="189" column="69" lean-forward="false" selection-start-line="189" selection-start-column="69" selection-end-line="189" selection-end-column="69" />
+        <state relative-caret-position="115">
+          <caret line="13" column="70" lean-forward="true" selection-start-line="13" selection-start-column="70" selection-end-line="13" selection-end-column="70" />
           <folding />
         </state>
       </provider>

@@ -34,7 +34,7 @@
             text-align: center;
         }
 
-        #dates {
+        .date-row .form-inline {
             width: 500px;
             margin: 0 auto;
         }
@@ -142,21 +142,17 @@
     </style>
     <div id="overlay"></div>
     <div class="date-row">
-        <form class="form-inline" id="dates">
+        <div class="form-inline">
             <strong>Date Range: </strong>
             <div class="form-group">
                 <label class="sr-only" for="beginDate">Begin Date</label>
-                <input type="date" class="form-control" id="beginDate" name="beginDate"
-                       placeholder="Begin Date"
-                       required{% if beginDate is defined %} value="{{ beginDate | date('Y-m-d') }}"{% endif %}>
+                <input type="date" class="form-control" id="beginDate">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="endDate">End Date</label>
-                <input type="date" class="form-control" id="endDate" name="endDate"
-                       placeholder="End Date"{% if endDate is defined %} value="{{ endDate | date('Y-m-d') }}"{% endif %}>
+                <input type="date" class="form-control" id="endDate">
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+        </div>
     </div>
     <div class="row">
         <div class="details col-md-2">
@@ -367,36 +363,30 @@
             captionText.innerHTML = img.alt;
         }
 
-        function datesAjax() {
-            $.ajax({
-                // Your server script to process the upload
-                url: '{{ path("api_ordered-parts_db-date-range") }}',  //Server script to process data
-                type: 'POST',
-                // Form data
-                data: new FormData($('#dates')[0]),
-                // Tell jQuery not to process data or worry about content-type
-                // You *must* include these options!
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    window.location = data;
-                },
-                error: function (err) {
-                    console.log('error: ' + JSON.stringify(err, null, 4));
-                }
-            });
-        }
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var beginDate = new Date($('#beginDate').val());
+                var endDate = new Date($('#endDate').val());
+                var submittedDate = new Date(data[3]);
 
-        $('#dates').on('submit', function (event) {
-            event.preventDefault();
-            datesAjax();
-        });
+                if (( beginDate == "Invalid Date" && endDate == "Invalid Date" ) ||
+                    ( beginDate == "Invalid Date" && submittedDate <= endDate ) ||
+                    ( beginDate <= submittedDate && endDate == "Invalid Date" ) ||
+                    ( beginDate <= submittedDate && submittedDate <= endDate )) {
+                    return true;
+                }
+                return false;
+            }
+        );
 
         $(document).ready(function () {
             var oTable = $('#part-table').DataTable({
                 "paging": false,
                 "sDom": '<"top">rt<"bottom"lp><"clear">'
+            });
+
+            $('#beginDate, #endDate').on('change', function () {
+                oTable.draw();
             });
 
             $('#category').on('change', function () {
@@ -414,33 +404,6 @@
             $('#office').on('change', function () {
                 oTable.columns(14).search(this.value).draw();
             });
-
-//            // init Isotope
-//            var $table = $('.isotope-table').isotope({
-//                layoutMode: 'fitRows',
-//                itemSelector: '.item'
-//            });
-//
-//            // filter with selects and checkboxes
-//            var $selects = $('.details select');
-//
-//            $selects.change( function() {
-//                // map input values to an array
-//                var inclusives = [];
-//                // inclusive filters from checkboxes
-//                $selects.each( function( i, elem ) {
-//                    // if checkbox, use value if checked
-//                    if ( elem.checked ) {
-//                        inclusives.push( elem.value );
-//                    }
-//                });
-//
-//                // combine inclusive filters
-//                var filterValue = inclusives.length ? inclusives.join(', ') : '*';
-//
-//                $table.isotope({ filter: filterValue })
-//            });
-
             $('#overlay').hide();
         });
     </script>

@@ -618,61 +618,6 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/ordered-parts-db/{date}", name="ordered_parts_db_date")
-     */
-    public function viewOrderedPartsDateAction(Request $request, $date)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-        $offices = $em->getRepository('AppBundle:Office')->findAll();
-
-        $beginDate = new \DateTime($date);
-        $products = $this->orderedPartsDbQuery($beginDate);
-
-        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
-
-        return $this->render('@App/Admin/ordered-parts_db.html.twig', array(
-            'products' => $products,
-            'categories' => $categories,
-            'offices' => $offices,
-            'shipping' => $shipping,
-            'option' => 'order',
-            'beginDate' => $beginDate
-        ));
-    }
-
-    /**
-     * @Route("/admin/ordered-parts-db/{date}/{date2}", name="ordered_parts_db_dates")
-     */
-    public function viewOrderedPartsDatesAction(Request $request, $date, $date2)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-        $offices = $em->getRepository('AppBundle:Office')->findAll();
-
-        $beginDate = new \DateTime($date);
-        $endDate = new \DateTime($date2);
-        //add a day because DateTime defaults to midnight
-        $endDate->add(new \DateInterval('P1D'));
-
-        $products = $this->orderedPartsDbQuery($beginDate, $endDate);
-
-        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
-
-        return $this->render('@App/Admin/ordered-parts_db.html.twig', array(
-            'products' => $products,
-            'categories' => $categories,
-            'offices' => $offices,
-            'shipping' => $shipping,
-            'option' => 'order',
-            'beginDate' => $beginDate,
-            'endDate' => $endDate->sub(new \DateInterval('P1D')) // fix it back
-        ));
-    }
-
-    /**
      * @param \DateTime|null $beginDate
      * @param \DateTime|null $endDate
      * @return array
