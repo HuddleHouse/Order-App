@@ -386,8 +386,13 @@
         $(document).ready(function () {
             var oTable = $('#part-table').DataTable({
                 "paging": false,
-                "sDom": '<"top">rt<"bottom"lp><"clear">'
+                "sDom": '<"top">Brt<"bottom"lp><"clear">',
+                "buttons": [
+                    'copyHtml5', 'csvHtml5', 'excelHtml5'
+                ]
             });
+
+//            oTable.buttons().container().appendTo( $('#part-table_wrapper .top', oTable.table().container() ) );
 
             $('#beginDate, #endDate').on('change', function () {
                 oTable.draw();
