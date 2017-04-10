@@ -46,11 +46,6 @@ class Invitation
      */
     protected $admin = false;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Office")
-     * @ORM\JoinColumn(name="office_id", referencedColumnName="id")
-     */
-    private $office;
 
     public function __construct()
     {
@@ -158,19 +153,4 @@ class Invitation
         $this->valid = $valid;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getOffice()
-    {
-        return $this->office;
-    }
-
-    /**
-     * @param mixed $office
-     */
-    public function setOffice($office)
-    {
-        $this->office = $office;
-    }
 }
