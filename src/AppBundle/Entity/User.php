@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -59,9 +60,22 @@ class User extends BaseUser
      */
     protected $office;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $cart;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="approved_by", cascade={"persist", "remove"})
+     */
+    private $cartApprovedBy;
+
+
     public function __construct()
     {
         parent::__construct();
+        $this->cart = new ArrayCollection();
+        $this->cartApprovedBy = new ArrayCollection();
         // your own logic
     }
 
@@ -139,6 +153,38 @@ class User extends BaseUser
     public function setRole($role)
     {
         $this->setRoles(array($role));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCart()
+    {
+        return $this->cart;
+    }
+
+    /**
+     * @param mixed $cart
+     */
+    public function setCart($cart)
+    {
+        $this->cart = $cart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCartApprovedBy()
+    {
+        return $this->cartApprovedBy;
+    }
+
+    /**
+     * @param mixed $cartApprovedBy
+     */
+    public function setCartApprovedBy($cartApprovedBy)
+    {
+        $this->cartApprovedBy = $cartApprovedBy;
     }
 
 }

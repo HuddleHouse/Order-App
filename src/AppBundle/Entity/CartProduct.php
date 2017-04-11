@@ -113,6 +113,12 @@ class CartProduct
      */
     private $cartProductLineNumbers;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_path", type="string", nullable=true)
+     */
+    private $imagePath;
 
     public function __construct()
     {
@@ -344,6 +350,22 @@ class CartProduct
     public function setStockNumber($stockNumber)
     {
         $this->stockNumber = $stockNumber;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImagePath()
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param string $imagePath
+     */
+    public function setImagePath(string $imagePath)
+    {
+        $this->imagePath = $imagePath;
     }
 
     /**

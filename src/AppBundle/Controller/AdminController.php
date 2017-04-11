@@ -41,7 +41,6 @@ class AdminController extends Controller
 	AND c.submitted = 1
 	AND c.type != 'colorhead'
 	AND c.type != 'filters'
-    and c.order_number not like '%-B'
 	group by c.id";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
@@ -342,15 +341,12 @@ class AdminController extends Controller
 
         try {
             $userManager->deleteUser($user);
-            $successMessage = "User removed succesfully.";
-            $this->addFlash('notice', $successMessage);
+            $this->addFlash('notice', "User removed succesfully.");
+            return $this->redirectToRoute('view_users');
         } catch (\Exception $e) {
             $this->addFlash('error', 'Error removing user: ' . $e->getMessage());
             return $this->redirectToRoute('view_users');
         }
-
-        $this->addFlash('notice', 'User deleted successfully.');
-        return $this->redirectToRoute('view_users');
     }
 
     /**

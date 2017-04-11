@@ -82,20 +82,16 @@ class Office extends BaseGroup
      */
     protected $shipToAccountNumber;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinTable(name="office_users",
-     *      joinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
-     */
-    protected $users;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\OfficeEmail", mappedBy="office")
      */
     private $emails;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="office", cascade={"persist", "remove"})
+     */
+    private $users;
 
     /**
      * Constructor
@@ -234,33 +230,6 @@ class Office extends BaseGroup
         $this->phone = $phone;
     }
 
-    public function addUser(\AppBundle\Entity\User $user)
-    {
-        $this->users[] = $user;
-
-        return $this;
-    }
-
-    /**
-     * Remove payTypes
-     *
-     * @param \AppBundle\Entity\User $user
-     */
-    public function removeUser(\AppBundle\Entity\User $user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Get payTypes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
     /**
      * @return mixed
      */
@@ -302,4 +271,21 @@ class Office extends BaseGroup
     {
         $this->shipToAccountNumber = $number;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param mixed $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+    }
+
 }

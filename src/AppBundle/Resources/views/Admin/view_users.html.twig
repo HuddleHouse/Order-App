@@ -76,16 +76,15 @@ All Registered Users
 {% block footer %}
     <script>
         $(document).ready(function () {
-            $('#part-table').DataTable();
+            $('#part-table').DataTable({
+                "paging": false
+            });
 
             $('a.btn[data-role="delete-user"]').on('click', function (e) {
                 return confirm("Are you sure you want to delete this user?");
             });
-       });
-            $('#part-table').DataTable({
-                "paging": false
-            });
-        })
+        });
+
         function removeUser(id) {
             if (confirm("Are you sure you want to delete this user?")) {
                 var url = "{{ path('admin_delete_user', {'id': 'to_delete_id'}) }}";
