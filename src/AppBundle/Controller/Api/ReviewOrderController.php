@@ -230,6 +230,7 @@ class ReviewOrderController extends Controller
         $product->setShipQuantity($data['ship_quantity']);
         $product->setBackOrderShipQuantity($data['back_order_ship_quantity']);
 
+
         if ($product->isCreatedByAdmin()) {
             $product->setDescription($data['description']);
             $product->setStockNumber($data['stock_number']);
@@ -243,6 +244,18 @@ class ReviewOrderController extends Controller
         $cartid = $request->request->get('order_id');
 
         $cart = $em->getRepository('AppBundle:Cart')->find($cartid);
+
+        $count = 0;
+        foreach ($cart->getCartProducts() as $product)
+            if ($product->getBackOrderShipQuantity() != $product->getShipQuantity())
+                $count++;
+
+        if ($count != 0)
+            $cart->setApproved(1);
+
+        $em->persist($cart);
+        $em->flush();
+
         return $this->sumCart($cart);
     }
 

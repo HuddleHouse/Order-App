@@ -41,7 +41,7 @@ class AdminController extends Controller
 	AND c.submitted = 1
 	AND c.type != 'colorhead'
 	AND c.type != 'filters'
-
+    and c.order_number not like '%-B'
 	group by c.id";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
