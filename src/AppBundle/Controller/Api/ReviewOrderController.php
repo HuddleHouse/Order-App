@@ -247,10 +247,12 @@ class ReviewOrderController extends Controller
 
         $count = 0;
         foreach ($cart->getCartProducts() as $product)
-            if ($product->getBackOrderShipQuantity() != $product->getShipQuantity())
+            if($product->getBackOrderShipQuantity() != $product->getBackOrderQuantity())
                 $count++;
 
         if ($count != 0)
+            $cart->setApproved(0);
+        else
             $cart->setApproved(1);
 
         $em->persist($cart);
