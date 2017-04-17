@@ -441,7 +441,7 @@ class AdminController extends Controller
             return $this->redirectToRoute('view_users');
         }
 
-        $this->addFlash('notice', 'User deleted successfully.');
+//        $this->addFlash('notice', 'User deleted successfully.');
         return $this->redirectToRoute('view_users');
     }
 
