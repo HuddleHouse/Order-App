@@ -120,14 +120,14 @@
                         {#</a>#}
                         {#</li>#}
 
-                        <li class="{% if app.request.get('_route') == 'view_oustanding_orders' %}active{% endif %}">
-                            {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('view_oustanding_orders') }}">
-                                {% endif %}
-                                <i class="icon-folder-alt"></i>
-                                <span class="title">Ordered Parts Dcik</span>
-                            </a>
-                        </li>
+                        {#<li class="{% if app.request.get('_route') == 'view_oustanding_orders' %}active{% endif %}">#}
+                        {#{% if is_granted('ROLE_ADMIN') %}#}
+                        {#<a href="{{ path('view_oustanding_orders') }}">#}
+                        {#{% endif %}#}
+                        {#<i class="icon-folder-alt"></i>#}
+                        {#<span class="title">Return Parts Tracking</span>#}
+                        {#</a>#}
+                        {#</li>#}
 
 
                         {% if is_granted('ROLE_ADMIN') %}
@@ -173,7 +173,7 @@
                                             View Stock Locations</a>
                                     </li>
                                     <li {% if app.request.get('_route') == 'ordered_parts_db' %} class="active"{% endif %}>
-                                        <a href="{{ path('ordered_parts_db') }}"><i class="fa fa-building"></i>
+                                        <a href="{{ path('ordered_parts_db') }}"><i class="fa fa-database"></i>
                                             Ordered Parts DB</a>
                                     </li>
                                     {#<li {% if app.request.get('_route') == 'send_invitation' %} class="active"{% endif %}>#}
