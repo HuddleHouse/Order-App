@@ -123,7 +123,7 @@ class Part
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__ . '/../../../../uster-order-app/web/' . $this->getUploadDir();
+        return __DIR__ . '/../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()

@@ -1,0 +1,515 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}Review Order{% endblock %}
+{% block page_title %}
+{% endblock page_title %}
+
+{% block page_name %}
+    Review Order
+{% endblock page_name %}
+
+{% block content %}
+    <style>
+        /* Style the Image Used to Trigger the Modal */
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (Image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image (Image Text) - Same Width as the Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation - Zoom in the Modal */
+        .modal-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .fa-times {
+            position: absolute;
+            top: 40px;
+            right: 75px;
+            color: #f1f1f1;
+            font-size: 60px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .fa-times:hover,
+        .fa-times:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <div class="row">
+        <div ng-app="myShoppingList" ng-controller="myCtrl" ng-init="init()" class="ng-cloak" ng-cloak>
+
+            <div id="shopping-cart" class="col-md-12">
+                <div class="stats-overview stat-block">
+                    <div class="display stat ok huge">
+
+                    </div>
+                    <div class="details">
+                        <div class="numbers">
+                            REVIEW BACKORDERS
+                        </div>
+                        <hr>
+                        <div class="title" style="padding-bottom: 10px; padding-top: 0px; margin-top: -7px;">
+                            <div ng-if="numItems == 0">
+                                <div style="padding-bottom: 10px; padding-top: 20px;">
+                                    No products currently in cart.
+                                </div>
+                            </div>
+                            <div ng-if="numItems != 0">
+                                {% verbatim %}
+<div class="table-responsive">
+ <table id="cart-table" class="display responsive nowrap table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>PRODUCT #</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>RETURN</th>
+                                    <th>LINE NUMBER (S)</th>
+                                    <th>STOCK LOCATION</th>
+                                    <th>PREFIX</th>
+                                    <th>QTY</th>
+                                    <th>SHIP QTY</th>
+                                    <th>B.O. QTY</th>
+                                    <th>B.O. ITEMS SHIPPED</th>
+                                    <th>USTER NOTES</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in cart track by $index" ng-if="item.back_order_quantity > 0">
+                                    <div ng-if="angular.isobject(item)">
+                                        <td style="padding: 20px 5px 5px 5px;">{{ item.stock_number }}</td>
+                                        <td style="padding-top: 20px;">{{ item.description }}</td>
+                                        <td  style="padding-top: 20px;">
+                                            <div ng-if="item.require_return == 1">
+                                                <center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>
+                                             </div>
+                                        </td>
+                                        <td>
+                                           <div ng-repeat="num in item.line_numbers track by $index" style="display: inline-block;">
+                                                <input ng-model="num.line_number" type="text" class="form-control line-number" ng-change="updateLineNumber(num)" maxlength="4" style="width: 60px;">
+                                           </div>
+                                           <div style="display: inline-flex;">
+                                            <button ng-click="removeLineNumber(item)" style="background: transparent; border: none;">
+                                                    <i class="fa fa-minus" style="font-size: 20px;color: #e2001a;"></i>
+                                                </button>
+                                           <button ng-click="addLineNumber(item)" style="background: transparent; border: none;">
+                                                    <i class="fa fa-plus" style="font-size: 20px;color: #e2001a;"></i>
+                                                </button>
+                                                </div>
+                                        </td>
+
+                                        <td>
+                                            <select id="stock_location{{item.id}}" name="stock_location{{item.id}}" class="form-control" required="required" ng-change="updateStockLocation(item)" ng-model="item.stock_location" style="
+    height: 40px;
+">
+{% endverbatim %}
+                                <option disabled value="0"></option>
+                                {% for ship in stock_location %}
+                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
+                                {% endfor %}
+                                </select>
+                                </td>
+                                {% verbatim %}
+
+                                                                                <td>
+                                            <select id="part_prefix{{item.id}}" name="part_number_prefix" class="form-control" required="required" ng-change="updatePartPrefix(item)" ng-model="item.prefix" style="
+    height: 40px;
+">
+ <option disabled value="0"></option>
+{% endverbatim %}
+                                {% for ship in part_prefix %}
+                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
+                                {% endfor %}
+                                </select>
+                                </td>
+                                {% verbatim %}
+                                        <td >
+                                                <input disabled ng-model="item.quantity" class="form-control line-number" ng-change="updateQuantity(item)" maxlength="2" style="width: 55px;">
+                                        </td>
+                                        <td>
+                                            <input disabled ng-model="item.ship_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
+                                        </td>
+                                        <td>
+                                            <input disabled ng-if="item.back_order_ship_quantity == item.back_order_quantity" ng-model="item.back_order_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;background-color: #dff0d8;">
+                                            <input disabled ng-if="item.back_order_ship_quantity != item.back_order_quantity" ng-model="item.back_order_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;background-color: #f2dede;">
+                                        </td>
+                                        <td>
+                                            <input ng-if="item.back_order_ship_quantity == item.back_order_quantity" ng-model="item.back_order_ship_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
+                                            <input ng-if="item.back_order_ship_quantity != item.back_order_quantity" ng-model="item.back_order_ship_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px; border: 1px solid red;">
+                                        </td>
+
+                                        <td>
+                                            <center>
+                                                <textarea ng-model="item.note" type="text" class="form-control line-number" ng-change="updateProduct(item)"></textarea>
+                                            </center>
+                                        </td>
+                                        </div>
+                                    </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            {% endverbatim %}
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-12">
+                                        <div class="well">
+                                            <div class="numbers">
+                                                Order Info
+                                            </div>
+                                            <hr>
+                                            <address>
+                                                Requested By: <strong>{{ requested_by }}</strong><br>
+                                                Account Name:
+                                                <strong>{{ user.firstName }} {{ user.lastName }}</strong><br>
+                                                <a href="mailto:{{ user.email }}"
+                                                   style="color: #e2001a;">{{ user.email }}</a>
+                                            </address>
+                                            {% if office %}
+                                                <address style="margin-bottom: 5px;">
+                                                    <strong># {{ office.name }}</strong><br>
+                                                    {{ office.address }}<br>
+                                                    {{ office.city }}, {{ office.state }} {{ office.zip }}<br>
+                                                    <abbr title="Phone">P:</abbr> {{ office.phone }}
+                                                </address>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12">
+                                        <div class="well">
+                                            <div class="numbers">
+                                                USDA Notes
+                                            </div>
+                                            <hr>
+                                            <address>
+                                                {{ user_notes }}
+                                            </address>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12 invoice-block"
+                                         style="text-align: right; margin-top: 30px;">
+                                        <div class="row">
+                                            <strong style="    margin-right: 131px;">Shipping</strong><br>
+                                            <select id="shipping" class="form-control" style="float: right; margin-right: 25px;width: 65%;
+    margin-bottom: 20px;
+    margin-top: 20px;" required="required"
+                                                    ng-change="updateShipping()" ng-model="shipping">
+                                                <option disabled selected value="0">-- Choose Your Shipping Method --
+                                                </option>
+                                                {% for ship in shipping %}
+                                                    <option value="{{ ship.id }}">{{ ship.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <hr>
+                                        <ul class="list-unstyled amounts">
+                                            <li>
+                                                <strong>Items Requested:</strong> <input ng-model="requested" disabled
+                                                                                         style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                            <li>
+                                                <strong>Items Back Ordered:</strong> <input ng-model="backOrders"
+                                                                                            disabled
+                                                                                            style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                            <li>
+                                                <hr>
+                                                <strong>Items Shipped:</strong> <input ng-model="shipped" disabled
+                                                                                       style="background: transparent; border: none; width: 50px; margin-right: 35px; padding-bottom: 10px; text-align: right; font-size: 18px;">
+                                            </li>
+                                        </ul>
+                                        <br>
+                                        <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print</a>
+                                        <a ng-click="reviewOrder()" class="btn btn-lg btn-success hidden-print">Approve
+                                            Order</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="image_modal" class="modal" style="display: none;">
+
+        <!-- The Close Button -->
+        <span class="close" onclick="document.getElementById('image_modal').style.display='none'">
+        <a class="fa fa-times">
+        </a>
+        </span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+    <script>
+        $(document).ready(function () {
+            oTable = $('#part-table').DataTable({
+                "paging": false,
+                "sDom": '<"top">rt<"bottom"lp><"clear">'
+            });
+            $('#myInputTextField').keyup(function () {
+                oTable.search($(this).val()).draw();
+            })
+        });
+        $(function () {
+            var $container = $('#container'),
+                    $select = $('#filters select');
+            $container.isotope({
+                itemSelector: '.grid-item'
+            });
+            $select.change(function () {
+                var filters = $(this).val();
+                $container.isotope({
+                    filter: filters,
+                    animationEngine: 'css'
+                });
+            });
+        });
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+        var modal = document.getElementById('image_modal');
+        var captionText = document.getElementById("caption");
+        var modalImg = document.getElementById("img01");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+        function popup(id) {
+            var img = document.getElementById(id + "-img");
+            console.log(img);
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            captionText.innerHTML = img.alt;
+        }
+        var app = angular.module("myShoppingList", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.shipped = 0;
+            $scope.requested = 0;
+            $scope.backOrders = 0;
+            $scope.cart = [];
+            $scope.products = [];
+            $scope.shipping = '0';
+            $scope.stock_location = {};
+            $scope.part_prefix = {};
+
+            function updateCart(data) {
+                $scope.$apply(function () {
+                    $scope.cart = data.cart;
+                    $scope.shipped = data.shipped;
+                    $scope.requested = data.requested;
+                    $scope.backOrders = data.backOrders;
+                    $scope.numItems = data.num_items;
+                    $scope.shipping = data.shipping;
+
+                    /*
+                     angular.forEach($scope.cart, function (product) {
+                     $scope[product.id] = product.product_id;
+                     console.log($scope.stock_location);
+                     });
+                     */
+                });
+            }
+
+            $scope.reviewOrder = function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('api_admin_cart_approve_order', {'cart': cart_id }) }}",
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        location.href = '{{ path('admin_home') }}';
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            };
+
+            $.ajax({
+                beforeSend: function () {
+                    console.log('json load cart');
+                },
+                type: 'POST',
+                data: {order_id: {{ cart_id }} },
+                url: "{{ path('api_load_cart_by_id') }}",
+                success: function (data) {
+                    $scope.$apply(function () {
+                        $scope.cart = data.cart;
+                        $scope.shipped = data.shipped;
+                        $scope.requested = data.requested;
+                        $scope.backOrders = data.backOrders;
+                        $scope.numItems = data.num_items;
+                        $scope.shipping = data.shipping;
+                        angular.forEach($scope.cart, function (product) {
+                            $scope[product.id] = product.product_id;
+                            console.log($scope.stock_location);
+                        });
+                    });
+                }
+            });
+            $.ajax({
+                beforeSend: function () {
+                    console.log('json start');
+                },
+                type: 'GET',
+                url: "{{ path('api_get_products') }}",
+                success: function (data) {
+                    $scope.$apply(function () {
+                        $scope.products = data;
+                    });
+                }
+            });
+            $scope.inArray = function (item, array) {
+                return array.indexOf(item);
+            };
+
+
+            $scope.addItem = function (item) {
+                $.post("{{ path('api_cart_add_part') }}", {cart: {{ cart_id }}, part: item}).done(updateCart);
+            };
+
+            $scope.updateShipping = function () {
+                $.post("{{ path('admin_update_shipping') }}", {cart_id: {{ cart_id }}, ship_id: $scope.shipping});
+            };
+
+            $scope.deleteProduct = function (item) {
+                if (!confirm('Are you sure you want to delete this line?')) return;
+
+                $.post("{{ path('delete_cart_item') }}", {item: item.id}).done(updateCart);
+            };
+
+            $scope.updateProduct = function (item) {
+                $.post("{{ path('update_product') }}", {data: item, order_id: {{ cart_id }}}).done(updateCart);
+            };
+
+            $scope.updateNote = function (item) {
+                $.post("{{ path('update_product') }}", {data: item, order_id: {{ cart_id }}});
+            };
+
+            $scope.updateQuantity = function (number) {
+                $.post("{{ path('update_quantity') }}", {data: number, order_id: {{ cart_id }}}).done(updateCart);
+            };
+
+            $scope.updateStockLocation = function (product_id) {
+                $.post("{{ path('update_stock_location') }}", {
+                    stock_location_id: $("#stock_location" + product_id.id).val(),
+                    cart_product_id: product_id
+                });
+            };
+
+            $scope.updatePartPrefix = function (item) {
+                $.post("{{ path('update_part_prefix') }}", {
+                    prefix: $("#part_prefix" + item.id).val(),
+                    item: item.id
+                });
+            };
+
+            $scope.addLineNumber = function (item) {
+                $.post("{{ path('api_add_line_number_review_order') }}", {item: item.id}).done(updateCart);
+            };
+
+            $scope.updateLineNumber = function (item) {
+                $.post("{{ path('update_line_number_review_order') }}", {
+                    line_number: item
+                });
+            };
+
+            $scope.removeLineNumber = function (item) {
+                $.post("{{ path('api_remove_line_number_review_order') }}", {item: item.id}).done(updateCart);
+            };
+
+            $scope.addUnknownItem = function () {
+                $.post("{{ path('api_cart_add_unknown') }}", {cart: {{ cart_id }}}).done(updateCart);
+            };
+        });
+    </script>
+{% endblock footer %}

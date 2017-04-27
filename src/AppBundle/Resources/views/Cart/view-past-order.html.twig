@@ -103,44 +103,12 @@
 
 {% block footer %}
     <script>
-        $(document).ready(function () {
-            oTable = $('#part-table').DataTable({
-                "paging": false,
-                "sDom": '<"top">rt<"bottom"lp><"clear">'
-            });
-            $('#myInputTextField').keyup(function () {
-                oTable.search($(this).val()).draw();
-            })
-        });
-        $(function () {
-
-            var $container = $('#container'),
-                    $select = $('#filters select');
-
-            $container.isotope({
-                itemSelector: '.grid-item'
-            });
-
-            $select.change(function () {
-                var filters = $(this).val();
-                $container.isotope({
-                    filter: filters,
-                    animationEngine: 'css'
-                });
-            });
-
-        });
         var app = angular.module("myShoppingList", []);
         app.controller("myCtrl", function ($scope) {
             $scope.numItems = 0;
             $scope.cart = [];
-            $scope.products = [];
-
 
             $.ajax({
-                beforeSend: function () {
-                    console.log('json load cart');
-                },
                 type: 'POST',
                 data: {order_id: {{ order_id }} },
                 url: "{{ path('api_load_cart_by_id') }}",
@@ -148,108 +116,9 @@
                     $scope.$apply(function () {
                         $scope.cart = data.cart;
                         $scope.numItems = data.numItems;
-                        console.log($scope.cart);
                     });
                 }
             });
-
-            $.ajax({
-                beforeSend: function () {
-                    console.log('json start');
-                },
-                type: 'GET',
-                url: "{{ path('api_get_products') }}",
-                success: function (data) {
-                    $scope.$apply(function () {
-                        $scope.products = data;
-                    });
-                }
-            });
-
-            $scope.inArray = function (item, array) {
-                return array.indexOf(item);
-            };
-
-            $scope.addItem = function (item) {
-                console.log(item);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_add_item_by_id') }}",
-                    data: {product_id: item},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
-                            console.log($scope.cart);
-                        });
-                    }
-                });
-            };
-
-            $scope.removeItem = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_remove_item_by_id') }}",
-                    data: {product_id: item},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
-                        });
-                    }
-                });
-            };
-
-            $scope.addLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_add_line_number') }}",
-                    data: {product_id: item},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
-            $scope.updateLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('update_line_number') }}",
-                    data: {line_number: item},
-                    dataType: 'json',
-                    success: function () {
-
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
-            $scope.removeLineNumber = function (item) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ path('api_remove_line_number') }}",
-                    data: {product_id: item},
-                    dataType: 'json',
-                    success: function (data) {
-                        $scope.$apply(function () {
-                            $scope.cart = data.cart;
-                            $scope.numItems = data.num_items;
-                        });
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            };
         });
     </script>
 {% endblock footer %}

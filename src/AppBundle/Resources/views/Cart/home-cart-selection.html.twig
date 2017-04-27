@@ -1,0 +1,57 @@
+{% extends ":template:layout.html.twig" %}
+{% block title %}Welcome{% endblock title %}
+
+{% block page_title %}
+
+
+    <style>
+        .page-bar {
+            display: none;
+        }
+        .btn-primary {
+            padding: 2em;
+            font-size: 2em;
+        }
+    </style>
+{% endblock page_title %}
+
+{% block page_name %}
+
+{% endblock page_name %}
+
+{% block content %}
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-md-12">
+            <center>
+                <a class="btn btn-lg btn-primary" href="{{ path('user_home_option', {'option': 'order'}) }}">
+                    Place Order
+                </a>
+                <a class="btn btn-lg btn-primary" href="{{ path('user_home_option', {'option': 'colorhead'}) }}">
+                    Place Colorhead Order
+                </a>
+                <a class="btn btn-lg btn-primary" href="{{ path('user_home_option', {'option': 'filters'}) }}">
+                    Place Filter Order
+                </a>
+            </center>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-md-12">
+            <center>
+                <a class="btn btn-lg btn-default" href="{{ path('prepare_a_return') }}">
+                    Prepare a Return
+                </a>
+                <a class="btn btn-lg btn-default" href="{{ path('view_all_outstanding_returns') }}">
+                    View Outstanding Returns
+                </a>
+                <a class="btn btn-lg btn-default" href="{{ path('view_all_orders') }}">
+                    View All Orders
+                </a>
+            </center>
+        </div>
+    </div>
+    <div class="row">
+        <div id="submitted" class="col-md-6">
+        </div>
+    </div>
+{% endblock content %}

@@ -1,6 +1,6 @@
 /**
- Core script to handle the entire theme and core functions
- **/
+Core script to handle the entire theme and core functions
+**/
 var App = function () {
 
     // IE mode
@@ -45,14 +45,14 @@ var App = function () {
             isRTL = true;
         }
 
-        isIE8 = !!navigator.userAgent.match(/MSIE 8.0/);
-        isIE9 = !!navigator.userAgent.match(/MSIE 9.0/);
-        isIE10 = !!navigator.userAgent.match(/MSIE 10.0/);
+        isIE8 = !! navigator.userAgent.match(/MSIE 8.0/);
+        isIE9 = !! navigator.userAgent.match(/MSIE 9.0/);
+        isIE10 = !! navigator.userAgent.match(/MSIE 10.0/);
 
         if (isIE10) {
             jQuery('html').addClass('ie10'); // detect IE10 version
         }
-
+        
         if (isIE10 || isIE9 || isIE8) {
             jQuery('html').addClass('ie'); // detect IE10 version
         }
@@ -209,7 +209,7 @@ var App = function () {
             e.preventDefault();
         });
 
-        // handle ajax links
+       // handle ajax links
         jQuery('.page-sidebar').on('click', ' li > a.ajaxify', function (e) {
             e.preventDefault();
             App.scrollTop();
@@ -354,7 +354,7 @@ var App = function () {
     // Handles sidebar toggler to close/hide the sidebar.
     var handleSidebarToggler = function () {
         var viewport = _getViewPort();
-
+        
         // handle sidebar show/hide
         $('.page-sidebar').on('click', '.sidebar-toggler', function (e) {
             var body = $('body');
@@ -382,7 +382,7 @@ var App = function () {
         });
     };
 
-    var handleQuickSearch = function () {
+    var handleQuickSearch = function() {
 
         // handle search for header search input on enter press
         $('.search-form-header').on('keypress', 'input.form-control', function (e) {
@@ -499,10 +499,10 @@ var App = function () {
         //activate tab if tab id provided in the URL
         if (location.hash) {
             var tabid = location.hash.substr(1);
-            $('a[href="#' + tabid + '"]').parents('.tab-pane:hidden').each(function () {
+            $('a[href="#' + tabid + '"]').parents('.tab-pane:hidden').each(function(){
                 var tabid = $(this).attr("id");
-                $('a[href="#' + tabid + '"]').click();
-            });
+                $('a[href="#' + tabid + '"]').click();    
+            });            
             $('a[href="#' + tabid + '"]').click();
         }
     };
@@ -511,17 +511,17 @@ var App = function () {
     var handleModals = function () {
         // fix stackable modal issue: when 2 or more modals opened, closing one of modal will remove .modal-open class. 
         $('body').on('hide.bs.modal', function () {
-            if ($('.modal:visible').size() > 1 && $('html').hasClass('modal-open') == false) {
-                $('html').addClass('modal-open');
-            } else if ($('.modal:visible').size() <= 1) {
-                $('html').removeClass('modal-open');
-            }
+           if ($('.modal:visible').size() > 1 && $('html').hasClass('modal-open') == false) {
+              $('html').addClass('modal-open');
+           } else if ($('.modal:visible').size() <= 1) {
+              $('html').removeClass('modal-open');
+           }
         });
-
+            
         $('body').on('show.bs.modal', '.modal', function () {
             if ($(this).hasClass("modal-scroll")) {
                 $('body').addClass("modal-open-noscroll");
-            }
+            } 
         });
 
         $('body').on('hide.bs.modal', '.modal', function () {
@@ -531,24 +531,24 @@ var App = function () {
 
     // Handles Bootstrap Tooltips.
     var handleTooltips = function () {
-        jQuery('.tooltips').tooltip();
+       jQuery('.tooltips').tooltip();
     };
 
     // Handles Bootstrap Dropdowns
     var handleDropdowns = function () {
         /*
-         For touch supported devices disable the 
-         hoverable dropdowns - data-hover="dropdown"  
-         */
+          For touch supported devices disable the 
+          hoverable dropdowns - data-hover="dropdown"  
+        */
         if (App.isTouchDevice()) {
-            $('[data-hover="dropdown"]').each(function () {
+            $('[data-hover="dropdown"]').each(function(){
                 $(this).parent().off("hover");
                 $(this).off("hover");
             });
         }
         /*
-         Hold dropdown on click  
-         */
+          Hold dropdown on click  
+        */
         $('body').on('click', '.dropdown-menu.hold-on-click', function (e) {
             e.stopPropagation();
         })
@@ -561,7 +561,7 @@ var App = function () {
 
     // Handle Closable Alerts
     var handleAlerts = function () {
-        $('body').on('click', '[data-close="alert"]', function (e) {
+        $('body').on('click', '[data-close="alert"]', function(e){
             $(this).parent('.alert').hide();
             e.preventDefault();
         });
@@ -595,8 +595,8 @@ var App = function () {
             }
             $(this).slimScroll({
                 size: '7px',
-                color: ($(this).attr("data-handle-color") ? $(this).attr("data-handle-color") : '#a1b2bd'),
-                railColor: ($(this).attr("data-rail-color") ? $(this).attr("data-rail-color") : '#333'),
+                color: ($(this).attr("data-handle-color")  ? $(this).attr("data-handle-color") : '#a1b2bd'),
+                railColor: ($(this).attr("data-rail-color")  ? $(this).attr("data-rail-color") : '#333'),
                 position: isRTL ? 'left' : 'right',
                 height: height,
                 alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
@@ -656,7 +656,7 @@ var App = function () {
     };
 
     // Handle Select2 Dropdowns
-    var handleSelect2 = function () {
+    var handleSelect2 = function() {
         if (jQuery().select2) {
             $('.select2me').select2({
                 placeholder: "Select",
@@ -677,13 +677,18 @@ var App = function () {
         $('.sidebar-option', panel).val("default");
         $('.header-option', panel).val("fixed");
         $('.footer-option', panel).val("default");
-        if ($('.sidebar-pos-option').attr("disabled") === false) {
+        if ( $('.sidebar-pos-option').attr("disabled") === false) {
             $('.sidebar-pos-option', panel).val(App.isRTL() ? 'right' : 'left');
         }
-
+        
         //handle theme layout
         var resetLayout = function () {
-            $("body").removeClass("page-boxed").removeClass("page-footer-fixed").removeClass("page-sidebar-fixed").removeClass("page-header-fixed").removeClass("page-sidebar-reversed");
+            $("body").
+            removeClass("page-boxed").
+            removeClass("page-footer-fixed").
+            removeClass("page-sidebar-fixed").
+            removeClass("page-header-fixed").
+            removeClass("page-sidebar-reversed");
 
             $('.header > .header-inner').removeClass("container");
 
@@ -796,7 +801,7 @@ var App = function () {
 
         $('.toggler', panel).click(function () {
             $(this).toggleClass("open");
-            $('.theme-panel > .theme-options').toggle();
+            $('.theme-panel > .theme-options').toggle();            
         });
 
         $('.theme-colors > ul > li', panel).click(function () {
@@ -906,18 +911,18 @@ var App = function () {
             var options = $.extend(true, {}, options);
             var html = '';
             if (options.iconOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="assets/img/loading-spinner-grey.gif" align=""></div>';
+                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '')+'"><img src="assets/img/loading-spinner-grey.gif" align=""></div>';
             } else if (options.textOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
-            } else {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="assets/img/loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '')+'"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+            } else {    
+                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '')+'"><img src="assets/img/loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
             }
 
             if (options.target) { // element blocking
                 var el = $(options.target);
                 if (el.height() <= ($(window).height())) {
                     options.cenrerY = true;
-                }
+                }            
                 el.block({
                     message: html,
                     baseZ: options.zIndex ? options.zIndex : 1000,
@@ -930,7 +935,7 @@ var App = function () {
                     },
                     overlayCSS: {
                         backgroundColor: options.overlayColor ? options.overlayColor : '#000',
-                        opacity: options.boxed ? 0.05 : 0.1,
+                        opacity: options.boxed ? 0.05 : 0.1, 
                         cursor: 'wait'
                     }
                 });
@@ -949,7 +954,7 @@ var App = function () {
                         cursor: 'wait'
                     }
                 });
-            }
+            }            
         },
 
         // wrapper function to  un-block element(finish loading)
@@ -966,16 +971,16 @@ var App = function () {
             }
         },
 
-        startPageLoading: function (message) {
+        startPageLoading: function(message) {
             $('.page-loading').remove();
             $('body').append('<div class="page-loading"><img src="assets/img/loading-spinner-grey.gif"/>&nbsp;&nbsp;<span>' + (message ? message : 'Loading...') + '</span></div>');
         },
 
-        stopPageLoading: function () {
+        stopPageLoading: function() {
             $('.page-loading').remove();
         },
 
-        alert: function (options) {
+        alert: function(options) {
 
             options = $.extend(true, {
                 container: "", // alerts parent container(by default placed after the page breadcrumbs)
@@ -1013,7 +1018,7 @@ var App = function () {
             }
 
             if (options.closeInSeconds > 0) {
-                setTimeout(function () {
+                setTimeout(function(){
                     $('#' + id).remove();
                 }, options.closeInSeconds * 1000);
             }
@@ -1055,7 +1060,7 @@ var App = function () {
             return el.val();
         },
 
-        getUniqueID: function (prefix) {
+        getUniqueID: function(prefix) {
             return 'prefix_' + Math.floor(Math.random() * (new Date()).getTime());
         },
 

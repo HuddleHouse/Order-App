@@ -1,0 +1,85 @@
+{% extends ":template:layout.html.twig" %}
+
+{% block title %}Add User{% endblock %}
+{% block page_title %}
+    Add User
+{% endblock page_title %}
+
+{% block page_name %}
+    <i class="fa fa-home"></i> Users
+{% endblock page_name %}
+
+{% block actions %}
+    <a class="btn btn-primary btn-m purple"
+       href="{{ path('view_users') }}"><i
+                class="fa fa-list"></i> Back</a>
+{% endblock actions %}
+
+{% block content %}
+    {% if not form.vars.valid %}
+        <div class="col-md-12">
+            <div class="bs-callout bs-callout-danger ">
+                {{ form_errors(form.username) }}
+                {{ form_errors(form.email) }}
+                {{ form_errors(form.current_password) }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="portlet-body form">
+            <div class="form-body">
+                {{ form_start(form, { 'action': path('admin_add_user'), 'attr': { 'autocomplete': 'nope', 'class': 'form-group' } }) }}
+                <h3 class="form-section">Add an Employee</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_label(form.first_name) }}
+                        {{ form_widget(form.first_name) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_label(form.last_name) }}
+                        {{ form_widget(form.last_name) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_label(form.username) }}
+                        {{ form_widget(form.username) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ form_label(form.plain_password) }}
+                        {{ form_widget(form.plain_password) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_label(form.office) }}
+                        {{ form_widget(form.office) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_label(form.role) }}
+                        {{ form_widget(form.role) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        {{ form_label(form.enabled) }}
+                        {{ form_widget(form.enabled) }}
+                    </div>
+                </div>
+                <div style="padding-top: 20px;">
+                    <input class="btn btn-success" type="submit" value="Add"/>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    {{ form_end(form) }}
+{% endblock content %}

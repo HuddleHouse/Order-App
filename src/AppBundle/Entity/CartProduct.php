@@ -45,7 +45,6 @@ class CartProduct
      */
     private $partNumberPrefix;
 
-
     /**
      * @var int
      *
@@ -68,6 +67,34 @@ class CartProduct
     private $backOrderQuantity = 0;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="back_order_ship_quantity", type="integer")
+     */
+    private $backOrderShipQuantity = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="returned_items_quantity", type="integer")
+     */
+    private $returnedItemsQuantity = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="returned_items_shipped_quantity", type="integer")
+     */
+    private $returnedItemsShippedQuantity = 0;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="return_date", type="datetime", nullable=true)
+     */
+    private $returnDate;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="note", type="text", nullable=true)
@@ -82,13 +109,36 @@ class CartProduct
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", mappedBy="cartProduct")
+     * @var string
+     *
+     * @ORM\Column(name="stock_number", type="string", nullable=true)
+     */
+    private $stockNumber;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="created_by_admin", type="boolean", nullable=true)
+     */
+    private $createdByAdmin;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="return_required", type="boolean", nullable=true)
+     */
+    private $returnRequired;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CartProductLineNumber", cascade={"remove"}, mappedBy="cartProduct")
      */
     private $cartProductLineNumbers;
+
 
     public function __construct()
     {
         $this->cartProductLineNumbers = new ArrayCollection();
+        $this->createdByAdmin = false;
     }
 
     /**
@@ -118,7 +168,7 @@ class CartProduct
     }
 
     /**
-     * @return mixed
+     * @return Part
      */
     public function getPart()
     {
@@ -245,7 +295,11 @@ class CartProduct
      */
     public function getDescription()
     {
-        return $this->description;
+        if ($this->isUnknown() || $this->createdByAdmin) {
+            return $this->description;
+        } else {
+            return $this->getPart()->getDescription();
+        }
     }
 
     /**
@@ -271,6 +325,113 @@ class CartProduct
     {
         $this->partNumberPrefix = $partNumberPrefix;
     }
+
+    public function isUnknown()
+    {
+        return null == $this->getPart() || '999-999-99999' === $this->getPart()->getStockNumber();
+    }
+
+    public function isCreatedByAdmin()
+    {
+        return $this->createdByAdmin;
+    }
+
+    public function setCreatedByAdmin($createdByAdmin)
+    {
+        $this->createdByAdmin = $createdByAdmin;
+    }
+
+    public function setReturnRequired($returnRequired)
+    {
+        $this->returnRequired = $returnRequired;
+    }
+
+    public function isReturnRequired()
+    {
+        if ($this->createdByAdmin) {
+            return $this->returnRequired;
+        } else if ($this->isUnknown()) {
+            return false;
+        } else {
+            return $this->getPart()->getRequireReturn();
+        }
+    }
+
+    public function getStockNumber()
+    {
+        return $this->stockNumber ? $this->stockNumber : $this->getPart()->getStockNumber();
+    }
+
+    public function setStockNumber($stockNumber)
+    {
+        $this->stockNumber = $stockNumber;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBackOrderShipQuantity()
+    {
+        return $this->backOrderShipQuantity;
+    }
+
+    /**
+     * @param int $backOrderShipQuantity
+     */
+    public function setBackOrderShipQuantity($backOrderShipQuantity)
+    {
+        $this->backOrderShipQuantity = $backOrderShipQuantity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReturnedItemsQuantity()
+    {
+        return $this->returnedItemsQuantity;
+    }
+
+    /**
+     * @param int $returnedItemsQuantity
+     */
+    public function setReturnedItemsQuantity($returnedItemsQuantity)
+    {
+        $this->returnedItemsQuantity = $returnedItemsQuantity;
+    }
+
+
+    /**
+     * @return \DateTime
+     */
+    public function getReturnDate()
+    {
+        return $this->returnDate;
+    }
+
+    /**
+     * @param \DateTime $returnDate
+     */
+    public function setReturnDate($returnDate)
+    {
+        $this->returnDate = $returnDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReturnedItemsShippedQuantity()
+    {
+        return $this->returnedItemsShippedQuantity;
+    }
+
+    /**
+     * @param int $returnedItemsShippedQuantity
+     */
+    public function setReturnedItemsShippedQuantity($returnedItemsShippedQuantity)
+    {
+        $this->returnedItemsShippedQuantity = $returnedItemsShippedQuantity;
+    }
+
 
 
 }

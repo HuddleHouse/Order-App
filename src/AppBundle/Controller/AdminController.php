@@ -2,9 +2,15 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
+use AppBundle\Entity\Cart;
 use AppBundle\Entity\Invitation;
 use AppBundle\Entity\User;
 use AppBundle\Repository\OfficeRepository;
+use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +40,61 @@ class AdminController extends Controller
 			on c.office_id = o.id
 	where c.approved = 0
 	AND c.submitted = 1
+	AND c.type != 'colorhead'
+	AND c.type != 'filters'
+    and c.order_number not like '%-B'
 	group by c.id";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
         $submitted = $stmt->fetchAll();
+
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+		left join users u
+			on c.user_id = u.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 0
+	AND c.submitted = 1
+	AND c.type = 'colorhead'
+	group by c.id";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $submittedColorhead = $stmt->fetchAll();
+
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, sum(p.back_order_quantity) as bo_quan, sum(p.back_order_ship_quantity) as bo_ship
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+		left join users u
+			on c.user_id = u.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 0
+	AND c.submitted = 1
+	AND p.back_order_quantity > p.back_order_ship_quantity
+	group by c.id";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $submittedBackOrders = $stmt->fetchAll();
+
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+		left join users u
+			on c.user_id = u.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 0
+	AND c.submitted = 1
+	AND c.type = 'filters'
+	group by c.id";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $submittedFilters = $stmt->fetchAll();
 
         $sql = "select c.id, c.submit_date, c.approve_date, c.order_number, sum(p.ship_quantity) shipped, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by
 	from cart c
@@ -52,7 +109,7 @@ class AdminController extends Controller
 	where c.approved = 1
 	AND c.submitted = 1
 	group by c.id
-	order by c.submit_date DESC";
+	order by c.approve_date DESC";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
         $approved = $stmt->fetchAll();
@@ -67,10 +124,54 @@ class AdminController extends Controller
         $stmt->execute();
         $numParts = $stmt->fetch();
 
-        $sql = "select count(*) as num from offices";
+        $sql = "select sum(p.back_order_quantity) as bo_quan, sum(p.back_order_ship_quantity) as bo_ship_quan, sum(p.back_order_quantity) - sum(p.back_order_ship_quantity) as num
+	from cart c
+		left join cart_products p
+			on p.cart_id = c.id
+	where c.approved = 0
+	AND c.submitted = 1";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
-        $numOffices = $stmt->fetch();
+        $numItemsOnBackorder = $stmt->fetch();
+
+        if ($numItemsOnBackorder['num'] == null)
+            $numItemsOnBackorder['num'] = 0;
+
+        $sql = "select p.id, p.quantity, p.ship_quantity, p.returned_items_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
+	where c.approved = 1
+	AND c.submitted = 1
+	and parts.require_return = 1
+	AND p.quantity > p.returned_items_quantity";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $partsNeedReturned = $stmt->fetchAll();
+
+        $sql = "select sum(p.quantity) as num
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+	where c.approved = 1
+	AND c.submitted = 1
+	and parts.require_return = 1";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $numPartsNeedReturn = $stmt->fetch();
+
+        if ($numPartsNeedReturn['num'] == null)
+            $numPartsNeedReturn['num'] = 0;
 
         $sql = "select count(*) as num from cart where approved = 1";
         $stmt = $em->getConnection()->prepare($sql);
@@ -90,9 +191,14 @@ class AdminController extends Controller
             'approved' => $approved,
             'num_users' => $numUsers['num'],
             'num_parts' => $numParts['num'],
-            'num_offices' => $numOffices['num'],
+            'num_items_on_backorder' => $numItemsOnBackorder['num'],
             'num_approved' => $numApproved['num'],
-            'num_pending' => $numPending['num']
+            'num_pending' => $numPending['num'],
+            'submitted_colorhead' => $submittedColorhead,
+            'submitted_filters' => $submittedFilters,
+            'submitted_backorders' => $submittedBackOrders,
+            'parts_requiring_return' => $partsNeedReturned,
+            'num_parts_requiring_return' => $numPartsNeedReturn['num']
         ));
     }
 
@@ -199,6 +305,57 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/view-outstanding-orders", name="view_oustanding_orders")
+     */
+    public function viewAllOutstandingOrdersAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
+	where c.submitted = 1
+	and parts.require_return = 1
+	AND p.quantity > p.returned_items_quantity";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $partsNeedReturned = $stmt->fetchAll();
+
+        $sql = "select p.id, c.id as cart_id, c.approved, p.return_date, p.quantity, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
+	from cart_products p
+		left join cart c
+			on p.cart_id = c.id
+		left join parts 
+			on p.part_id = parts.id
+		left join users u
+			on c.user_id = u.id
+		left join users u2
+			on c.approved_by_id = u2.id
+		left join offices o
+			on c.office_id = o.id
+	where c.submitted = 1
+	and parts.require_return = 1
+	AND p.quantity = p.returned_items_quantity";
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $previouslyReturnedParts = $stmt->fetchAll();
+
+        return $this->render('@App/Admin/view_outstanding_orders.html.twig', array(
+            'parts_needing_return' => $partsNeedReturned,
+            'previously_returned_parts' => $previouslyReturnedParts
+        ));
+    }
+
+    /**
      * @Route("/admin/view-users/edit/{user_id}", name="admin_edit_user")
      */
     public function viewAdminEditUserAction(Request $request, $user_id)
@@ -212,7 +369,6 @@ class AdminController extends Controller
 
         if($form->isValid()) {
             try {
-                $event = new FormEvent($form, $request);
                 $userManager->updateUser($user);
                 $successMessage = "User information updated succesfully.";
                 $this->addFlash('notice', $successMessage);
@@ -237,11 +393,43 @@ class AdminController extends Controller
     }
 
     /**
-     * Deletes a User entity.
-     *
-     * @Route("/admin/view-users/delete/{id}", name="admin_delete_user")
+     * @Route("/admin/view-users/add", name="admin_add_user")
      */
-    public function deleteUserAction(Request $request, User $user)
+    public function viewAdminAddUserAction(Request $request)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+
+        $form = $this->createForm(UserType::class);
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            try {
+                /** @var \AppBundle\Entity\User $user */
+                $user = $form->getData();
+
+                $userManager->updateUser($user);
+
+                $this->addFlash('notice', sprintf('Successfully added a user %s', $user->getUsername()));
+
+                return $this->redirectToRoute('view_users');
+            } catch(\Exception $e) {
+                $this->addFlash('error', 'Error adding an employee: ' . $e->getMessage() . "\n");
+                return $this->render('@App/Admin/admin_add_user.html.twig', array(
+                    'form' => $form->createView(),
+                ));
+            }
+        }
+
+        return $this->render('@App/Admin/admin_add_user.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/admin/view-users/delete/{id}", name="admin_delete_user")
+     * @ParamConverter(name="user", class="AppBundle\Entity\User")
+     */
+    public function deleteUserAction(User $user)
     {
         $userManager = $this->get('fos_user.user_manager');
 
@@ -265,11 +453,32 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $products = $em->getRepository('AppBundle:Part')->findAll();
-        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
         $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
+
+        if($cart->getType() == 'order') {
+            $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+            foreach($categories as $key => $category)
+                if($category->getNameCononical() == 'colorhead')
+                    unset($categories[$key]);
+
+            $products = $em->getRepository('AppBundle:Part')->findAll();
+            foreach($products as $key => $product)
+                if($product->getPartCategory()->getNameCononical() == 'colorhead')
+                    unset($products[$key]);
+        }
+        else if($cart->getType() == 'colorhead') {
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
+            $categories = array($category);
+            $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
+        }
+        else if($cart->getType() == 'filters') {
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
+            $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
+            $categories = array($category);
+        }
+
         if($cart->getApproved()) {
             $cart->setApproved(0);
             $em->persist($cart);
@@ -292,75 +501,153 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/order/{id}/delete", name="admin_order_delete")
+     */
+    public function deleteAdminOrderAction(Request $request, Cart $cart)
+    {
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($cart);
+            $em->flush();
+            $this->addFlash('notice', sprintf('Cart #%s removed.', $cart->getOrderNumber()));
+        } catch (\Exception $e) {
+            $this->addFlash('notice', $e->getMessage());
+        }
+
+        return $this->redirectToRoute('admin_home');
+    }
+
+    /**
+     * @Route("/admin/order/{id}/print", name="admin_order_print")
+     * @ParamConverter(name="cart", class="AppBundle:Cart")
+     */
+    public function printOrderAction(Request $request, Cart $cart)
+    {
+        return $this->render('@App/Admin/print_order.html.twig', array('cart' => $cart));
+    }
+
+    /**
      * @Route("/admin/order/{cart_id}", name="admin_order_approve")
      */
     public function approveOrderAction(Request $request, $cart_id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
         $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
         $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
         $products = $em->getRepository('AppBundle:Part')->findAll();
         $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
-        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
-        if(!$cart->getApproved()) {
-            $this->addFlash('notice', "Order Approved Successfully.");
-            /*
-             * SEND EMAILS TO EVERYONE HERE
-             *
-             */
-            try {
-                //only send the email
-                $connection = $em->getConnection();
-                $statement = $connection->prepare("select * from office_email where office_id = :id");
-                $statement->bindValue('id', $cart->getOffice()->getId());
 
-                $statement->execute();
-                $data = $statement->fetchAll();
+        // Delete the cart if there are no products left on it
+        $count = 0;
+        foreach($cart->getCartProducts() as $product)
+            $count++;
 
-                foreach($data as $email) {
-                    $from = 'utus-orders@gmail.com';
-                    $to = $email['email'];
+        if($count == 0) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($cart);
+            $em->flush();
 
-                    $email_service = $this->get('email_service');
-                    $email_service->sendEmail(array(
-                            'subject' => $cart->getOffice()->getName() . " Order # " . $cart->getOrderNumber() . " has been fulfilled.",
-                            'from' => $from,
-                            'to' => $to,
-                            'body' => $this->renderView("AppBundle:Email:order_approved_notification.html.twig",
-                                array(
-                                    'cart' => $cart
-                                )
-                            )
-                        )
-                    );
-                }
-            } catch(\Exception $e) {
-                $this->addFlash('error', 'Success email failed to send: ' . $e->getMessage());
-                return $this->redirectToRoute('view_all_orders');
-            }
-
-            $cart->setApproved(1);
-            $cart->setApprovedBy($user);
-            $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
+            return $this->redirectToRoute('admin_home');
         }
+        else {
+            return $this->render('AppBundle:Admin:approve_order.html.twig', array(
+                'products' => $products,
+                'categories' => $categories,
+                'cart_id' => $cart_id,
+                'office' => $cart->getOffice(),
+                'user' => $cart->getUser(),
+                'user_notes' => $cart->getNote(),
+                'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : "None"),
+                'cart' => $cart,
+                'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
+                'stock_location' => $stock_location,
+                'part_prefix' => $part_prefix,
+            ));
+        }
+    }
 
-        $em->persist($cart);
-        $em->flush();
+    /**
+     * @Route("/admin/order/{cart_id}/backorders", name="admin_backorder_edit")
+     */
+    public function viewAdminEditBackOrderAction(Request $request, $cart_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('AppBundle:Part')->findAll();
+        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        $stock_location = $em->getRepository('AppBundle:StockLocation')->findAll();
+        $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
+        $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
 
-        return $this->render('AppBundle:Admin:approve_order.html.twig', array(
+        return $this->render('AppBundle:Admin:review_backorders.html.twig', array(
             'products' => $products,
             'categories' => $categories,
             'cart_id' => $cart_id,
             'office' => $cart->getOffice(),
             'user' => $cart->getUser(),
             'user_notes' => $cart->getNote(),
-            'shipping' => ($cart->getShippingMethod() != null ? $cart->getShippingMethod()->getName() : "None"),
-            'cart' => $cart,
-            'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
+            'shipping' => $shipping,
             'stock_location' => $stock_location,
             'part_prefix' => $part_prefix,
+            'requested_by' => $cart->getRequesterFirstName() . ' ' . $cart->getRequesterLastName(),
+            'cart' => $cart
         ));
+    }
+
+    /**
+     * @Route("/admin/ordered-parts-db", name="ordered_parts_db")
+     */
+    public function viewOrderedPartsAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        $offices = $em->getRepository('AppBundle:Office')->findAll();
+
+        $products = $this->orderedPartsDbQuery();
+        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
+
+        return $this->render('@App/Admin/ordered-parts_db.html.twig', array(
+            'products' => $products,
+            'categories' => $categories,
+            'offices' => $offices,
+            'shipping' => $shipping,
+            'option' => 'order',
+        ));
+    }
+
+    /**
+     * @param \DateTime|null $beginDate
+     * @param \DateTime|null $endDate
+     * @return array
+     */
+    private function orderedPartsDbQuery($beginDate = null, $endDate = null)
+    {
+        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity as shipQuantity, p.returned_items_quantity as returnedItemsQuantity, p.returned_items_shipped_quantity as returnedItemsShippedQuantity, parts.require_return as requireReturn, p.back_order_quantity as backOrderQuantity, c.order_number as orderNumber, c.submit_date as submitDate, c.approve_date as approveDate, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submittedBy, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approvedBy, o.name as officeName, parts.stock_number as stockNumber, parts.description, parts.path as webPath, category.name_cononical as nameCononical
+    from cart_products p
+        left join cart c
+            on p.cart_id = c.id
+        left join parts
+            on p.part_id = parts.id
+        left join users u
+            on c.user_id = u.id
+        left join users u2
+            on c.approved_by_id = u2.id
+        left join offices o
+            on c.office_id = o.id
+        left join part_categories category
+            on parts.part_category_id = category.id
+    where c.submitted = 1
+    and c.approved = 1";
+
+        if ($beginDate !== null)
+            $sql .= "\n and c.submit_date >= DATE('" . $beginDate->format('Y-m-d') . "')";
+        if ($endDate !== null)
+            $sql .= "\n and c.submit_date <= DATE('" . $endDate->format('Y-m-d') . "')";
+
+        $stmt = $this->getDoctrine()->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 }

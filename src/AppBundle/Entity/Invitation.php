@@ -173,6 +173,4 @@ class Invitation
     {
         $this->office = $office;
     }
-
-
 }

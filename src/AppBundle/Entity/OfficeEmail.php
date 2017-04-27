@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * OfficeEmail
  *
  * @ORM\Table(name="office_email")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OfficeEmailRepository")
+ * @ORM\Entity()
  */
 class OfficeEmail
 {
