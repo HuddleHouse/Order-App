@@ -120,6 +120,16 @@
                         {#</a>#}
                         {#</li>#}
 
+                        <li class="{% if app.request.get('_route') == 'view_oustanding_orders' %}active{% endif %}">
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('view_oustanding_orders') }}">
+                                {% endif %}
+                                <i class="icon-folder-alt"></i>
+                                <span class="title">Ordered Parts Dcik</span>
+                            </a>
+                        </li>
+
+
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="z {% if app.request.attributes.get('_route') in [
                             'fos_user_group_list',
@@ -129,7 +139,8 @@
                             'view_users',
                             'admin_edit_user',
                             'admin_partcategory_index',
-                            'admin_stocklocation_index'
+                            'admin_stocklocation_index',
+                            'ordered_parts_db'
                             ] %}active{% endif %}">
                                 <a href="javascript:">
                                     <i class="fa fa-lock"></i>
@@ -160,6 +171,10 @@
                                     <li {% if app.request.get('_route') == 'admin_stocklocation_index' %} class="active"{% endif %}>
                                         <a href="{{ path('admin_stocklocation_index') }}"><i class="fa fa-building"></i>
                                             View Stock Locations</a>
+                                    </li>
+                                    <li {% if app.request.get('_route') == 'ordered_parts_db' %} class="active"{% endif %}>
+                                        <a href="{{ path('ordered_parts_db') }}"><i class="fa fa-building"></i>
+                                            Ordered Parts DB</a>
                                     </li>
                                     {#<li {% if app.request.get('_route') == 'send_invitation' %} class="active"{% endif %}>#}
                                     {#<a href="{{ path('send_invitation') }}"><i class="fa fa-user"></i> Send User#}
