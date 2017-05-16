@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Api;
 use AppBundle\Entity\CartProduct;
 use AppBundle\Entity\CartProductLineNumber;
 use AppBundle\Entity\Cart;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -317,6 +318,18 @@ class ReviewOrderController extends Controller
         return JsonResponse::create(true);
     }
 
+    /**
+     * @Route("/api/admin/ordered-parts_db-date-range", name="api_ordered-parts_db-date-range")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function changeOrderedPartsDbDateRangeAction(Request $request)
+    {
+        if ($request->get('endDate') === "")
+            return new JsonResponse($this->generateUrl('ordered_parts_db_date', array('date' => $request->get('beginDate'))), 200);
+        else
+            return new JsonResponse($this->generateUrl('ordered_parts_db_dates', array('date' => $request->get('beginDate'), 'date2' => $request->get('endDate'))), 200);
+    }
 
     /**
      * @Route("/api/update-return-items-ship-quantity", name="api_update_return_item_ship_quantity")

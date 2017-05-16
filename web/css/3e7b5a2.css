@@ -10491,16 +10491,6 @@ you can use the generic selector below, but it's slower:
 Buttons & Dropdown Buttons
 ***/
 
-.btn {
-  -webkit-box-shadow: none !important;
-     -moz-box-shadow: none !important;
-          box-shadow: none !important;
-  -webkit-text-shadow: none;
-     -moz-text-shadow: none;
-          text-shadow: none;
-  outline: none !important;
-}
-
 .btn-default {
   border-color: #e5e5e5;
 }
@@ -12846,9 +12836,8 @@ The Most Extra Small Devices Portrait Mode Only
 
 	.header .page-logo {
 		width: 100px;
-	}	
-}
-
+	}
+}	
 .header.navbar-fixed-top {
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
 }
@@ -12876,6 +12865,13 @@ select {
     font-size: 12px !important;
     font-weight: 500 !important;
 }
+
+.portlet > .portlet-title > .caption {
+    color: #333;
+    font-weight: 300;
+}
+
+
 /*
 Template Name: Conquer - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.0.2
 Version: 1.5.1

@@ -25,6 +25,13 @@ select {
     font-size: 12px !important;
     font-weight: 500 !important;
 }
+
+.portlet > .portlet-title > .caption {
+    color: #333;
+    font-weight: 300;
+}
+
+
 /*
 Template Name: Conquer - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.0.2
 Version: 1.5.1
