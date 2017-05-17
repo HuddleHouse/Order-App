@@ -372,7 +372,7 @@ class CartProduct
 
     public function getStockNumber()
     {
-        return $this->stockNumber ? $this->stockNumber : $this->getPart()->getStockNumber() ? $this->getPart()->getStockNumber() : '';
+        return $this->stockNumber;
     }
 
     public function setStockNumber($stockNumber)
