@@ -212,21 +212,26 @@
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <h4 class="modal-title">ADD AN UNKNOWN ITEM</h4>
                                     </div>
-                                    <div class="modal-body">
+                                    <form id="unknownForm" enctype="multipart/form-data">
+                                        <div class="modal-body">
+                                            <p>Upload an image:</p>
+                                            <input id="unknownImage" type="file" name="file" class="form-control"/>
+                                            <br>
                                             <textarea class="form-control" rows="5"
-                                                      id="unknown_item_description"></textarea>
+                                                      id="unknown_item_description" name="description"></textarea>
 
-                                        <p style="margin: 22px 0 0px 8px;">Please describe the item in as much
-                                            detail as you can.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE
-                                        </button>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                                ng-click="addUnknownItem()">ADD TO
-                                            ORDER
-                                        </button>
-                                    </div>
+                                            <p style="margin: 22px 0 0px 8px;">Please describe the item in as much
+                                                detail as you can.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                    ng-click="addUnknownItem()">ADD TO
+                                                ORDER
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -449,7 +454,39 @@
                 if (description.length <= 0)
                     alert('Description cannot be left blank.');
                 else {
-                    $.post("{{ path('api_add_unknown_item') }}", {description: description}).done(updateCart);
+                    $.ajax({
+                        // Your server script to process the upload
+                        url: '{{ path("api_add_unknown_item") }}',  //Server script to process data
+                        type: 'POST',
+
+                        // Form data
+                        data: new FormData($('#unknownForm')[0]),
+
+                        // Tell jQuery not to process data or worry about content-type
+                        // You *must* include these options!
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: updateCart,
+
+                        // Custom XMLHttpRequest
+                        xhr: function () {
+                            var myXhr = $.ajaxSettings.xhr();
+//                        if (myXhr.upload) {
+//                            // For handling the progress of the upload
+//                            myXhr.upload.addEventListener('progress', function(e) {
+//                                if (e.lengthComputable) {
+//                                    $('progress').attr({
+//                                        value: e.loaded,
+//                                        max: e.total,
+//                                    });
+//                                }
+//                            } , false);
+//                        }
+                            return myXhr;
+                        }
+                    });
+                    {#$.post("{{ path('api_add_unknown_item') }}", {description: description}).done(updateCart);#}
                     $('#myModal').modal('hide');
                     $('#myModal2').modal('hide');
                 }

@@ -383,7 +383,7 @@ class ReviewOrderController extends Controller
                 'note' => $product->getNote(),
                 'isAddedByAdmin' => $product->isCreatedByAdmin(),
                 'stock_location' => ($product->getStockLocation() != null ? (string)$product->getStockLocation()->getId() : '0'),
-
+                'imagePath' => ($product->getImagePath() != null ? $product->getImagePath() : '0'),
             );
 
             $shipped += $product->getShipQuantity();

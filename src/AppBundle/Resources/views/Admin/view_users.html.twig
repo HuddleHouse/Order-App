@@ -87,6 +87,15 @@
             "paging": false
         });
 
+            $('#part-table').DataTable({
+                "paging": false
+            });
+
+            $('a.btn[data-role="delete-user"]').on('click', function (e) {
+                return confirm("Are you sure you want to delete this user?");
+            });
+        });
+
         function removeUser(id) {
             if (confirm("Are you sure you want to delete this user?")) {
                 var url = "{{ path('admin_delete_user', {'id': 'to_delete_id'}) }}";
