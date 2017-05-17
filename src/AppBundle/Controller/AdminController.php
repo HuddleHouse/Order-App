@@ -29,6 +29,7 @@ class AdminController extends Controller
      */
     public function adminHomeAction()
     {
+
         $em = $this->getDoctrine()->getManager();
         $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by
 	from cart c
