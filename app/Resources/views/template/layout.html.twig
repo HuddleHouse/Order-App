@@ -120,14 +120,14 @@
                             </a>
                         </li>
 
-                        <li class="{% if app.request.get('_route') == 'view_all_outstanding_returns' %}active{% endif %}">
-                            {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('view_all_outstanding_returns') }}">
-                                {% endif %}
-                                <i class="icon-folder-alt"></i>
-                                <span class="title">Return Parts Tracking</span>
-                            </a>
-                        </li>
+                        {#<li class="{% if app.request.get('_route') == 'view_all_outstanding_returns' %}active{% endif %}">#}
+                        {#{% if is_granted('ROLE_ADMIN') %}#}
+                        {#<a href="{{ path('view_all_outstanding_returns') }}">#}
+                        {#{% endif %}#}
+                        {#<i class="icon-folder-alt"></i>#}
+                        {#<span class="title">Return Parts Tracking</span>#}
+                        {#</a>#}
+                        {#</li>#}
 
 
                         {% if is_granted('ROLE_ADMIN') %}

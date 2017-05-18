@@ -276,7 +276,7 @@ class CartController extends Controller
 	from cart_products p
 		left join cart c
 			on p.cart_id = c.id
-		left join parts 
+		left join parts
 			on p.part_id = parts.id
 		left join users u
 			on c.user_id = u.id
