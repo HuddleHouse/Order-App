@@ -602,7 +602,7 @@ class ShoppingCartController extends Controller
             }
 
             $json_cart[] = array(
-                'stock_number' => $product->getStockNumber(),
+                'stock_number' => $product->getPart()->getStockNumber(),
                 'description' => $product->getDescription(),
                 'id' => $product->getId(),
                 'require_return' => $product->isReturnRequired(),
