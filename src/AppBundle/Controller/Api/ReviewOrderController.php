@@ -253,8 +253,6 @@ class ReviewOrderController extends Controller
 
         if ($count != 0)
             $cart->setApproved(0);
-        else
-            $cart->setApproved(1);
 
         $em->persist($cart);
         $em->flush();
