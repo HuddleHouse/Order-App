@@ -88,6 +88,13 @@ class CartProduct
     private $returnedItemsShippedQuantity = 0;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="returned_items_received_quantity", type="integer")
+     */
+    private $returnedItemsReceivedQuantity = 0;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="return_received_date", type="datetime", nullable=true)
@@ -474,6 +481,22 @@ class CartProduct
     public function setReturnedItemsShippedQuantity($returnedItemsShippedQuantity)
     {
         $this->returnedItemsShippedQuantity = $returnedItemsShippedQuantity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReturnedItemsReceivedQuantity()
+    {
+        return $this->returnedItemsReceivedQuantity;
+    }
+
+    /**
+     * @param int $returnedItemsReceivedQuantity
+     */
+    public function setReturnedItemsReceivedQuantity($returnedItemsReceivedQuantity)
+    {
+        $this->returnedItemsReceivedQuantity = $returnedItemsReceivedQuantity;
     }
 
 
