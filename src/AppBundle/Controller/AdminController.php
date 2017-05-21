@@ -347,7 +347,7 @@ class AdminController extends Controller
 			on c.office_id = o.id
 	where c.submitted = 1
 	and parts.require_return = 1
-	AND p.quantity = p.returned_items_quantity";
+	ANd p.returned_items_quantity > 0";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
         $previouslyReturnedParts = $stmt->fetchAll();

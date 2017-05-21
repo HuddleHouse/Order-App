@@ -114,6 +114,7 @@
                                     <th class="hidden-480">DESCRIPTION</th>
                                     <th class="hidden-480">QUANTITY</th>
                                     <th class="hidden-480">ITEMS SHIPPED</th>
+                                    <th class="hidden-480">ITEMS RECEIVED</th>
                                     <th class="hidden-480">SHIPPED</th>
                                     <th class="hidden-480"></th>
                                 </tr>
@@ -138,6 +139,9 @@
                                         </td>
                                         <td style="padding-top: 20px;">
                                             <center>{{ item.returned_items_shipped_quantity }}</center>
+                                        </td>
+                                        <td style="padding-top: 20px;">
+                                            <center>{{ item.returned_items_quantity }}</center>
                                         </td>
                                         <td style="padding-top: 20px;">
                                             {% if item.quantity == item.returned_items_shipped_quantity %}
