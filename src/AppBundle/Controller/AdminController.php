@@ -42,9 +42,9 @@ class AdminController extends Controller
 	where c.approved = 0
 	AND c.submitted = 1
 	AND c.type != 'colorhead'
-	AND c.type != 'filters'
+	AND c.type != 'pleatedfilters'
 	AND c.type != 'colorhead'
-	AND c.type != 'filters'
+	AND c.type != 'pleatedfilters'
     and c.order_number not like '%-B'
 	group by c.id";
         $stmt = $em->getConnection()->prepare($sql);
@@ -93,7 +93,7 @@ class AdminController extends Controller
 			on c.office_id = o.id
 	where c.approved = 0
 	AND c.submitted = 1
-	AND c.type = 'filters'
+	AND c.type = 'pleatedfilters'
 	group by c.id";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();

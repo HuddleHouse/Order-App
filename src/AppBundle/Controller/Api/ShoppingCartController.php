@@ -69,14 +69,14 @@ class ShoppingCartController extends Controller
         }
         else if($option == 'filters') {
             foreach($cart->getCartProducts() as $key => $product)
-                if($product->getPart()->getPartCategory()->getNameCononical() != 'filters')
+                if($product->getPart()->getPartCategory()->getNameCononical() != 'pleatedfilters')
                     $this->removeCartItem($product->getPart()->getId());
         }
         else if($option == 'order') {
             foreach($cart->getCartProducts() as $key => $product) {
                 if($product->getPart()->getPartCategory()->getNameCononical() == 'colorhead')
                     $this->removeCartItem($product->getPart()->getId());
-                if($product->getPart()->getPartCategory()->getNameCononical() == 'filters')
+                if($product->getPart()->getPartCategory()->getNameCononical() == 'pleatedfilters')
                     $this->removeCartItem($product->getPart()->getId());
             }
         }
@@ -195,7 +195,7 @@ class ShoppingCartController extends Controller
                 //only send the email
                 $connection = $em->getConnection();
                 $statement = $connection->prepare("select * from office_email where office_id = :id");
-                $statement->bindValue('id', $cart->getOffice()->getId());
+                $statement->bindValue('id', $cart->getOffice() != null ? $cart->getOffice()->getId() : 0);
 
                 $statement->execute();
                 $data = $statement->fetchAll();
@@ -533,7 +533,7 @@ class ShoppingCartController extends Controller
     public function upQuantityAction(CartProduct $product)
     {
         if($product->getPart()) {
-            if($product->getPart()->getPartCategory()->getNameCononical() == 'filters') {
+            if($product->getPart()->getPartCategory()->getNameCononical() == 'pleatedfilters') {
                 if($product->getQuantity() != 48)
                     $product->setQuantity($product->getQuantity() + 12);
             }
@@ -555,7 +555,7 @@ class ShoppingCartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($product->getPart()->getPartCategory()->getNameCononical() == 'filters') {
+        if($product->getPart()->getPartCategory()->getNameCononical() == 'pleatedfilters') {
             if($product->getQuantity() != 12) {
                 $product->setQuantity($product->getQuantity() - 12);
                 $em->persist($product);

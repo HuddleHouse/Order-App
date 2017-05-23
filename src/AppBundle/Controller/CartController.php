@@ -80,7 +80,7 @@ class CartController extends Controller
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
         }
         else if($option == 'filters') {
-            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'filters'));
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'pleatedfilters'));
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
             $categories = array($category);
         }
