@@ -532,9 +532,11 @@ class ShoppingCartController extends Controller
      */
     public function upQuantityAction(CartProduct $product)
     {
-        if($product->getPart()->getPartCategory()->getNameCononical() == 'filters') {
-            if($product->getQuantity() != 48)
-                $product->setQuantity($product->getQuantity() + 12);
+        if($product->getPart()) {
+            if($product->getPart()->getPartCategory()->getNameCononical() == 'filters') {
+                if($product->getQuantity() != 48)
+                    $product->setQuantity($product->getQuantity() + 12);
+            }
         }
         else
             $product->setQuantity($product->getQuantity() + 1);
@@ -602,7 +604,7 @@ class ShoppingCartController extends Controller
             }
 
             $json_cart[] = array(
-                'stock_number' => $product->getPart()->getStockNumber(),
+                'stock_number' => $product->getPart() != null ? $product->getPart()->getStockNumber() : '',
                 'description' => $product->getDescription(),
                 'id' => $product->getId(),
                 'require_return' => $product->isReturnRequired(),
