@@ -537,6 +537,8 @@ class ShoppingCartController extends Controller
                 if($product->getQuantity() != 48)
                     $product->setQuantity($product->getQuantity() + 12);
             }
+            else
+                $product->setQuantity($product->getQuantity() + 1);
         }
         else
             $product->setQuantity($product->getQuantity() + 1);
@@ -555,15 +557,28 @@ class ShoppingCartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($product->getPart()->getPartCategory()->getNameCononical() == 'pleatedfilters') {
-            if($product->getQuantity() != 12) {
-                $product->setQuantity($product->getQuantity() - 12);
-                $em->persist($product);
+        if($product->getPart()) {
+            if($product->getPart()->getPartCategory()->getNameCononical() == 'pleatedfilters') {
+                if($product->getQuantity() != 12) {
+                    $product->setQuantity($product->getQuantity() - 12);
+                    $em->persist($product);
+                }
+                else {
+                    foreach($product->getCartProductLineNumbers() as $lineNumber)
+                        $em->remove($lineNumber);
+                    $em->remove($product);
+                }
             }
             else {
-                foreach($product->getCartProductLineNumbers() as $lineNumber)
-                    $em->remove($lineNumber);
-                $em->remove($product);
+                if($product->getQuantity() <= 1) {
+                    foreach($product->getCartProductLineNumbers() as $lineNumber)
+                        $em->remove($lineNumber);
+                    $em->remove($product);
+                }
+                else {
+                    $product->setQuantity($product->getQuantity() - 1);
+                    $em->persist($product);
+                }
             }
         }
         else {

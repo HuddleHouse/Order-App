@@ -200,7 +200,7 @@
                         <button ng-if="option != 'colorhead' && option != 'filters'" type="button"
                                 class="btn btn-primary"
                                 id="btnAddUnknownItem" data-toggle="modal" data-target="#myModal"
-                                style="float: right;margin-right: 20px; margin-bottom: 20px;">ADD AN UNKNOWN ITEM
+                                style="float: right;margin-right: 20px; margin-bottom: 20px;">ADD UNLISTED ITEM
                         </button>
 
                         <!-- Modal -->
@@ -210,11 +210,11 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">ADD AN UNKNOWN ITEM</h4>
+                                        <h4 class="modal-title">ADD UNLISTED ITEM</h4>
                                     </div>
                                     <form id="unknownForm" enctype="multipart/form-data">
                                         <div class="modal-body">
-                                            <p>Upload an image:</p>
+                                            <p>Upload an image (image must be under 2MB):</p>
                                             <input id="unknownImage" type="file" name="file" class="form-control"/>
                                             <br>
                                             <textarea class="form-control" rows="5"

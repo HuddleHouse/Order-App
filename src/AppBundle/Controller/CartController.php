@@ -65,14 +65,20 @@ class CartController extends Controller
 //        $qb = $em->createQueryBuilder();
         if($option == 'order') {
             $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-            foreach($categories as $key => $category)
+            foreach($categories as $key => $category) {
                 if($category->getNameCononical() == 'colorhead')
                     unset($categories[$key]);
+                if($category->getNameCononical() == 'pleatedfilters')
+                    unset($categories[$key]);
+            }
 
             $products = $em->getRepository('AppBundle:Part')->findAll();
-            foreach($products as $key => $product)
+            foreach($products as $key => $product) {
                 if($product->getPartCategory()->getNameCononical() == 'colorhead')
                     unset($products[$key]);
+                if($product->getPartCategory()->getNameCononical() == 'pleatedfilters')
+                    unset($products[$key]);
+            }
         }
         else if($option == 'colorhead') {
             $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
@@ -227,9 +233,9 @@ class CartController extends Controller
 			on c.office_id = o.id
 	where c.submitted = 1
 	and parts.require_return = 1
-	and p.returned_items_shipped_quantity > 0
-	and p.returned_items_quantity > 0
-	and c.user_id = :user_id";
+	and c.user_id = :user_id
+	and (p.returned_items_quantity > 0 or p.quantity = p.returned_items_shipped_quantity)
+	";
         $stmt = $em->getConnection()->prepare($sql);
         $params['user_id'] = $user->getId();
         $stmt->execute($params);
@@ -249,7 +255,8 @@ class CartController extends Controller
 			on c.office_id = o.id
 	where c.submitted = 1
 	and parts.require_return = 1
-	AND p.quantity > p.returned_items_shipped_quantity
+	AND p.quantity > p.returned_items_quantity
+	and p.quantity != p.returned_items_shipped_quantity
 	and c.user_id = :user_id";
         $stmt = $em->getConnection()->prepare($sql);
         $params['user_id'] = $user->getId();
@@ -287,7 +294,7 @@ class CartController extends Controller
 			on c.office_id = o.id
 	where c.submitted = 1
 	and parts.require_return = 1
-	AND p.quantity > p.returned_items_shipped_quantity
+	AND p.quantity > p.returned_items_quantity
 	and c.user_id = :user_id";
         $stmt = $em->getConnection()->prepare($sql);
         $params['user_id'] = $user->getId();
