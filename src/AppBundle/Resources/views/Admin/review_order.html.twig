@@ -349,11 +349,9 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="col-md-12" style="margin-top: 30px;">
@@ -577,7 +575,11 @@
             };
 
             $scope.updateShipping = function () {
-                $.post("{{ path('admin_update_shipping') }}", {cart_id: {{ cart_id }}, ship_id: $scope.shipping});
+                console.log(document.getElementById("shipping").value);
+                $.post("{{ path('admin_update_shipping') }}", {
+                    cart_id: {{ cart_id }},
+                    ship_id: document.getElementById("shipping").value
+                });
             };
 
             $scope.deleteProduct = function (item) {

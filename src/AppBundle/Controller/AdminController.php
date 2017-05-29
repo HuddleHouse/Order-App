@@ -462,14 +462,20 @@ class AdminController extends Controller
 
         if($cart->getType() == 'order') {
             $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
-            foreach($categories as $key => $category)
+            foreach($categories as $key => $category) {
                 if($category->getNameCononical() == 'colorhead')
                     unset($categories[$key]);
+                if($category->getNameCononical() == 'pleatedfilters')
+                    unset($categories[$key]);
+            }
 
             $products = $em->getRepository('AppBundle:Part')->findAll();
-            foreach($products as $key => $product)
+            foreach($products as $key => $product) {
+                if($product->getPartCategory()->getNameCononical() == 'pleatedfilters')
+                    unset($products[$key]);
                 if($product->getPartCategory()->getNameCononical() == 'colorhead')
                     unset($products[$key]);
+            }
         }
         else if($cart->getType() == 'colorhead') {
             $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
@@ -477,7 +483,7 @@ class AdminController extends Controller
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
         }
         else if($cart->getType() == 'filters') {
-            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
+            $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'pleatedfilters'));
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
             $categories = array($category);
         }

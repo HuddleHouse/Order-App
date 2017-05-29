@@ -78,7 +78,8 @@
                                 </div>
                                 <div class="col-xs-6 invoice-block">
                                     <br/>
-                                    <a class="btn btn-lg btn-default" href="{{ path("user_home") }}"><i class="fa fa-arrow-left"></i>
+                                    <a class="btn btn-lg btn-default" onclick="window.history.back();"><i
+                                                class="fa fa-arrow-left"></i>
                                         Back To Order Screen
                                     </a>
                                     <a class="btn btn-lg btn-info hidden-print" onclick="window.print();">Print <i
@@ -108,6 +109,7 @@
                     $scope.numItems = response.num_items;
                 });
             });
+
 
             {#$scope.updateNotes = function (item) {#}
             {#$.ajax({#}
@@ -139,20 +141,6 @@
             {#});#}
             {#};#}
 
-            {#$scope.updateRequesterLastName = function (name) {#}
-            {#$.ajax({#}
-            {#type: 'POST',#}
-            {#url: "{{ path('api_update_requester_last_name') }}",#}
-            {#data: {note: name, cart_id: {{ cart_id }} },#}
-            {#dataType: 'json',#}
-            {#success: function () {#}
-
-            {#},#}
-            {#error: function (data) {#}
-            {#console.log(data);#}
-            {#}#}
-            {#});#}
-            {#};#}
         });
     </script>
 {% endblock footer %}
