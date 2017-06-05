@@ -60,9 +60,10 @@ class CartController extends Controller
      */
     public function userHomeOptionAction(Request $request, $option)
     {
-
         $em = $this->getDoctrine()->getManager();
-//        $qb = $em->createQueryBuilder();
+        $user = $this->getUser();
+        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(['user' => $user, 'submitted' => 0]);
+
         if($option == 'order') {
             $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
             foreach($categories as $key => $category) {
@@ -79,17 +80,48 @@ class CartController extends Controller
                 if($product->getPartCategory()->getNameCononical() == 'pleatedfilters')
                     unset($products[$key]);
             }
+
+            foreach ($cart->getCartProducts() as $product) {
+                if ($product->getPart()->getPartCategory()->getNameCononical() == 'pleatedfilters' || $product->getPart()->getPartCategory()->getNameCononical() == 'colorhead') {
+                    foreach ($product->getCartProductLineNumbers() as $lineNumber) {
+                        $product->removeCartProductLineNumber($lineNumber);
+                        $em->persist($product);
+                    }
+                    $cart->removeCartProduct($product);
+                }
+            }
         }
         else if($option == 'colorhead') {
             $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'colorhead'));
             $categories = array($category);
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
+
+            foreach ($cart->getCartProducts() as $product) {
+                if ($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead') {
+                    foreach ($product->getCartProductLineNumbers() as $lineNumber) {
+                        $product->removeCartProductLineNumber($lineNumber);
+                        $em->persist($product);
+                    }
+                    $cart->removeCartProduct($product);
+                }
+            }
         }
         else if($option == 'filters') {
             $category = $em->getRepository('AppBundle:PartCategory')->findOneBy(array('name_cononical' => 'pleatedfilters'));
             $products = $em->getRepository('AppBundle:Part')->findBy(array('part_category' => $category));
             $categories = array($category);
+            foreach ($cart->getCartProducts() as $product) {
+                if ($product->getPart()->getPartCategory()->getNameCononical() != 'pleatedfilters') {
+                    foreach ($product->getCartProductLineNumbers() as $lineNumber) {
+                        $product->removeCartProductLineNumber($lineNumber);
+                        $em->persist($product);
+                    }
+                    $cart->removeCartProduct($product);
+                }
+            }
         }
+
+        $em->persist($cart);
         $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
 
         $em->flush();

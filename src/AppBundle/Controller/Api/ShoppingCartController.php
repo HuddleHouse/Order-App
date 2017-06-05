@@ -398,6 +398,7 @@ class ShoppingCartController extends Controller
         $product->setPart(null);
         $product->setDescription($description);
         $product->setQuantity(1);
+        $product->setCreatedByAdmin(true);
 
         /** @var UploadedFile $file */
         if ($file = $request->files->get('file')) {
@@ -649,8 +650,9 @@ class ShoppingCartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-
-        if (!$cart = $em->getRepository('AppBundle:Cart')->findOneBy(['user' => $user, 'submitted' => 0])) {
+//        $cart = new Cart();
+        $cart = $em->getRepository('AppBundle:Cart')->findOneBy(['user' => $user, 'submitted' => 0]);
+        if (!$cart) {
             $cart = new Cart();
             $cart->setUser($user);
             $cart->setOffice($user->getOffice());
