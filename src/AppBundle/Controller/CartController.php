@@ -91,6 +91,7 @@ class CartController extends Controller
                         $cart->removeCartProduct($product);
                     }
                 }
+                $em->persist($cart);
             }
 
         }
@@ -109,6 +110,7 @@ class CartController extends Controller
                         $cart->removeCartProduct($product);
                     }
                 }
+                $em->persist($cart);
             }
         }
         else if($option == 'filters') {
@@ -126,10 +128,10 @@ class CartController extends Controller
                         $cart->removeCartProduct($product);
                     }
                 }
+                $em->persist($cart);
             }
         }
 
-        $em->persist($cart);
         $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
 
         $em->flush();
