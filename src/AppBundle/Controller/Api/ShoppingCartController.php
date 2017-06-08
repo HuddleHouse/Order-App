@@ -151,7 +151,14 @@ class ShoppingCartController extends Controller
     {
         try {
             $em = $this->getDoctrine()->getManager();
-            $cart->setApproved(true);
+            $shouldApprove = true;
+            foreach($cart->getCartProducts() as $product) {
+                if($product->getBackOrderShipQuantity() != $product->getBackOrderQuantity())
+                    $shouldApprove = false;
+            }
+
+            if($shouldApprove == true)
+                $cart->setApproved(true);
             $cart->setApprovedBy($this->getUser());
             $cart->setApproveDate(date_create(date("Y-m-d H:i:s")));
 
@@ -262,10 +269,32 @@ class ShoppingCartController extends Controller
 
                     foreach($cart->getCartProducts() as $product) {
                         if($product->getBackOrderQuantity() > 0) {
-                            $product->setStockNumber($product->getPart()->getStockNumber() . '-B');
-                            $cart->removeCartProduct($product);
-                            $product->setCart($bo_cart);
-                            $bo_cart->addCartProduct($product);
+
+                            if(($product->getQuantity() - $product->getBackOrderQuantity()) == 0) {
+                                $cart->removeCartProduct($product);
+                                $product->setCart($bo_cart);
+                                $bo_cart->addCartProduct($product);
+                            }
+                            else {
+                                $newProduct = new CartProduct();
+                                $newProduct->setPart($product->getPart());
+                                $newProduct->setShipQuantity(0);
+                                $newProduct->setStockLocation($product->getStockLocation());
+                                if($product->getPartNumberPrefix() != null)
+                                    $newProduct->setPartNumberPrefix($product->getPartNumberPrefix());
+
+                                $product->setQuantity($product->getQuantity() - $product->getBackOrderQuantity());
+
+                                $newProduct->setCart($bo_cart);
+                                $newProduct->setBackOrderQuantity($product->getBackOrderQuantity());
+                                $newProduct->setQuantity($product->getBackOrderQuantity());
+                                $newProduct->setStockNumber($product->getPart()->getStockNumber() . '-B');
+
+                                $bo_cart->addCartProduct($newProduct);
+
+                                $product->setBackOrderQuantity(0);
+                            }
+                            $em->persist($newProduct);
                             $em->persist($product);
                             $em->persist($bo_cart);
                         }

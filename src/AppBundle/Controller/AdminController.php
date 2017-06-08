@@ -67,7 +67,7 @@ class AdminController extends Controller
         $stmt->execute();
         $submittedColorhead = $stmt->fetchAll();
 
-        $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, sum(p.back_order_quantity) as bo_quan, (sum(p.back_order_ship_quantity)+sum(p.ship_quantity)) as bo_ship
+        $sql = "select c.id, c.order_number, c.submit_date, sum(p.quantity) items, o.name as office_name, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, sum(p.back_order_quantity - p.back_order_ship_quantity) as bo_quan, (sum(p.back_order_ship_quantity)+sum(p.ship_quantity)) as bo_ship
 	from cart c
 		left join cart_products p
 			on p.cart_id = c.id

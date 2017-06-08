@@ -140,7 +140,6 @@
                                     <th>STOCK LOCATION</th>
                                     <th>PREFIX</th>
                                     <th>QTY</th>
-                                    <th>SHIP QTY</th>
                                     <th>B.O. QTY</th>
                                     <th>B.O. ITEMS SHIPPED</th>
                                     <th>USTER NOTES</th>
@@ -197,9 +196,6 @@
                                 {% verbatim %}
                                         <td >
                                                 <input disabled ng-model="item.quantity" class="form-control line-number" ng-change="updateQuantity(item)" maxlength="2" style="width: 55px;">
-                                        </td>
-                                        <td>
-                                            <input disabled ng-model="item.ship_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;">
                                         </td>
                                         <td>
                                             <input disabled ng-if="item.back_order_ship_quantity == item.back_order_quantity" ng-model="item.back_order_quantity" class="form-control line-number" ng-change="updateProduct(item)" maxlength="2" style="width: 55px;background-color: #dff0d8;">

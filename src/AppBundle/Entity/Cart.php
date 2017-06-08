@@ -286,6 +286,8 @@ class Cart
     public function removeCartProduct(\AppBundle\Entity\CartProduct $cartProduct)
     {
         $this->cart_products->removeElement($cartProduct);
+        $cartProduct->setCart(null);
+        return $this;
     }
 
     /**
