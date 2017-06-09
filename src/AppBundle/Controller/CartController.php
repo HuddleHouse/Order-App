@@ -83,12 +83,14 @@ class CartController extends Controller
 
             if ($cart) {
                 foreach ($cart->getCartProducts() as $product) {
-                    if ($product->getPart()->getPartCategory()->getNameCononical() == 'pleatedfilters' || $product->getPart()->getPartCategory()->getNameCononical() == 'colorhead') {
-                        foreach ($product->getCartProductLineNumbers() as $lineNumber) {
-                            $product->removeCartProductLineNumber($lineNumber);
-                            $em->persist($product);
+                    if($product->getPart()) {
+                        if($product->getPart()->getPartCategory()->getNameCononical() == 'pleatedfilters' || $product->getPart()->getPartCategory()->getNameCononical() == 'colorhead') {
+                            foreach($product->getCartProductLineNumbers() as $lineNumber) {
+                                $product->removeCartProductLineNumber($lineNumber);
+                                $em->persist($product);
+                            }
+                            $cart->removeCartProduct($product);
                         }
-                        $cart->removeCartProduct($product);
                     }
                 }
                 $em->persist($cart);
@@ -102,8 +104,17 @@ class CartController extends Controller
 
             if ($cart) {
                 foreach ($cart->getCartProducts() as $product) {
-                    if ($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead') {
-                        foreach ($product->getCartProductLineNumbers() as $lineNumber) {
+                    if($product->getPart()) {
+                        if($product->getPart()->getPartCategory()->getNameCononical() != 'colorhead') {
+                            foreach($product->getCartProductLineNumbers() as $lineNumber) {
+                                $product->removeCartProductLineNumber($lineNumber);
+                                $em->persist($product);
+                            }
+                            $cart->removeCartProduct($product);
+                        }
+                    }
+                    else if(!$product->getPart()) {
+                        foreach($product->getCartProductLineNumbers() as $lineNumber) {
                             $product->removeCartProductLineNumber($lineNumber);
                             $em->persist($product);
                         }
@@ -120,8 +131,17 @@ class CartController extends Controller
 
             if ($cart) {
                 foreach ($cart->getCartProducts() as $product) {
-                    if ($product->getPart()->getPartCategory()->getNameCononical() != 'pleatedfilters') {
-                        foreach ($product->getCartProductLineNumbers() as $lineNumber) {
+                    if($product->getPart()) {
+                        if($product->getPart()->getPartCategory()->getNameCononical() != 'pleatedfilters') {
+                            foreach($product->getCartProductLineNumbers() as $lineNumber) {
+                                $product->removeCartProductLineNumber($lineNumber);
+                                $em->persist($product);
+                            }
+                            $cart->removeCartProduct($product);
+                        }
+                    }
+                    else if(!$product->getPart()) {
+                        foreach($product->getCartProductLineNumbers() as $lineNumber) {
                             $product->removeCartProductLineNumber($lineNumber);
                             $em->persist($product);
                         }
