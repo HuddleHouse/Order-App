@@ -7,10 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class User extends BaseUser
 {
@@ -69,6 +71,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="approved_by", cascade={"persist", "remove"})
      */
     private $cartApprovedBy;
+
+    /**
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
 
     public function __construct()
@@ -185,6 +192,22 @@ class User extends BaseUser
     public function setCartApprovedBy($cartApprovedBy)
     {
         $this->cartApprovedBy = $cartApprovedBy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param mixed $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
     }
 
 }
