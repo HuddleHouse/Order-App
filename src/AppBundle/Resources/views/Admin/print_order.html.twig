@@ -49,7 +49,7 @@
                     {% set totalShipped = totalShipped + product.shipQuantity %}
 
                     <tr>
-                        <td>{{ product.stockNumber }}</td>
+                        <td>{{ product.part.stockNumber }}</td>
                         <td>{{ product.description }}</td>
                         <td>{{ product.returnRequired ? 'YES' : '' }}</td>
                         <td>
