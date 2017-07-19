@@ -354,6 +354,7 @@ class ReviewOrderController extends Controller
         $shipped = $requested = $backOrders = 0;
         $json_cart = array();
 
+        $index = 0;
         foreach ($cart->getCartProducts() as $product) {
             /** @var CartProduct $product */
             $line_numbers = array();
@@ -383,6 +384,10 @@ class ReviewOrderController extends Controller
                 'stock_location' => ($product->getStockLocation() != null ? (string)$product->getStockLocation()->getId() : '0'),
                 'imagePath' => ($product->getImagePath() != null ? $product->getImagePath() : '0'),
             );
+
+            if($json_cart[$index]['stock_number'] == '' || $json_cart[0]['stock_number'] == null)
+                $json_cart[$index]['stock_number'] = $product->getStockNumber();
+            $index++;
 
             $shipped += $product->getShipQuantity();
             $requested += $product->getQuantity();

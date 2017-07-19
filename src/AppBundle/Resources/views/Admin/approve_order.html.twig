@@ -65,7 +65,7 @@
                                             {% set totalBackOrdered = totalBackOrdered + item.backOrderQuantity %}
                                             {% set totalShipped = totalShipped + item.shipQuantity %}
                                             <tr>
-                                                <td>{{ item.part ? item.part.stockNumber : ' ' }}</td>
+                                                <td>{{ item.part ? item.part.stockNumber : ' ' }} {{ item.stockNumber ? item.stockNumber : ' ' }}</td>
                                                 <td>{{ item.description }}</td>
                                                 <td>
                                                     {% if item.returnRequired %}

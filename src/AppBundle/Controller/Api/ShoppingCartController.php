@@ -293,8 +293,8 @@ class ShoppingCartController extends Controller
                                 $bo_cart->addCartProduct($newProduct);
 
                                 $product->setBackOrderQuantity(0);
+                                $em->persist($newProduct);
                             }
-                            $em->persist($newProduct);
                             $em->persist($product);
                             $em->persist($bo_cart);
                         }
