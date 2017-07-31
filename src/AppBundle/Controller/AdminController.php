@@ -629,6 +629,28 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/orders-db", name="orders_db")
+     */
+    public function viewOrdersAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+//        $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
+        $offices = $em->getRepository('AppBundle:Office')->findAll();
+
+        $products = $this->ordersDbQuery();
+//        $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
+
+        return $this->render('@App/Admin/orders_db.html.twig', array(
+            'products' => $products,
+//            'categories' => $categories,
+            'offices' => $offices,
+//            'shipping' => $shipping,
+            'option' => 'order',
+        ));
+    }
+
+    /**
      * @return array
      */
     private function orderedPartsDbQuery()
@@ -649,6 +671,29 @@ class AdminController extends Controller
             on parts.part_category_id = category.id
     where c.submitted = 1
     and c.approved = 1";
+
+        $stmt = $this->getDoctrine()->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * @return array
+     */
+    private function ordersDbQuery()
+    {
+        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity as shipQuantity, p.returned_items_quantity as returnedItemsQuantity, p.returned_items_shipped_quantity as returnedItemsShippedQuantity, p.back_order_quantity as backOrderQuantity, c.order_number as orderNumber, c.submit_date as submitDate, c.approve_date as approveDate, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submittedBy, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approvedBy, o.name as officeName
+    from cart c
+        left join cart_products p
+            on c.id = p.cart_id
+        left join users u
+            on c.user_id = u.id
+        left join users u2
+            on c.approved_by_id = u2.id
+        left join offices o
+            on c.office_id = o.id
+    where c.submitted = 1
+    order by submitDate DESC";
 
         $stmt = $this->getDoctrine()->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();

@@ -1,0 +1,393 @@
+{% extends ":template:layout.html.twig" %}
+{% block title %}Ordered Parts Database{% endblock %}
+
+{% block content %}
+    <style>
+        #overlay {
+            /* Height & width depends on how you want to reveal the overlay (see JS below) */
+            height: 100%;
+            width: 100%;
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            background-color: rgb(0, 0, 0); /* Black fallback color */
+            background-color: rgba(0, 0, 0, 0.66); /* Black w/opacity */
+            overflow-x: hidden; /* Disable horizontal scroll */
+            transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+        }
+
+        .page-bar {
+            display: none;
+        }
+
+        .date-row {
+            border: 0;
+            background-color: #DaDaDa;
+            margin-bottom: 25px;
+            margin-left: -20px;
+            margin-right: -20px;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .numbers {
+            text-align: center;
+        }
+
+        .date-row .form-inline {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        /*.grid-item {
+        transform: translate(0, 0) scale(1);
+        }
+        */
+        /* Style the Image Used to Trigger the Modal */
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (Image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image (Image Text) - Same Width as the Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation - Zoom in the Modal */
+        .modal-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .fa-times {
+            position: absolute;
+            top: 40px;
+            right: 75px;
+            color: #f1f1f1;
+            font-size: 60px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .fa-times:hover,
+        .fa-times:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+
+        select[multiple] {
+            height: 200px;
+        }
+    </style>
+    <div id="overlay"></div>
+    <div class="date-row" style="display: none">
+        <div class="form-inline">
+            <strong>Date Range: </strong>
+            <div class="form-group">
+                <label class="sr-only" for="beginDate">Begin Date</label>
+                <input type="date" class="form-control" id="beginDate">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="endDate">End Date</label>
+                <input type="date" class="form-control" id="endDate">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="details col-md-2">
+            <div class="numbers">
+                Filter by Office
+            </div>
+            <hr>
+            {#<div class="form-group">#}
+            {#<label for="category">#}
+            {#Category#}
+            {#</label>#}
+            {#<select id="category" class="form-control" multiple>#}
+            {#<option value="" selected>All</option>#}
+            {#{% for c in categories %}#}
+            {#<option value="{{ c.name }}">{{ c.name }}</option>#}
+            {#{% endfor %}#}
+            {#</select>#}
+            {#</div>#}
+            {#<hr>#}
+            {#<div class="form-group">#}
+            {#<label for="product-number">#}
+            {#Product ##}
+        {#</label>#}
+            {#<input id="product-number" class="form-control" value="">#}
+            {#</div>#}
+            {#<hr>#}
+            {#<div class="form-group">#}
+            {#<label for="order-number">#}
+            {#Order ##}
+        {#</label>#}
+            {#<input id="order-number" class="form-control" value="">#}
+            {#</div>#}
+            {#<hr>#}
+            <div class="form-group">
+                {#<label for="office">#}
+                {#Office#}
+                {#</label>#}
+                <select id="office" class="form-control" multiple>
+                    <option value="" selected>All</option>
+                    {% for o in offices %}
+                        <option value="{{ o.name }}">{{ o.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="stats-overview stat-block">
+                <div class="details">
+                    <div class="title" style="padding-bottom: 10px">
+                        <table id="part-table" class="responsive nowrap table table-striped no-footer isotope-table"
+                               cellspacing="0"
+                               width="100%">
+                            <thead>
+                            <tr>
+                                <th>ORDER #</th>
+                                <th>DATE SUBMITTED</th>
+                                <th>DATE APPROVED</th>
+                                <th>OFFICE</th>
+                                <th>QUANTITY ORDERED</th>
+                                <th>QUANTITY SHIPPED</th>
+                                <th>QUANTITY RETURNED</th>
+                                <th>QUANTITY BACKORDERED</th>
+                                <th>SUBMITTED BY</th>
+                                <th>APPROVED BY</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td>
+                                        {{ product.orderNumber | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.submitDate | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.approveDate | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.officeName | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.quantity | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.shipQuantity | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.returnedItemsQuantity | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.backOrderQuantit | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.submittedBy | default('--') }}
+                                    </td>
+                                    <td>
+                                        {{ product.approvedBy | default('--') }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+                        <script>
+                            var opts = {
+                                lines: 17 // The number of lines to draw
+                                , length: 56 // The length of each line
+                                , width: 2 // The line thickness
+                                , radius: 0 // The radius of the inner circle
+                                , scale: 1 // Scales overall size of the spinner
+                                , corners: 1 // Corner roundness (0..1)
+                                , color: '#000' // #rgb or #rrggbb or array of colors
+                                , opacity: 0.05 // Opacity of the lines
+                                , rotate: 0 // The rotation offset
+                                , direction: 1 // 1: clockwise, -1: counterclockwise
+                                , speed: 2 // Rounds per second
+                                , trail: 65 // Afterglow percentage
+                                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                                , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                                , className: 'spinner' // The CSS class to assign to the spinner
+                                , top: '50%' // Top position relative to parent
+                                , left: '50%' // Left position relative to parent
+                                , shadow: false // Whether to render a shadow
+                                , hwaccel: false // Whether to use hardware acceleration
+                                , position: 'absolute' // Element positioning
+                            };
+                            var target = document.getElementById('overlay');
+                            var spinner = new Spinner(opts).spin(target);
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="image_modal" class="modal" style="display: none;">
+
+        <!-- The Close Button -->
+        <span class="close" onclick="document.getElementById('image_modal').style.display='none'">
+        <a class="fa fa-times">
+        </a>
+        </span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+    <script>
+        $('#overlay').show();
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        var modal = document.getElementById('image_modal');
+        var captionText = document.getElementById("caption");
+        var modalImg = document.getElementById("img01");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        function popup(id) {
+            var img = document.getElementById(id + "-img");
+            console.log(img);
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            captionText.innerHTML = img.alt;
+        }
+
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var beginDate = new Date($('#beginDate').val());
+                var endDate = new Date($('#endDate').val());
+                var submittedDate = new Date(data[1]);
+
+                if (( beginDate == "Invalid Date" && endDate == "Invalid Date" ) ||
+                    ( beginDate == "Invalid Date" && submittedDate <= endDate ) ||
+                    ( beginDate <= submittedDate && endDate == "Invalid Date" ) ||
+                    ( beginDate <= submittedDate && submittedDate <= endDate )) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            var oTable = $('#part-table').DataTable({
+                "paging": false,
+                "sDom": '<"top">Brt<"bottom"lp><"clear">',
+                "buttons": [
+                    'copyHtml5', 'csvHtml5', 'excelHtml5'
+                ]
+            });
+
+//            oTable.buttons().container().appendTo( $('#part-table_wrapper .top', oTable.table().container() ) );
+
+            $('#beginDate, #endDate').on('change', function () {
+                oTable.draw();
+            });
+
+//            $('#category').on('change', function () {
+//                oTable.columns(0).search($(this).val().join('|'), true, false).draw();
+//            });
+
+//            $('#product-number').on('keyup', function () {
+//                oTable.columns(1).search(this.value).draw();
+//            });
+
+//            $('#order-number').on('keyup', function () {
+//                oTable.columns(2).search(this.value).draw();
+//            });
+
+            $('#office').on('change', function () {
+                oTable.columns(3).search($(this).val().join('|'), true, false).draw();
+            });
+
+            $('#overlay').hide();
+        });
+    </script>
+{% endblock footer %}

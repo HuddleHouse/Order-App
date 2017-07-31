@@ -12,4 +12,6 @@
 /web/js/
 /web/css/
 /web/uploads/
-.idea/
+**/.idea
+**/.DS_Store
+**/__MACOSX/

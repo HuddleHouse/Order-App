@@ -140,7 +140,8 @@
                             'admin_edit_user',
                             'admin_partcategory_index',
                             'admin_stocklocation_index',
-                            'ordered_parts_db'
+                            'ordered_parts_db',
+                            'orders_db'
                             ] %}active{% endif %}">
                                 <a href="javascript:">
                                     <i class="fa fa-lock"></i>
@@ -171,6 +172,10 @@
                                     <li {% if app.request.get('_route') == 'admin_stocklocation_index' %} class="active"{% endif %}>
                                         <a href="{{ path('admin_stocklocation_index') }}"><i class="fa fa-building"></i>
                                             View Stock Locations</a>
+                                    </li>
+                                    <li {% if app.request.get('_route') == 'orders_db' %} class="active"{% endif %}>
+                                        <a href="{{ path('orders_db') }}"><i class="fa fa-database"></i>
+                                            View All Orders</a>
                                     </li>
                                     <li {% if app.request.get('_route') == 'ordered_parts_db' %} class="active"{% endif %}>
                                         <a href="{{ path('ordered_parts_db') }}"><i class="fa fa-database"></i>
