@@ -198,6 +198,8 @@ class CartController extends Controller
         $cart->setSubmitDate(date_create(date("Y-m-d H:i:s")));
 
         $user = $this->getUser();
+
+        /*
         $num = str_pad($cart_id, 4, '0', STR_PAD_LEFT);
         $officeId = '00';
         $year = date('y');
@@ -213,6 +215,18 @@ class CartController extends Controller
         else
             $orderNum = $officeId . $year . $num;
 
+        */
+
+        $orderNum = $em->getRepository('AppBundle:Office')->getNextOrderNumber($user);
+
+        switch ($cart->getType()) {
+            case 'colorhead':
+                $orderNum .= '-C';
+                break;
+            case 'filters':
+                $orderNum .= '-F';
+                break;
+        }
 
         $cart->setOrderNumber($orderNum);
 
