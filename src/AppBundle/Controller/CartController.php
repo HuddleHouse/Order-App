@@ -199,24 +199,6 @@ class CartController extends Controller
 
         $user = $this->getUser();
 
-        /*
-        $num = str_pad($cart_id, 4, '0', STR_PAD_LEFT);
-        $officeId = '00';
-        $year = date('y');
-
-        if($user->getOffice()) {
-            $officeId = $user->getOffice()->getOfficeNumber();
-        }
-
-        if($cart->getType() == 'colorhead')
-            $orderNum = $officeId . $year . $num . '-C';
-        else if($cart->getType() == 'filters')
-            $orderNum = $officeId . $year . $num . '-F';
-        else
-            $orderNum = $officeId . $year . $num;
-
-        */
-
         $orderNum = $em->getRepository('AppBundle:Office')->getNextOrderNumber($user);
 
         switch ($cart->getType()) {
