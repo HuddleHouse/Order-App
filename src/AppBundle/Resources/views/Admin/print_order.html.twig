@@ -74,7 +74,7 @@
 
                     <tr>
                         <td>{{ product.partNumberPrefix ? product.partNumberPrefix.name : '' }}</td>
-                        <td>{{ product.part.stockNumber }}</td>
+                        <td>{{ product.stockNumber ? product.stockNumber : product.part.stockNumber }}</td>
                         <td>{{ product.description }}</td>
                         <td>{{ product.returnRequired ? 'YES' : '' }}</td>
                         <td>

@@ -258,7 +258,7 @@
                                         {{ product.approvedBy | default('--') }}
                                     </td>
                                     <td>
-                                        <a href="{{ path('admin_order_edit', {'cart_id': product.cart_id}) }}"
+                                        <a href="{{ path('admin_order_approve', {'cart_id': product.cart_id}) }}"
                                            class="btn btn-info btn-xs">Open Order</a>
                                     </td>
                                 </tr>
