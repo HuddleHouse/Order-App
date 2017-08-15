@@ -43,6 +43,9 @@
                                     <div>STOCK NUMBER</div>
                                 </th>
                                 <th>
+                                    <div>ORDER #</div>
+                                </th>
+                                <th>
                                     <div>QUANTITY</div>
                                 </th>
                                 <th>
@@ -50,9 +53,6 @@
                                 </th>
                                 <th>
                                     <div>ITEMS RECEIVED</div>
-                                </th>
-                                <th>
-                                    <div>ORDER #</div>
                                 </th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -81,6 +81,9 @@
                                         {{ item.stock_number }}
                                     </td>
                                     <td>
+                                        {{ item.order_number }}
+                                    </td>
+                                    <td>
                                         {{ item.quantity }}
                                     </td>
                                     <td>
@@ -90,9 +93,6 @@
                                     </td>
                                     <td>
                                         {{ item.returned_items_quantity }}
-                                    </td>
-                                    <td>
-                                        {{ item.order_number }}
                                     </td>
                                     <td style="width: 60px;">
                                         <a href="{{ path('admin_order_approve', {'cart_id': item.cart_id}) }}"
@@ -213,22 +213,15 @@
                         var column = this;
 
                         switch (index) {
-                            case 0:
-                            case 5:
-                            case 6:
-                            case 7:
-                                // Ignore Date Submitted, Quantity, Items Shipped, Items Received
-                                break;
                             case 1: // OFFICE
                             case 2: // APPROVED
                                 var select = $('<select><option value=""></option></select>')
-                                    .appendTo($(column.header()))
+                                    .appendTo(column.header())
                                     .on('change', function () {
-                                        var val = $.fn.dataTable.util.escapeRegex(this.value);
-
-                                        column
-                                            .search(val ? ('^' + val + '$') : '', true, false)
-                                        ;
+                                        searchByColumn(column, this.value, true);
+                                    })
+                                    .on('click', function (e) {
+                                        e.stopPropagation();
                                     })
                                 ;
 
@@ -236,11 +229,41 @@
                                     select.append('<option value="' + getInnerText(d) + '">' + getInnerText(d) + '</option>');
                                 });
                                 break;
-                            default:
+                            case 3:
+                            case 4:
+                            case 5:
+                                var textbox = $('<input type="text">')
+                                    .appendTo(column.header())
+                                    .on('keydown change blur', function () {
+                                        setTimeout(function () {
+                                            searchByColumn(column, textbox.val());
+                                        }, 100);
+                                    })
+                                    .on('click', function (e) {
+                                        e.stopPropagation();
+                                    })
+                                ;
+                                break;
                         }
                     })
                 }
             });
+
+            function searchByColumn(column, text, exactMatch) {
+                exactMatch = exactMatch || false;
+
+                var searchPattern = '';
+
+                if (text) {
+                    searchPattern = $.fn.dataTable.util.escapeRegex(text);
+
+                    if (exactMatch) {
+                        searchPattern = '^' + searchPattern + '$';
+                    }
+                }
+
+                column.search(searchPattern, true, false).draw();
+            }
 
             function getInnerText(html) {
                 var x = document.createElement('div');
