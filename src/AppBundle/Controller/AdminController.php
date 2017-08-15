@@ -462,6 +462,8 @@ class AdminController extends Controller
         $part_prefix = $em->getRepository('AppBundle:PartNumberPrefix')->findAll();
         $cart = $em->getRepository('AppBundle:Cart')->find($cart_id);
 
+        $categories = array();
+        $products = array();
         if($cart->getType() == 'order') {
             $categories = $em->getRepository('AppBundle:PartCategory')->findAll();
             foreach($categories as $key => $category) {

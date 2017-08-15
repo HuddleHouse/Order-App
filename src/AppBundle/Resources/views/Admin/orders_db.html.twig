@@ -215,12 +215,13 @@
                                 <th>DATE SUBMITTED</th>
                                 <th>DATE APPROVED</th>
                                 <th>OFFICE</th>
-                                <th>QUANTITY ORDERED</th>
-                                <th>QUANTITY SHIPPED</th>
-                                <th>QUANTITY RETURNED</th>
-                                <th>QUANTITY BACKORDERED</th>
+                                {#<th>QUANTITY ORDERED</th>#}
+                                {#<th>QUANTITY SHIPPED</th>#}
+                                {#<th>QUANTITY RETURNED</th>#}
+                                {#<th>QUANTITY BACKORDERED</th>#}
                                 <th>SUBMITTED BY</th>
                                 <th>APPROVED BY</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -238,23 +239,27 @@
                                     <td>
                                         {{ product.officeName | default('--') }}
                                     </td>
-                                    <td>
-                                        {{ product.quantity | default('--') }}
-                                    </td>
-                                    <td>
-                                        {{ product.shipQuantity | default('--') }}
-                                    </td>
-                                    <td>
-                                        {{ product.returnedItemsQuantity | default('--') }}
-                                    </td>
-                                    <td>
-                                        {{ product.backOrderQuantit | default('--') }}
-                                    </td>
+                                    {#<td>#}
+                                    {#{{ product.quantity | default('--') }}#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                    {#{{ product.shipQuantity | default('--') }}#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                    {#{{ product.returnedItemsQuantity | default('--') }}#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                    {#{{ product.backOrderQuantit | default('--') }}#}
+                                    {#</td>#}
                                     <td>
                                         {{ product.submittedBy | default('--') }}
                                     </td>
                                     <td>
                                         {{ product.approvedBy | default('--') }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('admin_order_edit', {'cart_id': product.cart_id}) }}"
+                                           class="btn btn-info btn-xs">Open Order</a>
                                     </td>
                                 </tr>
                             {% endfor %}
