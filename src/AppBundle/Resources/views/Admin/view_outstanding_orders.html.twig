@@ -215,7 +215,7 @@
                         switch (index) {
                             case 1: // OFFICE
                             case 2: // APPROVED
-                                var select = $('<select><option value=""></option></select>')
+                                var select = $('<select class="form-control input-sm"><option value=""></option></select>')
                                     .appendTo(column.header())
                                     .on('change', function () {
                                         searchByColumn(column, this.value, true);
@@ -232,7 +232,7 @@
                             case 3:
                             case 4:
                             case 5:
-                                var textbox = $('<input type="text">')
+                                var textbox = $('<input class="form-control input-sm" type="text">')
                                     .appendTo(column.header())
                                     .on('keydown change blur', function () {
                                         setTimeout(function () {
