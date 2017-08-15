@@ -197,8 +197,8 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in cart track by $index">
-                                        <td ng-if="!item.stock_number && item.product.stock_number"><span ng-hide="item.isAddedByAdmin">{{ item.stock_number }}</span><input class="form-control" ng-blur="updateNote(item)" ng-model="item.stock_number" ng-show="item.isAddedByAdmin"></td>
-                                        <td ng-if="item.stock_number && !item.product.stock_number"><span ng-hide="item.isAddedByAdmin">{{ item.product.stock_number }}</span><input class="form-control" ng-blur="updateNote(item)" ng-model="item.stock_number" ng-show="item.isAddedByAdmin"></td>
+                                        <td ng-if="item.stock_number"><span ng-hide="item.isAddedByAdmin">{{ item.stock_number }}</span><input class="form-control" ng-blur="updateNote(item)" ng-model="item.stock_number" ng-show="item.isAddedByAdmin"></td>
+                                        <td ng-if="!item.stock_number && item.product.stock_number"><span ng-hide="item.isAddedByAdmin">{{ item.product.stock_number }}</span><input class="form-control" ng-blur="updateNote(item)" ng-model="item.stock_number" ng-show="item.isAddedByAdmin"></td>
                                         <td><span ng-hide="item.isAddedByAdmin">{{ item.description }}</span><textarea class="form-control" ng-blur="updateNote(item)" ng-model="item.description" ng-show="item.isAddedByAdmin"></textarea></td>
                                         <td align="center">
                                             <label class="label-return-required" ng-class="{'editable': item.isAddedByAdmin}">
