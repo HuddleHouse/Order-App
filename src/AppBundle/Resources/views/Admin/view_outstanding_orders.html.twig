@@ -23,100 +23,96 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <div class="table-scrollable">
-                        <table class="table table-striped table-bordered table-hover">
-                            {% if parts_needing_return %}
-                                <thead>
+                    <table id="part-table" class="table table-striped table-bordered table-hover">
+                        {% if parts_needing_return %}
+                            <thead>
+                            <tr>
+                                <th>
+                                    <div>DATE SUBMITTED</div>
+                                </th>
+                                <th>
+                                    <div>OFFICE</div>
+                                </th>
+                                <th>
+                                    <div>APPROVED</div>
+                                </th>
+                                <th>
+                                    <div>PART NAME</div>
+                                </th>
+                                <th>
+                                    <div>STOCK NUMBER</div>
+                                </th>
+                                <th>
+                                    <div>ORDER #</div>
+                                </th>
+                                <th>
+                                    <div>QUANTITY</div>
+                                </th>
+                                <th>
+                                    <div>ITEMS SHIPPED</div>
+                                </th>
+                                <th>
+                                    <div>ITEMS RECEIVED</div>
+                                </th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in parts_needing_return %}
                                 <tr>
-                                    <th>
-                                        DATE SUBMITTED
-                                    </th>
-                                    <th>
-                                        OFFICE
-                                    </th>
-                                    <th>
-                                        APPROVED
-                                    </th>
-                                    <th>PART NAME</th>
-                                    <th>STOCK NUMBER</th>
-                                    <th>
-                                        QUANTITY
-                                    </th>
-                                    <th>
-                                        ITEMS SHIPPED
-                                    </th>
-                                    <th>
-                                        ITEMS RECEIVED
-                                    </th>
-
-                                    <th>
-                                        ORDER #
-                                    </th>
-                                    <th>
-                                    </th>
+                                    <td>
+                                        {{ item.submit_date | date('m/d/y') }}
+                                    </td>
+                                    <td>
+                                        {{ item.office_name ? item.office_name : ' ' }}
+                                    </td>
+                                    <td>
+                                        {% if item.approved %}
+                                            <span class="label label-sm label-success">Approved</span>
+                                        {% else %}
+                                            <span class="label label-sm label-info">Review Pending</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ item.description }}
+                                        {{ item.description2 }}
+                                    </td>
+                                    <td>
+                                        {{ item.stock_number }}
+                                    </td>
+                                    <td>
+                                        {{ item.order_number }}
+                                    </td>
+                                    <td>
+                                        {{ item.quantity }}
+                                    </td>
+                                    <td>
+                                        <div id="{{ item.id }}-shipped">
+                                            {{ item.returned_items_shipped_quantity }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{ item.returned_items_quantity }}
+                                    </td>
+                                    <td style="width: 60px;">
+                                        <a href="{{ path('admin_order_approve', {'cart_id': item.cart_id}) }}"
+                                           class="btn btn-info btn-xs">View Order</a>
+                                        <br>
+                                        <br>
+                                        <button class="btn btn-default btn-sm purple"
+                                                onclick="approveReturn({{ item.id }})"><i
+                                                    class="fa fa-check"></i> Confirm return
+                                        </button>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {% for item in parts_needing_return %}
-                                    <tr>
-                                        <td>
-                                            {{ item.submit_date | date('m/d/y') }}
-                                        </td>
-                                        <td>
-                                            {{ item.office_name ? item.office_name : ' ' }}
-                                        </td>
-                                        <td>
-                                            {% if item.approved %}
-                                                <span class="label label-sm label-success">Approved</span>
-                                            {% else %}
-                                                <span class="label label-sm label-info">Review Pending</span>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {{ item.description }}
-                                            {{ item.description2 }}
-                                        </td>
-                                        <td>
-                                            {{ item.stock_number }}
-                                        </td>
-                                        <td>
-                                            <center>
-                                                {{ item.quantity }}
-                                            </center>
-                                        </td>
-                                        <td>
-                                            <center>
-                                                <div id="{{ item.id }}-shipped">
-                                                    {{ item.returned_items_shipped_quantity }}
-                                                </div>
-                                            </center>
-                                        </td>
-                                        <td>
-                                            <center>{{ item.returned_items_quantity }}</center>
-                                        </td>
-                                        <td>
-                                            <center>{{ item.order_number }}</center>
-                                        </td>
-                                        <td style="width: 60px;">
-                                            <a href="{{ path('admin_order_approve', {'cart_id': item.cart_id}) }}"
-                                               class="btn btn-info btn-xs">View Order</a>
-                                            <br>
-                                            <br>
-                                            <button class="btn btn-default btn-sm purple"
-                                                    onclick="approveReturn({{ item.id }})"><i
-                                                        class="fa fa-check"></i> Confirm return
-                                            </button>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            {% else %}
-                                <div style="padding: 10px;">
-                                    <center><h4>There are no parts that need to be sent to Uster.</h4></center>
-                                </div>
-                            {% endif %}
-                        </table>
-                    </div>
+                            {% endfor %}
+                            </tbody>
+                        {% else %}
+                            <div style="padding: 10px;">
+                                <center><h4>There are no parts that need to be sent to Uster.</h4></center>
+                            </div>
+                        {% endif %}
+                    </table>
                 </div>
             </div>
         </div>
@@ -204,7 +200,76 @@
 {% block footer %}
     <script>
         $(document).ready(function () {
-            $('#part-table').DataTable({"paging": false});
+            $('#part-table').DataTable({
+                paging: true,
+                filter: true,
+                columnDefs: [{
+                    targets: [9],
+                    sortable: false
+                }],
+
+                initComplete: function () {
+                    this.api().columns().every(function (index) {
+                        var column = this;
+
+                        switch (index) {
+                            case 1: // OFFICE
+                            case 2: // APPROVED
+                                var select = $('<select class="form-control input-sm"><option value=""></option></select>')
+                                    .appendTo(column.header())
+                                    .on('change', function () {
+                                        searchByColumn(column, this.value, true);
+                                    })
+                                    .on('click', function (e) {
+                                        e.stopPropagation();
+                                    })
+                                ;
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    select.append('<option value="' + getInnerText(d) + '">' + getInnerText(d) + '</option>');
+                                });
+                                break;
+                            case 3:
+                            case 4:
+                            case 5:
+                                var textbox = $('<input class="form-control input-sm" type="text">')
+                                    .appendTo(column.header())
+                                    .on('keydown change blur', function () {
+                                        setTimeout(function () {
+                                            searchByColumn(column, textbox.val());
+                                        }, 100);
+                                    })
+                                    .on('click', function (e) {
+                                        e.stopPropagation();
+                                    })
+                                ;
+                                break;
+                        }
+                    })
+                }
+            });
+
+            function searchByColumn(column, text, exactMatch) {
+                exactMatch = exactMatch || false;
+
+                var searchPattern = '';
+
+                if (text) {
+                    searchPattern = $.fn.dataTable.util.escapeRegex(text);
+
+                    if (exactMatch) {
+                        searchPattern = '^' + searchPattern + '$';
+                    }
+                }
+
+                column.search(searchPattern, true, false).draw();
+            }
+
+            function getInnerText(html) {
+                var x = document.createElement('div');
+                x.innerHTML = html;
+                return x.innerText ? x.innerText : x.textContent;
+            }
 
             $('a.btn[data-role="delete-user"]').on('click', function (e) {
                 return confirm("Are you sure you want to delete this user?");

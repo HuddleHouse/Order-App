@@ -15,6 +15,30 @@
             table.layout > tr > td {
                 vertical-align: top;
             }
+
+            .order-number {
+                border: 1px solid black;
+                padding: 3px;
+                display: inline-block;
+                font-family: 'Courier New', monospace;
+                position: relative;
+            }
+
+            .order-number img {
+                position: absolute;
+                z-index: 0;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .order-number span {
+                position: relative;
+                z-index: 1;
+            }
         }
     </style>
 </head>
@@ -26,12 +50,12 @@
             <table cellspacing="0" cellpadding="3" border="1" style="border-collapse: collapse" width="100%">
                 <thead>
                 <tr>
+                    <th>PREFIX</th>
                     <th>PRODUCT #</th>
                     <th>DESCRIPTION</th>
                     <th>RETURN</th>
                     <th>LINE NO. (S)</th>
                     <th>STOCK LOCATION</th>
-                    <th>PREFIX</th>
                     <th>QTY</th>
                     <th>SHIP QTY</th>
                     <th>B.O. QTY</th>
@@ -49,6 +73,7 @@
                     {% set totalShipped = totalShipped + product.shipQuantity %}
 
                     <tr>
+                        <td>{{ product.partNumberPrefix ? product.partNumberPrefix.name : '' }}</td>
                         <td>{{ product.part.stockNumber }}</td>
                         <td>{{ product.description }}</td>
                         <td>{{ product.returnRequired ? 'YES' : '' }}</td>
@@ -60,7 +85,6 @@
                             {{ lineNumbers|join(glue=', ') }}
                         </td>
                         <td>{{ product.stockLocation ? product.stockLocation.name : '' }}</td>
-                        <td>{{ product.partNumberPrefix ? product.partNumberPrefix.name : '' }}</td>
                         <td>{{ product.quantity }}</td>
                         <td>{{ product.shipQuantity }}</td>
                         <td>{{ product.backOrderQuantity }}</td>
@@ -75,7 +99,8 @@
         <td>
             <h3>Order Info</h3>
             <p>
-                Order No.: <strong>{{ cart.orderNumber }}</strong>
+                Order No.: <strong class="order-number"><img
+                            src="{{ asset('images/yellow-background.gif') }}"><span>{{ cart.orderNumber }}</span></strong>
             </p>
             <p>
                 Date Placed: <strong>{{ cart.submitDate|date('Y-m-d') }}</strong>
