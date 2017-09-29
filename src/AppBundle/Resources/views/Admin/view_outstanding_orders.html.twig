@@ -203,6 +203,7 @@
             $('#part-table').DataTable({
                 paging: true,
                 pageLength: 100,
+                stateSave: true,
                 filter: true,
                 columnDefs: [{
                     targets: [9],
@@ -210,6 +211,7 @@
                 }],
 
                 initComplete: function () {
+                    var state = $('#part-table').DataTable().state();
                     this.api().columns().every(function (index) {
                         var column = this;
 
@@ -227,7 +229,13 @@
                                 ;
 
                                 column.data().unique().sort().each(function (d, j) {
-                                    select.append('<option value="' + getInnerText(d) + '">' + getInnerText(d) + '</option>');
+                                    var selected = state.columns[index].search.search.substr(1).slice(0, -1);
+                                    var isSelected = getInnerText(d) == selected;
+                                    if (isSelected) {
+                                        select.append('<option selected="selected" value="' + getInnerText(d) + '">' + getInnerText(d) + '</option>');
+                                    } else {
+                                        select.append('<option value="' + getInnerText(d) + '">' + getInnerText(d) + '</option>');
+                                    }
                                 });
                                 break;
                             case 3:
