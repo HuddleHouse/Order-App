@@ -338,7 +338,16 @@ class ReviewOrderController extends Controller
         $id = $request->request->get('cart_product_id');
         $returned_items_ship_quantity = $request->request->get('returned_items_quantity');
 
+        /** @var CartProduct $product */
         $product = $em->getRepository('AppBundle:CartProduct')->find($id);
+
+        $totalQuantityOrdered = $product->getQuantity();
+        $returnedItems = $product->getReturnedItemsShippedQuantity() + $returned_items_ship_quantity;
+        if ($product->getQuantity() < $returnedItems) {
+            $this->addFlash('error', "The number of items shipped cannot exceed total quantity ordered ($totalQuantityOrdered)");
+            return JsonResponse::create(true);
+        }
+
         $product->setReturnedItemsShippedQuantity($product->getReturnedItemsShippedQuantity() + $returned_items_ship_quantity);
         $product->setReturnShipDate(date_create(date("Y-m-d H:i:s")));
         $this->addFlash('notice', 'Shipment Received.');
