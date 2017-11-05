@@ -232,7 +232,7 @@
                             {% for product in products %}
                                 <tr>
                                     <td>
-                                        {{ product.catName }}
+                                        {{ product.catName ?: "UNLISTED ITEMS" }}
                                     </td>
                                     <td>
                                         {{ product.stockNumber }}
