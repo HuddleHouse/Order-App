@@ -665,7 +665,8 @@ class AdminController extends Controller
                 c.order_number as orderNumber, c.submit_date as submitDate, c.approve_date as approveDate,
                 CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submittedBy,
                 CONCAT_WS(\" \", u2.first_name, u2.last_name) as approvedBy, o.name as officeName,
-                COALESCE (parts.stock_number, p.stock_number) as stockNumber, parts.description, parts.path as webPath,
+                COALESCE (parts.stock_number, p.stock_number) as stockNumber,
+                COALESCE (parts.description, p.description) as description, parts.path as webPath,
                 category.name as catName, category.name_cononical as nameCononical
         from cart_products p
             left join cart c
