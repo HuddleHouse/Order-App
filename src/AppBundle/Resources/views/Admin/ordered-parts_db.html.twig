@@ -3,6 +3,10 @@
 
 {% block content %}
     <style>
+        td {
+            word-wrap: break-word !important;
+        }
+
         #overlay {
             /* Height & width depends on how you want to reveal the overlay (see JS below) */
             height: 100%;
@@ -206,18 +210,18 @@
             <div class="stats-overview stat-block">
                 <div class="details">
                     <div class="title" style="padding-bottom: 10px">
-                        <table id="part-table" class="responsive nowrap table table-striped no-footer isotope-table"
+                        <table id="part-table" class="responsive table table-striped no-footer isotope-table"
                                cellspacing="0"
                                width="100%">
                             <thead>
                             <tr>
-                                <th>CATEGORY</th>
-                                <th>PRODUCT #</th>
-                                <th>ORDER #</th>
-                                <th>DATE SUBMITTED</th>
-                                <th>DATE APPROVED</th>
-                                <th width="40px">PHOTO</th>
-                                <th>DESCRIPTION</th>
+                                <th class="all">CATEGORY</th>
+                                <th class="all">PRODUCT #</th>
+                                <th class="all">ORDER #</th>
+                                <th class="all">DATE SUBMITTED</th>
+                                <th class="all">DATE APPROVED</th>
+                                <th class="all" width="40px">PHOTO</th>
+                                <th class="all">DESCRIPTION</th>
                                 <th width="30px">RETURN REQUIRED</th>
                                 <th>QUANTITY ORDERED</th>
                                 <th>QUANTITY SHIPPED</th>
@@ -330,14 +334,14 @@
 
         $(document).ready(function () {
             var oTable = $('#part-table').DataTable({
-                "paging": false,
-                "sDom": '<"top">Brt<"bottom"lp><"clear">',
-                "buttons": [
+                paging: false,
+                sDom: '<"top">Brt<"bottom"lp><"clear">',
+                buttons: [
                     'copyHtml5', 'csvHtml5', 'excelHtml5'
                 ],
                 responsive: true,
                 dataType: 'json',
-                data: {{ products | json_encode | raw }},
+                ajax: '{{ path('api_ordered_parts_db') }}',
                 columnDefs: [{
                     targets: 5,
                     render: function ( data, type, row, meta ) {
