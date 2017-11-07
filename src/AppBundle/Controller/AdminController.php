@@ -621,8 +621,28 @@ class AdminController extends Controller
         $products = $this->orderedPartsDbQuery();
         $shipping = $em->getRepository('AppBundle:ShippingMethod')->findAll();
 
+        $productsArray = array_map(function($product) {
+            return [
+                $product['catName'] ?: "UNLISTED ITEMS",
+                $product['stockNumber'],
+                $product['orderNumber'],
+                $product['submitDate'],
+                $product['approveDate'],
+                $product['webPath'],
+                $product['description'],
+                $product['requireReturn'] ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '',
+                $product['quantity'],
+                $product['shipQuantity'],
+                $product['returnedItemsQuantity'],
+                $product['backOrderQuantity'],
+                $product['submittedBy'],
+                $product['approvedBy'],
+                $product['officeName']
+            ];
+        }, $products);
+
         return $this->render('@App/Admin/ordered-parts_db.html.twig', array(
-            'products' => $products,
+            'products' => $productsArray,
             'categories' => $categories,
             'offices' => $offices,
             'shipping' => $shipping,

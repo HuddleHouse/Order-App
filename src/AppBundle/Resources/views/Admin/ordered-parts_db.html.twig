@@ -229,62 +229,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for product in products %}
-                                <tr>
-                                    <td>
-                                        {{ product.catName ?: "UNLISTED ITEMS" }}
-                                    </td>
-                                    <td>
-                                        {{ product.stockNumber }}
-                                    </td>
-                                    <td>
-                                        {{ product.orderNumber }}
-                                    </td>
-                                    <td>
-                                        {{ product.submitDate }}
-                                    </td>
-                                    <td>
-                                        {{ product.approveDate }}
-                                    </td>
-                                    <td>
-                                        <center>
-                                            <a onclick="popup('{{ product.webPath }}')" style="cursor: pointer">
-                                                <i class="fa fa-camera" style="font-size: 22px; color: #e2001a;"></i>
-                                                <img id="{{ product.webPath }}-img"
-                                                     src="/uploads/documents/{{ product.webPath }}" width="0" height="0"
-                                                     style="display: none;">
-                                            </a>
-                                        </center>
-                                    </td>
-                                    <td>
-                                        {{ product.description }}
-                                    </td>
-                                    <td>
-                                        {{ product.requireReturn ? "<center><i class='fa fa-check-circle-o' style='font-size: 25px;color: #e2001a;'></i></center>" : '' }}
-                                    </td>
-                                    <td>
-                                        {{ product.quantity }}
-                                    </td>
-                                    <td>
-                                        {{ product.shipQuantity }}
-                                    </td>
-                                    <td>
-                                        {{ product.returnedItemsQuantity }}
-                                    </td>
-                                    <td>
-                                        {{ product.backOrderQuantity }}
-                                    </td>
-                                    <td>
-                                        {{ product.submittedBy }}
-                                    </td>
-                                    <td>
-                                        {{ product.approvedBy }}
-                                    </td>
-                                    <td>
-                                        {{ product.officeName }}
-                                    </td>
-                                </tr>
-                            {% endfor %}
+
                             </tbody>
                         </table>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
@@ -389,7 +334,20 @@
                 "sDom": '<"top">Brt<"bottom"lp><"clear">',
                 "buttons": [
                     'copyHtml5', 'csvHtml5', 'excelHtml5'
-                ]
+                ],
+                responsive: true,
+                dataType: 'json',
+                data: {{ products | json_encode | raw }},
+                columnDefs: [{
+                    targets: 5,
+                    render: function ( data, type, row, meta ) {
+                        return  '<a onclick="popup(\'' + data + '\')" style="cursor: pointer">' +
+                                    '<i class="fa fa-camera" style="font-size: 22px; color: #e2001a;"></i>' +
+                                    '<img id="' + data + '-img" src="/uploads/documents/' + data+ '" width="0" height="0"' +
+                                        'style="display: none;">' +
+                                '</a>';
+                    }
+                }]
             });
 
 //            oTable.buttons().container().appendTo( $('#part-table_wrapper .top', oTable.table().container() ) );
