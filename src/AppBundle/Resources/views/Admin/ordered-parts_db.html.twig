@@ -169,18 +169,6 @@
             </div>
             <hr>
             <div class="form-group">
-                <label for="category">
-                    Category
-                </label>
-                <select id="category" class="form-control" multiple>
-                    <option value="" selected>All</option>
-                    {% for c in categories %}
-                        <option value="{{ c.name }}">{{ c.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <hr>
-            <div class="form-group">
                 <label for="product-number">
                     Product #
                 </label>
@@ -192,6 +180,13 @@
                     Order #
                 </label>
                 <input id="order-number" class="form-control" value="">
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="product-description">
+                    Description
+                </label>
+                <input id="product-description" class="form-control" value="">
             </div>
             <hr>
             <div class="form-group">
@@ -215,7 +210,7 @@
                                width="100%">
                             <thead>
                             <tr>
-                                <th class="all">CATEGORY</th>
+                                <td class="all">Line #</td>
                                 <th class="all">PRODUCT #</th>
                                 <th class="all">ORDER #</th>
                                 <th class="all">DATE SUBMITTED</th>
@@ -225,11 +220,9 @@
                                 <th width="30px">RETURN REQUIRED</th>
                                 <th>QUANTITY ORDERED</th>
                                 <th>QUANTITY SHIPPED</th>
-                                <th>QUANTITY RETURNED</th>
                                 <th>QUANTITY BACKORDERED</th>
-                                <th>SUBMITTED BY</th>
-                                <th>APPROVED BY</th>
                                 <th>OFFICE</th>
+                                <th class="all"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -360,10 +353,6 @@
                 oTable.draw();
             });
 
-            $('#category').on('change', function () {
-                oTable.columns(0).search($(this).val().join('|'), true, false).draw();
-            });
-
             $('#product-number').on('keyup', function () {
                 oTable.columns(1).search(this.value).draw();
             });
@@ -372,8 +361,12 @@
                 oTable.columns(2).search(this.value).draw();
             });
 
+            $('#product-description').on('keyup', function () {
+                oTable.columns(6).search(this.value).draw();
+            });
+
             $('#office').on('change', function () {
-                oTable.columns(14).search($(this).val().join('|'), true, false).draw();
+                oTable.columns(11).search($(this).val().join('|'), true, false).draw();
             });
 
             $('#overlay').hide();
