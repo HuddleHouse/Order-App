@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="parts")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PartRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=true)
  */
 class Part
 {
@@ -60,6 +62,10 @@ class Part
      */
     private $file;
 
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function upload()
     {
@@ -223,6 +229,14 @@ class Part
         $this->require_return = $require_return;
     }
 
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
 
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
 }
 
