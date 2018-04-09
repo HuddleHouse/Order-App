@@ -25,7 +25,8 @@ class AdminController extends Controller
                 CONCAT_WS(\" \", u2.first_name, u2.last_name) as approvedBy, o.name as officeName,
                 COALESCE (parts.stock_number, p.stock_number) as stockNumber,
                 COALESCE (parts.description, p.description) as description, parts.path as webPath,
-                category.name as catName, category.name_cononical as nameCononical
+                category.name as catName, category.name_cononical as nameCononical,
+                cpln.line_number 
         from cart_products p
             left join cart c
                 on p.cart_id = c.id
@@ -39,6 +40,8 @@ class AdminController extends Controller
                 on c.office_id = o.id
             left join part_categories category
                 on parts.part_category_id = category.id
+            left join cart_product_line_numbers cpln
+                on cpln.cart_product_id = p.id
         where c.submitted = 1
         and c.approved = 1";
 
@@ -59,7 +62,7 @@ class AdminController extends Controller
                 'cart_id' => $product['cartId']
             ]);
             return [
-                $idx + 1,
+                $product['line_number'],
                 $product['stockNumber'],
                 $product['orderNumber'],
                 $product['submitDate'],
