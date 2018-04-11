@@ -169,6 +169,13 @@
             </div>
             <hr>
             <div class="form-group">
+                <label for="line">
+                    Line #
+                </label>
+                <input id="line" class="form-control" value="">
+            </div>
+            <hr>
+            <div class="form-group">
                 <label for="product-number">
                     Product #
                 </label>
@@ -210,7 +217,7 @@
                                width="100%">
                             <thead>
                             <tr>
-                                <td class="all">Line #</td>
+                                <td class="none">Line #</td>
                                 <th class="all">PRODUCT #</th>
                                 <th class="all">ORDER #</th>
                                 <th class="all">DATE SUBMITTED</th>
@@ -347,10 +354,12 @@
                 }]
             });
 
-//            oTable.buttons().container().appendTo( $('#part-table_wrapper .top', oTable.table().container() ) );
-
             $('#beginDate, #endDate').on('change', function () {
                 oTable.draw();
+            });
+
+            $('#line').on('keyup', function () {
+                oTable.columns(0).search(this.value).draw();
             });
 
             $('#product-number').on('keyup', function () {
