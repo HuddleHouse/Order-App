@@ -655,18 +655,21 @@ class AdminController extends Controller
      */
     private function ordersDbQuery()
     {
-        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity as shipQuantity, p.returned_items_quantity as returnedItemsQuantity, p.returned_items_shipped_quantity as returnedItemsShippedQuantity, p.back_order_quantity as backOrderQuantity, c.order_number as orderNumber, c.submit_date as submitDate, c.approve_date as approveDate, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submittedBy, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approvedBy, o.name as officeName
-    from cart c
-        left join cart_products p
-            on c.id = p.cart_id
-        left join users u
-            on c.user_id = u.id
-        left join users u2
-            on c.approved_by_id = u2.id
-        left join offices o
-            on c.office_id = o.id
-    where c.submitted = 1
-    order by submitDate DESC";
+        $sql = "
+            select c.id as cart_id, c.order_number as orderNumber, 
+                   c.submit_date as submitDate, c.approve_date as approveDate, 
+                   CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submittedBy, 
+                   CONCAT_WS(\" \", u2.first_name, u2.last_name) as approvedBy, o.name as officeName
+            from cart c
+            left join users u
+                on c.user_id = u.id
+            left join users u2
+                on c.approved_by_id = u2.id
+            left join offices o
+                on c.office_id = o.id
+            where c.submitted = 1
+            order by submitDate DESC
+        ";
 
         $stmt = $this->getDoctrine()->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
