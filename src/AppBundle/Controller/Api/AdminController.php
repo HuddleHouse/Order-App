@@ -57,12 +57,22 @@ class AdminController extends Controller
     {
         $products = $this->orderedPartsDbQuery();
 
-        $productsArray = array_map(function($product, $idx) {
+        $result = [];
+        foreach($products as $product) {
+            if (empty($result[$product['id']])) {
+                $result[$product['id']] = $product;
+                $result[$product['id']]['line_number'] = [$result[$product['id']]['line_number']];
+            } else {
+                $result[$product['id']]['line_number'][] = $product['line_number'];
+            }
+        }
+
+        $productsArray = array_map(function($product) {
             $orderRoute = $this->generateUrl('admin_order_approve', [
                 'cart_id' => $product['cartId']
             ]);
             return [
-                $product['line_number'],
+                implode('<br />', $product['line_number']),
                 $product['stockNumber'],
                 $product['orderNumber'],
                 $product['submitDate'],
@@ -76,7 +86,7 @@ class AdminController extends Controller
                 $product['officeName'],
                 '<a href="'.$orderRoute.'" class="btn btn-default btn-xs">View</a>'
             ];
-        }, $products, array_keys($products));
+        }, array_values($result));
 
         return new JsonResponse([
             'data' => $productsArray
