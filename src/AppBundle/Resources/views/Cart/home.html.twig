@@ -156,7 +156,7 @@
                                         </td>
                                         <td>
                                            <div ng-repeat="num in item.line_numbers track by $index" style="display: inline-block;">
-                                                <input ng-model="num.line_number" type="text" class="form-control line-number" ng-change="updateLineNumber(num)" maxlength="4" style="width: 60px;">
+                                                <input ng-model="num.line_number" type="text" class="form-control line-number" ng-change="updateLineNumber(num)" maxlength="3" style="width: 60px;">
                                            </div>
                                            <div style="display: inline-flex;">
                                             <button ng-click="removeLineNumber(item.id)" style="background: transparent; border: none;">

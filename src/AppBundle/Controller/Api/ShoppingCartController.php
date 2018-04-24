@@ -325,37 +325,48 @@ class ShoppingCartController extends Controller
         $cart = $this->getCurrentCart();
 
         $connection = $em->getConnection();
-        $statement = $connection->prepare("select count(l.id) as total
-	from cart_product_line_numbers l
-		left join cart_products cp  
-			on l.cart_product_id = cp.id
-		left join cart c
-			on cp.cart_id = c.id
-	where (l.line_number IS NULL OR l.line_number LIKE '') 
-	and c.id = :id");
+        $statement = $connection->prepare("
+            select l.line_number as line_number
+            from cart_product_line_numbers l
+            left join cart_products cp  
+                on l.cart_product_id = cp.id
+            left join cart c
+                on cp.cart_id = c.id
+            where c.id = :id
+        ");
         $statement->bindValue('id', $cart->getId());
         $statement->execute();
-        $line_numbers = $statement->fetch();
+        $line_numbers = $statement->fetchAll();
+
+        $response = true;
+        foreach($line_numbers as $line_number) {
+            if (strlen($line_number['line_number']) != 3) {
+                $this->addFlash('error', 'Line # must be 3 exactly digits');
+                $response = false;
+                break;
+            } else if ($line_number['line_number'] == 999) {
+                $this->addFlash('error', 'Line # cannot be 999. Please enter a valid line #');
+                $response = false;
+                break;
+            }
+        }
 
         $connection = $em->getConnection();
-        $statement = $connection->prepare("select c.shipping_method_id
-	from cart c
-	where c.id = :id");
+        $statement = $connection->prepare("
+            select c.shipping_method_id
+            from cart c
+            where c.id = :id
+        ");
         $statement->bindValue('id', $cart->getId());
         $statement->execute();
         $shipping = $statement->fetch();
 
-        if ($shipping['shipping_method_id'] == NULL || $line_numbers['total'] != '0') {
-            if ($shipping['shipping_method_id'] == NULL)
-                $this->addFlash('error', 'Please select a shipping method.');
-            if ($line_numbers['total'] != '0')
-                $this->addFlash('error', 'Line number cannot be blank.');
-
-            return JsonResponse::create(false);
-        } else {
-            return JsonResponse::create(true);
+        if ($shipping['shipping_method_id'] == NULL) {
+            $this->addFlash('error', 'Please select a shipping method.');
+            $response = false;
         }
 
+        return JsonResponse::create($response);
     }
 
     /**
