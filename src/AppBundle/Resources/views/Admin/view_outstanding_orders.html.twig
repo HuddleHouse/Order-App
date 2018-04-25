@@ -129,7 +129,7 @@
                     </div>
                     <div class="portlet-body">
                         <div class="table-scrollable">
-                            <table class="table table-striped table-bordered table-hover">
+                            <table id="returned-parts-table" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>DATE SUBMITTED</th>
@@ -284,11 +284,92 @@
                 return confirm("Are you sure you want to delete this user?");
             });
         });
-        //        $('#part-table').DataTable({
-        //            "paging": false
-        //        });
+
+
+        $(document).ready(function () {
+            $('#returned-parts-table').DataTable({
+                paging: true,
+                pageLength: 100,
+                stateSave: true,
+                filter: true,
+                columnDefs: [{
+                    targets: [9],
+                    sortable: false
+                }],
+
+                initComplete: function () {
+                    var state = $('#part-table').DataTable().state();
+                    this.api().columns().every(function (index) {
+                        var column = this;
+
+                        switch (index) {
+                            case 2:
+                            case 3:
+                            case 8:
+                                var textbox = $('<div><input class="form-control input-sm" type="text"></div>')
+                                    .appendTo(column.header())
+                                    .on('keydown change blur', function () {
+                                        setTimeout(function () {
+                                            searchByColumn(column, textbox.find('input').val());
+                                        }, 100);
+                                    })
+                                    .on('click', function (e) {
+                                        e.stopPropagation();
+                                    })
+                                ;
+                                break;
+                            case 7: // OFFICE
+                                var select = $('<br /><select class="form-control input-sm"><option value=""></option></select>')
+                                    .appendTo(column.header())
+                                    .on('change', function () {
+                                        searchByColumn(column, this.value, true);
+                                    })
+                                    .on('click', function (e) {
+                                        e.stopPropagation();
+                                    })
+                                ;
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    var selected = state.columns[index].search.search.substr(1).slice(0, -1);
+                                    var isSelected = getInnerText(d) == selected;
+                                    if (isSelected) {
+                                        select.append('<option selected="selected" value="' + getInnerText(d) + '">' + getInnerText(d) + '</option>');
+                                    } else {
+                                        select.append('<option value="' + getInnerText(d) + '">' + getInnerText(d) + '</option>');
+                                    }
+                                });
+                                break;
+                        }
+                    })
+                }
+            });
+
+            function searchByColumn(column, text, exactMatch) {
+                exactMatch = exactMatch || false;
+
+                var searchPattern = '';
+
+                if (text) {
+                    searchPattern = $.fn.dataTable.util.escapeRegex(text);
+
+                    if (exactMatch) {
+                        searchPattern = '^' + searchPattern + '$';
+                    }
+                }
+
+                column.search(searchPattern, true, false).draw();
+            }
+
+            function getInnerText(html) {
+                var x = document.createElement('div');
+                x.innerHTML = html;
+                return x.innerText ? x.innerText : x.textContent;
+            }
+        });
+
+
+
         function approveReturn(id) {
-//            confirm("Are you sure you want to count these items as returned?")
             var numItemsReceived = parseInt($('#' + id + '-shipped').text());
             console.log(numItemsReceived);
 

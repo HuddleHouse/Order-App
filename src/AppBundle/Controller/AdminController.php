@@ -314,22 +314,29 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description, p.description as description2
-	from cart_products p
-		left join cart c
-			on p.cart_id = c.id
-		left join parts 
-			on p.part_id = parts.id
-		left join users u
-			on c.user_id = u.id
-		left join users u2
-			on c.approved_by_id = u2.id
-		left join offices o
-			on c.office_id = o.id
-	where c.submitted = 1
-	and (parts.require_return = 1 or p.return_required = 1)
-	AND p.quantity > p.returned_items_quantity
-	order by c.submit_date DESC";
+        $sql = "
+            select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity, 
+                   p.returned_items_quantity, p.returned_items_shipped_quantity, 
+                   parts.require_return, c.order_number, c.submit_date, c.approve_date, 
+                   CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, 
+                   CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, 
+                   COALESCE (parts.stock_number, p.stock_number) as stock_number, 
+                   parts.description, p.description as description2
+            from cart_products p
+                left join cart c
+                    on p.cart_id = c.id
+                left join parts 
+                    on p.part_id = parts.id
+                left join users u
+                    on c.user_id = u.id
+                left join users u2
+                    on c.approved_by_id = u2.id
+                left join offices o
+                    on c.office_id = o.id
+            where c.submitted = 1
+            and (parts.require_return = 1 or p.return_required = 1)
+            AND p.quantity > p.returned_items_quantity
+            order by c.submit_date DESC";
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
         $partsNeedReturned = $stmt->fetchAll();
