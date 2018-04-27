@@ -203,6 +203,10 @@
             $('#part-table').DataTable({
                 paging: true,
                 pageLength: 100,
+                sDom: '<"top">Bfrt<"bottom"lp><"clear">',
+                buttons: [
+                    'copyHtml5', 'csvHtml5', 'excelHtml5'
+                ],
                 stateSave: true,
                 filter: true,
                 columnDefs: [{
@@ -292,6 +296,10 @@
                 pageLength: 100,
                 stateSave: true,
                 filter: true,
+                sDom: '<"top">Bfrt<"bottom"lp><"clear">',
+                buttons: [
+                    'copyHtml5', 'csvHtml5', 'excelHtml5'
+                ],
                 columnDefs: [{
                     targets: [9],
                     sortable: false
