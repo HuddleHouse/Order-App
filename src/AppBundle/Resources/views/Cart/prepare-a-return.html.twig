@@ -103,9 +103,7 @@
 
 {% block footer %}
     <script>
-
         function confirmShipment(id) {
-//            confirm("Are you sure you want to count these items as returned?")
             var numItemsShipped = parseInt($('#' + id + '-shipped').text());
             console.log(numItemsShipped);
 

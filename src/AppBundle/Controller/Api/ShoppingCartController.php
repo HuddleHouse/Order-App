@@ -340,7 +340,7 @@ class ShoppingCartController extends Controller
 
         $response = true;
         foreach($line_numbers as $line_number) {
-            if (strlen($line_number['line_number']) != 3) {
+            if (strlen($line_number['line_number']) != 3 or !is_numeric($line_number['line_number'])) {
                 $this->addFlash('error', 'Line # must be 3 exactly digits');
                 $response = false;
                 break;

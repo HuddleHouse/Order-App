@@ -277,8 +277,46 @@ class CartController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
+
         $sql = "
-            select p.id, c.id as cart_id, p.quantity,c.approved, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description,
+            select 
+              p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity, 
+              p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, 
+              c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, 
+              c.requester_last_name) as submitted_by, 
+              CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, 
+              o.name as office_name, 
+              COALESCE (parts.stock_number, p.stock_number) as stock_number, 
+              COALESCE (parts.description, p.description) as description
+            from cart_products p
+                left join cart c
+                    on p.cart_id = c.id
+                left join parts
+                    on p.part_id = parts.id
+                left join users u
+                    on c.user_id = u.id
+                left join users u2
+                    on c.approved_by_id = u2.id
+                left join offices o
+                    on c.office_id = o.id
+            where c.submitted = 1
+            and (parts.require_return = 1 or p.return_required)
+            AND p.quantity > p.returned_items_quantity
+            and c.user_id = :user_id";
+        $stmt = $em->getConnection()->prepare($sql);
+        $params['user_id'] = $user->getId();
+        $stmt->execute($params);
+        $itemsToBeReturned = $stmt->fetchAll();
+
+        $sql = "
+            select p.id, c.id as cart_id, p.quantity,c.approved, p.ship_quantity, p.returned_items_quantity, 
+                   p.returned_items_shipped_quantity, parts.require_return, 
+                   c.order_number, c.submit_date, c.approve_date, 
+                   CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, 
+                   CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, 
+                   o.name as office_name, 
+                   COALESCE (parts.stock_number, p.stock_number) as stock_number, 
+                   COALESCE (parts.description, p.description) as description,
                    c.approve_date 
             from cart_products p
             left join cart c
@@ -292,7 +330,7 @@ class CartController extends Controller
             left join offices o
                 on c.office_id = o.id
             where c.submitted = 1
-            and parts.require_return = 1
+            and (parts.require_return = 1 or p.return_required)
             and c.user_id = :user_id
             and p.returned_items_quantity != p.returned_items_shipped_quantity
             and (p.returned_items_quantity > 0 or p.quantity <= p.returned_items_shipped_quantity)
@@ -304,44 +342,8 @@ class CartController extends Controller
 
         return $this->render('AppBundle:Cart:view-all-open-returns.html.twig',
             array(
-                'have_been_returned' => $itemsThatHaveBeenReturned,
-            )
-        );
-    }
-
-
-    /**
-     * @Route("/prepare-a-return", name="prepare_a_return")
-     */
-    public function prepareAReturnAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-
-        $sql = "select p.id, c.id as cart_id, p.quantity, c.approved, p.ship_quantity, p.returned_items_quantity, p.returned_items_shipped_quantity, parts.require_return, c.order_number, c.submit_date, c.approve_date, CONCAT_WS(\" \", c.requester_first_name, c.requester_last_name) as submitted_by, CONCAT_WS(\" \", u2.first_name, u2.last_name) as approved_by, o.name as office_name, parts.stock_number, parts.description
-	from cart_products p
-		left join cart c
-			on p.cart_id = c.id
-		left join parts
-			on p.part_id = parts.id
-		left join users u
-			on c.user_id = u.id
-		left join users u2
-			on c.approved_by_id = u2.id
-		left join offices o
-			on c.office_id = o.id
-	where c.submitted = 1
-	and parts.require_return = 1
-	AND p.quantity > p.returned_items_quantity
-	and c.user_id = :user_id";
-        $stmt = $em->getConnection()->prepare($sql);
-        $params['user_id'] = $user->getId();
-        $stmt->execute($params);
-        $itemsToBeReturned = $stmt->fetchAll();
-
-        return $this->render('AppBundle:Cart:prepare-a-return.html.twig',
-            array(
-                'to_be_returned' => $itemsToBeReturned
+                'to_be_returned' => $itemsToBeReturned,
+                'have_been_returned' => $itemsThatHaveBeenReturned
             )
         );
     }

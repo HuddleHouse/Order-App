@@ -306,14 +306,21 @@ class ReviewOrderController extends Controller
         $id = $request->request->get('cart_product_id');
         $returned_items_quantity = $request->request->get('returned_items_quantity');
 
+        /** @var CartProduct $product */
         $product = $em->getRepository('AppBundle:CartProduct')->find($id);
-        $product->setReturnedItemsQuantity($product->getReturnedItemsQuantity() + $returned_items_quantity);
-        $product->setReturnReceivedDate(date_create(date("Y-m-d H:i:s")));
 
-        $em->persist($product);
-        $em->flush();
+        try {
+            $product->setReturnedItemsQuantity($product->getReturnedItemsQuantity() + $returned_items_quantity);
+            $product->setReturnReceivedDate(date_create(date("Y-m-d H:i:s")));
 
-        return JsonResponse::create(true);
+            $em->persist($product);
+            $em->flush();
+
+            return JsonResponse::create(true);
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+            return JsonResponse::create(false);
+        }
     }
 
     /**
