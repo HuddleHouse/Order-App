@@ -332,7 +332,7 @@ class CartController extends Controller
             where c.submitted = 1
             and (parts.require_return = 1 or p.return_required)
             and c.user_id = :user_id
-            AND p.quantity > p.returned_items_quantity
+            and 0 < p.returned_items_quantity and p.returned_items_quantity < p.quantity
 	    ";
         $stmt = $em->getConnection()->prepare($sql);
         $params['user_id'] = $user->getId();
