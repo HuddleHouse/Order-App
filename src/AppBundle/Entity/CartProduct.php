@@ -432,8 +432,8 @@ class CartProduct
      */
     public function setReturnedItemsQuantity($returnedItemsQuantity)
     {
-        if ($returnedItemsQuantity > $this->getReturnedItemsShippedQuantity()) {
-            throw new \Exception("Number of returned items cannot be greater than number of shipped items");
+        if ($returnedItemsQuantity > $this->getQuantity()) {
+            throw new \Exception("Number of returned items cannot be greater than the total quantity");
         }
         $this->returnedItemsQuantity = $returnedItemsQuantity;
     }
